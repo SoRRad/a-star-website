@@ -60,8 +60,12 @@ export function SiteHeader() {
             aria-label="AIST home"
             className="group flex shrink-0 items-center gap-2.5"
           >
-            <Logo className="h-8 w-8 transition-transform duration-300 group-hover:scale-105" />
-            <span className="font-display text-xl tracking-tight text-[var(--color-foreground)]">
+            {/* Logo mark with subtle glow ring on hover — the "wayfinder" pulse */}
+            <div className="relative">
+              <div className="animate-logo-glow pointer-events-none absolute inset-0 -m-1 rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100" aria-hidden="true" />
+              <Logo className="relative h-8 w-8 transition-transform duration-300 group-hover:scale-105" />
+            </div>
+            <span className="font-display text-xl font-semibold tracking-tight text-[var(--color-foreground)]" style={{ letterSpacing: "-0.03em" }}>
               AIST
             </span>
           </Link>
