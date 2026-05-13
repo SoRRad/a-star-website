@@ -9,22 +9,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { primaryNav } from "@/lib/navigation";
 import { phases } from "@/lib/phases";
 import { projects } from "@/lib/projects";
+import { logos } from "@/lib/logos";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandPalette } from "@/components/site/command-palette";
 import { MobileNav } from "@/components/site/mobile-nav";
 import { cn } from "@/lib/utils";
 
-/**
- * Site header.
- *
- * Two strips:
- *   1. Affiliation strip — thin, monospace; signals Mayo affiliation + live status
- *   2. Main header — horizontal logo lockup, primary nav with active indicator,
- *      dropdown menus for Projects and Research, search, theme, mobile menu
- *
- * Scroll-aware: backdrop appears after 4px scroll.
- * Active nav indicator uses Motion layoutId to slide between items.
- */
 export function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
   const pathname = usePathname();
@@ -71,20 +61,31 @@ export function SiteHeader() {
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          {/* Horizontal logo lockup — swaps on theme */}
+          {/* Logo — horizontal lockup on md+, mark-only on mobile */}
           <Link href="/" aria-label="AIST home" className="shrink-0">
             {mounted ? (
-              <Image
-                src={isDark ? "/logos/aist-horizontal-dark.png" : "/logos/aist-horizontal-light.png"}
-                alt="AIST — Artificial Intelligence in Surgical Technologies"
-                width={160}
-                height={40}
-                priority
-                className="h-8 w-auto sm:h-10"
-              />
+              <>
+                {/* Desktop: horizontal lockup */}
+                <Image
+                  src={isDark ? logos.fullHorizontalDark : logos.fullHorizontalLight}
+                  alt="AIST"
+                  width={160}
+                  height={40}
+                  priority
+                  className="hidden h-9 w-auto sm:block"
+                />
+                {/* Mobile: mark only */}
+                <Image
+                  src={logos.markNeutral}
+                  alt="AIST"
+                  width={36}
+                  height={36}
+                  priority
+                  className="block h-9 w-auto sm:hidden"
+                />
+              </>
             ) : (
-              /* Neutral placeholder during SSR to avoid hydration mismatch */
-              <div className="h-8 w-32 sm:h-10 sm:w-40" aria-hidden="true" />
+              <div className="h-9 w-36" aria-hidden="true" />
             )}
           </Link>
 
@@ -95,12 +96,8 @@ export function SiteHeader() {
               const isProjects = item.href === "/projects";
               const isResearch = item.href === "/research";
 
-              if (isProjects) {
-                return <ProjectsDropdown key={item.href} active={active} />;
-              }
-              if (isResearch) {
-                return <ResearchDropdown key={item.href} active={active} />;
-              }
+              if (isProjects) return <ProjectsDropdown key={item.href} active={active} />;
+              if (isResearch) return <ResearchDropdown key={item.href} active={active} />;
 
               return (
                 <Link
@@ -137,7 +134,7 @@ export function SiteHeader() {
   );
 }
 
-/* ── Dropdown shared wrapper ─────────────────────────────────────────────── */
+/* ── Shared dropdown wrapper ─────────────────────────────────────────────── */
 
 function NavDropdown({
   label,
@@ -151,19 +148,15 @@ function NavDropdown({
   children: React.ReactNode;
 }) {
   const [open, setOpen] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
   return (
     <div
-      ref={ref}
       className="relative"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
@@ -208,7 +201,6 @@ function NavDropdown({
 
 function ProjectsDropdown({ active }: { active: boolean }) {
   const featured = projects.filter((p) => p.featured);
-
   return (
     <NavDropdown label="Projects" href="/projects" active={active}>
       <div className="p-2">
@@ -219,7 +211,7 @@ function ProjectsDropdown({ active }: { active: boolean }) {
             className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[var(--color-muted)]"
           >
             <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)]">
-              <Image src="/logos/aist-mark.png" alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
+              <Image src={logos.markNeutral} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold text-[var(--color-foreground)]">{project.name}</p>
