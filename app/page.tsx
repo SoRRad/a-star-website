@@ -2,27 +2,29 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, FlaskConical, Users, BookOpen } from "lucide-react";
+import { ArrowRight, FlaskConical, Users, BookOpen, ArrowUpRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/site/logo";
-import { NowStatus } from "@/components/site/now-status";
 import { Section } from "@/components/site/section";
+import { ExploreMore } from "@/components/site/explore-more";
+import { CircuitDivider } from "@/components/site/circuit-divider";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
-import { ScrollProgress } from "@/components/motion/scroll-progress";
+import { ScalpelProgress } from "@/components/motion/scalpel-progress";
 import { Magnetic } from "@/components/motion/magnetic";
 import { ScrambleCounter } from "@/components/motion/scramble-counter";
 import { PhaseWheel } from "@/components/lab/phase-wheel";
 import { FeaturedProjects } from "@/components/lab/featured-projects";
-import { TeamCard } from "@/components/lab/team-card";
-import { CollaboratorCard } from "@/components/lab/collaborator-card";
+import { PlayingCard } from "@/components/lab/playing-card";
+import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
 import { GlossaryTerm } from "@/components/site/glossary-term";
-import { CircuitDivider } from "@/components/site/circuit-divider";
 import { siteConfig } from "@/lib/site-config";
 import { stats } from "@/lib/stats";
-import { team } from "@/lib/team";
+import { mainTeam, collaboratorTeam } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
+import { publications } from "@/lib/publications";
+import { openings } from "@/lib/openings";
 import { mockNews } from "@/lib/mock-news";
 import { mockEvents } from "@/lib/mock-events";
 import { formatDateShort } from "@/lib/utils";
@@ -30,68 +32,56 @@ import { formatDateShort } from "@/lib/utils";
 export default function HomePage() {
   return (
     <>
-      {/* Fixed scroll progress bar — above everything */}
-      <ScrollProgress />
+      {/* Scalpel-and-sutures scroll progress — above everything */}
+      <ScalpelProgress />
 
       {/* SECTION_NAV — add <SectionNav items={[...]} /> here if a single-page nav is needed */}
 
       <Hero />
 
+      {/* 01 — Mission */}
       <Section code="01" label="Mission" id="mission">
         <MissionStatement />
       </Section>
 
       <CircuitDivider />
 
-      <Section code="02" label="Surgical journey" id="surgical-journey">
-        <Reveal showMark>
-          <p className="eyebrow mb-4">The surgical journey</p>
-          <h2 className="font-display mb-12 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl">
-            Four phases. One continuous arc of intelligent care.
-          </h2>
-        </Reveal>
-        <PhaseWheel />
+      {/* 02 — Research & Projects (merged) */}
+      <Section code="02" label="Research & Projects" id="research">
+        <ResearchAndProjects />
       </Section>
 
       <CircuitDivider />
 
-      <Section code="03" label="Projects" id="projects">
-        <Reveal showMark>
-          <p className="eyebrow mb-4">Active projects</p>
-          <h2 className="font-display mb-12 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl">
-            Built for the clinical frontier.
-          </h2>
-        </Reveal>
-        <FeaturedProjects />
+      {/* 03 — Team */}
+      <Section code="03" label="Team" id="team">
+        <TeamSection />
       </Section>
 
       <CircuitDivider />
 
+      {/* 04 — By the numbers */}
       <Section code="04" label="By the numbers" id="numbers">
         <NumbersStrip />
       </Section>
 
       <CircuitDivider />
 
-      <Section code="05" label="From the lab" id="from-the-lab">
+      {/* 05 — From the lab */}
+      <Section code="05" label="From the lab" id="news">
         <FromTheLab />
       </Section>
 
       <CircuitDivider />
 
-      <Section code="06" label="Team" id="team">
-        <TeamPreview />
+      {/* 06 — Collaborators */}
+      <Section code="06" label="Collaborators" id="collaborators">
+        <CollaboratorsSection />
       </Section>
 
-      <CircuitDivider />
-
-      <Section code="07" label="Collaborators" id="collaborators">
-        <CollaboratorsStrip />
-      </Section>
-
-      {/* Get involved — navy-1000 background, full bleed */}
+      {/* 07 — Join Us — full-bleed dark panel */}
       <div
-        id="get-involved"
+        id="join"
         style={{ background: "var(--color-navy-1000)" }}
         className="mt-24"
       >
@@ -103,29 +93,18 @@ export default function HomePage() {
   );
 }
 
-/* ── Hero ────────────────────────────────────────────────────────────────── */
+/* ── 00. Hero ────────────────────────────────────────────────────────────── */
 
 function Hero() {
   const heroRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const logoScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
   const taglineOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
   return (
-    <section
-      ref={heroRef}
-      className="relative isolate min-h-[90vh] overflow-hidden"
-    >
+    <section ref={heroRef} className="relative isolate min-h-[90vh] overflow-hidden">
       {/* Grid backdrop */}
-      <div
-        className="absolute inset-0 -z-10 bg-grid opacity-50"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 -z-10 bg-grid opacity-50" aria-hidden="true" />
       {/* Radial wash */}
       <div
         className="absolute left-1/2 top-0 -z-10 h-[600px] w-[900px] -translate-x-1/2 -translate-y-1/4 rounded-full bg-blue-500/10 blur-3xl dark:bg-blue-500/15"
@@ -133,24 +112,16 @@ function Hero() {
       />
 
       <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-32 pt-20 text-center sm:px-6 sm:pt-28 lg:px-8">
-        {/* Live status pill */}
-        <Reveal delay={0.1}>
-          <NowStatus />
-        </Reveal>
-
         {/* Logo lockup — scroll-driven scale */}
-        <motion.div
-          style={{ scale: logoScale }}
-          className="relative mt-16 flex justify-center pb-4 pt-4"
-        >
-          {/* Radial glow ring behind the logo */}
+        <motion.div style={{ scale: logoScale }} className="relative mt-4 flex justify-center">
+          {/* Radial glow ring */}
           <div
-            className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-[0.08] blur-[80px] dark:opacity-[0.12]"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-[0.08] blur-[80px] dark:opacity-[0.14]"
             style={{ background: "radial-gradient(ellipse at center, #1e88e5 0%, transparent 70%)" }}
             aria-hidden="true"
           />
           <Logo
-            variant="full"
+            variant="stacked"
             animated
             priority
             sizes="(max-width: 640px) 280px, 420px"
@@ -161,23 +132,16 @@ function Hero() {
         {/* Tagline */}
         <motion.h1
           className="font-display mt-10 text-balance font-semibold leading-[0.95]"
-          style={{
-            opacity: taglineOpacity,
-            fontSize: "clamp(2.5rem, 6vw, 5rem)",
-            letterSpacing: "-0.03em",
-          }}
+          style={{ opacity: taglineOpacity, fontSize: "clamp(2.5rem, 6vw, 5rem)", letterSpacing: "-0.03em" }}
         >
           {siteConfig.tagline}
         </motion.h1>
 
         <Reveal delay={0.3}>
           <p className="mx-auto mt-8 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)] sm:text-lg">
-            AIST is a research lab at {siteConfig.institution.name} advancing
-            artificial intelligence across the full surgical journey — from{" "}
-            <GlossaryTerm term="Pre-operative" /> planning through{" "}
-            <GlossaryTerm term="Intra-operative" /> guidance,{" "}
-            post-operative recovery, and rigorous external{" "}
-            <GlossaryTerm term="Validation cohort" />.
+            AIST advances artificial intelligence across the full surgical journey —
+            from{" "}<GlossaryTerm term="Pre-operative" /> risk stratification through{" "}
+            patient education and rigorous external{" "}<GlossaryTerm term="Validation cohort" />.
           </p>
         </Reveal>
 
@@ -185,15 +149,17 @@ function Hero() {
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
             <Magnetic>
               <Button asChild variant="accent" size="lg">
-                <Link href="/projects">
-                  Explore our projects
+                <a href="#research" onClick={(e) => { e.preventDefault(); document.getElementById("research")?.scrollIntoView({ behavior: "smooth" }); }}>
+                  Explore our research
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </a>
               </Button>
             </Magnetic>
             <Magnetic>
               <Button asChild variant="outline" size="lg">
-                <Link href="/research">Read the research focus</Link>
+                <a href="#team" onClick={(e) => { e.preventDefault(); document.getElementById("team")?.scrollIntoView({ behavior: "smooth" }); }}>
+                  Meet the team
+                </a>
               </Button>
             </Magnetic>
           </div>
@@ -203,24 +169,98 @@ function Hero() {
   );
 }
 
-/* ── Mission ─────────────────────────────────────────────────────────────── */
+/* ── 01. Mission ─────────────────────────────────────────────────────────── */
 
 function MissionStatement() {
   return (
-    <Reveal>
+    <Reveal showMark>
       <p className="eyebrow mb-6">Our mission</p>
       <p
         className="font-display max-w-4xl text-balance font-semibold leading-[1.05]"
         style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", letterSpacing: "-0.03em" }}
       >
-        To make every phase of surgical care smarter — by building AI that
-        surgeons can trust, validate, and deploy at the patient&apos;s bedside.
+        AIST advances artificial intelligence across the full surgical journey —
+        from risk stratification through patient education and rigorous validation.
       </p>
     </Reveal>
   );
 }
 
-/* ── Numbers ─────────────────────────────────────────────────────────────── */
+/* ── 02. Research & Projects ─────────────────────────────────────────────── */
+
+function ResearchAndProjects() {
+  return (
+    <>
+      <Reveal showMark>
+        <p className="eyebrow mb-4">Research & projects</p>
+        <h2
+          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
+          style={{ letterSpacing: "-0.03em" }}
+        >
+          Intelligence across the surgical journey.
+        </h2>
+        <p className="mb-12 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
+          AIST maps AI research to the four phases of surgical care — each phase
+          grounded in clinical problems that matter to surgeons and patients.
+        </p>
+      </Reveal>
+
+      {/* Phase wheel + detail */}
+      <PhaseWheel />
+
+      {/* Featured projects */}
+      <div className="mt-16">
+        <FeaturedProjects />
+      </div>
+
+      <ExploreMore href="/projects">Explore all projects</ExploreMore>
+    </>
+  );
+}
+
+/* ── 03. Team ────────────────────────────────────────────────────────────── */
+
+function TeamSection() {
+  return (
+    <>
+      <Reveal>
+        <p className="eyebrow mb-4">The team</p>
+        <h2
+          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
+          style={{ letterSpacing: "-0.03em" }}
+        >
+          The people behind AIST.
+        </h2>
+      </Reveal>
+
+      {/* Core team */}
+      <div className="mt-10">
+        <p className="eyebrow mb-6 text-[var(--color-muted-foreground)]">Core team</p>
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+          {mainTeam.map((member, i) => (
+            <PlayingCard key={member.slug} member={member} index={i} />
+          ))}
+        </div>
+      </div>
+
+      {/* Collaborators */}
+      {collaboratorTeam.length > 0 && (
+        <div className="mt-14">
+          <p className="eyebrow mb-6 text-[var(--color-muted-foreground)]">Collaborators</p>
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            {collaboratorTeam.map((member, i) => (
+              <PlayingCard key={member.slug} member={member} index={mainTeam.length + i} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <ExploreMore href="/team">Meet the full team</ExploreMore>
+    </>
+  );
+}
+
+/* ── 04. By the numbers ──────────────────────────────────────────────────── */
 
 function NumbersStrip() {
   return (
@@ -228,7 +268,7 @@ function NumbersStrip() {
       <Reveal>
         <p className="eyebrow mb-8">By the numbers</p>
       </Reveal>
-      <Reveal stagger className="grid gap-px overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+      <Reveal stagger className="grid gap-px overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-3">
         {stats.map((stat) => (
           <RevealItem key={stat.label} className="bg-[var(--color-card)] p-8">
             <div
@@ -237,13 +277,9 @@ function NumbersStrip() {
             >
               <ScrambleCounter value={stat.value} suffix={stat.suffix} />
             </div>
-            <p className="mt-2 text-sm font-semibold text-[var(--color-foreground)]">
-              {stat.label}
-            </p>
+            <p className="mt-2 text-sm font-semibold text-[var(--color-foreground)]">{stat.label}</p>
             {stat.sublabel && (
-              <p className="mt-0.5 text-xs text-[var(--color-muted-foreground)]">
-                {stat.sublabel}
-              </p>
+              <p className="mt-0.5 text-xs text-[var(--color-muted-foreground)]">{stat.sublabel}</p>
             )}
           </RevealItem>
         ))}
@@ -252,15 +288,17 @@ function NumbersStrip() {
   );
 }
 
-/* ── From the lab ────────────────────────────────────────────────────────── */
+/* ── 05. From the lab ────────────────────────────────────────────────────── */
 
 function FromTheLab() {
+  const featuredPubs = publications.filter((p) => p.featured).slice(0, 3);
+
   return (
     <>
       <Reveal>
         <p className="eyebrow mb-8">From the lab</p>
       </Reveal>
-      <div className="grid gap-12 lg:grid-cols-2">
+      <div className="grid gap-12 lg:grid-cols-3">
         {/* News */}
         <div>
           <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">
@@ -275,13 +313,7 @@ function FromTheLab() {
                 <h4 className="mt-1.5 text-base font-medium leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
                   {item.title}
                 </h4>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                  {item.excerpt}
-                </p>
-                <Link
-                  href={item.href}
-                  className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
-                >
+                <Link href={item.href} className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline">
                   Read more <ArrowRight className="h-3 w-3" />
                 </Link>
               </li>
@@ -303,78 +335,67 @@ function FromTheLab() {
                 <h4 className="mt-1.5 text-base font-medium leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
                   {item.title}
                 </h4>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                  {item.excerpt}
-                </p>
-                <Link
-                  href={item.href}
-                  className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
-                >
+                <Link href={item.href} className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline">
                   Details <ArrowRight className="h-3 w-3" />
                 </Link>
               </li>
             ))}
           </ul>
         </div>
+
+        {/* Recent publications */}
+        <div>
+          <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">
+            Recent publications
+          </h3>
+          <ul className="space-y-6">
+            {featuredPubs.map((pub) => (
+              <li key={pub.slug} className="group">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
+                  {pub.venue} · {pub.year}
+                </p>
+                <h4 className="mt-1.5 text-sm font-medium leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)] line-clamp-3">
+                  {pub.title}
+                </h4>
+                <a
+                  href={pub.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
+                >
+                  View paper <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ExploreMore href="/publications">All publications</ExploreMore>
+        </div>
       </div>
     </>
   );
 }
 
-/* ── Team preview ────────────────────────────────────────────────────────── */
+/* ── 06. Collaborators ───────────────────────────────────────────────────── */
 
-function TeamPreview() {
-  const featured = team.filter((m) => m.featured).sort((a, b) => a.order - b.order);
-
-  return (
-    <>
-      <div className="mb-8 flex items-center justify-between">
-        <Reveal>
-          <p className="eyebrow">The team</p>
-        </Reveal>
-        <Link
-          href="/team"
-          className="hidden text-sm font-medium text-[var(--color-accent)] hover:underline sm:inline-flex sm:items-center sm:gap-1"
-        >
-          View full team <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {featured.map((member) => (
-          <TeamCard key={member.slug} member={member} />
-        ))}
-      </div>
-    </>
-  );
-}
-
-/* ── Collaborators ───────────────────────────────────────────────────────── */
-
-function CollaboratorsStrip() {
-  const featured = collaborators.filter((c) => c.featured).sort((a, b) => a.order - b.order);
-
+function CollaboratorsSection() {
+  const sorted = [...collaborators].sort((a, b) => a.order - b.order);
   return (
     <>
       <Reveal showMark>
         <p className="eyebrow mb-8">Collaborating institutions</p>
       </Reveal>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {featured.map((c) => (
-          <CollaboratorCard key={c.slug} collaborator={c} />
-        ))}
-      </div>
+      <CollaboratorMarquee items={sorted} />
     </>
   );
 }
 
-/* ── Get involved ────────────────────────────────────────────────────────── */
+/* ── 07. Join Us ─────────────────────────────────────────────────────────── */
 
 const ctaCards = [
   {
     icon: Users,
     title: "Join the lab",
-    pitch: "We recruit exceptional graduate students, postdocs, and visiting scholars.",
+    pitch: "We recruit exceptional fellows, engineers, and visiting scholars.",
     href: "/join",
     cta: "Apply now",
   },
@@ -389,37 +410,48 @@ const ctaCards = [
     icon: BookOpen,
     title: "Read our research",
     pitch: "Browse publications, preprints, and technical reports from AIST.",
-    href: "/research",
+    href: "/publications",
     cta: "Explore research",
   },
 ];
 
 function GetInvolvedStrip() {
+  const active = openings[0];
+
   return (
     <>
       <Reveal>
         <p className="eyebrow mb-4 text-[var(--color-accent)]">Get involved</p>
         <h2
-          className="font-display mb-12 max-w-lg text-balance font-semibold text-[var(--color-ink-100)]"
+          className="font-display mb-4 max-w-lg text-balance font-semibold text-[var(--color-ink-100)]"
           style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", letterSpacing: "-0.03em" }}
         >
           The surgical AI frontier needs more builders.
         </h2>
+        {/* Active opening callout */}
+        {active && (
+          <a
+            href={active.applyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-12 inline-flex items-center gap-2 rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-4 py-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)]/15"
+          >
+            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ekg rounded-full bg-[var(--color-accent)] opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
+            </span>
+            We&apos;re hiring · {active.title} →
+          </a>
+        )}
       </Reveal>
+
       <Reveal stagger className="grid gap-6 sm:grid-cols-3">
         {ctaCards.map((card) => (
           <RevealItem key={card.title}>
             <div className="group flex h-full flex-col rounded-xl border border-[var(--color-navy-700)] bg-[var(--color-navy-900)] p-6 transition-colors hover:border-[var(--color-accent)]/40">
-              <card.icon
-                className="mb-4 h-6 w-6 text-[var(--color-accent)]"
-                aria-hidden="true"
-              />
-              <h3 className="mb-2 text-base font-semibold text-[var(--color-ink-100)]">
-                {card.title}
-              </h3>
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-[var(--color-ink-400)]">
-                {card.pitch}
-              </p>
+              <card.icon className="mb-4 h-6 w-6 text-[var(--color-accent)]" aria-hidden="true" />
+              <h3 className="mb-2 text-base font-semibold text-[var(--color-ink-100)]">{card.title}</h3>
+              <p className="mb-6 flex-1 text-sm leading-relaxed text-[var(--color-ink-400)]">{card.pitch}</p>
               <Magnetic>
                 <Link
                   href={card.href}

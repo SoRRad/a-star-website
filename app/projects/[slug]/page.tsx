@@ -6,12 +6,11 @@ import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
 import { phases } from "@/lib/phases";
-import { statusBadgeVariants, statusLabels } from "@/lib/status";
+import { StatusPipeline } from "@/components/lab/status-pipeline";
 import { TeamCard } from "@/components/lab/team-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -56,9 +55,7 @@ export default async function ProjectPage({
       {/* Header */}
       <header className="mb-12 max-w-3xl">
         <div className="mb-4 flex flex-wrap items-center gap-2">
-          <span className={cn(statusBadgeVariants({ status: project.status }))}>
-            {statusLabels[project.status]}
-          </span>
+          <StatusPipeline status={project.status} />
           {projectPhases.map((p) => (
             <span
               key={p.id}

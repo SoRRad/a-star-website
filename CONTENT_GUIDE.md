@@ -13,9 +13,10 @@ drop images into the right folders.
 | Team members                     | `lib/team.ts` + photos in `/public/team/` |
 | Collaborators                    | `lib/collaborators.ts` + logos in `/public/logos/partners/` |
 | Projects                         | `lib/projects.ts`                      |
+| Publications                     | `lib/publications.ts`                  |
+| Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
-| "Now operating" status pill      | `lib/now.ts`                           |
 | Latest news (until Step 5)       | `lib/mock-news.ts`                     |
 | Upcoming events (until Step 5)   | `lib/mock-events.ts`                   |
 | Glossary terms                   | `lib/glossary.ts`                      |
@@ -158,6 +159,36 @@ All images should be optimized before commit (use [Squoosh](https://squoosh.app)
 Use SVG whenever possible for crisp scaling across resolutions.
 
 ---
+
+## Adding a publication
+
+1. Open `lib/publications.ts`.
+2. Add a new entry with `slug`, `title`, `authors`, `venue`, `year`, `date`, `url`, `projects`, `team`, `order`.
+3. Set `featured: true` to show on the home page "Recent publications" strip.
+4. The publication appears automatically on `/publications` with BibTeX copy.
+
+## Adding an open position
+
+1. Open `lib/openings.ts`.
+2. Add an entry with `slug`, `title`, `type`, `location`, `summary`, `applyUrl`, `postedAt`.
+3. The position appears on `/join` and the home page "Join Us" section surfaces the most recent opening.
+
+## Home page anchor navigation
+
+The primary nav items scroll to sections on the home page and navigate normally on other routes.
+The section order is canonical:
+
+| Section code | ID            | Nav item    |
+| ------------ | ------------- | ----------- |
+| 01           | `#mission`    | (no nav)    |
+| 02           | `#research`   | Research, Projects |
+| 03           | `#team`       | Team        |
+| 04           | `#numbers`    | (no nav)    |
+| 05           | `#news`       | News        |
+| 06           | `#collaborators` | (no nav) |
+| 07           | `#join`       | Join        |
+
+**Do not reorder sections without updating `lib/navigation.ts` sectionId values.**
 
 ## Development workflow
 
