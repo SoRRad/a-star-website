@@ -7,6 +7,25 @@ import { Logo } from "@/components/site/logo";
 export function SiteFooter() {
   return (
     <footer className="mt-32 border-t border-[var(--color-border)]">
+      {/* Decorative circuit-tree — mirrors the logo motif at low opacity */}
+      <div className="relative overflow-hidden">
+        <svg
+          viewBox="0 0 800 120"
+          fill="none"
+          className="absolute right-0 top-0 h-full w-1/2 opacity-[0.07]"
+          aria-hidden="true"
+        >
+          <g stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round">
+            <line x1="600" y1="0" x2="600" y2="120" />
+            <line x1="600" y1="20" x2="650" y2="20" /><circle cx="660" cy="20" r="3" fill="var(--color-accent)" />
+            <line x1="600" y1="38" x2="670" y2="38" /><circle cx="680" cy="38" r="3" fill="var(--color-accent)" />
+            <line x1="600" y1="56" x2="690" y2="56" /><circle cx="700" cy="56" r="3" fill="var(--color-accent)" />
+            <line x1="600" y1="74" x2="680" y2="74" /><circle cx="690" cy="74" r="3" fill="var(--color-accent)" />
+            <line x1="600" y1="92" x2="660" y2="92" /><circle cx="670" cy="92" r="3" fill="var(--color-accent)" />
+            <line x1="600" y1="108" x2="640" y2="108" /><circle cx="650" cy="108" r="3" fill="var(--color-accent)" />
+          </g>
+        </svg>
+      </div>
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-12 md:grid-cols-5">
           <div className="col-span-2">
@@ -14,7 +33,7 @@ export function SiteFooter() {
               <Logo className="h-9 w-9" />
               <span className="font-display text-2xl tracking-tight">AIST</span>
             </Link>
-            <p className="mt-4 max-w-sm font-display text-xl leading-tight tracking-tight text-[var(--color-foreground)]">
+            <p className="mt-4 max-w-sm font-display text-xl font-semibold leading-tight text-[var(--color-foreground)]" style={{ letterSpacing: "-0.03em" }}>
               Where the scalpel meets the algorithm.
             </p>
             <address className="mt-6 not-italic text-sm text-[var(--color-muted-foreground)]">

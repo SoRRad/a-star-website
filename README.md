@@ -1,4 +1,4 @@
-# AIST — Artificial Intelligence & Surgical Technology
+# AIST — Artificial Intelligence in Surgical Technologies
 
 > Intelligence at every phase of surgical care.
 
@@ -6,27 +6,22 @@ The website for **AIST**, a research lab at Mayo Clinic advancing artificial
 intelligence across the full surgical journey — pre-operative planning,
 intra-operative guidance, post-operative recovery, and external validation.
 
-This is **Step 1** of a progressive build. It includes the design system,
-layout shell, command palette, theme switching, and a minimal but visually
-grounded home page. Subsequent steps add the full home, projects, team,
-publications, news/events, and resources pages.
-
 ---
 
 ## Stack
 
-| Concern         | Choice                                |
-| --------------- | ------------------------------------- |
-| Framework       | Next.js 15 (App Router) + React 19    |
-| Styling         | Tailwind CSS v4                       |
-| Components      | Custom + Radix UI primitives          |
-| Content (later) | MDX via Velite                        |
-| Search          | `cmdk` palette (Cmd+K)                |
-| Theme           | `next-themes` (light/dark/system)     |
-| Icons           | `lucide-react`                        |
-| Animations      | CSS + `motion` library (Framer Motion) |
-| Hosting         | Vercel (auto-deploy from `main`)      |
-| Analytics       | Plausible (optional)                  |
+| Concern         | Choice                                        |
+| --------------- | --------------------------------------------- |
+| Framework       | Next.js 15 (App Router) + React 19            |
+| Styling         | Tailwind CSS v4                               |
+| Components      | Custom + Radix UI primitives                  |
+| Content (later) | MDX via Velite                                |
+| Search          | `cmdk` palette (Cmd+K)                        |
+| Theme           | `next-themes` (dark default; light available) |
+| Icons           | `lucide-react`                                |
+| Animations      | `motion` (Framer Motion v11) + Lenis scroll   |
+| Hosting         | Vercel (auto-deploy from `main`)              |
+| Analytics       | Plausible (optional)                          |
 
 ---
 
@@ -43,7 +38,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open <http://localhost:3000>.
+Open <http://localhost:3000>. The site defaults to dark mode.
 
 ---
 
@@ -51,82 +46,114 @@ Open <http://localhost:3000>.
 
 ```
 aist-website/
-├── app/                       # Next.js App Router
+├── app/
 │   ├── globals.css            # Design system (all CSS variables live here)
-│   ├── layout.tsx             # Root layout: fonts, theme, header, footer
-│   └── page.tsx               # Home page
+│   ├── layout.tsx             # Root layout: fonts, theme, header, footer, cursor
+│   └── page.tsx               # Home page (full Step 2 build)
 ├── components/
 │   ├── ui/                    # Primitives (Button, Dialog, …)
-│   ├── site/                  # Site chrome (Header, Footer, Logo, Nav)
-│   ├── lab/                   # Lab-specific components (added in Step 2+)
-│   └── motion/                # Motion components (added in Step 2+)
+│   ├── site/                  # Site chrome (Header, Footer, Logo, Nav, Section)
+│   ├── lab/                   # Lab-specific (PhaseWheel, FeaturedProjects)
+│   └── motion/                # Motion (Reveal, ScrollProgress, Magnetic, CursorDot, ScrambleCounter)
 ├── content/                   # MDX content (added in Step 3+)
-│   ├── team/
-│   ├── projects/
-│   ├── publications/
-│   ├── news/
-│   ├── events/
-│   └── glossary/
 ├── lib/
 │   ├── utils.ts               # cn(), date helpers
 │   ├── site-config.ts         # Lab name, tagline, address, social — edit this
-│   └── navigation.ts          # Header, footer, command palette nav
+│   ├── navigation.ts          # Header, footer, command palette nav
+│   ├── phases.ts              # Surgical phase data (PhaseWheel)
+│   ├── projects.ts            # MOSI & SIRIS metadata
+│   ├── stats.ts               # "By the numbers" figures
+│   ├── now.ts                 # Current lab focus (NowStatus pill)
+│   ├── glossary.ts            # Surgical-AI term definitions
+│   ├── mock-news.ts           # Placeholder news (Step 5 → MDX)
+│   ├── mock-events.ts         # Placeholder events (Step 5 → MDX)
+│   └── mock-team.ts           # Placeholder team (Step 4 → MDX)
 ├── public/
-│   ├── logos/                 # Drop production logos here (filenames preserved)
-│   ├── team/                  # Drop team photos here
-│   ├── projects/              # Project images, screenshots, demo thumbnails
+│   ├── logos/                 # Brand assets (see "Brand assets" below)
+│   ├── team/                  # Drop team photos here (Step 4)
+│   ├── projects/              # Project images, demo thumbnails (Step 3)
 │   ├── og/                    # Open Graph share images
 │   └── favicon.svg
 └── README.md
 ```
 
-### Where to edit common things
+---
 
-| Want to change          | Edit                            |
-| ----------------------- | ------------------------------- |
-| Lab name / tagline      | `lib/site-config.ts`            |
-| Header navigation       | `lib/navigation.ts` → `primaryNav` |
-| Colors / fonts          | `app/globals.css`               |
-| Logo                    | Replace `public/logos/aist-logo.svg` with the production file |
-| Mayo Clinic logo        | Replace `public/logos/mayo-clinic.svg` |
+## Customizing
+
+| Want to change            | Edit                          |
+| ------------------------- | ----------------------------- |
+| Lab name / tagline        | `lib/site-config.ts`          |
+| Current lab focus pill    | `lib/now.ts`                  |
+| Surgical phase data       | `lib/phases.ts`               |
+| Project metadata          | `lib/projects.ts`             |
+| "By the numbers" figures  | `lib/stats.ts`                |
+| Glossary definitions      | `lib/glossary.ts`             |
+| News items (placeholder)  | `lib/mock-news.ts`            |
+| Events (placeholder)      | `lib/mock-events.ts`          |
+| Team members (placeholder)| `lib/mock-team.ts`            |
+| Header navigation         | `lib/navigation.ts → primaryNav` |
+| Colors / fonts            | `app/globals.css`             |
+
+---
+
+## Brand assets
+
+All production logos live in `public/logos/`. Follow these conventions:
+
+| File                    | Usage                                   |
+| ----------------------- | --------------------------------------- |
+| `aist-mark.png`         | Header mark, phase wheel center, favicons |
+| `aist-full-dark.png`    | Hero section in dark mode               |
+| `aist-full-light.png`   | Hero section in light mode              |
+| `mayo-clinic.svg`       | Affiliation strip + collaborators wall  |
+
+**Partner logos:** Add SVG or PNG files to `public/logos/`. Update the
+`collaborators` array in `app/page.tsx` → `CollaboratorsStrip` with the path
+and institution name. Prefer SVG; use `width` / `height` attrs to constrain.
+
+**Naming convention:** `partner-{institution-kebab}.{svg|png}` — no spaces,
+no version numbers in filenames.
 
 ---
 
 ## Design system
 
-All theme tokens are declared in `app/globals.css` under `@theme`. The palette
-is anchored in the AIST logo:
+All theme tokens are declared in `app/globals.css` under `@theme`.
 
-- **Navy 900** `#0A1A3A` — dominant primary
+### Palette
+
+- **Navy 900** `#061632` — dominant primary (updated in Step 2 to match logo)
+- **Navy 1000** `#03091a` — ultra-deep accent backgrounds ("Get involved" strip)
 - **Blue 500** `#1E88E5` — electric accent
-- **Coral 400** `#FB7185` — reserved for "new" markers and urgent CTAs
-- **Ink** scale — cool neutrals
+- **Coral 400** `#FB7185` — reserved for "new" badges and urgent CTAs
 
 ### Typography
 
-- **Display**: Instrument Serif (editorial, for hero and section headings)
+- **Display**: Bricolage Grotesque (variable; architectural, tight at −0.03em tracking)
 - **Body**: Geist (modern, technical, exceptional reading)
-- **Mono**: Geist Mono (BibTeX, code, technical chrome)
+- **Mono**: Geist Mono (BibTeX, code, technical chrome, counters)
 
 ### Motion language
 
-- **EKG pulse** (`.animate-ekg`) — used on "live" indicators
-- **Stroke draw** (`.animate-stroke-draw`) — used on the logo on first load
+- **EKG pulse** (`.animate-ekg`) — live indicators and the scroll progress dot
+- **Logo entrance** (`.animate-logo-entrance`) — scale-in + fade on mount
+- **Reveal** (`<Reveal>`) — fade + 16px lift, triggered by scroll into view
+- **Magnetic** (`<Magnetic>`) — spring-damped cursor attraction on CTA buttons
+- **Scramble counter** (`<ScrambleCounter>`) — digit-scramble on first scroll-into-view
 - All motion respects `prefers-reduced-motion`
 
 ---
 
 ## Working with Claude Code
 
-This repo is designed for content edits to be straightforward Markdown/MDX
-changes. Once Step 3 ships, adding a new team member, publication, or news item
-will be one file in `content/`.
-
-Suggested Claude Code prompts during the build:
+Once Step 3 ships, adding a new team member, publication, or news item
+is one file in `content/`. Suggested prompts during the build:
 
 - "Add a new team member: name X, role Y, photo path Z."
 - "Add a publication: title, authors, venue, year, PDF link, project tag."
-- "Update the MOSI project page status from 'validation' to 'clinical'."
+- "Update the MOSI project status from 'validation' to 'clinical'."
+- "Replace the mock news with real items from this list: …"
 
 ---
 
@@ -139,21 +166,25 @@ Suggested Claude Code prompts during the build:
 3. Set `NEXT_PUBLIC_SITE_URL` to the production URL.
 4. Deploy — every push to `main` redeploys automatically.
 
-### Custom domain
-
-When the domain is registered (suggestion: `aistlab.org`), add it in Vercel →
-Project → Settings → Domains. Update `NEXT_PUBLIC_SITE_URL` to the new origin.
-
 ---
 
 ## Roadmap
 
 - [x] **Step 1** — Foundation: design system, layout shell, command palette, theme
-- [ ] **Step 2** — Full home: animated logo, surgical phase wheel, featured project, news strip, counters
+- [x] **Step 2** — Full home: new logo (PNG), Bricolage Grotesque, dark default, Lenis scroll, phase wheel, featured projects, scramble counters, news + events, team preview, collaborators, "get involved" CTA strip, magnetic buttons, cursor dot, scroll progress bar
 - [ ] **Step 3** — Projects: MOSI and SIRIS deep pages with embedded live tools
-- [ ] **Step 4** — Team & About: members, collaborators, alumni
+- [ ] **Step 4** — Team & About: members, collaborators, alumni with MDX profiles
 - [ ] **Step 5** — Publications, News, Events with filtering and BibTeX export
 - [ ] **Step 6** — Resources, Join, Contact, co-authorship graph, accessibility & SEO polish
+
+### Step 2 TODOs for the user
+
+- **Drop the three PNG logo files** into `public/logos/`:
+  `aist-full-dark.png`, `aist-full-light.png`, `aist-mark.png`
+- **Update `lib/stats.ts`** with real publication count and institution count
+- **Replace collaborator logo placeholders** in `app/page.tsx → CollaboratorsStrip`
+- **Update `lib/mock-news.ts` and `lib/mock-events.ts`** with real content
+- **Add team photos** to `public/team/` and update `lib/mock-team.ts` avatarSrc fields
 
 ---
 
@@ -161,6 +192,3 @@ Project → Settings → Domains. Update `NEXT_PUBLIC_SITE_URL` to the new origi
 
 © Mayo Foundation for Medical Education and Research. All rights reserved
 unless otherwise specified.
-
-The website source code is maintained for and by the AIST team. The MOSI and
-SIRIS projects have their own licensing — see their respective project pages.

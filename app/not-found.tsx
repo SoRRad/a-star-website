@@ -9,7 +9,7 @@ export default function NotFound() {
         Page not found
       </h1>
       <p className="mt-6 text-lg text-[var(--color-muted-foreground)]">
-        The page you were looking for has moved, doesn't exist yet, or never did.
+        The page you were looking for has moved, doesn&apos;t exist yet, or never did.
       </p>
       <div className="mt-12">
         <Link
