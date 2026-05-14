@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
@@ -9,17 +10,22 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+const INQUIRY_TYPES = [
+  "general",
+  "research-collaboration",
+  "clinical-collaboration",
+  "press",
+  "position",
+  "journal-club",
+] as const;
+
+type InquiryType = (typeof INQUIRY_TYPES)[number];
+
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Please enter a valid email"),
   institution: z.string().optional(),
-  inquiryType: z.enum([
-    "general",
-    "research-collaboration",
-    "clinical-collaboration",
-    "press",
-    "position",
-  ], { error: "Please select an inquiry type" }),
+  inquiryType: z.enum(INQUIRY_TYPES, { error: "Please select an inquiry type" }),
   clinicalArea: z.string().optional(),
   datasetType: z.string().optional(),
   irbStatus: z.string().optional(),
@@ -28,13 +34,14 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const INQUIRY_OPTIONS = [
+const INQUIRY_OPTIONS: { value: InquiryType; label: string }[] = [
   { value: "general", label: "General inquiry" },
   { value: "research-collaboration", label: "Research collaboration" },
   { value: "clinical-collaboration", label: "Clinical collaboration" },
   { value: "press", label: "Press / media" },
   { value: "position", label: "Position inquiry" },
-] as const;
+  { value: "journal-club", label: "Journal Club RSVP" },
+];
 
 const DATASET_OPTIONS = [
   "Clinical records",
@@ -51,7 +58,13 @@ const IRB_OPTIONS = [
   "Not applicable",
 ];
 
+const JOURNAL_CLUB_PLACEHOLDER =
+  "Please add me to the AIST Journal Club distribution list. My background: [your role, institution]";
+
 export function ContactForm() {
+  const searchParams = useSearchParams();
+  const presetInquiry = searchParams.get("inquiry") as InquiryType | null;
+
   const [submitted, setSubmitted] = React.useState(false);
   const [serverError, setServerError] = React.useState("");
 
@@ -62,6 +75,9 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      inquiryType: (INQUIRY_TYPES.includes(presetInquiry as InquiryType) ? presetInquiry : undefined) ?? undefined,
+    },
   });
 
   const inquiryType = watch("inquiryType");
@@ -202,7 +218,7 @@ export function ContactForm() {
         <textarea
           {...register("message")}
           rows={5}
-          placeholder="Tell us about your question, project, or interest…"
+          placeholder={inquiryType === "journal-club" ? JOURNAL_CLUB_PLACEHOLDER : "Tell us about your question, project, or interest…"}
           className={cn(inputClass(!!errors.message), "resize-y")}
         />
       </Field>

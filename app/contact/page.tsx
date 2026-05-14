@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ContactForm } from "./contact-form";
 
@@ -22,7 +23,9 @@ export default function ContactPage() {
         </p>
       </header>
 
-      <ContactForm />
+      <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-[var(--color-muted)]" />}>
+        <ContactForm />
+      </Suspense>
 
       {/* Other ways to reach */}
       <div className="mt-16 space-y-8 border-t border-[var(--color-border)] pt-12">
