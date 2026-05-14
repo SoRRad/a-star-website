@@ -1,28 +1,77 @@
-import { team } from "@/lib/team";
-import { TeamCard } from "@/components/lab/team-card";
+import type { Metadata } from "next";
+import { mainTeam, collaboratorTeam } from "@/lib/team";
+import { TeamRosterRow } from "@/components/lab/team-roster-row";
 
-export const metadata = { title: "Team" };
+export const metadata: Metadata = {
+  title: "Team",
+  description:
+    "The surgeons, scientists, and engineers building surgical AI at AIST — core team and institutional collaborators.",
+};
 
 export default function TeamPage() {
-  const sorted = [...team].sort((a, b) => a.order - b.order);
-
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mb-12">
-        <p className="eyebrow mb-4">The team</p>
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      {/* Page header */}
+      <header className="mb-16 max-w-3xl">
+        <p className="eyebrow mb-4">Team</p>
         <h1
-          className="font-display max-w-2xl text-balance text-5xl font-semibold tracking-tight sm:text-6xl"
+          className="font-display text-balance text-5xl font-semibold tracking-tight sm:text-6xl"
           style={{ letterSpacing: "-0.03em" }}
         >
-          The people behind AIST.
+          Surgeons, scientists, and engineers building surgical AI together.
         </h1>
-      </div>
+        <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted-foreground)]">
+          AIST is a collaboration across surgical practice, artificial intelligence research,
+          and engineering. Below: the core lab, our research fellows and engineers, and our
+          institutional collaborators.
+        </p>
+      </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {sorted.map((member) => (
-          <TeamCard key={member.slug} member={member} />
-        ))}
-      </div>
-    </section>
+      {/* Core team */}
+      <section className="mb-24">
+        <div className="mb-10 flex items-baseline justify-between gap-4">
+          <h2
+            className="font-display text-3xl font-semibold tracking-tight"
+            style={{ letterSpacing: "-0.02em" }}
+          >
+            Core team
+          </h2>
+          <span className="text-sm text-[var(--color-muted-foreground)]">
+            {mainTeam.length} members
+          </span>
+        </div>
+        <div className="divide-y divide-[var(--color-border)]">
+          {mainTeam.map((member, idx) => (
+            <TeamRosterRow key={member.slug} member={member} index={idx + 1} variant="main" />
+          ))}
+        </div>
+      </section>
+
+      {/* Collaborators subsection */}
+      {collaboratorTeam.length > 0 && (
+        <section>
+          <div className="mb-10 flex items-baseline justify-between gap-4">
+            <h2
+              className="font-display text-3xl font-semibold tracking-tight"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              Collaborators
+            </h2>
+            <span className="text-sm text-[var(--color-muted-foreground)]">
+              {collaboratorTeam.length} individuals
+            </span>
+          </div>
+          <p className="mb-10 max-w-2xl text-sm text-[var(--color-muted-foreground)]">
+            Clinical and research collaborators whose contributions and partnerships
+            extend the AIST Lab&apos;s reach.
+          </p>
+          <div className="divide-y divide-[var(--color-border)]">
+            {collaboratorTeam.map((member, idx) => (
+              <TeamRosterRow key={member.slug} member={member} index={idx + 1} variant="collaborator" />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
   );
 }
