@@ -2,7 +2,6 @@
 import { mainTeam, collaboratorTeam } from "@/lib/team";
 import { projects } from "@/lib/projects";
 import { publications } from "@/lib/publications";
-import { phases } from "@/lib/phases";
 import { stats } from "@/lib/stats";
 import { collaborators } from "@/lib/collaborators";
 import { openings } from "@/lib/openings";
@@ -56,7 +55,7 @@ export default function HomePage() {
 
       {/* 03 — Research & Projects */}
       <Section code="03" label="Research & Projects" id="research">
-        <ResearchProjectsClient phases={phases} projects={projects} />
+        <ResearchProjectsClient projects={projects} />
       </Section>
 
       <CircuitDivider />

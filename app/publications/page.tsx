@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Search, ChevronDown, ChevronUp, RotateCcw, Download } from "lucide-react";
 import { publications } from "@/lib/publications";
-import type { Publication, PublicationType, PublicationTheme, PublicationStatus } from "@/lib/publications";
 import {
   filterPublications,
   getPublicationMetrics,
@@ -23,7 +22,6 @@ import { Suspense } from "react";
 
 function PublicationsPageInner() {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const [filters, setFilters] = React.useState<PublicationFilterState>(() => ({
     ...defaultFilters,
@@ -257,7 +255,6 @@ function PublicationsPageInner() {
                 <PublicationCard
                   key={pub.slug}
                   publication={pub}
-                  onFilterTheme={(t) => setFilter("theme", t)}
                   onFilterProject={(p) => setFilter("project", p)}
                 />
               ))}

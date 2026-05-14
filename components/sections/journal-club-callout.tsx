@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { logos } from "@/lib/logos";
 import type { LabEvent } from "@/lib/events";
 import { JournalClubButtons } from "./journal-club-buttons";

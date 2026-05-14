@@ -6,15 +6,13 @@ import { Reveal } from "@/components/motion/reveal";
 import { ExploreMore } from "@/components/site/explore-more";
 import { PhaseWheel } from "@/components/lab/phase-wheel";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
-import type { Phase } from "@/lib/phases";
 import type { Project } from "@/lib/projects";
 
 interface ResearchProjectsClientProps {
-  phases: Phase[];
   projects: Project[];
 }
 
-export function ResearchProjectsClient({ phases: _phases, projects }: ResearchProjectsClientProps) {
+export function ResearchProjectsClient({ projects }: ResearchProjectsClientProps) {
   return (
     <>
       <Reveal showMark>

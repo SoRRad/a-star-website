@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { ExternalLink, Quote } from "lucide-react";
 import { PublicationTypeBadge } from "./publication-type-badge";
 import { CitationDropdown } from "./citation-dropdown";
@@ -9,13 +8,11 @@ import type { Publication } from "@/lib/publications";
 
 interface PublicationCardProps {
   publication: Publication;
-  onFilterTheme?: (theme: string) => void;
   onFilterProject?: (project: string) => void;
 }
 
 export function PublicationCard({
   publication,
-  onFilterTheme,
   onFilterProject,
 }: PublicationCardProps) {
   const [citationOpen, setCitationOpen] = React.useState(false);
