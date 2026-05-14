@@ -2,7 +2,7 @@
   "name": "aist-website",
   "version": "0.1.0",
   "private": true,
-  "description": "AIST — Artificial Intelligence & Surgical Technology Lab website",
+  "description": "AIST — Artificial Intelligence in Surgical Technologies Lab website",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

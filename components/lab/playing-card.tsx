@@ -18,16 +18,6 @@ interface PlayingCardProps {
   className?: string;
 }
 
-/**
- * Team member playing card.
- *
- * Portrait aspect ratio (5:7). Card has a subtle rest rotation for a
- * "hand of cards" feel. Hover straightens the card, lifts it, and adds an
- * accent-blue glow. Click navigates to /team/[slug].
- *
- * Photo / initials strategy: initials are always rendered; photo fades in on
- * successful load. Error state keeps the initials visible — no broken images.
- */
 export function PlayingCard({ member, index, className }: PlayingCardProps) {
   const [imgLoaded, setImgLoaded] = React.useState(false);
   const [imgError, setImgError] = React.useState(false);
@@ -56,6 +46,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
       className={cn("relative mx-auto w-full max-w-[200px] cursor-pointer", className)}
       style={{ aspectRatio: "5/7" }}
     >
+      {/* Card link — wraps only the non-interactive visual content */}
       <Link
         href={`/team/${member.slug}`}
         className="flex h-full w-full flex-col rounded-xl border border-[var(--color-navy-700)] bg-[var(--color-card)] p-3 focus:outline-none dark:border-[var(--color-navy-700)]"
@@ -67,8 +58,8 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
         {/* Top-left corner pip */}
         <div className="flex shrink-0 flex-col items-start gap-0.5 px-1 pt-1">
           <Image src={logos.markNeutral} alt="" width={14} height={14} className="h-3.5 w-3.5 opacity-60" />
-          <span className="font-display text-[15px] font-semibold leading-none text-[var(--color-accent)]">
-            {member.name.charAt(0)}
+          <span className="font-display text-[13px] font-semibold leading-none text-[var(--color-accent)]">
+            {member.initials}
           </span>
         </div>
 
@@ -83,7 +74,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
           >
             <span
               className="font-display font-semibold text-[var(--color-ink-100)] opacity-60"
-              style={{ fontSize: "clamp(2rem, 6vw, 3rem)" }}
+              style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}
             >
               {member.initials}
             </span>
@@ -104,7 +95,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
         </div>
 
         {/* Bottom info strip */}
-        <div className="shrink-0 px-1 pb-1 pt-2">
+        <div className="shrink-0 px-1 pb-6 pt-2">
           <p className="truncate font-display text-[13px] font-semibold leading-snug tracking-tight text-[var(--color-foreground)]">
             {member.name.split(",")[0]}
           </p>
@@ -114,35 +105,38 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
           <p className="mt-0.5 truncate text-[10px] text-[var(--color-muted-foreground)]">
             {member.affiliation}
           </p>
-
-          {/* Link icons row */}
-          {linkItems.length > 0 && (
-            <div className="mt-1.5 flex items-center gap-1.5">
-              {linkItems.map(({ href, icon: Icon, label }) => (
-                <a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  onClick={(e) => e.stopPropagation()}
-                  className="text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-accent)]"
-                >
-                  <Icon className="h-3 w-3" />
-                </a>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Bottom-right corner pip (rotated 180°) */}
         <div className="pointer-events-none absolute bottom-3 right-3 flex flex-col items-end gap-0.5 opacity-30" aria-hidden="true">
-          <span className="font-display text-[15px] font-semibold leading-none text-[var(--color-accent)]" style={{ transform: "rotate(180deg)" }}>
-            {member.name.charAt(0)}
+          <span className="font-display text-[13px] font-semibold leading-none text-[var(--color-accent)]" style={{ transform: "rotate(180deg)" }}>
+            {member.initials}
           </span>
           <Image src={logos.markNeutral} alt="" width={14} height={14} className="h-3.5 w-3.5" style={{ transform: "rotate(180deg)" }} />
         </div>
       </Link>
+
+      {/* Social link icons — siblings to <Link>, absolutely positioned over the card bottom */}
+      {linkItems.length > 0 && (
+        <div
+          className="pointer-events-none absolute bottom-3 left-0 right-0 flex items-center justify-center gap-1.5 px-3 z-10"
+          aria-label={`Links for ${member.name}`}
+        >
+          {linkItems.map(({ href, icon: Icon, label }) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              onClick={(e) => e.stopPropagation()}
+              className="pointer-events-auto rounded p-0.5 text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent)]"
+            >
+              <Icon className="h-3 w-3" />
+            </a>
+          ))}
+        </div>
+      )}
     </motion.div>
   );
 }

@@ -37,20 +37,6 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full">
-      {/* Affiliation strip */}
-      <div className="w-full border-b border-[var(--color-border)] bg-[var(--color-background)]">
-        <div className="mx-auto flex h-7 max-w-7xl items-center justify-between px-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted-foreground)] sm:px-6 lg:px-8">
-          <span>Mayo Clinic · Surgery Innovation</span>
-          <span className="hidden items-center gap-2 sm:inline-flex">
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ekg rounded-full bg-[var(--color-status-deployed)] opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-status-deployed)]" />
-            </span>
-            <span>Lab Active</span>
-          </span>
-        </div>
-      </div>
-
       {/* Main header */}
       <div
         className={cn(
