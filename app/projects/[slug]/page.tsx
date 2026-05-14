@@ -8,6 +8,8 @@ import { team } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
 import { phases } from "@/lib/phases";
 import { publications } from "@/lib/publications";
+import { getNewsByProject } from "@/lib/news";
+import { NewsCard } from "@/components/news/news-card";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
 import { PlayingCard } from "@/components/lab/playing-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
@@ -60,6 +62,7 @@ export default async function ProjectPage({
     project.collaborators.includes(c.slug),
   );
   const relatedPubs = publications.filter((p) => p.projects.includes(slug));
+  const projectNews = getNewsByProject(slug);
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -225,7 +228,18 @@ export default async function ProjectPage({
           </ScientificSection>
         )}
 
-        {/* ── 13. Get Involved ── */}
+        {/* ── 13. Featured in news ── */}
+        {projectNews.length > 0 && (
+          <ScientificSection eyebrow="Featured in news" title="Coverage and mentions">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {projectNews.slice(0, 3).map((item) => (
+                <NewsCard key={item.slug} item={item} />
+              ))}
+            </div>
+          </ScientificSection>
+        )}
+
+        {/* ── 14. Get Involved ── */}
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
           <p className="eyebrow mb-2">Get involved</p>
           <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">

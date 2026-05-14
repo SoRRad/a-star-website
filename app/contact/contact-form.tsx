@@ -17,6 +17,7 @@ const INQUIRY_TYPES = [
   "press",
   "position",
   "journal-club",
+  "newsletter",
 ] as const;
 
 type InquiryType = (typeof INQUIRY_TYPES)[number];
@@ -41,6 +42,7 @@ const INQUIRY_OPTIONS: { value: InquiryType; label: string }[] = [
   { value: "press", label: "Press / media" },
   { value: "position", label: "Position inquiry" },
   { value: "journal-club", label: "Journal Club RSVP" },
+  { value: "newsletter", label: "Newsletter subscription" },
 ];
 
 const DATASET_OPTIONS = [
@@ -60,6 +62,9 @@ const IRB_OPTIONS = [
 
 const JOURNAL_CLUB_PLACEHOLDER =
   "Please add me to the AIST Journal Club distribution list. My background: [your role, institution]";
+
+const NEWSLETTER_PLACEHOLDER =
+  "Please add me to the AIST Lab newsletter. My background: [your role and institution]";
 
 export function ContactForm() {
   const searchParams = useSearchParams();
@@ -218,7 +223,13 @@ export function ContactForm() {
         <textarea
           {...register("message")}
           rows={5}
-          placeholder={inquiryType === "journal-club" ? JOURNAL_CLUB_PLACEHOLDER : "Tell us about your question, project, or interest…"}
+          placeholder={
+            inquiryType === "journal-club"
+              ? JOURNAL_CLUB_PLACEHOLDER
+              : inquiryType === "newsletter"
+              ? NEWSLETTER_PLACEHOLDER
+              : "Tell us about your question, project, or interest…"
+          }
           className={cn(inputClass(!!errors.message), "resize-y")}
         />
       </Field>

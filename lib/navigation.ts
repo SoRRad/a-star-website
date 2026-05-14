@@ -27,11 +27,11 @@ export type NavItem = {
  * "Projects" is merged into "Research" — both scroll to #research on the home page.
  */
 export const primaryNav: NavItem[] = [
+  { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
   { title: "Research", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Projects", href: "/projects", icon: FlaskConical, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
   { title: "Publications", href: "/publications", icon: FileText, sectionId: "publications" },
-  { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
   { title: "Join", href: "/join", icon: UserPlus, sectionId: "join" },
 ];
 

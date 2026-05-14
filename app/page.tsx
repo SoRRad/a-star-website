@@ -1,11 +1,11 @@
 // Server component — no "use client"
 import { mainTeam, collaboratorTeam } from "@/lib/team";
 import { projects } from "@/lib/projects";
-import { publications } from "@/lib/publications";
 import { stats } from "@/lib/stats";
 import { collaborators } from "@/lib/collaborators";
 import { openings } from "@/lib/openings";
 import { events } from "@/lib/events";
+import { allNews } from "@/lib/news";
 
 import { ScalpelProgress } from "@/components/motion/scalpel-progress";
 import { Section } from "@/components/site/section";
@@ -26,7 +26,7 @@ import { JoinUsStrip } from "@/components/sections/join-us-strip";
 
 export default function HomePage() {
   const nextEvent = events.find((e) => e.slug === "aist-journal-club-may-2026");
-  const featuredPubs = publications.filter((p) => p.featured).slice(0, 3);
+  const recentNews = allNews.slice(0, 3);
   const sortedCollaborators = [...collaborators].sort((a, b) => a.order - b.order);
 
   return (
@@ -74,7 +74,7 @@ export default function HomePage() {
 
       {/* 05 — From the lab */}
       <Section code="05" label="From the lab" id="news">
-        <FromTheLabSection publications={featuredPubs} />
+        <FromTheLabSection newsItems={recentNews} />
       </Section>
 
       <CircuitDivider />

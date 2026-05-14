@@ -5,8 +5,10 @@ import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight } fro
 import type { Metadata } from "next";
 import { team } from "@/lib/team";
 import { projects } from "@/lib/projects";
+import { getNewsByPerson } from "@/lib/news";
 import { MemberAvatar } from "@/components/lab/member-avatar";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { NewsCard } from "@/components/news/news-card";
 
 export function generateStaticParams() {
   return team.map((m) => ({ slug: m.slug }));
@@ -37,6 +39,7 @@ export default async function TeamMemberPage({
   if (!member) notFound();
 
   const memberProjects = projects.filter((p) => p.team.includes(member.slug));
+  const memberNews = getNewsByPerson(member.slug);
 
   const linkItems = [
     member.links.profile && { href: member.links.profile, Icon: Globe, label: "Profile" },
@@ -110,6 +113,18 @@ export default async function TeamMemberPage({
                 </div>
                 <ArrowRight className="h-4 w-4 shrink-0 text-[var(--color-muted-foreground)] transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]" />
               </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Recent mentions in news */}
+      {memberNews.length > 0 && (
+        <section className="mt-16">
+          <p className="eyebrow mb-6">Recent mentions</p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {memberNews.slice(0, 3).map((item) => (
+              <NewsCard key={item.slug} item={item} />
             ))}
           </div>
         </section>

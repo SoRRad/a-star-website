@@ -1,99 +1,69 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ExploreMore } from "@/components/site/explore-more";
-import { formatDateShort } from "@/lib/utils";
-import type { Publication } from "@/lib/publications";
-import { mockNews } from "@/lib/mock-news";
-import { mockEvents } from "@/lib/mock-events";
+import { CategoryPill } from "@/components/news/category-pill";
+import { NewsImage } from "@/components/news/news-image";
+import type { NewsItem } from "@/lib/news";
 
 interface FromTheLabSectionProps {
-  publications: Publication[];
+  newsItems: NewsItem[];
 }
 
-export function FromTheLabSection({ publications }: FromTheLabSectionProps) {
+export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
   return (
     <>
       <Reveal>
         <p className="eyebrow mb-8">From the lab</p>
       </Reveal>
-      <div className="grid gap-12 lg:grid-cols-3">
-        {/* News */}
-        <div>
-          <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">
-            Latest news
-          </h3>
-          <ul className="space-y-6">
-            {mockNews.map((item) => (
-              <li key={item.href} className="group">
-                <time className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                  {formatDateShort(item.date)}
-                </time>
-                <h4 className="mt-1.5 text-base font-medium leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
-                  {item.title}
-                </h4>
-                <Link href={item.href} className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline">
-                  Read more <ArrowRight className="h-3 w-3" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        {/* Events */}
-        <div>
-          <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">
-            Upcoming events
-          </h3>
-          <ul className="space-y-6">
-            {mockEvents.map((item) => (
-              <li key={item.href} className="group">
-                <time className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
-                  {formatDateShort(item.date)}
-                </time>
-                <h4 className="mt-1.5 text-base font-medium leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
-                  {item.title}
-                </h4>
-                <Link href={item.href} className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline">
-                  Details <ArrowRight className="h-3 w-3" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="grid gap-5 sm:grid-cols-3">
+        {newsItems.map((item) => {
+          const date = new Date(item.date + "T00:00:00");
+          const formatted = date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          });
 
-        {/* Recent publications */}
-        <div>
-          <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">
-            Recent publications
-          </h3>
-          <ul className="space-y-6">
-            {publications.map((pub) => (
-              <li key={pub.slug} className="group">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                  {pub.venue} · {pub.year}
+          return (
+            <div
+              key={item.slug}
+              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-colors hover:border-[var(--color-accent)]/40"
+            >
+              {/* Image */}
+              <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <NewsImage
+                  src={item.image}
+                  alt={item.imageAlt}
+                  category={item.category}
+                  date={item.date}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-1 flex-col p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <CategoryPill category={item.category} />
+                  <time className="font-mono text-[10px] text-[var(--color-muted-foreground)]">{formatted}</time>
+                </div>
+                <h3 className="mb-2 font-display text-sm font-semibold leading-snug tracking-tight text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)] line-clamp-2">
+                  {item.title}
+                </h3>
+                <p className="flex-1 line-clamp-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
+                  {item.excerpt}
                 </p>
-                <h4 className="mt-1.5 text-sm font-medium leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)] line-clamp-3">
-                  {pub.title}
-                </h4>
-                {pub.url && (
-                  <a
-                    href={pub.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
-                  >
-                    View paper <ArrowUpRight className="h-3 w-3" />
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-          <ExploreMore href="/publications">All publications</ExploreMore>
-        </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+      <ExploreMore href="/news">See all news and events →</ExploreMore>
     </>
   );
 }

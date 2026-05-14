@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { primaryNav } from "@/lib/navigation";
+import { hasRecentNews } from "@/lib/news";
 import { phases } from "@/lib/phases";
 import { projects } from "@/lib/projects";
 import { logos } from "@/lib/logos";
@@ -84,7 +85,10 @@ export function SiteHeader() {
                   );
                 }
 
-                return (
+                const isNews = item.href === "/news";
+              const showNewsDot = isNews && hasRecentNews();
+
+              return (
                   <NavigationMenu.Item key={item.href}>
                     <NavigationMenu.Link asChild>
                       <Link
@@ -97,6 +101,12 @@ export function SiteHeader() {
                         )}
                       >
                         {item.title}
+                        {showNewsDot && (
+                          <span
+                            className="absolute right-1 top-1.5 h-1.5 w-1.5 rounded-full bg-[var(--color-coral-400)]"
+                            aria-label="Recent news"
+                          />
+                        )}
                         {active && (
                           <motion.span
                             layoutId="nav-active-indicator"

@@ -4,19 +4,20 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import Fuse from "fuse.js";
 import { useRouter, usePathname } from "next/navigation";
-import { Search, Clock, Compass, FlaskConical, Users, FileText, ArrowRight, X } from "lucide-react";
+import { Search, Clock, Compass, FlaskConical, Users, FileText, Newspaper, ArrowRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { allNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { publications } from "@/lib/publications";
+import { allNews } from "@/lib/news";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 /* ── Types ── */
 
-type ResultKind = "page" | "project" | "team" | "publication";
+type ResultKind = "page" | "project" | "team" | "publication" | "news";
 
 interface SearchResult {
   id: string;
@@ -63,6 +64,14 @@ const corpus: SearchResult[] = [
       href: p.url as string,
       meta: { year: String(p.year) },
     })),
+  ...allNews.map((n) => ({
+    id: `news-${n.slug}`,
+    kind: "news" as ResultKind,
+    title: n.title,
+    subtitle: n.excerpt.slice(0, 80),
+    href: `/news#${n.slug}`,
+    meta: { category: n.category, date: n.date },
+  })),
 ];
 
 const fuse = new Fuse(corpus, {
@@ -77,6 +86,7 @@ const FILTER_SHORTCUTS: Record<string, ResultKind> = {
   "/project": "project",
   "/pub": "publication",
   "/page": "page",
+  "/news": "news",
 };
 
 /* ── localStorage helpers ── */
@@ -99,6 +109,7 @@ const GROUP_META: Record<ResultKind, { label: string; Icon: React.ElementType }>
   project: { label: "Projects", Icon: FlaskConical },
   team: { label: "Team", Icon: Users },
   publication: { label: "Publications", Icon: FileText },
+  news: { label: "News", Icon: Newspaper },
 };
 
 /* ── Component ── */
@@ -263,7 +274,7 @@ export function CommandPalette() {
                 )}
 
                 {/* Grouped results */}
-                {(["page", "project", "team", "publication"] as ResultKind[]).map((kind) => {
+                {(["page", "project", "team", "publication", "news"] as ResultKind[]).map((kind) => {
                   const items = grouped.get(kind);
                   if (!items?.length) return null;
                   const { label, Icon } = GROUP_META[kind];
@@ -290,7 +301,7 @@ export function CommandPalette() {
                 <span className="font-mono">↵</span> open ·{" "}
                 <span className="font-mono">esc</span> close ·{" "}
                 <span className="font-mono">⌘K</span> toggle ·{" "}
-                <span className="opacity-50">/team /project /pub /page to filter</span>
+                <span className="opacity-50">/team /project /pub /page /news to filter</span>
               </div>
             </motion.div>
           </>

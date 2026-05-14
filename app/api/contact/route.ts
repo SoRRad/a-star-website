@@ -12,6 +12,7 @@ const contactSchema = z.object({
     "press",
     "position",
     "journal-club",
+    "newsletter",
   ]),
   clinicalArea: z.string().optional(),
   datasetType: z.string().optional(),
