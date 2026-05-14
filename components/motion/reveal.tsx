@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, type ReactNode } from "react";
 import { motion, useInView } from "motion/react";
+import { logos } from "@/lib/logos";
 
 interface RevealProps {
   children: ReactNode;
@@ -39,7 +40,7 @@ export function Reveal({ children, className, stagger = false, delay = 0, showMa
 
   const mark = showMark ? (
     <Image
-      src="/logos/aist-mark.png"
+      src={logos.markNeutral}
       alt=""
       aria-hidden="true"
       width={24}

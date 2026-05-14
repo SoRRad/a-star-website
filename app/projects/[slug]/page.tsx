@@ -97,12 +97,14 @@ export default async function ProjectPage({
 
         {/* ── 2. CTAs ── */}
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button asChild variant="accent" size="lg">
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              Visit the live tool
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </Button>
+          {project.liveUrl && (
+            <Button asChild variant="accent" size="lg">
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                Visit the live tool
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </Button>
+          )}
           {project.githubUrl && (
             <Button asChild variant="outline" size="lg">
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">

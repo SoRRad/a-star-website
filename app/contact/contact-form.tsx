@@ -89,18 +89,34 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-8 py-12 text-center">
-        <CheckCircle2 className="h-10 w-10 text-[var(--color-status-deployed)]" />
-        <h2 className="font-display text-2xl font-semibold tracking-tight">
-          Message received.
-        </h2>
-        <p className="max-w-md text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          Thank you for reaching out. We aim to respond within 3–5 business days.
-          In the meantime, you can explore our{" "}
+      <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-8 py-12">
+        <div className="flex items-center gap-3">
+          <CheckCircle2 className="h-6 w-6 shrink-0 text-[var(--color-status-deployed)]" />
+          <h2 className="font-display text-xl font-semibold tracking-tight">
+            Submission received in development mode.
+          </h2>
+        </div>
+        <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+          Email delivery is being configured before public launch. For urgent inquiries,
+          please email{" "}
+          <a href="mailto:contact@aist-lab.org" className="text-[var(--color-accent)] hover:underline">
+            contact@aist-lab.org
+          </a>{" "}
+          directly. In the meantime, explore our{" "}
           <Link href="/projects" className="text-[var(--color-accent)] hover:underline">projects</Link>{" "}
           or read our{" "}
           <Link href="/publications" className="text-[var(--color-accent)] hover:underline">publications</Link>.
         </p>
+        <details className="mt-2">
+          <summary className="cursor-pointer text-xs font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
+            Where do these messages go right now?
+          </summary>
+          <p className="mt-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
+            Submissions are logged to the development server console only. Email forwarding will be
+            configured via Resend before the site goes live. See <code>app/api/contact/route.ts</code> for
+            the exact integration point.
+          </p>
+        </details>
       </div>
     );
   }

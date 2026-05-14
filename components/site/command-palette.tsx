@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Fuse from "fuse.js";
 import { useRouter, usePathname } from "next/navigation";
 import { Search, Clock, Compass, FlaskConical, Users, FileText, ArrowRight, X } from "lucide-react";
@@ -102,12 +103,15 @@ const GROUP_META: Record<ResultKind, { label: string; Icon: React.ElementType }>
 
 export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [expandedId, setExpandedId] = React.useState<string | null>(null);
   const [recent, setRecent] = React.useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => setMounted(true), []);
 
   /* Record visit */
   React.useEffect(() => {
@@ -186,32 +190,33 @@ export function CommandPalette() {
         </kbd>
       </button>
 
-      {/* Drawer portal */}
-      <AnimatePresence>
-        {open && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
-              onClick={() => setOpen(false)}
-              aria-hidden="true"
-            />
+      {/* Drawer — portalled to document.body to escape header stacking context */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {open && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-[250] bg-black/40 backdrop-blur-sm"
+                onClick={() => setOpen(false)}
+                aria-hidden="true"
+              />
 
-            {/* Drawer panel */}
-            <motion.div
-              role="dialog"
-              aria-label="Site search"
-              aria-modal="true"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 340, damping: 32 }}
-              className="fixed right-0 top-0 z-50 flex h-full w-full flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl sm:w-[480px]"
-            >
+              {/* Drawer panel */}
+              <motion.div
+                role="dialog"
+                aria-label="Site search"
+                aria-modal="true"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", stiffness: 340, damping: 32 }}
+                className="fixed right-0 top-0 z-[260] flex h-full w-full flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl sm:w-[480px]"
+              >
               {/* Header — logo + search input */}
               <div className="flex shrink-0 items-center gap-3 border-b border-[var(--color-border)] px-4">
                 <Image src={logos.markNeutral} alt="AIST" width={20} height={20} className="h-5 w-5 shrink-0 opacity-60" />
@@ -288,7 +293,9 @@ export function CommandPalette() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }

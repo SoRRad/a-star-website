@@ -90,7 +90,10 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
               showPhoto ? "opacity-100" : "opacity-0",
             )}
             onLoad={() => setImgLoaded(true)}
-            onError={() => setImgError(true)}
+            onError={() => {
+              console.warn(`[AIST] Team photo failed to load: ${member.photo}`);
+              setImgError(true);
+            }}
           />
         </div>
 

@@ -70,6 +70,5 @@ export const footerNav = {
     { title: "Join Us", href: "/join" },
     { title: "Events", href: "/events" },
     { title: "Contact", href: "/contact" },
-    { title: "RSS", href: "/rss.xml" },
   ],
 };
