@@ -20,8 +20,7 @@ export function JournalClubCallout({ nextEvent }: JournalClubCalloutProps) {
 
   return (
     <div
-      className="relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, var(--color-navy-800) 0%, var(--color-navy-900) 100%)" }}
+      className="relative overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-muted)] dark:border-transparent dark:bg-[var(--color-navy-800)]"
     >
       {/* Decorative watermark */}
       <Image
@@ -39,13 +38,13 @@ export function JournalClubCallout({ nextEvent }: JournalClubCalloutProps) {
           <div className="space-y-3">
             <p className="eyebrow text-[var(--color-accent)]">Next meeting</p>
             <h2
-              className="font-display max-w-lg text-balance text-2xl font-semibold text-[var(--color-ink-100)] sm:text-3xl"
+              className="font-display max-w-lg text-balance text-2xl font-semibold text-[var(--color-foreground)] dark:text-[var(--color-ink-100)] sm:text-3xl"
               style={{ letterSpacing: "-0.03em" }}
             >
               {nextEvent.title}
             </h2>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="font-mono text-lg font-semibold text-[var(--color-ink-100)]">
+              <span className="font-mono text-lg font-semibold text-[var(--color-foreground)] dark:text-[var(--color-ink-100)]">
                 {formatted}
               </span>
               <span className="rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
@@ -57,7 +56,7 @@ export function JournalClubCallout({ nextEvent }: JournalClubCalloutProps) {
                 </span>
               )}
             </div>
-            <p className="max-w-xl text-sm leading-relaxed text-[var(--color-ink-400)]">
+            <p className="max-w-xl text-sm leading-relaxed text-[var(--color-muted-foreground)] dark:text-[var(--color-ink-400)]">
               {nextEvent.description}
             </p>
           </div>

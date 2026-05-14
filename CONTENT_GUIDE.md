@@ -15,6 +15,7 @@ drop images into the right folders.
 | Projects (metadata)              | `lib/projects.ts`                      |
 | Project page content             | `content/projects/{slug}.ts`           |
 | Publications                     | `lib/publications.ts`                  |
+| Events & Journal Club            | `lib/events.ts`                        |
 | Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
@@ -229,3 +230,77 @@ npm run build
 ```
 
 After editing any data file (`lib/*.ts`) or content file (`content/projects/*.ts`), the dev server hot-reloads automatically.
+
+---
+
+## Events & Journal Club
+
+### Adding a new event
+
+Edit `lib/events.ts` and add an entry to the `events` array:
+
+```ts
+{
+  slug: "aist-journal-club-jun-2026",
+  title: "AIST Journal Club — June 2026",
+  series: "AIST Journal Club",
+  type: "journal-club",         // journal-club | seminar | conference | workshop | talk
+  format: "hybrid",             // in-person | virtual | hybrid
+  date: "2026-06-17",           // ISO date
+  time: "12:00 PM CST",
+  location: "Mayo Clinic, Rochester, MN — and virtual",
+  description: "...",
+  status: "upcoming",           // upcoming | past | tbd
+  rsvpRequired: true,
+  recurring: true,
+  recurrencePattern: "Recurring · Monthly",
+  featured: true,
+},
+```
+
+The home page callout shows when at least one event has `status: "upcoming"` and `slug === "aist-journal-club-may-2026"` (or update the slug in `app/page.tsx`).
+
+To show the most recent upcoming event, update the slug in `app/page.tsx`:
+```ts
+const nextEvent = events.find((e) => e.slug === "aist-journal-club-jun-2026");
+```
+
+### Marking past events
+Change `status: "upcoming"` to `status: "past"`. Past events collapse into a `<details>` block on the events page.
+
+---
+
+## Publications
+
+### Author list format
+Use **"LastName F"** format (last name + first initial, no period): `"Shahriarirad R"`, `"Ghanem OM"`.
+AMA/APA/BibTeX formatters in `lib/publication-utils.ts` handle punctuation automatically.
+
+### Adding a publication
+
+```ts
+{
+  slug: "my-paper-2026",
+  title: "Full paper title",
+  authors: ["LastName F", "Surname G"],
+  venue: "Journal Name",
+  year: 2026,
+  date: "2026-01-01",
+  type: "original-research",    // see PublicationType in lib/publications.ts
+  status: "published",          // published | accepted | in-press | preprint | submitted
+  url: "https://...",
+  doi: "10.1234/...",           // optional
+  projects: ["mosi"],           // links to project detail page
+  team: ["reza-shahriarirad"],  // slug of team members
+  themes: ["bariatric-surgery", "clinical-decision-support"],
+  tags: ["MOSI", "Decision Support"],
+  featured: true,               // shows on home page "From the lab" strip
+  order: 4,
+},
+```
+
+### Filtering
+- `themes` drives the "Theme" filter on the publications page
+- `projects` drives the "Project" filter and links the publication to the project detail page
+- `featured: true` shows in the home page recent publications strip
+- `selected: true` marks it for a "Selected works" view (future feature)
