@@ -12,13 +12,15 @@ drop images into the right folders.
 | Header / footer navigation       | `lib/navigation.ts`                    |
 | Team members                     | `lib/team.ts` + photos in `/public/team/` |
 | Collaborators                    | `lib/collaborators.ts` + logos in `/public/logos/partners/` |
-| Projects                         | `lib/projects.ts`                      |
+| Projects (metadata)              | `lib/projects.ts`                      |
+| Project page content             | `content/projects/{slug}.ts`           |
+| Publications                     | `lib/publications.ts`                  |
+| Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
-| "Now operating" status pill      | `lib/now.ts`                           |
-| Latest news (until Step 5)       | `lib/mock-news.ts`                     |
-| Upcoming events (until Step 5)   | `lib/mock-events.ts`                   |
 | Glossary terms                   | `lib/glossary.ts`                      |
+| Latest news (mock)               | `lib/mock-news.ts`                     |
+| Upcoming events (mock)           | `lib/mock-events.ts`                   |
 
 ---
 
@@ -29,7 +31,7 @@ drop images into the right folders.
    - `slug`: lowercase-with-dashes, e.g. `"jane-doe"`. This becomes their URL: `/team/jane-doe`.
    - `name`, `role`, `affiliation`, `bio`
    - `photo`: path like `"/team/jane-doe.jpg"` — file goes in `/public/team/`
-   - `initials`: e.g. `"JD"` — used until the photo is added
+   - `initials`: use period notation, e.g. `"J.D."` — shown on playing cards until photo loads
    - `links`: any of `profile`, `email`, `github`, `linkedin`, `twitter`, `scholar`
    - `order`: where they appear in the list (lower = earlier)
    - `featured: true` if they should show on the home page preview
@@ -46,7 +48,7 @@ drop images into the right folders.
   affiliation: "Mayo Clinic",
   bio: "One paragraph bio about Jane.",
   photo: "/team/jane-doe.jpg",
-  initials: "JD",
+  initials: "J.D.",
   links: {
     email: "doe.jane@mayo.edu",
     github: "https://github.com/janedoe",
@@ -65,43 +67,56 @@ drop images into the right folders.
 3. Save the logo (PNG or SVG, transparent background preferred) to `/public/logos/partners/` matching the path in `logo`.
 4. Without a logo file, the card shows the institution's short name as a styled placeholder.
 
-### Example entry
-
-```ts
-{
-  slug: "stanford-aimlab",
-  name: "Stanford AIM Lab",
-  shortName: "AIM Lab",
-  description: "Collaborative partner in AI for medical imaging.",
-  logo: "/logos/partners/stanford-aimlab.png",
-  url: "https://aim.stanford.edu",
-  featured: true,
-  order: 4,
-},
-```
-
 ---
 
 ## Adding a project
 
-1. Open `lib/projects.ts`.
-2. Add an entry with all required fields. The slug becomes its URL: `/projects/{slug}`.
+1. Open `lib/projects.ts` and add the project metadata entry (slug, name, status, phases, URLs, team, etc.).
+2. Create `content/projects/{slug}.ts` with the scientific page content (see below).
 
 The project automatically:
-- Appears on the home page (if `featured: true`)
+- Appears in the home page compact summary (if `featured: true`)
 - Appears in the `/projects` index
 - Gets its own detail page at `/projects/{slug}`
-- Shows up in the surgical phase wheel under each of its `phases`
-- Is linked from each `team` member's detail page
+- Shows in the surgical phase wheel under each of its `phases`
+- Links from each `team` member's detail page
+
+### Updating project page content
+
+Each project has a content file at `content/projects/{slug}.ts` that exports a content object with these fields:
+
+```ts
+export const myProjectContent = {
+  problem: "What is broken clinically...",
+  clinicalNeed: "Why this matters...",
+  dataSources: "Where the data comes from...",
+  methods: "Technical approach...",
+  validationPlan: "How claims will be tested...",  // empty string = shows placeholder
+  currentStatus: "What stage we're at...",
+  modelCard: {
+    intendedUse: "...",
+    inputs: ["Input A", "Input B"],
+    outputs: ["Output A", "Output B"],
+    performanceMetrics: "...",
+    datasetSize: "...",
+    validationStatus: "...",
+    limitations: "...",
+    deploymentReadiness: "...",
+  },
+};
+```
+
+Any field set to an empty string `""` renders a "Content coming soon" placeholder card.
+In development mode, placeholders show a note pointing to the content file.
 
 ### Phases available
 
-| Value             | Description                   |
-| ----------------- | ----------------------------- |
-| `"pre-operative"` | Planning before the OR        |
-| `"intra-operative"` | Real-time during surgery   |
-| `"post-operative"` | Recovery and monitoring      |
-| `"validation"`    | External validation cohorts   |
+| Value                   | Description                   |
+| ----------------------- | ----------------------------- |
+| `"risk-stratification"` | Pre-op risk assessment        |
+| `"intra-op-intelligence"` | Real-time during surgery    |
+| `"patient-journey"`     | Patient education and prep    |
+| `"outcomes-validation"` | External validation cohorts   |
 
 ### Status values
 
@@ -115,18 +130,24 @@ The project automatically:
 
 ---
 
-## Updating the "Now operating" pill
+## Adding a glossary term
 
-Edit `lib/now.ts`:
+1. Open `lib/glossary.ts`.
+2. Add a new entry to the `glossary` array:
 
 ```ts
-export const now = {
-  focus: "MOSI prospective validation",
-  since: "2026-04",
-};
+{
+  slug: "my-term",          // URL-safe identifier
+  term: "My Term",          // Display name
+  definition: "...",        // 1-2 sentence professional definition
+  related: ["other-slug"],  // Optional cross-links to other terms
+  category: "Clinical AI",  // Optional category badge
+},
 ```
 
-The pill appears in the hero and links to `/now`.
+3. The term appears automatically on `/resources/glossary`, sorted alphabetically.
+
+> **When to add**: add a term when a technical concept appears 3+ times across the site, or when a project page uses specialist vocabulary that a general academic audience might not know.
 
 ---
 
@@ -152,12 +173,41 @@ export const stats = [
 | `/public/logos/partners/`    | Collaborator institution logos                | PNG transparent or SVG   |
 | `/public/team/`              | Team member headshots                         | JPG, square, 600×600+    |
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
-| `/public/og/`                | OpenGraph share images (auto-generated)       | (handled by code)        |
 
 All images should be optimized before commit (use [Squoosh](https://squoosh.app) or similar).
-Use SVG whenever possible for crisp scaling across resolutions.
+Logo PNGs above 200KB should be converted to WebP for ~70% size reduction.
 
 ---
+
+## Adding a publication
+
+1. Open `lib/publications.ts`.
+2. Add a new entry with `slug`, `title`, `authors`, `venue`, `year`, `date`, `url`, `projects`, `team`, `order`.
+3. Set `featured: true` to show on the home page "Recent publications" strip.
+4. Add the project slug to the `projects` array — the publication then appears on that project's detail page under "Related Publications".
+
+## Adding an open position
+
+1. Open `lib/openings.ts`.
+2. Add an entry with `slug`, `title`, `type`, `location`, `summary`, `applyUrl`, `postedAt`.
+3. The position appears on `/join`. The home page "Join Us" section surfaces the most recent opening.
+
+## Home page section order
+
+The canonical section order as of Step 5:
+
+| Code | ID               | Label              |
+| ---- | ---------------- | ------------------ |
+| 01   | `#mission`       | Mission            |
+| —    | (after mission)  | Credibility strip  |
+| 02   | `#numbers`       | By the numbers     |
+| 03   | `#research`      | Research & Projects|
+| 04   | `#team`          | Team               |
+| 05   | `#news`          | From the lab       |
+| 06   | `#collaborators` | Collaborators      |
+| 07   | `#join`          | Join Us            |
+
+**Do not reorder sections without updating nav anchor links in `lib/navigation.ts`.**
 
 ## Development workflow
 
@@ -178,5 +228,4 @@ npm run lint
 npm run build
 ```
 
-After editing any data file (`lib/*.ts`), the dev server hot-reloads automatically.
-No manual restarts needed.
+After editing any data file (`lib/*.ts`) or content file (`content/projects/*.ts`), the dev server hot-reloads automatically.

@@ -1,29 +1,20 @@
-"use client";
-
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  /** "mark" = icon only (aist-mark.png), "full" = full lockup PNG, "wordmark" = mark + "AIST" text */
-  variant?: "mark" | "wordmark" | "full";
+  variant?: "mark" | "horizontal" | "stacked";
   animated?: boolean;
   priority?: boolean;
   sizes?: string;
+  width?: number;
+  height?: number;
 }
 
 /**
- * AIST logo component — PNG-based with theme-aware light/dark swapping.
- *
- * Variants:
- *   mark      — aist-mark.png (icon only, default)
- *   wordmark  — aist-mark.png + "AIST" text in display font
- *   full      — aist-full-{dark|light}.png (full lockup with tagline)
- *
- * The "animated" prop applies a CSS scale-in + fade-in entrance (600ms ease-out).
- * Hydration-safe: renders nothing until mounted to avoid theme flicker.
+ * AIST logo — renders both light and dark variants and lets CSS hide one.
+ * No useTheme(), no mounted check, no FOUC, fully SSR-correct.
  */
 export function Logo({
   className,
@@ -31,86 +22,54 @@ export function Logo({
   animated = false,
   priority = false,
   sizes,
+  width,
+  height,
 }: LogoProps) {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const sources = {
+    mark: { light: logos.markLight, dark: logos.markDark },
+    horizontal: { light: logos.fullHorizontalLight, dark: logos.fullHorizontalDark },
+    stacked: { light: logos.fullStackedLight, dark: logos.fullStackedDark },
+  };
 
-  useEffect(() => setMounted(true), []);
+  const dims = {
+    mark: { w: width ?? 80, h: height ?? 80 },
+    horizontal: { w: width ?? 200, h: height ?? 50 },
+    stacked: { w: width ?? 420, h: height ?? 210 },
+  }[variant];
 
-  const isDark = mounted ? resolvedTheme === "dark" : true;
+  const defaultSizes = {
+    mark: "80px",
+    horizontal: "200px",
+    stacked: "(max-width: 640px) 280px, 420px",
+  }[variant];
 
-  if (variant === "full") {
-    return (
-      <div
-        className={cn(
-          "relative",
-          animated && "animate-logo-entrance",
-          className,
-        )}
-      >
-        {mounted ? (
-          <Image
-            src={isDark ? "/logos/aist-full-dark.png" : "/logos/aist-full-light.png"}
-            alt="AIST — Artificial Intelligence in Surgical Technologies"
-            width={480}
-            height={240}
-            priority={priority}
-            sizes={sizes ?? "(max-width: 640px) 320px, 480px"}
-            className="h-auto w-full"
-          />
-        ) : (
-          /* Placeholder during SSR to reserve layout space */
-          <div className="h-[240px] w-[480px] max-w-full" aria-hidden="true" />
-        )}
-      </div>
-    );
-  }
+  const { light, dark } = sources[variant];
+  const alt = variant === "mark" ? "AIST logo mark" : "AIST — Artificial Intelligence in Surgical Technologies";
+  const wrapClass = cn("relative", animated && "animate-logo-entrance", className);
 
-  if (variant === "wordmark") {
-    return (
-      <div
-        className={cn(
-          "flex items-center gap-3",
-          animated && "animate-logo-entrance",
-          className,
-        )}
-      >
-        <MarkImage mounted={mounted} priority={priority} className="h-8 w-8 shrink-0" />
-        <span className="font-display text-2xl tracking-tight">AIST</span>
-      </div>
-    );
-  }
-
-  /* Default: mark */
   return (
-    <MarkImage
-      mounted={mounted}
-      priority={priority}
-      className={cn(animated && "animate-logo-entrance", className)}
-    />
-  );
-}
-
-function MarkImage({
-  mounted,
-  priority,
-  className,
-}: {
-  mounted: boolean;
-  priority?: boolean;
-  className?: string;
-}) {
-  if (!mounted) {
-    return <div className={cn("rounded-sm bg-transparent", className)} aria-hidden="true" />;
-  }
-  return (
-    <Image
-      src="/logos/aist-mark.png"
-      alt="AIST logo mark"
-      width={80}
-      height={80}
-      priority={priority}
-      className={cn("h-auto w-auto", className)}
-    />
+    <div className={wrapClass}>
+      {/* Light mode variant */}
+      <Image
+        src={light}
+        alt={alt}
+        width={dims.w}
+        height={dims.h}
+        priority={priority}
+        sizes={sizes ?? defaultSizes}
+        className="block h-auto w-full dark:hidden"
+      />
+      {/* Dark mode variant */}
+      <Image
+        src={dark}
+        alt=""
+        aria-hidden="true"
+        width={dims.w}
+        height={dims.h}
+        priority={priority}
+        sizes={sizes ?? defaultSizes}
+        className="hidden h-auto w-full dark:block"
+      />
+    </div>
   );
 }

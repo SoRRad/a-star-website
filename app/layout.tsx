@@ -68,7 +68,11 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/logos/aist_logo_png/favicon-512.png", type: "image/png", sizes: "512x512" },
+      { url: "/logos/aist_logo_png/aist-mark.png", type: "image/png" },
+    ],
+    apple: "/logos/aist_logo_png/favicon-512.png",
   },
 };
 

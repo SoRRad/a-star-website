@@ -10,7 +10,7 @@ export const siteConfig = {
   description:
     "AIST is a research lab advancing artificial intelligence across the full surgical journey — pre-operative planning, intra-operative guidance, post-operative recovery, and external validation of surgical AI.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ogImage: "/og/og-default.png",
+  ogImage: "/opengraph-image",
   institution: {
     name: "Mayo Clinic",
     department: "Surgery Innovation",

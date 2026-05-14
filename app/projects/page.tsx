@@ -3,8 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
-import { statusBadgeVariants, statusLabels } from "@/lib/status";
-import { cn } from "@/lib/utils";
+import { StatusPipeline } from "@/components/lab/status-pipeline";
 
 export const metadata = { title: "Projects" };
 
@@ -43,9 +42,7 @@ export default function ProjectsPage() {
               />
               <div className="p-8">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className={cn(statusBadgeVariants({ status: project.status }))}>
-                    {statusLabels[project.status]}
-                  </span>
+                  <StatusPipeline status={project.status} />
                   {projectPhases.map((p) => (
                     <span
                       key={p.id}

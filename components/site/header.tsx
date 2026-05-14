@@ -4,34 +4,20 @@ import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "motion/react";
 import { primaryNav } from "@/lib/navigation";
 import { phases } from "@/lib/phases";
 import { projects } from "@/lib/projects";
+import { logos } from "@/lib/logos";
+import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandPalette } from "@/components/site/command-palette";
 import { MobileNav } from "@/components/site/mobile-nav";
 import { cn } from "@/lib/utils";
 
-/**
- * Site header.
- *
- * Two strips:
- *   1. Affiliation strip — thin, monospace; signals Mayo affiliation + live status
- *   2. Main header — horizontal logo lockup, primary nav with active indicator,
- *      dropdown menus for Projects and Research, search, theme, mobile menu
- *
- * Scroll-aware: backdrop appears after 4px scroll.
- * Active nav indicator uses Motion layoutId to slide between items.
- */
 export function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
   const pathname = usePathname();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => setMounted(true), []);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4);
@@ -40,27 +26,11 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isDark = mounted ? resolvedTheme === "dark" : true;
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
   return (
     <header className="sticky top-0 z-40 w-full">
-      {/* Affiliation strip */}
-      <div className="w-full border-b border-[var(--color-border)] bg-[var(--color-background)]">
-        <div className="mx-auto flex h-7 max-w-7xl items-center justify-between px-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted-foreground)] sm:px-6 lg:px-8">
-          <span>Mayo Clinic · Surgery Innovation</span>
-          <span className="hidden items-center gap-2 sm:inline-flex">
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ekg rounded-full bg-[var(--color-status-deployed)] opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-status-deployed)]" />
-            </span>
-            <span>Lab Active</span>
-          </span>
-        </div>
-      </div>
-
       {/* Main header */}
       <div
         className={cn(
@@ -71,21 +41,19 @@ export function SiteHeader() {
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-          {/* Horizontal logo lockup — swaps on theme */}
+          {/* Logo — horizontal lockup on md+, mark-only on mobile */}
           <Link href="/" aria-label="AIST home" className="shrink-0">
-            {mounted ? (
-              <Image
-                src={isDark ? "/logos/aist-horizontal-dark.png" : "/logos/aist-horizontal-light.png"}
-                alt="AIST — Artificial Intelligence in Surgical Technologies"
-                width={160}
-                height={40}
-                priority
-                className="h-8 w-auto sm:h-10"
-              />
-            ) : (
-              /* Neutral placeholder during SSR to avoid hydration mismatch */
-              <div className="h-8 w-32 sm:h-10 sm:w-40" aria-hidden="true" />
-            )}
+            {/* Desktop: horizontal lockup */}
+            <Logo variant="horizontal" priority width={160} height={40} className="hidden sm:block h-9 w-auto" />
+            {/* Mobile: mark only */}
+            <Image
+              src={logos.markNeutral}
+              alt="AIST"
+              width={36}
+              height={36}
+              priority
+              className="block h-9 w-auto sm:hidden"
+            />
           </Link>
 
           {/* Primary nav */}
@@ -95,12 +63,8 @@ export function SiteHeader() {
               const isProjects = item.href === "/projects";
               const isResearch = item.href === "/research";
 
-              if (isProjects) {
-                return <ProjectsDropdown key={item.href} active={active} />;
-              }
-              if (isResearch) {
-                return <ResearchDropdown key={item.href} active={active} />;
-              }
+              if (isProjects) return <ProjectsDropdown key={item.href} active={active} />;
+              if (isResearch) return <ResearchDropdown key={item.href} active={active} />;
 
               return (
                 <Link
@@ -137,7 +101,7 @@ export function SiteHeader() {
   );
 }
 
-/* ── Dropdown shared wrapper ─────────────────────────────────────────────── */
+/* ── Shared dropdown wrapper ─────────────────────────────────────────────── */
 
 function NavDropdown({
   label,
@@ -151,19 +115,15 @@ function NavDropdown({
   children: React.ReactNode;
 }) {
   const [open, setOpen] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
   return (
     <div
-      ref={ref}
       className="relative"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
@@ -208,7 +168,6 @@ function NavDropdown({
 
 function ProjectsDropdown({ active }: { active: boolean }) {
   const featured = projects.filter((p) => p.featured);
-
   return (
     <NavDropdown label="Projects" href="/projects" active={active}>
       <div className="p-2">
@@ -219,7 +178,7 @@ function ProjectsDropdown({ active }: { active: boolean }) {
             className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[var(--color-muted)]"
           >
             <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)]">
-              <Image src="/logos/aist-mark.png" alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
+              <Image src={logos.markNeutral} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold text-[var(--color-foreground)]">{project.name}</p>
