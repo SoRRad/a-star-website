@@ -55,7 +55,7 @@ export const team: TeamMember[] = [
     role: "AI Lead",
     affiliation: "Mayo Clinic",
     bio: "Leads the AI and machine learning research at AIST, spanning computer vision, deep learning, and generative models for surgery. Dr. Salehinejad's work focuses on building robust, clinically deployable models that operate reliably across diverse patient populations.", // TODO: Refine bio
-    photo: "/team/hojjat-salehinejad.jfif",
+    photo: "/team/hojjat-salehinejad.jpg",
     initials: "H.S.",
     links: {},
     researchFocus: [
@@ -93,7 +93,7 @@ export const team: TeamMember[] = [
     role: "Research Fellow",
     affiliation: "Mayo Clinic",
     bio: "Research fellow in the Department of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic. Dr. Alomar contributes to AIST's clinical research in bariatric surgery, abdominal wall reconstruction, and the integration of AI tools into surgical planning.", // TODO: Refine bio
-    photo: "/team/abdulrahman-alomar.jfif",
+    photo: "/team/abdulrahman-alomar.jpg",
     initials: "A.A.",
     links: {
       linkedin: "https://www.linkedin.com/in/abdulrahman-alomar-aba47a233/",
@@ -112,7 +112,7 @@ export const team: TeamMember[] = [
     role: "Engineer",
     affiliation: "Mayo Clinic",
     bio: "Software and ML engineering across the AIST platform stack. Intekhab builds and maintains the infrastructure that bridges AIST's research algorithms and clinical-facing tools, with a focus on reliability, scalability, and developer ergonomics.", // TODO: Refine bio
-    photo: "/team/intekhab-hossain.jfif",
+    photo: "/team/intekhab-hossain.jpg",
     initials: "I.H.",
     links: {},
     researchFocus: [
@@ -129,7 +129,7 @@ export const team: TeamMember[] = [
     role: "Collaborator",
     affiliation: "Mayo Clinic — MARS",
     bio: "Consultant bariatric and metabolic surgeon at Mayo Clinic, and clinical collaborator on the MOSI project. Dr. Ghanem brings deep expertise in complex bariatric and revisional surgery, and provides critical clinical validation for AIST's decision-support tools.", // TODO: Refine bio
-    photo: "/team/omar-ghanem.jfif",
+    photo: "/team/omar-ghanem.jpg",
     initials: "O.G.",
     links: {
       profile: "https://www.mayoclinic.org/biographies/ghanem-omar-m-m-d/bio-20491179",
