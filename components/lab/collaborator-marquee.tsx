@@ -8,12 +8,6 @@ interface CollaboratorMarqueeProps {
   items: Collaborator[];
 }
 
-/**
- * Auto-sliding collaborator logo marquee.
- * Pure CSS keyframe animation for performance.
- * Duplicates the list for seamless looping.
- * Pauses on hover.
- */
 export function CollaboratorMarquee({ items }: CollaboratorMarqueeProps) {
   const doubled = [...items, ...items];
 
@@ -28,7 +22,7 @@ export function CollaboratorMarquee({ items }: CollaboratorMarqueeProps) {
       }}
     >
       <div
-        className="flex items-center gap-12 [animation:marquee_40s_linear_infinite] hover:[animation-play-state:paused]"
+        className="flex items-center gap-6 [animation:marquee_50s_linear_infinite] hover:[animation-play-state:paused]"
         style={{ width: "max-content" }}
       >
         {doubled.map((c, i) => (
@@ -56,23 +50,24 @@ function MarqueeItem({ collaborator }: { collaborator: Collaborator }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={collaborator.name}
-      className="flex h-[64px] shrink-0 items-center justify-center opacity-60 transition-opacity hover:opacity-100"
+      className="flex h-[100px] min-w-[240px] shrink-0 items-center justify-center rounded-xl border border-[var(--color-border)] bg-white px-6 shadow-sm transition-all hover:border-[var(--color-accent)]/40 hover:shadow-md dark:border-white/10 dark:bg-white dark:hover:border-white/20"
     >
       {!imgError ? (
         <Image
           src={collaborator.logo}
           alt={collaborator.name}
-          width={160}
-          height={64}
-          className="h-[64px] w-auto max-w-[200px] object-contain dark:brightness-125 dark:invert-[.15]"
-          onError={() => setImgError(true)}
+          width={200}
+          height={80}
+          className="h-16 w-auto max-w-[200px] object-contain"
+          onError={() => {
+            console.warn(`[AIST] Collaborator logo failed: ${collaborator.logo}`);
+            setImgError(true);
+          }}
         />
       ) : (
-        <div className="flex h-[64px] min-w-[140px] items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-4">
-          <span className="font-display text-sm font-semibold text-[var(--color-foreground)]">
-            {displayName}
-          </span>
-        </div>
+        <span className="font-display text-base font-semibold text-[var(--color-navy-900)]">
+          {displayName}
+        </span>
       )}
     </a>
   );

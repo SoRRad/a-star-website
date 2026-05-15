@@ -36,7 +36,7 @@ const badges = [
 
 export function CredibilityStrip() {
   return (
-    <div className="w-full border-y border-[var(--color-border)] bg-[var(--color-navy-900)]/60">
+    <div className="w-full border-y border-[var(--color-border)] bg-[var(--color-muted)] dark:bg-[var(--color-navy-900)]/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 divide-x divide-[var(--color-border)] sm:grid-cols-5">
           {badges.map((badge, i) => {

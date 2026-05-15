@@ -1,16 +1,20 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowUpRight, Github, ChevronDown, Mail } from "lucide-react";
+// ArrowUpRight kept for liveUrl/github CTAs in header
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
 import { phases } from "@/lib/phases";
 import { publications } from "@/lib/publications";
+import { getNewsByProject } from "@/lib/news";
+import { NewsCard } from "@/components/news/news-card";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
 import { PlayingCard } from "@/components/lab/playing-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { ContentPlaceholder } from "@/components/lab/content-placeholder";
+import { PublicationCard } from "@/components/publications/publication-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { mosiContent } from "@/content/projects/mosi";
@@ -58,6 +62,7 @@ export default async function ProjectPage({
     project.collaborators.includes(c.slug),
   );
   const relatedPubs = publications.filter((p) => p.projects.includes(slug));
+  const projectNews = getNewsByProject(slug);
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -97,12 +102,14 @@ export default async function ProjectPage({
 
         {/* ── 2. CTAs ── */}
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button asChild variant="accent" size="lg">
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              Visit the live tool
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </Button>
+          {project.liveUrl && (
+            <Button asChild variant="accent" size="lg">
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                Visit the live tool
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </Button>
+          )}
           {project.githubUrl && (
             <Button asChild variant="outline" size="lg">
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -205,30 +212,34 @@ export default async function ProjectPage({
         {/* ── 12. Related Publications ── */}
         {relatedPubs.length > 0 && (
           <ScientificSection eyebrow="Related Publications" title="Research outputs">
-            <ul className="space-y-4">
+            <div className="space-y-4">
               {relatedPubs.map((pub) => (
-                <li key={pub.slug} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                    {pub.venue} · {pub.year}
-                  </p>
-                  <p className="mt-1.5 text-sm font-medium leading-snug text-[var(--color-foreground)]">
-                    {pub.title}
-                  </p>
-                  <a
-                    href={pub.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)] hover:underline"
-                  >
-                    View paper <ArrowUpRight className="h-3 w-3" />
-                  </a>
-                </li>
+                <PublicationCard key={pub.slug} publication={pub} />
               ))}
-            </ul>
+            </div>
+            <div className="mt-4">
+              <Link
+                href={`/publications?project=${slug}`}
+                className="text-sm font-medium text-[var(--color-accent)] hover:underline"
+              >
+                View all publications →
+              </Link>
+            </div>
           </ScientificSection>
         )}
 
-        {/* ── 13. Get Involved ── */}
+        {/* ── 13. Featured in news ── */}
+        {projectNews.length > 0 && (
+          <ScientificSection eyebrow="Featured in news" title="Coverage and mentions">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {projectNews.slice(0, 3).map((item) => (
+                <NewsCard key={item.slug} item={item} />
+              ))}
+            </div>
+          </ScientificSection>
+        )}
+
+        {/* ── 14. Get Involved ── */}
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
           <p className="eyebrow mb-2">Get involved</p>
           <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">

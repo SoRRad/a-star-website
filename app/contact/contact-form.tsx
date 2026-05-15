@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod/v4";
@@ -9,17 +10,23 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+const INQUIRY_TYPES = [
+  "general",
+  "research-collaboration",
+  "clinical-collaboration",
+  "press",
+  "position",
+  "journal-club",
+  "newsletter",
+] as const;
+
+type InquiryType = (typeof INQUIRY_TYPES)[number];
+
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Please enter a valid email"),
   institution: z.string().optional(),
-  inquiryType: z.enum([
-    "general",
-    "research-collaboration",
-    "clinical-collaboration",
-    "press",
-    "position",
-  ], { error: "Please select an inquiry type" }),
+  inquiryType: z.enum(INQUIRY_TYPES, { error: "Please select an inquiry type" }),
   clinicalArea: z.string().optional(),
   datasetType: z.string().optional(),
   irbStatus: z.string().optional(),
@@ -28,13 +35,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const INQUIRY_OPTIONS = [
+const INQUIRY_OPTIONS: { value: InquiryType; label: string }[] = [
   { value: "general", label: "General inquiry" },
   { value: "research-collaboration", label: "Research collaboration" },
   { value: "clinical-collaboration", label: "Clinical collaboration" },
   { value: "press", label: "Press / media" },
   { value: "position", label: "Position inquiry" },
-] as const;
+  { value: "journal-club", label: "Journal Club RSVP" },
+  { value: "newsletter", label: "Newsletter subscription" },
+];
 
 const DATASET_OPTIONS = [
   "Clinical records",
@@ -51,7 +60,16 @@ const IRB_OPTIONS = [
   "Not applicable",
 ];
 
+const JOURNAL_CLUB_PLACEHOLDER =
+  "Please add me to the AIST Journal Club distribution list. My background: [your role, institution]";
+
+const NEWSLETTER_PLACEHOLDER =
+  "Please add me to the AIST Lab newsletter. My background: [your role and institution]";
+
 export function ContactForm() {
+  const searchParams = useSearchParams();
+  const presetInquiry = searchParams.get("inquiry") as InquiryType | null;
+
   const [submitted, setSubmitted] = React.useState(false);
   const [serverError, setServerError] = React.useState("");
 
@@ -62,6 +80,9 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      inquiryType: (INQUIRY_TYPES.includes(presetInquiry as InquiryType) ? presetInquiry : undefined) ?? undefined,
+    },
   });
 
   const inquiryType = watch("inquiryType");
@@ -89,18 +110,34 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-8 py-12 text-center">
-        <CheckCircle2 className="h-10 w-10 text-[var(--color-status-deployed)]" />
-        <h2 className="font-display text-2xl font-semibold tracking-tight">
-          Message received.
-        </h2>
-        <p className="max-w-md text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          Thank you for reaching out. We aim to respond within 3–5 business days.
-          In the meantime, you can explore our{" "}
+      <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-8 py-12">
+        <div className="flex items-center gap-3">
+          <CheckCircle2 className="h-6 w-6 shrink-0 text-[var(--color-status-deployed)]" />
+          <h2 className="font-display text-xl font-semibold tracking-tight">
+            Submission received in development mode.
+          </h2>
+        </div>
+        <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+          Email delivery is being configured before public launch. For urgent inquiries,
+          please email{" "}
+          <a href="mailto:contact@aist-lab.org" className="text-[var(--color-accent)] hover:underline">
+            contact@aist-lab.org
+          </a>{" "}
+          directly. In the meantime, explore our{" "}
           <Link href="/projects" className="text-[var(--color-accent)] hover:underline">projects</Link>{" "}
           or read our{" "}
           <Link href="/publications" className="text-[var(--color-accent)] hover:underline">publications</Link>.
         </p>
+        <details className="mt-2">
+          <summary className="cursor-pointer text-xs font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
+            Where do these messages go right now?
+          </summary>
+          <p className="mt-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
+            Submissions are logged to the development server console only. Email forwarding will be
+            configured via Resend before the site goes live. See <code>app/api/contact/route.ts</code> for
+            the exact integration point.
+          </p>
+        </details>
       </div>
     );
   }
@@ -186,7 +223,13 @@ export function ContactForm() {
         <textarea
           {...register("message")}
           rows={5}
-          placeholder="Tell us about your question, project, or interest…"
+          placeholder={
+            inquiryType === "journal-club"
+              ? JOURNAL_CLUB_PLACEHOLDER
+              : inquiryType === "newsletter"
+              ? NEWSLETTER_PLACEHOLDER
+              : "Tell us about your question, project, or interest…"
+          }
           className={cn(inputClass(!!errors.message), "resize-y")}
         />
       </Field>

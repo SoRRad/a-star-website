@@ -1,21 +1,23 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Fuse from "fuse.js";
 import { useRouter, usePathname } from "next/navigation";
-import { Search, Clock, Compass, FlaskConical, Users, FileText, ArrowRight, X } from "lucide-react";
+import { Search, Clock, Compass, FlaskConical, Users, FileText, Newspaper, ArrowRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { allNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { publications } from "@/lib/publications";
+import { allNews } from "@/lib/news";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 /* ── Types ── */
 
-type ResultKind = "page" | "project" | "team" | "publication";
+type ResultKind = "page" | "project" | "team" | "publication" | "news";
 
 interface SearchResult {
   id: string;
@@ -52,13 +54,23 @@ const corpus: SearchResult[] = [
     href: `/team/${m.slug}`,
     meta: { affiliation: m.affiliation },
   })),
-  ...publications.map((p) => ({
-    id: `pub-${p.slug}`,
-    kind: "publication" as ResultKind,
-    title: p.title,
-    subtitle: `${p.venue} · ${p.year}`,
-    href: p.url,
-    meta: { year: String(p.year) },
+  ...publications
+    .filter((p) => p.url)
+    .map((p) => ({
+      id: `pub-${p.slug}`,
+      kind: "publication" as ResultKind,
+      title: p.title,
+      subtitle: `${p.venue} · ${p.year}`,
+      href: p.url as string,
+      meta: { year: String(p.year) },
+    })),
+  ...allNews.map((n) => ({
+    id: `news-${n.slug}`,
+    kind: "news" as ResultKind,
+    title: n.title,
+    subtitle: n.excerpt.slice(0, 80),
+    href: `/news#${n.slug}`,
+    meta: { category: n.category, date: n.date },
   })),
 ];
 
@@ -74,6 +86,7 @@ const FILTER_SHORTCUTS: Record<string, ResultKind> = {
   "/project": "project",
   "/pub": "publication",
   "/page": "page",
+  "/news": "news",
 };
 
 /* ── localStorage helpers ── */
@@ -96,18 +109,22 @@ const GROUP_META: Record<ResultKind, { label: string; Icon: React.ElementType }>
   project: { label: "Projects", Icon: FlaskConical },
   team: { label: "Team", Icon: Users },
   publication: { label: "Publications", Icon: FileText },
+  news: { label: "News", Icon: Newspaper },
 };
 
 /* ── Component ── */
 
 export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [expandedId, setExpandedId] = React.useState<string | null>(null);
   const [recent, setRecent] = React.useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => setMounted(true), []);
 
   /* Record visit */
   React.useEffect(() => {
@@ -186,32 +203,33 @@ export function CommandPalette() {
         </kbd>
       </button>
 
-      {/* Drawer portal */}
-      <AnimatePresence>
-        {open && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
-              onClick={() => setOpen(false)}
-              aria-hidden="true"
-            />
+      {/* Drawer — portalled to document.body to escape header stacking context */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {open && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-[250] bg-black/40 backdrop-blur-sm"
+                onClick={() => setOpen(false)}
+                aria-hidden="true"
+              />
 
-            {/* Drawer panel */}
-            <motion.div
-              role="dialog"
-              aria-label="Site search"
-              aria-modal="true"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 340, damping: 32 }}
-              className="fixed right-0 top-0 z-50 flex h-full w-full flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl sm:w-[480px]"
-            >
+              {/* Drawer panel */}
+              <motion.div
+                role="dialog"
+                aria-label="Site search"
+                aria-modal="true"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", stiffness: 340, damping: 32 }}
+                className="fixed right-0 top-0 z-[260] flex h-full w-full flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl sm:w-[480px]"
+              >
               {/* Header — logo + search input */}
               <div className="flex shrink-0 items-center gap-3 border-b border-[var(--color-border)] px-4">
                 <Image src={logos.markNeutral} alt="AIST" width={20} height={20} className="h-5 w-5 shrink-0 opacity-60" />
@@ -256,7 +274,7 @@ export function CommandPalette() {
                 )}
 
                 {/* Grouped results */}
-                {(["page", "project", "team", "publication"] as ResultKind[]).map((kind) => {
+                {(["page", "project", "team", "publication", "news"] as ResultKind[]).map((kind) => {
                   const items = grouped.get(kind);
                   if (!items?.length) return null;
                   const { label, Icon } = GROUP_META[kind];
@@ -283,12 +301,14 @@ export function CommandPalette() {
                 <span className="font-mono">↵</span> open ·{" "}
                 <span className="font-mono">esc</span> close ·{" "}
                 <span className="font-mono">⌘K</span> toggle ·{" "}
-                <span className="opacity-50">/team /project /pub /page to filter</span>
+                <span className="opacity-50">/team /project /pub /page /news to filter</span>
               </div>
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }

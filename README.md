@@ -127,7 +127,7 @@ Before going live:
 - [x] **Step 3** — Projects deep pages with embedded live tools
 - [x] **Step 4** — Team, Publications, Logo polish, PlayingCard, Konami egg, scalpel progress
 - [x] **Step 5** — Credibility, scientific project pages, glossary, contact form, performance
-- [ ] **Step 6** — News/Events MDX, advanced filtering, co-authorship graph
+- [x] **Step 6** — Publications system, Journal Club events, homepage server component, deployment guide
 
 ---
 

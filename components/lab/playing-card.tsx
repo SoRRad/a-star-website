@@ -49,7 +49,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
       {/* Card link — wraps only the non-interactive visual content */}
       <Link
         href={`/team/${member.slug}`}
-        className="flex h-full w-full flex-col rounded-xl border border-[var(--color-navy-700)] bg-[var(--color-card)] p-3 focus:outline-none dark:border-[var(--color-navy-700)]"
+        className="flex h-full w-full flex-col rounded-xl border border-[var(--color-ink-200)] bg-[var(--color-card)] p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] dark:border-[var(--color-navy-700)]"
         aria-label={`${member.name} — ${member.role}`}
       >
         {/* Outer hairline inset bezel */}
@@ -90,7 +90,10 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
               showPhoto ? "opacity-100" : "opacity-0",
             )}
             onLoad={() => setImgLoaded(true)}
-            onError={() => setImgError(true)}
+            onError={() => {
+              console.warn(`[AIST] Team photo failed to load: ${member.photo}`);
+              setImgError(true);
+            }}
           />
         </div>
 

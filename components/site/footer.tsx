@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Mail, Rss } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { footerNav } from "@/lib/navigation";
 import { logos } from "@/lib/logos";
@@ -33,7 +33,7 @@ export function SiteFooter() {
           <div className="col-span-2">
             {/* Mark + wordmark */}
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image src={logos.markNeutral} alt="AIST logo mark" width={36} height={36} className="h-9 w-9" />
+              <Image src={logos.markNeutral} alt="AIST logo mark" width={32} height={32} className="h-8 w-8" />
               <span className="font-display text-[1.5rem] tracking-tight">AIST</span>
             </Link>
 
@@ -66,10 +66,6 @@ export function SiteFooter() {
                   <Mail className="h-4 w-4" />
                 </a>
               )}
-              <Link href="/rss.xml"
-                className="text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]" aria-label="RSS">
-                <Rss className="h-4 w-4" />
-              </Link>
             </div>
           </div>
 

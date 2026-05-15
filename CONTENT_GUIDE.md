@@ -15,12 +15,12 @@ drop images into the right folders.
 | Projects (metadata)              | `lib/projects.ts`                      |
 | Project page content             | `content/projects/{slug}.ts`           |
 | Publications                     | `lib/publications.ts`                  |
+| **News items**                   | **`lib/news.ts`**                      |
+| Events & Journal Club            | `lib/events.ts`                        |
 | Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
 | Glossary terms                   | `lib/glossary.ts`                      |
-| Latest news (mock)               | `lib/mock-news.ts`                     |
-| Upcoming events (mock)           | `lib/mock-events.ts`                   |
 
 ---
 
@@ -229,3 +229,139 @@ npm run build
 ```
 
 After editing any data file (`lib/*.ts`) or content file (`content/projects/*.ts`), the dev server hot-reloads automatically.
+
+---
+
+## Events & Journal Club
+
+### Adding a new event
+
+Edit `lib/events.ts` and add an entry to the `events` array:
+
+```ts
+{
+  slug: "aist-journal-club-jun-2026",
+  title: "AIST Journal Club — June 2026",
+  series: "AIST Journal Club",
+  type: "journal-club",         // journal-club | seminar | conference | workshop | talk
+  format: "hybrid",             // in-person | virtual | hybrid
+  date: "2026-06-17",           // ISO date
+  time: "12:00 PM CST",
+  location: "Mayo Clinic, Rochester, MN — and virtual",
+  description: "...",
+  status: "upcoming",           // upcoming | past | tbd
+  rsvpRequired: true,
+  recurring: true,
+  recurrencePattern: "Recurring · Monthly",
+  featured: true,
+},
+```
+
+The home page callout shows when at least one event has `status: "upcoming"` and `slug === "aist-journal-club-may-2026"` (or update the slug in `app/page.tsx`).
+
+To show the most recent upcoming event, update the slug in `app/page.tsx`:
+```ts
+const nextEvent = events.find((e) => e.slug === "aist-journal-club-jun-2026");
+```
+
+### Marking past events
+Change `status: "upcoming"` to `status: "past"`. Past events collapse into a `<details>` block on the events page.
+
+---
+
+## Publications
+
+### Author list format
+Use **"LastName F"** format (last name + first initial, no period): `"Shahriarirad R"`, `"Ghanem OM"`.
+AMA/APA/BibTeX formatters in `lib/publication-utils.ts` handle punctuation automatically.
+
+### Adding a publication
+
+```ts
+{
+  slug: "my-paper-2026",
+  title: "Full paper title",
+  authors: ["LastName F", "Surname G"],
+  venue: "Journal Name",
+  year: 2026,
+  date: "2026-01-01",
+  type: "original-research",    // see PublicationType in lib/publications.ts
+  status: "published",          // published | accepted | in-press | preprint | submitted
+  url: "https://...",
+  doi: "10.1234/...",           // optional
+  projects: ["mosi"],           // links to project detail page
+  team: ["reza-shahriarirad"],  // slug of team members
+  themes: ["bariatric-surgery", "clinical-decision-support"],
+  tags: ["MOSI", "Decision Support"],
+  featured: true,               // shows on home page "From the lab" strip
+  order: 4,
+},
+```
+
+### Filtering
+- `themes` drives the "Theme" filter on the publications page
+- `projects` drives the "Project" filter and links the publication to the project detail page
+- `featured: true` shows in the home page recent publications strip
+- `selected: true` marks it for a "Selected works" view (future feature)
+
+---
+
+## Adding a news item
+
+News items drive the `/news` page, the home page "From the lab" section,
+and bidirectional mentions on team and project pages.
+
+### Step-by-step
+
+1. Open `lib/news.ts`.
+2. Add a new entry to the `news` array. Required fields:
+
+```ts
+{
+  slug: "my-news-item-2026",         // URL-safe identifier, e.g. "sages-2026"
+  title: "Full headline here",
+  date: "2026-05-01",                // ISO date — determines sort order
+  category: "conference",           // conference | publication | award | press | lab-update | newsletter
+  image: "/news/my-news-item.jpg",  // optional — path to image in /public/news/
+  imageAlt: "Brief alt text",       // optional alt text for the image
+  excerpt: "1-2 sentence summary shown on cards and in previews.",
+  body: `Full article text here. Use double newlines to separate paragraphs.
+
+This is a second paragraph. Markdown headings/lists are not parsed — plain text only.`,
+  people: ["simon-laplante"],       // team slugs mentioned (drives 'Recent mentions' on team pages)
+  projects: ["mosi"],               // project slugs (drives 'Featured in news' on project pages)
+  publications: [],                 // publication slugs referenced
+  externalLink: "",                 // if set, 'Read more' opens this URL; if empty, body renders inline
+  featured: false,                  // true = appears as hero on news page
+},
+```
+
+3. If you have an image, save it to `/public/news/{filename}.jpg`.
+   - Recommended: 1600×900 (16:9 aspect), JPEG, under 200KB.
+   - If the image is missing, the card shows a styled gradient placeholder.
+
+4. The `allNews` export in `lib/news.ts` automatically sorts by date descending.
+   The home page shows the 3 most recent items.
+
+### The news hero
+
+Only one item can be `featured: true` at a time. If multiple items are marked featured,
+the first one (most recent by date) is used. The featured item becomes the full-width hero
+on the `/news` page.
+
+### Category reference
+
+| Value | Label | Colour |
+| ----- | ----- | ------ |
+| `conference` | Conference | Accent blue |
+| `publication` | Publication | Blue-300 |
+| `award` | Award | Yellow |
+| `press` | Press | Purple |
+| `lab-update` | Lab Update | Emerald |
+| `newsletter` | Newsletter | Muted |
+
+### Image sizes
+
+Save to `/public/news/`. Recommended dimensions: **1600×900 (16:9)**, JPEG, under 200KB.
+Use [Squoosh](https://squoosh.app) to compress. The `/public/news/README.md` lists all
+expected filenames.
