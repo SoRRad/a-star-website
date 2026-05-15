@@ -7,6 +7,10 @@ import { downloadIcs } from "@/lib/calendar";
 import type { LabEvent } from "@/lib/events";
 
 export function JournalClubButtons({ event }: { event: LabEvent }) {
+  const rsvpHref = event.rsvpEmail
+    ? `mailto:${event.rsvpEmail}?subject=${encodeURIComponent("AIST Lab Journal Club RSVP")}`
+    : `/contact?inquiry=journal-club&event=${event.slug}`;
+
   return (
     <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
       <Button
@@ -18,10 +22,17 @@ export function JournalClubButtons({ event }: { event: LabEvent }) {
         Add to calendar
       </Button>
       <Button asChild variant="accent">
-        <Link href={`/contact?inquiry=journal-club&event=${event.slug}`}>
-          <UserPlus className="h-4 w-4" />
-          Request to join
-        </Link>
+        {event.rsvpEmail ? (
+          <a href={rsvpHref}>
+            <UserPlus className="h-4 w-4" />
+            Request to join
+          </a>
+        ) : (
+          <Link href={rsvpHref}>
+            <UserPlus className="h-4 w-4" />
+            Request to join
+          </Link>
+        )}
       </Button>
     </div>
   );
