@@ -24,15 +24,16 @@ export type NavItem = {
 
 /**
  * Primary navigation shown in the header.
- * "Projects" is merged into "Research" — both scroll to #research on the home page.
+ * Research and Projects are merged under /projects.
  */
 export const primaryNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home, sectionId: "top" },
   { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
-  { title: "Research", href: "/research", icon: Compass, sectionId: "research" },
-  { title: "Projects", href: "/projects", icon: FlaskConical, sectionId: "research" },
+  { title: "Research & Projects", href: "/projects", icon: Compass, sectionId: "projects" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
   { title: "Publications", href: "/publications", icon: FileText, sectionId: "publications" },
+  { title: "Events", href: "/events", icon: Calendar, sectionId: "events" },
+  { title: "Archive", href: "/archive", icon: Library, sectionId: "archive" },
   { title: "Join", href: "/join", icon: UserPlus, sectionId: "join" },
 ];
 
@@ -41,24 +42,24 @@ export const primaryNav: NavItem[] = [
  */
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
-  { title: "About", href: "/about", icon: Sparkles },
-  { title: "Research", href: "/research", icon: Compass },
-  { title: "Projects", href: "/projects", icon: FlaskConical },
+  { title: "News", href: "/news", icon: Newspaper },
+  { title: "Research & Projects", href: "/projects", icon: Compass },
   { title: "Team", href: "/team", icon: Users },
   { title: "Publications", href: "/publications", icon: FileText },
-  { title: "News", href: "/news", icon: Newspaper },
   { title: "Events", href: "/events", icon: Calendar },
-  { title: "Resources", href: "/resources", icon: Library },
-  { title: "Now", href: "/now", icon: Sparkles },
+  { title: "Archive", href: "/archive", icon: Library },
   { title: "Join Us", href: "/join", icon: UserPlus },
+  { title: "About", href: "/about", icon: Sparkles },
+  { title: "Now", href: "/now", icon: Sparkles },
+  { title: "Resources", href: "/resources", icon: FlaskConical },
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
 export const footerNav = {
   research: [
-    { title: "Research focus", href: "/research" },
-    { title: "Projects", href: "/projects" },
+    { title: "Research & Projects", href: "/projects" },
     { title: "Publications", href: "/publications" },
+    { title: "Archive", href: "/archive" },
     { title: "Resources", href: "/resources" },
   ],
   lab: [
