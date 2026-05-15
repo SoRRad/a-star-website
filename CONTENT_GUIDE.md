@@ -15,13 +15,12 @@ drop images into the right folders.
 | Projects (metadata)              | `lib/projects.ts`                      |
 | Project page content             | `content/projects/{slug}.ts`           |
 | Publications                     | `lib/publications.ts`                  |
+| **News items**                   | **`lib/news.ts`**                      |
 | Events & Journal Club            | `lib/events.ts`                        |
 | Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
 | Glossary terms                   | `lib/glossary.ts`                      |
-| Latest news (mock)               | `lib/mock-news.ts`                     |
-| Upcoming events (mock)           | `lib/mock-events.ts`                   |
 
 ---
 
@@ -304,3 +303,65 @@ AMA/APA/BibTeX formatters in `lib/publication-utils.ts` handle punctuation autom
 - `projects` drives the "Project" filter and links the publication to the project detail page
 - `featured: true` shows in the home page recent publications strip
 - `selected: true` marks it for a "Selected works" view (future feature)
+
+---
+
+## Adding a news item
+
+News items drive the `/news` page, the home page "From the lab" section,
+and bidirectional mentions on team and project pages.
+
+### Step-by-step
+
+1. Open `lib/news.ts`.
+2. Add a new entry to the `news` array. Required fields:
+
+```ts
+{
+  slug: "my-news-item-2026",         // URL-safe identifier, e.g. "sages-2026"
+  title: "Full headline here",
+  date: "2026-05-01",                // ISO date — determines sort order
+  category: "conference",           // conference | publication | award | press | lab-update | newsletter
+  image: "/news/my-news-item.jpg",  // optional — path to image in /public/news/
+  imageAlt: "Brief alt text",       // optional alt text for the image
+  excerpt: "1-2 sentence summary shown on cards and in previews.",
+  body: `Full article text here. Use double newlines to separate paragraphs.
+
+This is a second paragraph. Markdown headings/lists are not parsed — plain text only.`,
+  people: ["simon-laplante"],       // team slugs mentioned (drives 'Recent mentions' on team pages)
+  projects: ["mosi"],               // project slugs (drives 'Featured in news' on project pages)
+  publications: [],                 // publication slugs referenced
+  externalLink: "",                 // if set, 'Read more' opens this URL; if empty, body renders inline
+  featured: false,                  // true = appears as hero on news page
+},
+```
+
+3. If you have an image, save it to `/public/news/{filename}.jpg`.
+   - Recommended: 1600×900 (16:9 aspect), JPEG, under 200KB.
+   - If the image is missing, the card shows a styled gradient placeholder.
+
+4. The `allNews` export in `lib/news.ts` automatically sorts by date descending.
+   The home page shows the 3 most recent items.
+
+### The news hero
+
+Only one item can be `featured: true` at a time. If multiple items are marked featured,
+the first one (most recent by date) is used. The featured item becomes the full-width hero
+on the `/news` page.
+
+### Category reference
+
+| Value | Label | Colour |
+| ----- | ----- | ------ |
+| `conference` | Conference | Accent blue |
+| `publication` | Publication | Blue-300 |
+| `award` | Award | Yellow |
+| `press` | Press | Purple |
+| `lab-update` | Lab Update | Emerald |
+| `newsletter` | Newsletter | Muted |
+
+### Image sizes
+
+Save to `/public/news/`. Recommended dimensions: **1600×900 (16:9)**, JPEG, under 200KB.
+Use [Squoosh](https://squoosh.app) to compress. The `/public/news/README.md` lists all
+expected filenames.

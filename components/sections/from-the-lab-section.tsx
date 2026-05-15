@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ExploreMore } from "@/components/site/explore-more";
 import { CategoryPill } from "@/components/news/category-pill";

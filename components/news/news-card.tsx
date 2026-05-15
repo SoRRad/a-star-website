@@ -1,4 +1,5 @@
-import Link from "next/link";
+"use client";
+
 import { ArrowUpRight, Linkedin } from "lucide-react";
 import { CategoryPill } from "./category-pill";
 import { NewsImage } from "./news-image";

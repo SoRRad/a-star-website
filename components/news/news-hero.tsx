@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight, Linkedin } from "lucide-react";
 import { CategoryPill } from "./category-pill";
