@@ -109,10 +109,35 @@ export const publications: Publication[] = [
     status: "published",
     url: "https://www.sciencedirect.com/science/article/abs/pii/S1931720426000255?via%3Dihub",
     projects: [],
-    team: [],
+    team: ["abdulrahman-alomar", "simon-laplante"],
     themes: ["robotic-surgery", "simulation"],
     tags: ["Robotic Surgery", "Simulation", "Training"],
     featured: false,
     order: 3,
   },
+  {
+  slug: "Incentivizing-ai-surgery-2026",
+  title: "Incentivizing artificial intelligence in surgery",
+  authors: ["Abdulrahman A", "Dhar V", "Madani A", "Laplante SJ"],
+  venue: "Surgical Endoscopy",
+  year: 2026,
+  date: "2026-05-15",
+
+  type: "original-research",
+  status: "published",
+
+  doi: "10.1007/s00464-026-12879-2",
+  url: "https://link.springer.com/article/10.1007/s00464-026-12879-2",
+  pdfUrl: "https://link.springer.com/content/pdf/10.1007/s00464-026-12879-2.pdf",
+  abstract: "Artificial intelligence has the potential to transform surgical practice through applications such as robotic assistance, computer vision, perioperative support, and administrative tools, yet widespread adoption remains limited. This article aims to develop a framework for encouraging broader use of AI in surgery by examining the current landscape, key barriers, and implementation challenges. A review of relevant peer-reviewed literature, policy documents, and funding reports on AI in healthcare was conducted. Overall, the successful integration of AI into routine surgical practice will require strategic financial and non-financial incentives, along with ongoing evidence of clinical and economic value.",
+
+  projects: [],
+  team: ["abdulrahman-alomar", "amin-madani", "simon-laplante"],
+  themes: ["surgical-ai"],
+  tags: ["Logic in AI", "Implementation Science"],
+
+  featured: false,
+  selected: false,
+  order: 4,
+},
 ];
