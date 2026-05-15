@@ -44,7 +44,7 @@ export function SiteHeader() {
         <div
           className={cn(
             "mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6 lg:px-8",
-            scrolled ? "h-12" : "h-14",
+            scrolled ? "h-10" : "h-12",
           )}
         >
           {/* Logo */}
@@ -53,18 +53,18 @@ export function SiteHeader() {
             <Logo
               variant="horizontal"
               priority
-              width={scrolled ? 104 : 128}
-              height={scrolled ? 26 : 32}
-              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-[26px]" : "h-8")}
+              width={scrolled ? 96 : 112}
+              height={scrolled ? 24 : 28}
+              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-6" : "h-7")}
             />
-            {/* Mobile: mark only — 26px default, 22px scrolled */}
+            {/* Mobile: mark only — 24px default, 20px scrolled */}
             <Image
               src={logos.markNeutral}
               alt="AIST"
-              width={scrolled ? 22 : 26}
-              height={scrolled ? 22 : 26}
+              width={scrolled ? 20 : 24}
+              height={scrolled ? 20 : 24}
               priority
-              className={cn("block w-auto sm:hidden transition-all duration-200", scrolled ? "h-[22px]" : "h-[26px]")}
+              className={cn("block w-auto sm:hidden transition-all duration-200", scrolled ? "h-5" : "h-6")}
             />
           </Link>
 
