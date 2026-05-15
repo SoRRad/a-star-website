@@ -3,12 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import * as React from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { primaryNav } from "@/lib/navigation";
 import { hasRecentNews } from "@/lib/news";
-import { phases } from "@/lib/phases";
 import { projects } from "@/lib/projects";
 import { logos } from "@/lib/logos";
 import { Logo } from "@/components/site/logo";
@@ -44,7 +43,7 @@ export function SiteHeader() {
         <div
           className={cn(
             "mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6 lg:px-8",
-            scrolled ? "h-12" : "h-14",
+            scrolled ? "h-10" : "h-12",
           )}
         >
           {/* Logo */}
@@ -53,18 +52,18 @@ export function SiteHeader() {
             <Logo
               variant="horizontal"
               priority
-              width={scrolled ? 104 : 128}
-              height={scrolled ? 26 : 32}
-              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-[26px]" : "h-8")}
+              width={scrolled ? 96 : 112}
+              height={scrolled ? 24 : 28}
+              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-6" : "h-7")}
             />
-            {/* Mobile: mark only — 26px default, 22px scrolled */}
+            {/* Mobile: mark only — 24px default, 20px scrolled */}
             <Image
               src={logos.markNeutral}
               alt="AIST"
-              width={scrolled ? 22 : 26}
-              height={scrolled ? 22 : 26}
+              width={scrolled ? 20 : 24}
+              height={scrolled ? 20 : 24}
               priority
-              className={cn("block w-auto sm:hidden transition-all duration-200", scrolled ? "h-[22px]" : "h-[26px]")}
+              className={cn("block w-auto sm:hidden transition-all duration-200", scrolled ? "h-5" : "h-6")}
             />
           </Link>
 
@@ -74,16 +73,10 @@ export function SiteHeader() {
               {primaryNav.map((item) => {
                 const active = isActive(item.href);
                 const isProjects = item.href === "/projects";
-                const isResearch = item.href === "/research";
 
                 if (isProjects) {
                   return (
                     <ProjectsNavItem key={item.href} active={active} />
-                  );
-                }
-                if (isResearch) {
-                  return (
-                    <ResearchNavItem key={item.href} active={active} />
                   );
                 }
 
@@ -168,6 +161,7 @@ function DropdownContent({ children }: { children: React.ReactNode }) {
 /* ── Projects nav item ───────────────────────────────────────────────────── */
 
 function ProjectsNavItem({ active }: { active: boolean }) {
+  const router = useRouter();
   const featured = projects.filter((p) => p.featured);
   return (
     <NavigationMenu.Item className="relative">
@@ -179,8 +173,9 @@ function ProjectsNavItem({ active }: { active: boolean }) {
             ? "text-[var(--color-foreground)]"
             : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
         )}
+        onClick={() => router.push("/projects")}
       >
-        Projects
+        Research & Projects
         {active && (
           <motion.span
             layoutId="nav-active-indicator"
@@ -220,58 +215,3 @@ function ProjectsNavItem({ active }: { active: boolean }) {
   );
 }
 
-/* ── Research nav item ───────────────────────────────────────────────────── */
-
-function ResearchNavItem({ active }: { active: boolean }) {
-  return (
-    <NavigationMenu.Item className="relative">
-      <NavigationMenu.Trigger
-        className={cn(
-          "relative rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none select-none",
-          "data-[state=open]:bg-[var(--color-muted)] data-[state=open]:text-[var(--color-foreground)]",
-          active
-            ? "text-[var(--color-foreground)]"
-            : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
-        )}
-      >
-        Research
-        {active && (
-          <motion.span
-            layoutId="nav-active-indicator"
-            className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-[var(--color-accent)]"
-            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-          />
-        )}
-      </NavigationMenu.Trigger>
-      <DropdownContent>
-        <div className="p-2">
-          {phases.map((phase) => (
-            <NavigationMenu.Link key={phase.id} asChild>
-              <Link
-                href={`/research#${phase.id}`}
-                className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[var(--color-muted)] focus:bg-[var(--color-muted)] focus:outline-none"
-              >
-                <span className="mt-0.5 shrink-0 font-mono text-[10px] font-semibold tracking-wider text-[var(--color-accent)]">
-                  {phase.code}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-[var(--color-foreground)]">{phase.title}</p>
-                  <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
-                    {phase.description.slice(0, 80)}…
-                  </p>
-                </div>
-              </Link>
-            </NavigationMenu.Link>
-          ))}
-        </div>
-        <div className="border-t border-[var(--color-border)] px-3 py-2">
-          <NavigationMenu.Link asChild>
-            <Link href="/research" className="text-xs font-medium text-[var(--color-accent)] hover:underline focus:outline-none focus:underline">
-              View research focus →
-            </Link>
-          </NavigationMenu.Link>
-        </div>
-      </DropdownContent>
-    </NavigationMenu.Item>
-  );
-}

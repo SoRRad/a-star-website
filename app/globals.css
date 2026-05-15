@@ -10,6 +10,24 @@
  * sharp accent, single coral spark reserved for "new" markers and urgency.
  * ------------------------------------------------------------------------- */
 
+/* ----------------------------------------------------------------------------
+ * THEME TOKENS
+ *
+ * Semantic tokens are defined in @theme for light mode (the default) and
+ * overridden inside .dark for dark mode. Components reference tokens by name,
+ * not by raw color value — no component needs a dark: class for basic
+ * background/text/border behavior.
+ *
+ * To debug a light-mode-only issue: inspect the element, note which token
+ * is in use, then check that token's value in @theme. The most common bug
+ * is --color-muted-foreground being too light against --color-background
+ * or --color-card.
+ *
+ * Hero logo glow: the radial glow div uses hidden dark:block — zero halo
+ * in light mode, clean blue bloom in dark mode. Never use drop-shadow
+ * on the logo image itself.
+ * ------------------------------------------------------------------------- */
+
 @theme {
   /* Brand palette — direct from the AIST logo */
   --color-navy-50: #eef2fb;
@@ -135,7 +153,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-feature-settings: "cv11", "ss01", "ss03";
-    scroll-padding-top: 64px;
+    scroll-padding-top: 48px;
   }
 
   body {

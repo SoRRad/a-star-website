@@ -12,6 +12,11 @@ export type NewsImageEntry = {
   caption?: string;
 };
 
+export type NewsRelatedLink = {
+  label: string;
+  url: string;
+};
+
 export type NewsItem = {
   slug: string;
   title: string;
@@ -26,6 +31,7 @@ export type NewsItem = {
   projects: string[];
   publications: string[];
   externalLink?: string;
+  relatedLinks?: NewsRelatedLink[];
   featured: boolean;
 };
 
@@ -124,12 +130,18 @@ The AIST Lab's participation reflects its continued commitment to collaboration,
 
 During the meeting, Dr. Laplante delivered an invited talk titled "Quantum Computing: Solving Complex Surgical Data Challenges" as part of the session "No Longer The Future: AI, Digital Surgery, Machine Learning and Quantum Computing in Today's OR." He also served as moderator for the Innovation Without Borders session, contributing to discussions on emerging technologies and their role in the future of surgery.
 
-The AIST Lab also presented an abstract poster titled "Mayo Obesity Staging Index: A Novel Obesity Classification System," highlighting ongoing work to develop a clinically meaningful framework for obesity classification and surgical decision-making.
+The AIST Lab also presented an abstract poster titled "[Mayo Obesity Staging Index: A Novel Obesity Classification System](https://www.soard.org/article/S1550-7289(26)00376-X/fulltext)," highlighting ongoing work to develop a clinically meaningful framework for obesity classification and surgical decision-making.
 
 The lab's participation at ASMBS reflects its growing role in advancing innovation at the intersection of bariatric surgery, artificial intelligence, and emerging computational technologies.`,
     people: ["simon-laplante", "abdulrahman-alomar"],
     projects: ["mosi"],
     publications: ["mosi-novel-classification-2026"],
+    relatedLinks: [
+      {
+        label: "Published abstract — SOARD",
+        url: "https://www.soard.org/article/S1550-7289(26)00376-X/fulltext",
+      },
+    ],
     featured: true,
   },
 ];
@@ -184,9 +196,9 @@ export const CATEGORY_LABELS: Record<NewsCategory, string> = {
 
 export const CATEGORY_COLORS: Record<NewsCategory, string> = {
   conference: "border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-accent)]",
-  publication: "border-blue-300/40 bg-blue-300/10 text-blue-300",
-  award: "border-yellow-400/40 bg-yellow-400/10 text-yellow-400",
-  press: "border-purple-400/40 bg-purple-400/10 text-purple-400",
-  "lab-update": "border-emerald-400/40 bg-emerald-400/10 text-emerald-400",
+  publication: "border-blue-300/40 bg-blue-300/10 text-blue-700 dark:text-blue-300",
+  award: "border-yellow-400/40 bg-yellow-400/10 text-amber-700 dark:text-yellow-400",
+  press: "border-purple-400/40 bg-purple-400/10 text-purple-700 dark:text-purple-400",
+  "lab-update": "border-emerald-400/40 bg-emerald-400/10 text-emerald-700 dark:text-emerald-400",
   newsletter: "border-[var(--color-muted-foreground)]/40 bg-[var(--color-muted)] text-[var(--color-muted-foreground)]",
 };

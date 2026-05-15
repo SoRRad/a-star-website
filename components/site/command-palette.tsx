@@ -4,20 +4,21 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import Fuse from "fuse.js";
 import { useRouter, usePathname } from "next/navigation";
-import { Search, Clock, Compass, FlaskConical, Users, FileText, Newspaper, ArrowRight, X } from "lucide-react";
+import { Search, Clock, Compass, FlaskConical, Users, FileText, Newspaper, Library, ArrowRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { allNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { publications } from "@/lib/publications";
 import { allNews } from "@/lib/news";
+import { archiveItems } from "@/lib/archive";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 /* ── Types ── */
 
-type ResultKind = "page" | "project" | "team" | "publication" | "news";
+type ResultKind = "page" | "project" | "team" | "publication" | "news" | "archive";
 
 interface SearchResult {
   id: string;
@@ -69,8 +70,16 @@ const corpus: SearchResult[] = [
     kind: "news" as ResultKind,
     title: n.title,
     subtitle: n.excerpt.slice(0, 80),
-    href: `/news#${n.slug}`,
+    href: `/news/${n.slug}`,
     meta: { category: n.category, date: n.date },
+  })),
+  ...archiveItems.map((a) => ({
+    id: `archive-${a.slug}`,
+    kind: "archive" as ResultKind,
+    title: a.title,
+    subtitle: a.description.slice(0, 80),
+    href: "/archive",
+    meta: { category: a.category, date: a.date },
   })),
 ];
 
@@ -87,6 +96,7 @@ const FILTER_SHORTCUTS: Record<string, ResultKind> = {
   "/pub": "publication",
   "/page": "page",
   "/news": "news",
+  "/archive": "archive",
 };
 
 /* ── localStorage helpers ── */
@@ -110,6 +120,7 @@ const GROUP_META: Record<ResultKind, { label: string; Icon: React.ElementType }>
   team: { label: "Team", Icon: Users },
   publication: { label: "Publications", Icon: FileText },
   news: { label: "News", Icon: Newspaper },
+  archive: { label: "Archive", Icon: Library },
 };
 
 /* ── Component ── */

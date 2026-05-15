@@ -30,9 +30,14 @@ export function HeroSection() {
       <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-32 pt-20 text-center sm:px-6 sm:pt-28 lg:px-8">
         {/* Logo lockup — scroll-driven scale */}
         <motion.div style={{ scale: logoScale }} className="relative mt-4 flex justify-center">
+          {/* Glow ring — dark mode only; the hidden/dark:block pattern ensures zero halo in light mode */}
           <div
-            className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-0 blur-[80px] dark:opacity-[0.14]"
-            style={{ background: "radial-gradient(ellipse at center, #1e88e5 0%, transparent 70%)" }}
+            className="pointer-events-none absolute inset-0 -z-10 hidden rounded-full dark:block"
+            style={{
+              background: "radial-gradient(ellipse at center, rgba(30,136,229,0.22) 0%, transparent 70%)",
+              filter: "blur(60px)",
+              transform: "scale(1.5)",
+            }}
             aria-hidden="true"
           />
           <Logo
@@ -40,7 +45,7 @@ export function HeroSection() {
             animated
             priority
             sizes="(max-width: 640px) 280px, 420px"
-            className="max-w-[420px] dark:[filter:drop-shadow(0_8px_32px_rgba(30,136,229,0.22))]"
+            className="max-w-[420px]"
           />
         </motion.div>
 

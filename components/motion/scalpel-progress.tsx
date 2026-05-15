@@ -90,7 +90,7 @@ export function ScalpelProgress() {
   if (reducedMotion) {
     return (
       <div
-        className="fixed left-0 top-0 z-50 h-[2px] bg-[var(--color-accent)] transition-all"
+        className="fixed left-0 top-0 z-[200] h-[2px] bg-[var(--color-accent)] transition-all pointer-events-none"
         style={{ width: `${progress * 100}%` }}
         aria-hidden="true"
       />
@@ -100,7 +100,7 @@ export function ScalpelProgress() {
   if (width === 0) return null;
 
   return (
-    <div className="fixed left-0 top-0 z-50" aria-hidden="true" style={{ height: BAR_HEIGHT, width: "100%" }}>
+    <div className="fixed left-0 top-0 z-[200] pointer-events-none" aria-hidden="true" style={{ height: BAR_HEIGHT, width: "100%" }}>
       <svg width={width} height={BAR_HEIGHT} style={{ display: "block", overflow: "visible" }}>
         {/* Baseline wound edge — very faint */}
         <line
