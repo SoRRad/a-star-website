@@ -44,25 +44,27 @@ export function SiteHeader() {
         <div
           className={cn(
             "mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6 lg:px-8",
-            scrolled ? "h-14" : "h-16",
+            scrolled ? "h-12" : "h-14",
           )}
         >
           {/* Logo */}
           <Link href="/" aria-label="AIST home" className="shrink-0">
+            {/* Desktop: horizontal lockup — 32px default, 26px scrolled */}
             <Logo
               variant="horizontal"
               priority
-              width={scrolled ? 140 : 160}
-              height={scrolled ? 32 : 40}
-              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-8" : "h-9")}
+              width={scrolled ? 104 : 128}
+              height={scrolled ? 26 : 32}
+              className={cn("hidden sm:block w-auto transition-all duration-200", scrolled ? "h-[26px]" : "h-8")}
             />
+            {/* Mobile: mark only — 26px default, 22px scrolled */}
             <Image
               src={logos.markNeutral}
               alt="AIST"
-              width={36}
-              height={36}
+              width={scrolled ? 22 : 26}
+              height={scrolled ? 22 : 26}
               priority
-              className="block h-9 w-auto sm:hidden"
+              className={cn("block w-auto sm:hidden transition-all duration-200", scrolled ? "h-[22px]" : "h-[26px]")}
             />
           </Link>
 
@@ -86,13 +88,23 @@ export function SiteHeader() {
                 }
 
                 const isNews = item.href === "/news";
-              const showNewsDot = isNews && hasRecentNews();
+                const isHome = item.href === "/";
+                const showNewsDot = isNews && hasRecentNews();
+
+                // Home item: scroll-to-top on home page, navigate otherwise
+                const handleHomeClick = isHome && pathname === "/"
+                  ? (e: React.MouseEvent) => {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  : undefined;
 
               return (
                   <NavigationMenu.Item key={item.href}>
                     <NavigationMenu.Link asChild>
                       <Link
                         href={item.href}
+                        onClick={handleHomeClick}
                         className={cn(
                           "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
                           active

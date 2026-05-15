@@ -7,7 +7,6 @@ import { openings } from "@/lib/openings";
 import { events } from "@/lib/events";
 import { allNews } from "@/lib/news";
 
-import { ScalpelProgress } from "@/components/motion/scalpel-progress";
 import { Section } from "@/components/site/section";
 import { CircuitDivider } from "@/components/site/circuit-divider";
 
@@ -31,9 +30,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Scalpel-and-sutures scroll progress */}
-      <ScalpelProgress />
-
       <HeroSection />
 
       {/* 01 — Mission */}
