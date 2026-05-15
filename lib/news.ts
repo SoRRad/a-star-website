@@ -56,6 +56,18 @@ The presentation reflects the AIST Lab's continued commitment to developing inno
     category: "lab-update",
     image: "/news/madani-visit-2025.jpg",
     imageAlt: "Dr. Amin Madani delivering a lecture at Mayo Clinic",
+    images: [
+      {
+        src: "/news/madani-visit-2025.jpg",
+        alt: "Dr. Amin Madani delivering a lecture at Mayo Clinic",
+        caption: "Dr. Amin Madani visiting Mayo Clinic for a Department of Surgery lecture",
+      },
+      {
+        src: "/news/madani-visit-2025-2.jpg",
+        alt: "AIST Lab team members with Dr. Amin Madani during his Mayo Clinic visit",
+        caption: "AIST Lab team members with Dr. Madani during his Mayo Clinic visit",
+      },
+    ],
     excerpt:
       "Dr. Amin Madani, founder of the Surgical Artificial Intelligence Research Academy (SARA) at UHN Toronto, visited Mayo Clinic and delivered a Department of Surgery lecture on AI in surgery.",
     body: `On November 10, 2025, Amin Madani, MD, PhD, founder of the Surgical Artificial Intelligence Research Academy (SARA) at the University Health Network (UHN) in Toronto and a collaborator of the AIST Lab, visited Mayo Clinic.
