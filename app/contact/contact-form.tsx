@@ -129,12 +129,12 @@ export function ContactForm() {
         <div className="flex items-center gap-3">
           <CheckCircle2 className="h-6 w-6 shrink-0 text-[var(--color-status-deployed)]" />
           <h2 className="font-display text-xl font-semibold tracking-tight">
-            {submissionMode === "development" ? "Submission received in development mode." : "Message sent."}
+            {submissionMode === "development" ? "Email delivery is not configured yet." : "Message sent."}
           </h2>
         </div>
         <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
           {submissionMode === "development"
-            ? "Email delivery is being configured before public launch. For urgent inquiries, please email "
+            ? "Your form entry was accepted and logged on the server, but it was not emailed because Resend is not configured. Please email "
             : "Thank you for reaching out. For urgent follow-up, please email "}
           <a href="mailto:shahriarirad.reza@mayo.edu" className="text-[var(--color-accent)] hover:underline">
             shahriarirad.reza@mayo.edu

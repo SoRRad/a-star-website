@@ -21,19 +21,21 @@ export function JournalClubButtons({ event }: { event: LabEvent }) {
         <Calendar className="h-4 w-4" />
         Add to calendar
       </Button>
-      <Button asChild variant="accent">
-        {event.rsvpEmail ? (
-          <a href={rsvpHref}>
-            <UserPlus className="h-4 w-4" />
-            Request to join
-          </a>
-        ) : (
-          <Link href={rsvpHref}>
-            <UserPlus className="h-4 w-4" />
-            Request to join
-          </Link>
-        )}
-      </Button>
+      {event.rsvpRequired && (
+        <Button asChild variant="accent">
+          {event.rsvpEmail ? (
+            <a href={rsvpHref}>
+              <UserPlus className="h-4 w-4" />
+              Request to join
+            </a>
+          ) : (
+            <Link href={rsvpHref}>
+              <UserPlus className="h-4 w-4" />
+              Request to join
+            </Link>
+          )}
+        </Button>
+      )}
     </div>
   );
 }
