@@ -196,9 +196,9 @@ export const CATEGORY_LABELS: Record<NewsCategory, string> = {
 
 export const CATEGORY_COLORS: Record<NewsCategory, string> = {
   conference: "border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-accent)]",
-  publication: "border-blue-300/40 bg-blue-300/10 text-blue-300",
-  award: "border-yellow-400/40 bg-yellow-400/10 text-yellow-400",
-  press: "border-purple-400/40 bg-purple-400/10 text-purple-400",
-  "lab-update": "border-emerald-400/40 bg-emerald-400/10 text-emerald-400",
+  publication: "border-blue-300/40 bg-blue-300/10 text-blue-700 dark:text-blue-300",
+  award: "border-yellow-400/40 bg-yellow-400/10 text-amber-700 dark:text-yellow-400",
+  press: "border-purple-400/40 bg-purple-400/10 text-purple-700 dark:text-purple-400",
+  "lab-update": "border-emerald-400/40 bg-emerald-400/10 text-emerald-700 dark:text-emerald-400",
   newsletter: "border-[var(--color-muted-foreground)]/40 bg-[var(--color-muted)] text-[var(--color-muted-foreground)]",
 };
