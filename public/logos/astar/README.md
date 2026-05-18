@@ -1,20 +1,28 @@
 # A-STAR Logo Assets
 
-Production A-STAR logo assets were copied from the local `New logos` folder on 2026-05-17.
+Production raster exports from the local `New logos` handoff are preserved here, but the current site UI uses the transparent SVG variants because the PNG exports have opaque baked backgrounds at the corners.
 
-## Active Files
+## Current Usage
 
-| File | Source file | Usage |
+| Usage | File | Notes |
 | --- | --- | --- |
-| `astar-mark-light.png` | `astar-mark-light.svg.png` | Mark on light backgrounds |
-| `astar-mark-dark.png` | `astar-mark-dark.svg.png` | Mark on dark backgrounds |
-| `astar-mark-neutral.png` | `astar-mark-neutral.svg.png` | Header, sidebar, footer, neutral UI marks |
-| `astar-horizontal-light.png` | `astar-horizontal-light.svg.png` | Horizontal lockup on light backgrounds |
-| `astar-horizontal-dark.png` | `astar-horizontal-dark.svg.png` | Horizontal lockup on dark backgrounds |
-| `astar-stacked-light.png` | `astar-stacked-light.svg.png` | Stacked lockup on light backgrounds |
-| `astar-stacked-dark.png` | `astar-stacked-dark.svg.png` | Stacked lockup on dark backgrounds |
-| `favicon-512.png` | `favicon-512.png.png` | Site icon metadata |
-| `apple-touch-icon.png` | `favicon-512.png.png` | Apple touch icon metadata |
-| `astar-og-image.png` | `astar-og-image.png.png` | Static social image asset |
+| Header mark | `astar-mark-neutral.svg` | Transparent SVG, used by the left home link and sidebar UI |
+| Hero mark | `astar-mark-dark.svg` / `astar-mark-light.svg` through `lib/logos.ts` | Transparent mark-only logo; headline text is rendered in HTML |
+| Footer / wordmark contexts | `astar-horizontal-dark.svg` / `astar-horizontal-light.svg` | Transparent horizontal logo variants |
+| Stacked logo | `astar-stacked-dark.svg` / `astar-stacked-light.svg` | Available but not used in the homepage hero |
+| Favicon | `favicon-512.png` | PNG retained for icon metadata |
+| Apple touch icon | `apple-touch-icon.png` | PNG retained for icon metadata |
+| OpenGraph static asset | `astar-og-image.png` | Full social image asset retained; dynamic `/opengraph-image` also remains available |
 
-`lib/logos.ts` is the source of truth for logo paths. The legacy SVG placeholders are still present in this directory for comparison, but production rendering uses the PNG files listed above.
+## Raster Handoff Files
+
+The PNG files copied from `New logos` include:
+
+- `astar-mark-*.png`
+- `astar-horizontal-*.png`
+- `astar-stacked-*.png`
+- `astar-og-image.png`
+- `favicon-512.png`
+- `apple-touch-icon.png`
+
+These PNG logo lockups are not used for transparent UI placement because their backgrounds are opaque. If new production exports are supplied, prefer transparent SVG, PNG, or WebP files with no checkerboard/white box baked into the image.

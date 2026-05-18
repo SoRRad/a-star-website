@@ -6,9 +6,11 @@ import type { Metadata } from "next";
 import { activeTeamMembers, team } from "@/lib/team";
 import { projects } from "@/lib/projects";
 import { getNewsByPerson } from "@/lib/news";
+import { getTalksBySpeaker } from "@/lib/talks";
 import { MemberAvatar } from "@/components/lab/member-avatar";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { NewsCard } from "@/components/news/news-card";
+import { TalkCard } from "@/components/resources/talk-card";
 
 export function generateStaticParams() {
   return activeTeamMembers.map((m) => ({ slug: m.slug }));
@@ -40,6 +42,7 @@ export default async function TeamMemberPage({
 
   const memberProjects = projects.filter((p) => p.team.includes(member.slug));
   const memberNews = getNewsByPerson(member.slug);
+  const memberTalks = getTalksBySpeaker(member.slug);
 
   const linkItems = [
     member.links.profile && { href: member.links.profile, Icon: Globe, label: "Profile" },
@@ -113,6 +116,17 @@ export default async function TeamMemberPage({
                 </div>
                 <ArrowRight className="h-4 w-4 shrink-0 text-[var(--color-muted-foreground)] transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]" />
               </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {memberTalks.length > 0 && (
+        <section className="mt-16">
+          <p className="eyebrow mb-6">Selected AI talks &amp; education</p>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {memberTalks.slice(0, 4).map((talk) => (
+              <TalkCard key={talk.slug} talk={talk} compact />
             ))}
           </div>
         </section>

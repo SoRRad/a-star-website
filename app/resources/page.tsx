@@ -20,7 +20,9 @@ import {
   ARCHIVE_ACCESS_LABELS,
   type ArchiveItem,
 } from "@/lib/archive";
+import { selectedTalks } from "@/lib/talks";
 import { Reveal } from "@/components/motion/reveal";
+import { TalkCard } from "@/components/resources/talk-card";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -69,6 +71,13 @@ const HUB_SECTIONS = [
     href: "#recordings",
     icon: Video,
     status: "Limited",
+  },
+  {
+    title: "AI talks & education",
+    description: "Selected AI lectures, webinars, courses, and planned educational contributions.",
+    href: "#talks",
+    icon: Presentation,
+    status: "Updated",
   },
 ];
 
@@ -202,6 +211,25 @@ export default function ResourcesPage() {
       </section>
 
       <ResourceSection id="posters" title="Posters and presentations" items={posters} />
+
+      <section id="talks" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <p className="eyebrow mb-2">Education</p>
+          <h2 className="font-display text-3xl font-semibold tracking-tight">
+            Selected AI talks &amp; education
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+            Verified recordings appear first, followed by planned courses and clearly marked placeholders awaiting exact dates, titles, and media.
+          </p>
+        </div>
+        <div className="grid gap-5 lg:grid-cols-2">
+          {selectedTalks.map((talk) => (
+            <Reveal key={talk.slug} delay={0.03}>
+              <TalkCard talk={talk} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       <section id="code-tools" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <ComingSoonBand

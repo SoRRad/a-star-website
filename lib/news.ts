@@ -37,6 +37,33 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "laplante-asmbs-ai-webinar-2025",
+    title: "Dr. Simon Laplante Featured in ASMBS Webinar on AI in Surgery",
+    date: "2025-01-24",
+    category: "lab-update",
+    excerpt:
+      "Dr. Simon J. Laplante appeared as a guest panelist in an ASMBS Bariatric Happy Hour session on AI for smarter, safer, and faster surgical procedures.",
+    body: `On January 24, 2025, Simon J. Laplante, MD MSc, appeared as a guest panelist in the ASMBS Bariatric Happy Hour session titled "Bariatric Happy Hour! The Future of Surgery: Harnessing AI for Smarter, Safer, and Faster Procedures."
+
+The recorded session runs 01:02:06 and focuses on artificial intelligence in surgery, including how AI may contribute to smarter, safer, and faster surgical procedures.`,
+    people: ["simon-laplante"],
+    projects: [],
+    publications: [],
+    externalLink:
+      "https://asmbs.org/videos/bariatric-happy-hour-the-future-of-surgery-harnessing-ai-for-smarter-safer-and-faster-procedures/",
+    relatedLinks: [
+      {
+        label: "ASMBS recording",
+        url: "https://asmbs.org/videos/bariatric-happy-hour-the-future-of-surgery-harnessing-ai-for-smarter-safer-and-faster-procedures/",
+      },
+      {
+        label: "YouTube video",
+        url: "https://www.youtube.com/watch?v=4quVILuHnnw",
+      },
+    ],
+    featured: false,
+  },
+  {
     slug: "balfour-symposium-2025",
     title: "A-STAR Lab Presents at the 31st Annual Balfour Surgery Research Symposium",
     date: "2025-10-10",

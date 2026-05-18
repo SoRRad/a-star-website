@@ -34,6 +34,7 @@ Open <http://localhost:3000>. The site defaults to dark mode; light mode remains
 - Team: `lib/team.ts` and `public/team/`
 - News: `lib/news.ts` and `public/news/`
 - Events: `lib/events.ts`
+- Talks and education resources: `lib/talks.ts`
 - Resources: `lib/archive.ts`, `app/resources/`, and `app/resources/glossary/`
 - Navigation: `lib/navigation.ts`
 - Site metadata: `lib/site-config.ts`
@@ -51,6 +52,7 @@ app/
   api/contact/            Server-side contact endpoint
 components/
   site/                   Header, sidebar, footer, layout chrome
+  resources/              Talk/resource cards
   research/               Surgical journey map and model cards
   sections/               Home page sections
   lab/                    Project/team/cards and lab UI
@@ -92,6 +94,14 @@ git push
 ```
 
 Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`; the temporary `New logos` folder is only a local handoff source.
+
+## Logo Notes
+
+Use a transparent mark-only asset for the hero and header, a transparent horizontal logo for footer/wordmark contexts, a 512 PNG for favicon/apple icons, and a 1200x630-ish PNG for social sharing. Raster logo exports with baked white/checkerboard backgrounds should not be used on the dark galaxy UI. Optimized WebP variants are fine for large raster logos only when transparency and sharpness are preserved.
+
+## Talks
+
+Add selected talks, courses, and educational resources in `lib/talks.ts`. Use verified titles, dates, venues, and links when available. For planned talks without exact details, mark `status: "details-forthcoming"` and replace the placeholder once exact dates, titles, images, or resource URLs are confirmed.
 
 ## Deployment Checklist
 

@@ -17,6 +17,7 @@ drop images into the right folders.
 | Publications                     | `lib/publications.ts`                  |
 | **News items**                   | **`lib/news.ts`**                      |
 | Events & Journal Club            | `lib/events.ts`                        |
+| Talks & education resources      | `lib/talks.ts`                         |
 | **Resources/archive items**      | **`lib/archive.ts` + `app/resources`** |
 | Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
@@ -176,7 +177,13 @@ export const stats = [
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
 
 All images should be optimized before commit (use [Squoosh](https://squoosh.app) or similar).
-Logo PNGs above 200KB should be converted to WebP for ~70% size reduction.
+
+Logo requirements:
+- Hero/header: mark-only transparent SVG/PNG/WebP with no baked checkerboard or white box.
+- Footer/wordmark contexts: horizontal transparent logo.
+- Favicon/apple icon: 512 PNG.
+- OpenGraph/social: 1200x630 PNG or an equivalent full-bleed social image.
+- Large raster logo variants can be converted to WebP when transparency and sharpness are preserved.
 
 ---
 
@@ -387,6 +394,34 @@ relatedLinks: [
   { label: "Conference program", url: "https://..." },
 ],
 ```
+
+---
+
+## Adding a talk or education resource
+
+Talks, courses, webinars, and invited lectures live in `lib/talks.ts`. They appear in the Resources Hub and on the related speaker profile when `speakerSlug` matches a team member slug.
+
+```ts
+{
+  slug: "verified-talk-slug",
+  title: "Verified session title",
+  speaker: "Simon J. Laplante, M.D., M.Sc.",
+  speakerSlug: "simon-laplante",
+  date: "2025-01-24",       // omit if not confirmed
+  year: 2025,               // optional for placeholders
+  venue: "Verified venue",
+  location: "City, State",  // optional
+  format: "webinar",       // webinar | invited-lecture | course | conference | chapter-meeting
+  status: "completed",     // completed | upcoming | details-forthcoming
+  description: "Use verified details only.",
+  url: "https://...",
+  videoUrl: "https://...",
+  tags: ["Artificial Intelligence", "Surgical Education"],
+  order: 1,
+}
+```
+
+For talks where exact dates, titles, images, or links are not confirmed, use `status: "details-forthcoming"` and a cautious description such as `"Details forthcoming."` Replace placeholders when verified details are available.
 
 ---
 

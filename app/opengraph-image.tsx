@@ -7,7 +7,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OGImage() {
-  const markUrl = new URL("/logos/astar/astar-mark-dark.png", siteConfig.url).toString();
+  const markUrl = new URL("/logos/astar/astar-mark-dark.svg", siteConfig.url).toString();
 
   return new ImageResponse(
     (
