@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue } from "motion/react";
 
 /**
- * Elastic cursor accent dot — follows the cursor with a spring lag.
- * On hover over links/buttons (signaled by data-cursor="hover" on the body),
- * expands to a soft outline ring.
+ * Cursor accent dot. It follows the real pointer immediately, with only a
+ * requestAnimationFrame boundary to keep updates aligned to paint.
  *
- * Hidden on: touch devices, prefers-reduced-motion, server render.
+ * Hidden on touch devices and when prefers-reduced-motion is enabled.
  */
 export function CursorDot() {
   const [visible, setVisible] = useState(false);
@@ -16,38 +15,41 @@ export function CursorDot() {
 
   const mx = useMotionValue(-100);
   const my = useMotionValue(-100);
-
-  const x = useSpring(mx, { stiffness: 350, damping: 28 });
-  const y = useSpring(my, { stiffness: 350, damping: 28 });
+  const latest = useRef({ x: -100, y: -100 });
+  const frame = useRef<number | null>(null);
 
   useEffect(() => {
-    /* Only show on fine-pointer devices with no reduced motion preference */
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (coarse || reduced) return;
 
     setVisible(true);
 
-    const onMove = (e: MouseEvent) => {
-      mx.set(e.clientX);
-      my.set(e.clientY);
+    const onMove = (event: MouseEvent) => {
+      latest.current = { x: event.clientX, y: event.clientY };
+      if (frame.current !== null) return;
+
+      frame.current = requestAnimationFrame(() => {
+        mx.set(latest.current.x);
+        my.set(latest.current.y);
+        frame.current = null;
+      });
     };
 
-    /* Delegate hover detection via the DOM — avoids attaching listeners to every element */
-    const onEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    const onEnter = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
       if (target.closest("a, button, [role='button'], [tabindex]")) {
         setHovered(true);
       }
     };
-    const onLeave = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    const onLeave = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
       if (target.closest("a, button, [role='button'], [tabindex]")) {
         setHovered(false);
       }
     };
 
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseover", onEnter);
     document.addEventListener("mouseout", onLeave);
 
@@ -55,6 +57,7 @@ export function CursorDot() {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseover", onEnter);
       document.removeEventListener("mouseout", onLeave);
+      if (frame.current !== null) cancelAnimationFrame(frame.current);
     };
   }, [mx, my]);
 
@@ -64,16 +67,16 @@ export function CursorDot() {
     <motion.div
       aria-hidden="true"
       className="pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-full border-solid"
-      style={{ x, y }}
+      style={{ x: mx, y: my }}
       animate={
         hovered
           ? {
-              width: 32,
-              height: 32,
+              width: 30,
+              height: 30,
               backgroundColor: "transparent",
-              borderWidth: 1.5,
+              borderWidth: 1.25,
               borderColor: "var(--color-accent)",
-              opacity: 0.7,
+              opacity: 0.65,
             }
           : {
               width: 8,
@@ -81,10 +84,10 @@ export function CursorDot() {
               backgroundColor: "var(--color-accent)",
               borderWidth: 0,
               borderColor: "transparent",
-              opacity: 0.85,
+              opacity: 0.82,
             }
       }
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.08, ease: "linear" }}
     />
   );
 }

@@ -2,34 +2,26 @@
 
 ## Current Production Assets
 
-Active UI logo files are cleaned **PNG files with alpha transparency** in
-`public/logos/astar/clean/`. They were generated from the current production PNG
-exports in `public/logos/astar/`.
+Active production logo files are PNG files in `public/logos/astar/`.
+`clean/` and `current/` are not used by the production website.
 
 The old SVG files under `legacy/` are outdated and must not be imported or
 hardcoded in active UI code.
 
-## Naming Convention
-
-| File suffix | Meaning | Use on |
-| --- | --- | --- |
-| `on-light.png` | Dark/navy logo artwork | Light backgrounds |
-| `on-dark.png` | Light/white logo artwork | Dark backgrounds |
-| `neutral.png` | Standalone mark variant | Context-specific |
-
-## Active UI Files
+## Canonical UI Files
 
 | File | Variant | Used by |
 | --- | --- | --- |
-| `clean/astar-mark-on-light.png` | Mark, dark ink | `<Logo variant="mark">` in light mode |
-| `clean/astar-mark-on-dark.png` | Mark, light ink | `<Logo variant="mark">` in dark mode |
-| `clean/astar-mark-neutral.png` | Mark, neutral | Reserved for standalone use |
-| `clean/astar-horizontal-on-light.png` | Horizontal wordmark, dark ink | Available through `lib/logos.ts` |
-| `clean/astar-horizontal-on-dark.png` | Horizontal wordmark, light ink | Available through `lib/logos.ts` |
-| `clean/astar-stacked-on-light.png` | Stacked wordmark, dark ink | Available through `lib/logos.ts` |
-| `clean/astar-stacked-on-dark.png` | Stacked wordmark, light ink | Available through `lib/logos.ts` |
+| `astar-mark-on-light.png` | Mark, dark/navy ink | `<Logo variant="mark">` in light mode |
+| `astar-mark-on-dark.png` | Mark, white/light ink | `<Logo variant="mark">` in dark mode |
+| `astar-mark-neutral.png` | Mark, neutral | Reserved for standalone use |
+| `astar-horizontal-on-light.png` | Horizontal wordmark, dark/navy ink | Available through `lib/logos.ts` |
+| `astar-horizontal-on-dark.png` | Horizontal wordmark, white/light ink | Available through `lib/logos.ts` |
+| `astar-stacked-on-light.png` | Stacked wordmark, dark/navy ink | Available through `lib/logos.ts` |
+| `astar-stacked-on-dark.png` | Stacked wordmark, white/light ink | Available through `lib/logos.ts` |
 | `favicon-512.png` | Browser favicon | `app/layout.tsx` |
 | `apple-touch-icon.png` | Apple home-screen icon | `app/layout.tsx` |
+| `astar-og-image.png` | Social image fallback | Metadata/OpenGraph contexts |
 
 ## Site Logo Usage
 

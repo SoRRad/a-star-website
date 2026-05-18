@@ -18,10 +18,11 @@ function SmoothScroll({ children }: { children: ReactNode }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.9,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1,
+      wheelMultiplier: 0.95,
     });
 
     let raf: number;
@@ -44,8 +45,8 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
-      enableSystem={false}
+      defaultTheme="system"
+      enableSystem={true}
       disableTransitionOnChange={false}
     >
       <SmoothScroll>{children}</SmoothScroll>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useScroll, useMotionValueEvent } from "motion/react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const BAR_HEIGHT = 22;
 const PATH_UNIT = 44;
@@ -86,17 +86,32 @@ export function RoboticArmProgress() {
   const [progress, setProgress] = useState(0);
   const [width, setWidth] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const frameRef = useRef<number | null>(null);
+  const latestProgress = useRef(0);
 
   useEffect(() => {
     setWidth(window.innerWidth);
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
+    const onMotionChange = () => setReducedMotion(mq.matches);
     const onResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", onResize, { passive: true });
-    return () => window.removeEventListener("resize", onResize);
+    mq.addEventListener("change", onMotionChange);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      mq.removeEventListener("change", onMotionChange);
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
   }, []);
 
-  useMotionValueEvent(scrollYProgress, "change", (v) => setProgress(v));
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    latestProgress.current = value;
+    if (frameRef.current !== null) return;
+    frameRef.current = requestAnimationFrame(() => {
+      setProgress(latestProgress.current);
+      frameRef.current = null;
+    });
+  });
 
   const filledWidth = progress * width;
   const clipId = `${svgId}-robotic-arm-progress-clip`;
