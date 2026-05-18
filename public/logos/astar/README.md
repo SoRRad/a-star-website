@@ -1,14 +1,14 @@
 # A-STAR Logo Assets
 
-Production raster exports from the local `New logos` handoff are preserved here, but the current site UI uses the transparent SVG variants because the PNG exports have opaque baked backgrounds at the corners.
+Production raster exports from the local `New logos` handoff are preserved here. The current site UI uses the generated transparent SVG fallback variants because the PNG exports have opaque baked backgrounds at the corners.
 
 ## Current Usage
 
 | Usage | File | Notes |
 | --- | --- | --- |
-| Header mark | `astar-mark-neutral.svg` | Transparent SVG, used by the left home link and sidebar UI |
+| Header mark | `astar-mark-neutral.svg` | Transparent SVG fallback, used by the left home link and sidebar UI |
 | Hero mark | `astar-mark-dark.svg` / `astar-mark-light.svg` through `lib/logos.ts` | Transparent mark-only logo; headline text is rendered in HTML |
-| Footer / wordmark contexts | `astar-horizontal-dark.svg` / `astar-horizontal-light.svg` | Transparent horizontal logo variants |
+| Footer wordmark | `astar-horizontal-dark.svg` / `astar-horizontal-light.svg` | Transparent horizontal SVG fallback variants |
 | Stacked logo | `astar-stacked-dark.svg` / `astar-stacked-light.svg` | Available but not used in the homepage hero |
 | Favicon | `favicon-512.png` | PNG retained for icon metadata |
 | Apple touch icon | `apple-touch-icon.png` | PNG retained for icon metadata |

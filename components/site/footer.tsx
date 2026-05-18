@@ -1,9 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { footerNav } from "@/lib/navigation";
-import { logos } from "@/lib/logos";
+import { Logo } from "@/components/site/logo";
 
 export function SiteFooter() {
   return (
@@ -31,10 +30,14 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-12 md:grid-cols-5">
           <div className="col-span-2">
-            {/* Mark + wordmark */}
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <Image src={logos.markNeutral} alt="A-STAR logo mark" width={32} height={32} className="h-8 w-8" />
-              <span className="font-display text-[1.5rem] tracking-tight">A-STAR</span>
+            <Link href="/" className="inline-flex items-center">
+              <Logo
+                variant="horizontal"
+                width={180}
+                height={40}
+                sizes="180px"
+                className="w-[180px]"
+              />
             </Link>
 
             <p className="mt-4 max-w-sm font-display text-xl font-semibold leading-tight text-[var(--color-foreground)]" style={{ letterSpacing: "-0.03em" }}>
