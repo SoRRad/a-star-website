@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { logos } from "@/lib/logos";
 import { siteConfig } from "@/lib/site-config";
 
 export const runtime = "edge";
@@ -7,7 +8,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OGImage() {
-  const markUrl = new URL("/logos/astar/clean/astar-mark-on-dark.png", siteConfig.url).toString();
+  const markUrl = new URL(logos.markLight, siteConfig.url).toString();
 
   return new ImageResponse(
     (

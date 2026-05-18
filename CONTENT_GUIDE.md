@@ -171,7 +171,7 @@ export const stats = [
 
 | Folder                       | What goes here                                | Recommended format       |
 | ---------------------------- | --------------------------------------------- | ------------------------ |
-| `/public/logos/astar/`       | A-STAR official logos                         | PNG source/favicon + cleaned UI PNG |
+| `/public/logos/astar/`       | A-STAR official logos                         | PNG source/favicon + active UI PNG |
 | `/public/logos/partners/`    | Collaborator institution logos                | PNG transparent or SVG   |
 | `/public/team/`              | Team member headshots                         | JPG, square, 600×600+    |
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
@@ -179,9 +179,10 @@ export const stats = [
 All images should be optimized before commit (use [Squoosh](https://squoosh.app) or similar).
 
 Logo requirements:
-- **Active UI logos** are cleaned PNG files with alpha transparency in `public/logos/astar/clean/` (e.g. `astar-mark-on-dark.png`). Paths are exported from `lib/logos.ts`.
+- **Active UI logos** are PNG files in `public/logos/astar/` (e.g. `astar-mark-on-dark.png`). Paths are exported from `lib/logos.ts`.
 - The source PNG files are kept alongside as the current production source exports.
 - SVG files under `public/logos/astar/legacy/` are outdated and must not be used in active UI code.
+- `clean/` and `current/` folders are not used by production.
 - Hero/header/sidebar/footer: `<Logo variant="mark" />` — renders the correct dark/light PNG automatically.
 - Footer wordmark text should be HTML text next to the mark unless a fresh transparent horizontal export is approved.
 - Phase wheel center: HTML `<Logo>` overlay (not SVG `<image>`).

@@ -93,11 +93,11 @@ git commit -m "Describe change"
 git push
 ```
 
-Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`; cleaned transparent UI PNGs live in `public/logos/astar/clean/`.
+Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`.
 
 ## Logo Notes
 
-Current production logo assets are PNG files in `public/logos/astar/`. Active UI uses cleaned alpha PNGs in `public/logos/astar/clean/`, exported through `lib/logos.ts`. Existing SVG files are legacy/outdated and must not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar/footer, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and the dynamic `/opengraph-image` route for social sharing.
+Current production logo assets are PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. `clean/` and `current/` are not used. Existing SVG files are legacy/outdated and must not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar/phase wheel/footer, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and the dynamic `/opengraph-image` route for social sharing.
 
 ## Talks
 
