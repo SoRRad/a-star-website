@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowUpRight, Github, ChevronDown, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Mail } from "lucide-react";
 // ArrowUpRight kept for liveUrl/github CTAs in header
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
@@ -17,6 +17,7 @@ import { ContentPlaceholder } from "@/components/lab/content-placeholder";
 import { PublicationCard } from "@/components/publications/publication-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { ModelCard } from "@/components/research/model-card";
 import { mosiContent } from "@/content/projects/mosi";
 import { sirisContent } from "@/content/projects/siris";
 
@@ -180,10 +181,9 @@ export default async function ProjectPage({
           }
         </ScientificSection>
 
-        {/* ── 9. Model Card ── */}
-        {content?.modelCard && (
-          <ModelCardSection modelCard={content.modelCard} />
-        )}
+        <ScientificSection eyebrow="Model Card" title="Intended use, readiness, and limitations">
+          <ModelCard project={project} publications={publications} />
+        </ScientificSection>
 
         {/* ── 10. Team ── */}
         {projectTeam.length > 0 && (
@@ -297,61 +297,3 @@ function Prose({ children }: { children: string }) {
 
 /* ── Model Card ── */
 
-function ModelCardSection({ modelCard }: { modelCard: NonNullable<typeof mosiContent>["modelCard"] }) {
-  return (
-    <details className="group rounded-xl border border-[var(--color-border)] bg-[var(--color-card)]">
-      <summary className="flex cursor-pointer items-center justify-between px-6 py-4 marker:content-none">
-        <div>
-          <p className="eyebrow mb-0.5">Model Card</p>
-          <p className="text-sm font-medium text-[var(--color-foreground)]">Intended use, performance, and limitations</p>
-        </div>
-        <ChevronDown className="h-4 w-4 shrink-0 text-[var(--color-muted-foreground)] transition-transform group-open:rotate-180" />
-      </summary>
-      <div className="border-t border-[var(--color-border)] px-6 py-6">
-        <dl className="grid gap-6 sm:grid-cols-2">
-          <ModelCardRow label="Intended Use" value={modelCard.intendedUse} />
-          <ModelCardRow label="Validation Status" value={modelCard.validationStatus} />
-          <ModelCardRow label="Dataset Size" value={modelCard.datasetSize} />
-          <ModelCardRow label="Deployment Readiness" value={modelCard.deploymentReadiness} />
-          <div className="sm:col-span-2">
-            <ModelCardRow label="Performance Metrics" value={modelCard.performanceMetrics} />
-          </div>
-          <div>
-            <dt className="eyebrow mb-1.5">Inputs</dt>
-            <ul className="space-y-1">
-              {modelCard.inputs.map((i) => (
-                <li key={i} className="flex items-start gap-1.5 text-sm text-[var(--color-muted-foreground)]">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <dt className="eyebrow mb-1.5">Outputs</dt>
-            <ul className="space-y-1">
-              {modelCard.outputs.map((o) => (
-                <li key={o} className="flex items-start gap-1.5 text-sm text-[var(--color-muted-foreground)]">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
-                  {o}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="sm:col-span-2">
-            <ModelCardRow label="Limitations" value={modelCard.limitations} />
-          </div>
-        </dl>
-      </div>
-    </details>
-  );
-}
-
-function ModelCardRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="eyebrow mb-1">{label}</dt>
-      <dd className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">{value}</dd>
-    </div>
-  );
-}

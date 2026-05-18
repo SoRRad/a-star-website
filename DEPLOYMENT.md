@@ -1,4 +1,4 @@
-# AIST Website — Deployment Guide
+# A-STAR Website — Deployment Guide
 
 ## Pre-deployment checklist
 
@@ -8,7 +8,7 @@
 - [ ] Real author lists on all publications in `lib/publications.ts`
 - [ ] Project content files have text for: Problem, Clinical Need, Methods, Validation Plan, Current Status
 - [ ] Glossary definitions reviewed and refined (15 seeded terms)
-- [ ] Hero horizontal-light logo exported: `/public/logos/aist_logo_png/aist-full-horizontal-light-transparent.png`
+- [ ] Production logos are present in `/public/logos/astar/` and mapped in `lib/logos.ts`
 
 ### Configuration
 - [ ] `NEXT_PUBLIC_SITE_URL` set to production URL in Vercel env
@@ -38,9 +38,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Replace the console.log with:
 await resend.emails.send({
-  from: "AIST Website <noreply@aist-lab.org>",
+  from: "A-STAR Website <noreply@astar-lab.org>",
   to: [process.env.CONTACT_TO_EMAIL!],
-  subject: `[AIST Contact] ${data.inquiryType}: ${data.name}`,
+  subject: `[A-STAR Contact] ${data.inquiryType}: ${data.name}`,
   text: [
     `Name: ${data.name}`,
     `Email: ${data.email}`,

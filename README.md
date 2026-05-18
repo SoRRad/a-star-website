@@ -1,178 +1,104 @@
-# AIST — Artificial Intelligence in Surgical Technologies
+# A-STAR — AI in Surgical Technology & Augmentation Research
 
-> Intelligence at every phase of surgical care.
+> Augmenting the surgeon. Advancing the science.
 
-The website for **AIST**, a research lab at Mayo Clinic advancing artificial
-intelligence across the full surgical journey — pre-operative planning,
-intra-operative guidance, patient education, and external validation.
-
----
+The website for **A-STAR**, a Mayo Clinic research group advancing artificial intelligence across the surgical journey: planning, intraoperative intelligence, patient education, outcomes, and validation.
 
 ## Stack
 
-| Concern         | Choice                                        |
-| --------------- | --------------------------------------------- |
-| Framework       | Next.js 15 (App Router) + React 19            |
-| Styling         | Tailwind CSS v4                               |
-| Components      | Custom + Radix UI primitives                  |
-| Content         | TypeScript content files in `content/`        |
-| Search          | Custom Fuse.js drawer (Cmd+K)                 |
-| Form validation | React Hook Form + Zod                         |
-| Theme           | `next-themes` (dark default; light available) |
-| Icons           | `lucide-react`                                |
-| Animations      | `motion` (Framer Motion v11) + Lenis scroll   |
-| Hosting         | Vercel (auto-deploy from `main`)              |
-| Analytics       | Plausible (optional, not yet wired)           |
+| Concern | Choice |
+| --- | --- |
+| Framework | Next.js 15 App Router + React 19 |
+| Styling | Tailwind CSS v4 |
+| Search | Fuse.js inside the site sidebar |
+| Forms | React Hook Form / client forms + server-side contact API |
+| Theme | `next-themes` with dark default and light mode available |
+| Email | Resend server-side only |
+| Hosting | Vercel |
 
----
-
-## Quick start
+## Quick Start
 
 ```bash
-# 1. Install
 npm install
-
-# 2. Copy environment template
 cp .env.example .env.local
-
-# 3. Run the dev server
 npm run dev
 ```
 
-Open <http://localhost:3000>. The site defaults to dark mode.
+Open <http://localhost:3000>. The site defaults to dark mode; light mode remains available from the theme toggle.
 
----
+## Content Map
 
-## Project structure
+- Logos: `public/logos/astar/` and `lib/logos.ts`
+- Publications: `lib/publications.ts`
+- Projects and model cards: `lib/projects.ts` and `content/projects/`
+- Team: `lib/team.ts` and `public/team/`
+- News: `lib/news.ts` and `public/news/`
+- Events: `lib/events.ts`
+- Resources: `lib/archive.ts`, `app/resources/`, and `app/resources/glossary/`
+- Navigation: `lib/navigation.ts`
+- Site metadata: `lib/site-config.ts`
 
-```
-A-STAR-WEBSITE/
-├── app/
-│   ├── globals.css            # Design system (all CSS variables live here)
-│   ├── layout.tsx             # Root layout: fonts, theme, header, footer, cursor
-│   ├── page.tsx               # Home page
-│   ├── opengraph-image.tsx    # Default OG image (edge runtime, 1200×630)
-│   ├── projects/[slug]/       # Project detail pages (scientific structure)
-│   ├── resources/glossary/    # Glossary page (15 surgical AI terms)
-│   ├── contact/               # Contact form (React Hook Form + Zod)
-│   ├── join/                  # Open positions + Why AIST
-│   └── api/contact/           # Contact form API route handler
-├── components/
-│   ├── ui/                    # Primitives (Button, Dialog)
-│   ├── site/                  # Site chrome (Header, Footer, Logo, Section)
-│   ├── sections/              # Page-level sections (CredibilityStrip)
-│   ├── lab/                   # Lab-specific (PhaseWheel, PlayingCard, StatusPipeline)
-│   └── motion/                # Motion (Reveal, robotic scroll progress, Magnetic, CursorDot)
-├── content/
-│   └── projects/              # Per-project scientific content (mosi.ts, siris.ts)
-├── lib/
-│   ├── utils.ts               # cn(), date helpers
-│   ├── site-config.ts         # Lab name, tagline, address, social
-│   ├── navigation.ts          # Header, footer, search nav
-│   ├── phases.ts              # Surgical phase data
-│   ├── projects.ts            # MOSI & SIRIS metadata
-│   ├── stats.ts               # "By the numbers" figures
-│   ├── glossary.ts            # 15 surgical AI terms with categories
-│   ├── team.ts                # Team member data
-│   ├── publications.ts        # Research publications
-│   ├── collaborators.ts       # Partner institutions
-│   └── openings.ts            # Job postings
-└── public/
-    ├── logos/                 # Brand assets
-    ├── news/                  # News images
-    └── team/                  # Team member headshots
+## Project Structure
+
+```text
+app/
+  layout.tsx              Root layout, metadata, theme anti-flash script
+  page.tsx                Home page
+  research/               Research dashboard, journey map, model cards
+  resources/              Resources hub and glossary
+  join/                   Open positions and project intake form
+  news/                   News index and detail pages
+  api/contact/            Server-side contact endpoint
+components/
+  site/                   Header, sidebar, footer, layout chrome
+  research/               Surgical journey map and model cards
+  sections/               Home page sections
+  lab/                    Project/team/cards and lab UI
+lib/
+  *.ts                    Structured content and config
+public/
+  logos/astar/            Production A-STAR logo assets
+  news/                   News images
+  team/                   Team headshots
 ```
 
----
+## Security And Environment
 
-## Design system
+Keep secrets server-side. Do not expose `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, or `CONTACT_FROM_EMAIL` to client code.
 
-All theme tokens are declared in `app/globals.css` under `@theme`.
-
-### Typography
-
-- **Display**: Bricolage Grotesque (variable, −0.03em tracking)
-- **Body**: Geist (modern, technical)
-- **Mono**: Geist Mono (labels, counters, BibTeX chrome)
-
-### Motion language
-
-- **Robotic arm progress** - scroll indicator: technical path + minimal surgical robotics arm at the leading edge
-- **Reveal** (`<Reveal>`) — fade + 16px lift on scroll-into-view
-- **Magnetic** (`<Magnetic>`) — spring-damped cursor attraction on CTAs
-- **Scramble counter** (`<ScrambleCounter>`) — digit-scramble on first scroll-into-view
-- All motion respects `prefers-reduced-motion`
-
----
-
-## Content, storage, and secrets
-
-- Store public images under `public/news`, `public/team`, or `public/logos`.
-- Prefer `.jpg` or `.webp` for photos, and keep team photos compressed before committing.
-- Avoid committing `.next`, `node_modules`, or large raw images. `.gitignore` already excludes build output, dependencies, local env files, and TypeScript build info.
-- Use Vercel environment variables for secrets. Keep `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` server-side only.
-
----
-
-## Simple Git workflow
-
-For simple edits, work from `main`.
-
-Before editing:
+Required/optional environment variables:
 
 ```bash
-git checkout main
-git pull origin main
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+RESEND_API_KEY=
+CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
+CONTACT_FROM_EMAIL=
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=
+GITHUB_TOKEN=
 ```
 
-After editing:
+Node is pinned to `20.x` in `package.json`; `.nvmrc` should contain `20`. Do not add `output: "export"` because the contact API and dynamic metadata rely on server runtime behavior.
+
+## Git Workflow
 
 ```bash
 git status
+npm run typecheck
+npm run build
+npm run lint
 git add .
 git commit -m "Describe change"
-git pull --rebase origin main
-git push origin main
+git push
 ```
 
-If you are currently on a step branch and want to push the current work to `main`:
+Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`; the temporary `New logos` folder is only a local handoff source.
 
-```bash
-git pull --rebase origin main
-git push origin HEAD:main
-```
+## Deployment Checklist
 
-Avoid force push unless you have a specific recovery reason and know exactly who else may be affected.
+- Set `NEXT_PUBLIC_SITE_URL` to the production domain.
+- Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` in Vercel.
+- Verify `/news` remains accessible.
+- Verify all paths in `lib/logos.ts`, `lib/team.ts`, and `lib/news.ts` resolve to files in `public/`.
+- Submit `{domain}/sitemap.xml` after launch.
 
----
-
-## Deployment checklist (production prep)
-
-Before going live:
-
-- [ ] Replace placeholder team photos in `/public/team/` with real headshots
-- [ ] Replace placeholder partner logos in `/public/logos/partners/`
-- [ ] Update real author lists in `lib/publications.ts`
-- [ ] Wire a real email service in `app/api/contact/route.ts` (Resend or Mailgun recommended)
-- [ ] Set `NEXT_PUBLIC_SITE_URL` to the production domain
-- [ ] Set up Plausible or another analytics provider if desired
-- [ ] Register domain and point DNS to Vercel
-- [ ] Submit sitemap to Google Search Console: `{domain}/sitemap.xml`
-
----
-
-## Roadmap
-
-- [x] **Step 1** — Foundation: design system, layout shell, search, theme
-- [x] **Step 2** — Home: logo, phase wheel, projects, team, collaborators, "get involved"
-- [x] **Step 3** — Projects deep pages with embedded live tools
-- [x] **Step 4** — Team, Publications, Logo polish, PlayingCard, Konami egg, robotic arm progress
-- [x] **Step 5** — Credibility, scientific project pages, glossary, contact form, performance
-- [x] **Step 6** — Publications system, Journal Club events, homepage server component, deployment guide
-
----
-
-## License
-
-© Mayo Foundation for Medical Education and Research. All rights reserved
-unless otherwise specified.
+© Mayo Foundation for Medical Education and Research. All rights reserved unless otherwise specified.

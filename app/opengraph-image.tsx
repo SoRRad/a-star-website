@@ -7,6 +7,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OGImage() {
+  const markUrl = new URL("/logos/astar/astar-mark-dark.png", siteConfig.url).toString();
+
   return new ImageResponse(
     (
       <div
@@ -45,23 +47,34 @@ export default function OGImage() {
         />
 
         {/* Lab name */}
-        <div
-          style={{
-            fontSize: 22,
-            fontWeight: 600,
-            color: "#1e88e5",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: 24,
-          }}
-        >
-          {siteConfig.name}
+        <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 24 }}>
+          <div
+            style={{
+              width: 64,
+              height: 64,
+              backgroundImage: `url(${markUrl})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          />
+          <div
+            style={{
+              fontSize: 28,
+              fontWeight: 800,
+              color: "#f1f5f9",
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+            }}
+          >
+            {siteConfig.name}
+          </div>
         </div>
 
         {/* Tagline */}
         <div
           style={{
-            fontSize: 56,
+            fontSize: 54,
             fontWeight: 700,
             color: "#f1f5f9",
             lineHeight: 1.05,
@@ -70,6 +83,17 @@ export default function OGImage() {
           }}
         >
           {siteConfig.tagline}
+        </div>
+
+        <div
+          style={{
+            marginTop: 18,
+            fontSize: 24,
+            color: "#93c5fd",
+            lineHeight: 1.25,
+          }}
+        >
+          {siteConfig.fullName}
         </div>
 
         {/* Institution */}

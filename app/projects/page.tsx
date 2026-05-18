@@ -15,7 +15,7 @@ export default function ProjectsPage() {
           Active project portfolio.
         </h1>
         <p className="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-          Focused project pages for AIST systems moving through design, validation, deployment, and clinical evaluation.
+          Focused project pages for A-STAR systems moving through design, validation, deployment, and clinical evaluation.
         </p>
       </div>
 

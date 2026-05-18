@@ -12,7 +12,7 @@ interface RevealProps {
   stagger?: boolean;
   /** Delay before the animation starts (seconds) */
   delay?: number;
-  /** Show the AIST mark watermark in the top-right corner (section eyebrow treatment) */
+  /** Show the A-STAR mark watermark in the top-right corner (section eyebrow treatment) */
   showMark?: boolean;
 }
 

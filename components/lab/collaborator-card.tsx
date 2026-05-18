@@ -42,7 +42,7 @@ export function CollaboratorCard({ collaborator, className }: CollaboratorCardPr
           height={48}
           className="h-12 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100 dark:brightness-[1.15] dark:opacity-60 dark:group-hover:opacity-90"
           onError={() => {
-              console.warn(`[AIST] Collaborator logo failed to load: ${collaborator.logo}`);
+              console.warn(`[A-STAR] Collaborator logo failed to load: ${collaborator.logo}`);
               setImgError(true);
             }}
         />

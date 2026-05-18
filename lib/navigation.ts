@@ -10,7 +10,6 @@ import {
   UserPlus,
   Mail,
   Compass,
-  Sparkles,
 } from "lucide-react";
 
 export type NavItem = {
@@ -29,7 +28,6 @@ export type NavItem = {
  * Archive is renamed to Resources (/resources).
  */
 export const primaryNav: NavItem[] = [
-  { title: "Home", href: "/", icon: Home, sectionId: "top" },
   { title: "Research & Projects", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
   { title: "Events", href: "/events", icon: Calendar, sectionId: "events" },
@@ -42,16 +40,14 @@ export const primaryNav: NavItem[] = [
  */
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
-  { title: "News", href: "/news", icon: Newspaper },
   { title: "Research & Projects", href: "/research", icon: Compass },
   { title: "Projects", href: "/projects", icon: FlaskConical },
   { title: "Team", href: "/team", icon: Users },
-  { title: "Publications", href: "/publications", icon: FileText },
   { title: "Events", href: "/events", icon: Calendar },
   { title: "Resources", href: "/resources", icon: Library },
+  { title: "News", href: "/news", icon: Newspaper },
+  { title: "Publications", href: "/publications", icon: FileText },
   { title: "Join Us", href: "/join", icon: UserPlus },
-  { title: "About", href: "/about", icon: Sparkles },
-  { title: "Now", href: "/now", icon: Sparkles },
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -63,10 +59,9 @@ export const footerNav = {
     { title: "Resources", href: "/resources" },
   ],
   lab: [
-    { title: "About", href: "/about" },
     { title: "Team", href: "/team" },
     { title: "News", href: "/news" },
-    { title: "Now", href: "/now" },
+    { title: "Journal Club", href: "/events" },
   ],
   connect: [
     { title: "Join Us", href: "/join" },

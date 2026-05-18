@@ -120,7 +120,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
                 )}
                 onLoad={() => setImgLoaded(true)}
                 onError={() => {
-                  console.warn(`[AIST] Team photo failed to load: ${member.photo}`);
+                  console.warn(`[A-STAR] Team photo failed to load: ${member.photo}`);
                   setImgError(true);
                 }}
               />

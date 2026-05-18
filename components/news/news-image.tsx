@@ -47,7 +47,7 @@ export function NewsImage({ src, alt, category, date, className, priority, sizes
       priority={priority}
       className={cn("object-cover", className)}
       onError={() => {
-        console.warn(`[AIST] News image not found: ${src}`);
+        console.warn(`[A-STAR] News image not found: ${src}`);
         setImgError(true);
       }}
     />

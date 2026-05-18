@@ -14,7 +14,7 @@ export const collaborators: Collaborator[] = [
     slug: "mayo-clinic-mars",
     name: "Mayo Clinic — Metabolic, Abdominal Wall & Reconstructive Surgery",
     shortName: "Mayo Clinic — MARS",
-    description: "Clinical home and primary partner of AIST.",
+    description: "Clinical home and primary partner of A-STAR.",
     logo: "/logos/partners/mayo-clinic-mars.png",
     url: "https://www.mayoclinic.org/departments-centers/metabolic-abdominal-wall-reconstructive-surgery-rochester/sections/overview/ovc-20599238",
     featured: true,

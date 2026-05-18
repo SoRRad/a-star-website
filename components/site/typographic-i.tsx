@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
  *
  * Examples:
  *   <I /> in "01 / MISS<I/>ON"
- *   <I /> in "AIST" in a headline context
+ *   <I /> in "AI" in a headline context
  */
 export function I({ className }: { className?: string }) {
   return (

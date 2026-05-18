@@ -62,7 +62,7 @@ export const team: TeamMember[] = [
     name: "Hojjat Salehinejad, Ph.D.",
     role: "AI Lead",
     affiliation: "Mayo Clinic",
-    bio: "Leads the AI and machine learning research at AIST. Dr. Salehinejad is an Associate Professor of Health Care Systems Engineering at Mayo Clinic. His research focuses on practical, trustworthy AI for healthcare, especially systems that remain reliable in real-world settings and support clinical decision-making under uncertainty. He earned his PhD from the University of Toronto, where he also completed a postdoctoral fellowship in machine learning. He founded and leads the IEEE AI in Healthcare Task Force and serves as an associate editor for leading IEEE journals.",
+    bio: "Leads the AI and machine learning research at A-STAR. Dr. Salehinejad is an Associate Professor of Health Care Systems Engineering at Mayo Clinic. His research focuses on practical, trustworthy AI for healthcare, especially systems that remain reliable in real-world settings and support clinical decision-making under uncertainty. He earned his PhD from the University of Toronto, where he also completed a postdoctoral fellowship in machine learning. He founded and leads the IEEE AI in Healthcare Task Force and serves as an associate editor for leading IEEE journals.",
     photo: "/team/hojjat-salehinejad.jpg",
     initials: "H.S.",
     links: {
@@ -81,7 +81,7 @@ export const team: TeamMember[] = [
     name: "Reza Shahriarirad, M.D.",
     role: "Research Fellow",
     affiliation: "Mayo Clinic",
-    bio: "Reza Shahriarirad is a physician-researcher and Research Fellow in Surgical Innovation in the Department of Surgery at Mayo Clinic in Rochester, Minnesota. His work sits at the intersection of surgery, data science, and emerging technology, with a focus on how artificial intelligence, computer vision, and wearable sensing can advance surgical decision-making, intraoperative precision, and patient-centered care. He has authored more than 190 peer-reviewed publications spanning surgical innovation, minimally invasive and reconstructive surgery, surgical AI and predictive modeling, and infectious disease. His work also includes two issued patents and recognition among the World’s Top 2% Scientists by Stanford/Elsevier. He has completed 149 peer reviews across more than 60 international journals and serves as Guest Editor for PLOS ONE and Associate Editor for Shiraz E-Medical Journal. He is also the developer of the AIST platform and SIRIS, and co-developer of MOSI.",
+    bio: "Reza Shahriarirad is a physician-researcher and Research Fellow in Surgical Innovation in the Department of Surgery at Mayo Clinic in Rochester, Minnesota. His work sits at the intersection of surgery, data science, and emerging technology, with a focus on how artificial intelligence, computer vision, and wearable sensing can advance surgical decision-making, intraoperative precision, and patient-centered care. He has authored more than 190 peer-reviewed publications spanning surgical innovation, minimally invasive and reconstructive surgery, surgical AI and predictive modeling, and infectious disease. His work also includes two issued patents and recognition among the World’s Top 2% Scientists by Stanford/Elsevier. He has completed 149 peer reviews across more than 60 international journals and serves as Guest Editor for PLOS ONE and Associate Editor for Shiraz E-Medical Journal. He is also the developer of the A-STAR platform and SIRIS, and co-developer of MOSI.",
     photo: "/team/reza-shahriarirad.jpg",
     initials: "R.S.",
     links: {
@@ -105,7 +105,7 @@ export const team: TeamMember[] = [
     name: "Abdulrahman Alomar, M.D.",
     role: "Research Fellow",
     affiliation: "Mayo Clinic",
-    bio: "Abdulrahman Alomar is a Research Fellow in the Division of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic and the AIST Surgical AI Lab. He graduated with First Honors from the Royal College of Surgeons in Ireland – Bahrain, where he ranked among the top of his class. His research focuses on artificial intelligence in surgery, computer vision, robotic surgery, surgical education, and outcomes research. He co-leads the Mayo Obesity Staging Index project, with a broader interest in advancing AI-driven clinical decision support and surgical innovation. Outside of work, Abdulrahman enjoys visiting aquariums in every city he travels to; his favorite so far is SeaWorld Abu Dhabi.",
+    bio: "Abdulrahman Alomar is a Research Fellow in the Division of Metabolic and Abdominal Wall Reconstructive Surgery at Mayo Clinic and the A-STAR Surgical AI Lab. He graduated with First Honors from the Royal College of Surgeons in Ireland – Bahrain, where he ranked among the top of his class. His research focuses on artificial intelligence in surgery, computer vision, robotic surgery, surgical education, and outcomes research. He co-leads the Mayo Obesity Staging Index project, with a broader interest in advancing AI-driven clinical decision support and surgical innovation. Outside of work, Abdulrahman enjoys visiting aquariums in every city he travels to; his favorite so far is SeaWorld Abu Dhabi.",
     photo: "/team/abdulrahman-alomar.jpg",
     initials: "A.A.",
     links: {
@@ -175,8 +175,8 @@ export const team: TeamMember[] = [
     slug: "ai-engineer-open",
     name: "AI Engineer",
     role: "Engineer",
-    affiliation: "Mayo Clinic — AIST Lab",
-    bio: "We are actively recruiting an AI Engineer to join the AIST Lab. The right candidate will work across the lab's surgical AI portfolio — computer vision, decision support, and validation — alongside our research fellows and clinical collaborators.",
+    affiliation: "Mayo Clinic — A-STAR Lab",
+    bio: "We are actively recruiting an AI Engineer to join the A-STAR Lab. The right candidate will work across the lab's surgical AI portfolio — computer vision, decision support, and validation — alongside our research fellows and clinical collaborators.",
     photo: "",
     initials: "?",
     links: {

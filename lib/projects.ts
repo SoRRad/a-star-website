@@ -20,7 +20,20 @@ export type Project = {
   featured?: boolean;
   order: number;
   lastUpdated?: string;
+  modelCard: ProjectModelCard;
   // TODO Step 5: approach, results, roadmap, demo content
+};
+
+export type ProjectModelCard = {
+  intendedUse: string;
+  clinicalPhase: string;
+  inputData: string[];
+  output: string[];
+  modelPipeline: string;
+  validationStatus: string;
+  deploymentReadiness: string;
+  limitations: string;
+  relatedPublications: string[];
 };
 
 export const projects: Project[] = [
@@ -40,6 +53,32 @@ export const projects: Project[] = [
     featured: true,
     order: 1,
     lastUpdated: "2026-04-01",
+    modelCard: {
+      intendedUse:
+        "Pre-operative decision support for bariatric surgery candidate evaluation. Advisory only; clinical judgment remains with the treating surgeon.",
+      clinicalPhase: "Risk stratification, planning, and outcomes validation",
+      inputData: [
+        "BMI and metabolic risk profile",
+        "Comorbidity burden",
+        "Prior bariatric procedure history",
+        "Procedure and outcomes variables used in validation workflows",
+      ],
+      output: [
+        "MOSI stage",
+        "Procedure category recommendation for review",
+        "Predicted total weight-loss tier",
+        "Audit-ready report",
+      ],
+      modelPipeline:
+        "Rule-guided staging and decision-support workflow with prospective external validation in progress.",
+      validationStatus:
+        "Derivation and publication complete; prospective external multi-site validation is in progress.",
+      deploymentReadiness:
+        "Validation phase. Available as a clinical decision-support aid, not for autonomous use.",
+      limitations:
+        "Derived from Mayo Clinic data and not yet characterized across all populations or revisional surgery contexts.",
+      relatedPublications: ["mosi-novel-classification-2026"],
+    },
   },
   {
     slug: "siris",
@@ -56,5 +95,29 @@ export const projects: Project[] = [
     featured: true,
     order: 2,
     lastUpdated: "2026-04-01",
+    modelCard: {
+      intendedUse:
+        "Patient-facing education support for bariatric surgery preparation, question generation, and resource navigation.",
+      clinicalPhase: "Patient journey and education",
+      inputData: [
+        "Natural language patient questions",
+        "Procedure context",
+        "Curated Mayo Clinic education resources",
+      ],
+      output: [
+        "Educational response",
+        "Relevant resource links",
+        "Suggested follow-up questions for the care team",
+      ],
+      modelPipeline:
+        "Retrieval-augmented education workflow built around Mayo Clinic IRIS resources and surgical scope guardrails.",
+      validationStatus:
+        "Deployed with formal clinical evaluation and user-satisfaction study design in progress.",
+      deploymentReadiness:
+        "Public education deployment. Not a diagnostic tool and not a replacement for clinician consultation.",
+      limitations:
+        "Current scope is bariatric surgery education, English-language interactions, and non-urgent preparation questions.",
+      relatedPublications: ["bariatric-patient-education-2026"],
+    },
   },
 ];

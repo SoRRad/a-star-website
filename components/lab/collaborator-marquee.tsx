@@ -60,7 +60,7 @@ function MarqueeItem({ collaborator }: { collaborator: Collaborator }) {
           height={80}
           className="h-16 w-auto max-w-[200px] object-contain"
           onError={() => {
-            console.warn(`[AIST] Collaborator logo failed: ${collaborator.logo}`);
+            console.warn(`[A-STAR] Collaborator logo failed: ${collaborator.logo}`);
             setImgError(true);
           }}
         />

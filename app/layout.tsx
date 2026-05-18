@@ -72,9 +72,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logos/astar/astar-mark-neutral.svg", type: "image/svg+xml" },
+      { url: "/logos/astar/favicon-512.png", type: "image/png", sizes: "512x512" },
     ],
-    apple: "/logos/astar/astar-mark-neutral.svg",
+    apple: "/logos/astar/apple-touch-icon.png",
   },
 };
 
@@ -98,7 +98,7 @@ export default function RootLayout({
         {/* Anti-flash: apply theme class before React hydrates to prevent FOUC */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark');document.documentElement.classList.remove('light')}else{document.documentElement.classList.add('light');document.documentElement.classList.remove('dark')}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark');document.documentElement.classList.remove('light')}}catch(e){document.documentElement.classList.add('dark')}})()`,
           }}
         />
       </head>

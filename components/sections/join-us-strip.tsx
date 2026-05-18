@@ -24,7 +24,7 @@ const ctaCards = [
   {
     icon: BookOpen,
     title: "Read our research",
-    pitch: "Browse publications, preprints, and technical reports from AIST.",
+    pitch: "Browse publications, preprints, and technical reports from A-STAR.",
     href: "/publications",
     cta: "Explore research",
   },

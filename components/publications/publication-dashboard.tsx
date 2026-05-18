@@ -36,7 +36,7 @@ export function PublicationDashboard({
   eyebrow,
   title,
   description,
-  exportBaseName = "aist-publications",
+  exportBaseName = "astar-publications",
   metrics: customMetrics,
 }: PublicationDashboardProps) {
   const searchParams = useSearchParams();

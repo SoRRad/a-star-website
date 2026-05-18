@@ -8,13 +8,13 @@ function formatIcsDate(iso: string): string {
 export function generateIcsContent(event: LabEvent): string {
   const dtstart = formatIcsDate(event.date);
   const dtend = formatIcsDate(event.date);
-  const uid = `${event.slug}@aist-lab`;
+  const uid = `${event.slug}@astar-lab`;
   const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//AIST Lab//AIST Events//EN",
+    "PRODID:-//A-STAR Lab//A-STAR Events//EN",
     "BEGIN:VEVENT",
     `UID:${uid}`,
     `DTSTAMP:${now}`,

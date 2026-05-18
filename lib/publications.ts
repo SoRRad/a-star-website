@@ -82,7 +82,7 @@ export const publications: Publication[] = [
     slug: "bariatric-patient-education-2026",
     title:
       "Online patient education resources in bariatric surgery: a systematic evaluation of quality, readability, transparency, and representation",
-    authors: ["AIST Team"],
+    authors: ["A-STAR Team"],
     venue: "Surgical Endoscopy",
     year: 2026,
     date: "2026-01-01",
@@ -101,7 +101,7 @@ export const publications: Publication[] = [
     slug: "surgical-warmup-rounds-2026",
     title:
       "Surgical Warmup Rounds: Concept of Targeted Just-In-Time Robotic Simulation Rehearsal Before and Between Cases",
-    authors: ["AIST Team"],
+    authors: ["A-STAR Team"],
     venue: "Surgical Innovation",
     year: 2026,
     date: "2026-01-01",

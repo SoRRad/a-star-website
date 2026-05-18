@@ -45,7 +45,7 @@ function generateStars(count: number): Star[] {
  * animation logic entirely in CSS so JS stays idle after mount.
  */
 export function StarField() {
-  const stars = useMemo(() => generateStars(160), []);
+  const stars = useMemo(() => generateStars(90), []);
 
   return (
     <div
@@ -55,7 +55,7 @@ export function StarField() {
       {stars.map((star) => (
         <span
           key={star.id}
-          className="absolute rounded-full animate-twinkle
+          className="absolute rounded-full motion-reduce:animate-none animate-twinkle
             bg-[var(--color-blue-400)]
             opacity-[0.05] dark:opacity-[var(--star-opacity)]"
           style={

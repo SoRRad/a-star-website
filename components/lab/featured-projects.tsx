@@ -13,7 +13,7 @@ import { logos } from "@/lib/logos";
  * Featured project cards for MOSI and SIRIS.
  *
  * Each card shows: project name, tagline, phase tags, status badge, and a
- * placeholder visual with the AIST mark. Becomes a micro-demo in Step 4.
+ * placeholder visual with the A-STAR mark.
  */
 export function FeaturedProjects() {
   return (

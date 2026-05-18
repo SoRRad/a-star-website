@@ -47,7 +47,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
           }}
         />
 
-        {/* AIST label */}
+        {/* A-STAR label */}
         <div
           style={{
             fontSize: 18,

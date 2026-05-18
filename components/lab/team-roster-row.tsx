@@ -94,12 +94,12 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
                 imgError ? "opacity-0" : "opacity-100",
               )}
               onError={() => {
-                console.warn(`[AIST] Team photo not found: ${member.photo}`);
+                console.warn(`[A-STAR] Team photo not found: ${member.photo}`);
                 setImgError(true);
               }}
             />
 
-            {/* AIST corner badge */}
+            {/* A-STAR corner badge */}
             <div className="pointer-events-none absolute right-2 top-2 rounded-md bg-[var(--color-navy-900)]/70 p-1 backdrop-blur-sm">
               <Image src={logos.markNeutral} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
             </div>

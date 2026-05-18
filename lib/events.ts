@@ -26,7 +26,7 @@ export type LabEvent = {
 
 export const events: LabEvent[] = [
   {
-    slug: "aist-journal-club-may-2026",
+    slug: "astar-journal-club-may-2026",
     title: "A-STAR Lab Journal Club",
     series: "A-STAR Lab Journal Club",
     type: "journal-club",

@@ -1,4 +1,4 @@
-# AIST Website — Content Guide
+# A-STAR Website — Content Guide
 
 Everything you'll commonly need to update lives in a small number of files.
 No code changes are needed for routine updates — just edit data files and
@@ -17,7 +17,7 @@ drop images into the right folders.
 | Publications                     | `lib/publications.ts`                  |
 | **News items**                   | **`lib/news.ts`**                      |
 | Events & Journal Club            | `lib/events.ts`                        |
-| **Archive items**                | **`lib/archive.ts`**                   |
+| **Resources/archive items**      | **`lib/archive.ts` + `app/resources`** |
 | Open positions / hiring          | `lib/openings.ts`                      |
 | Home page stats (counters)       | `lib/stats.ts`                         |
 | Surgical phases                  | `lib/phases.ts`                        |
@@ -170,7 +170,7 @@ export const stats = [
 
 | Folder                       | What goes here                                | Recommended format       |
 | ---------------------------- | --------------------------------------------- | ------------------------ |
-| `/public/logos/`             | AIST official logos                           | PNG (2×) or SVG          |
+| `/public/logos/astar/`       | A-STAR official logos                         | PNG (2x) or SVG          |
 | `/public/logos/partners/`    | Collaborator institution logos                | PNG transparent or SVG   |
 | `/public/team/`              | Team member headshots                         | JPG, square, 600×600+    |
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
@@ -241,9 +241,9 @@ Edit `lib/events.ts` and add an entry to the `events` array:
 
 ```ts
 {
-  slug: "aist-journal-club-jun-2026",
-  title: "AIST Journal Club — June 2026",
-  series: "AIST Journal Club",
+  slug: "astar-journal-club-jun-2026",
+  title: "A-STAR Journal Club — June 2026",
+  series: "A-STAR Journal Club",
   type: "journal-club",         // journal-club | seminar | conference | workshop | talk
   format: "hybrid",             // in-person | virtual | hybrid
   date: "2026-06-17",           // ISO date
@@ -258,11 +258,11 @@ Edit `lib/events.ts` and add an entry to the `events` array:
 },
 ```
 
-The home page callout shows when at least one event has `status: "upcoming"` and `slug === "aist-journal-club-may-2026"` (or update the slug in `app/page.tsx`).
+The home page events section shows upcoming events from `lib/events.ts`.
 
 To show the most recent upcoming event, update the slug in `app/page.tsx`:
 ```ts
-const nextEvent = events.find((e) => e.slug === "aist-journal-club-jun-2026");
+const nextEvent = events.find((e) => e.slug === "astar-journal-club-jun-2026");
 ```
 
 ### Marking past events
@@ -372,7 +372,7 @@ expected filenames.
 Use standard Markdown link syntax inside the `body` string:
 
 ```ts
-body: `...The AIST Lab presented [Mayo Obesity Staging Index](https://www.soard.org/article/...) at ASMBS...`,
+body: `...The A-STAR Lab presented [Mayo Obesity Staging Index](https://www.soard.org/article/...) at ASMBS...`,
 ```
 
 Only `https://` and `http://` links are rendered — other patterns are left as plain text.
@@ -438,7 +438,7 @@ When a role is open but unfilled, you can add a placeholder to the team roster:
   slug: "my-role-open",
   name: "Role Title",
   role: "Engineer",
-  affiliation: "Mayo Clinic — AIST Lab",
+  affiliation: "Mayo Clinic — A-STAR Lab",
   bio: "We are actively recruiting...",
   photo: "",
   initials: "?",

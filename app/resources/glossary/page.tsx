@@ -4,7 +4,7 @@ import { glossary, getGlossaryByLetter } from "@/lib/glossary";
 
 export const metadata: Metadata = {
   title: "Glossary",
-  description: "Definitions of surgical AI terms used across AIST research and projects.",
+  description: "Definitions of surgical AI terms used across A-STAR research and projects.",
 };
 
 export default function GlossaryPage() {
@@ -23,7 +23,7 @@ export default function GlossaryPage() {
           Glossary.
         </h1>
         <p className="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-          Definitions of key terms in surgical AI, clinical research methodology, and AIST projects.
+          Definitions of key terms in surgical AI, clinical research methodology, and A-STAR projects.
           {" "}{glossary.length} terms across {byLetter.size} letters.
         </p>
       </header>

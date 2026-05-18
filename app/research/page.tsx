@@ -6,6 +6,8 @@ import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
 import { PublicationDashboard } from "@/components/publications/publication-dashboard";
 import { ProjectCard } from "@/components/lab/project-card";
+import { SurgicalJourneyMap } from "@/components/research/surgical-journey-map";
+import { ModelCard } from "@/components/research/model-card";
 
 export const metadata = {
   title: "Research & Projects",
@@ -26,6 +28,10 @@ export default function ResearchPage() {
       </Suspense>
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+        <div className="mb-16">
+          <SurgicalJourneyMap phases={phases} projects={projects} publications={publications} />
+        </div>
+
         <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="eyebrow mb-4">Active projects</p>
@@ -57,56 +63,22 @@ export default function ResearchPage() {
 
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mb-10">
-          <p className="eyebrow mb-4">Surgical AI focus areas</p>
+          <p className="eyebrow mb-4">Model cards</p>
           <h2
             className="font-display text-balance text-4xl font-semibold tracking-tight sm:text-5xl"
             style={{ letterSpacing: "-0.03em" }}
           >
-            A full surgical journey map.
+            Tool-level intended use and readiness.
           </h2>
+          <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
+            These cards summarize what each A-STAR system is for, what it accepts and returns, and where validation stands without overstating unfinished claims.
+          </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {phases.map((phase) => {
-            const phaseProjects = projects.filter((project) => phase.projects.includes(project.slug));
-
-            return (
-              <article
-                key={phase.id}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">
-                      {phase.code}
-                    </p>
-                    <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight">
-                      {phase.title}
-                    </h3>
-                  </div>
-                  <span className="rounded-sm border border-[var(--color-border)] px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                    {phaseProjects.length} project{phaseProjects.length === 1 ? "" : "s"}
-                  </span>
-                </div>
-                <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                  {phase.description}
-                </p>
-                {phaseProjects.length > 0 && (
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {phaseProjects.map((project) => (
-                      <Link
-                        key={project.slug}
-                        href={`/projects/${project.slug}`}
-                        className="rounded-full border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)]/20"
-                      >
-                        {project.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </article>
-            );
-          })}
+        <div className="grid gap-5 lg:grid-cols-2">
+          {projects.map((project) => (
+            <ModelCard key={project.slug} project={project} publications={publications} compact />
+          ))}
         </div>
       </section>
     </>

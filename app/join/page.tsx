@@ -3,6 +3,7 @@ import { ArrowUpRight, Stethoscope, Code2, GraduationCap, FlaskConical, Globe, U
 import { openings } from "@/lib/openings";
 import { Button } from "@/components/ui/button";
 import { formatDateShort } from "@/lib/utils";
+import { ProjectIntakeForm } from "./project-intake-form";
 
 export const metadata = { title: "Join A-STAR" };
 
@@ -27,7 +28,7 @@ const profiles = [
   },
 ];
 
-const whyAist = [
+const whyAstar = [
   {
     icon: FlaskConical,
     title: "Translational research at Mayo",
@@ -74,7 +75,7 @@ export default function JoinPage() {
       <div className="mb-20">
         <p className="eyebrow mb-6">Why A-STAR</p>
         <div className="grid gap-5 sm:grid-cols-2">
-          {whyAist.map(({ icon: Icon, title, description }) => (
+          {whyAstar.map(({ icon: Icon, title, description }) => (
             <div key={title} className="flex gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5">
               <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-muted)]">
                 <Icon className="h-4 w-4 text-[var(--color-accent)]" />
@@ -150,6 +151,19 @@ export default function JoinPage() {
         <Button asChild variant="outline">
           <Link href="/contact?inquiry=position">Get in touch →</Link>
         </Button>
+      </div>
+
+      <div id="project-intake" className="mt-20 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 sm:p-8">
+        <p className="eyebrow mb-3">Project intake</p>
+        <h2 className="font-display text-3xl font-semibold tracking-tight">
+          Collaborate with A-STAR.
+        </h2>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+          Share a clinical question, dataset, validation opportunity, or co-development idea. Submissions use the existing server-side contact endpoint and route to the configured A-STAR contact email.
+        </p>
+        <div className="mt-8">
+          <ProjectIntakeForm />
+        </div>
       </div>
     </section>
   );

@@ -51,7 +51,7 @@ export const glossary: GlossaryEntry[] = [
     slug: "irb-approval",
     term: "IRB approval",
     definition:
-      "Institutional Review Board approval — ethical clearance granted by an independent committee before any study involving human participants or patient data may begin. All AIST studies involving patient records are IRB-approved.",
+      "Institutional Review Board approval — ethical clearance granted by an independent committee before any study involving human participants or patient data may begin. All A-STAR studies involving patient records are IRB-approved.",
     related: ["external-validation"],
     category: "Ethics & Governance",
   },
@@ -91,15 +91,15 @@ export const glossary: GlossaryEntry[] = [
     slug: "mosi",
     term: "MOSI (Mayo Obesity Staging Index)",
     definition:
-      "A novel obesity staging and surgical indication classification system developed at AIST. MOSI integrates BMI, comorbidity burden, and predicted weight-loss outcomes into a four-tier score that guides bariatric procedure selection. Validated on 3,097 patients.",
+      "A novel obesity staging and surgical indication classification system developed at A-STAR. MOSI integrates BMI, comorbidity burden, and predicted weight-loss outcomes into a four-tier score that guides bariatric procedure selection. Validated on 3,097 patients.",
     related: ["risk-stratification", "twl", "bariatric-surgery"],
-    category: "AIST Projects",
+    category: "A-STAR Projects",
   },
   {
     slug: "iris-platform",
     term: "IRIS platform",
     definition:
-      "Mayo Clinic's clinical AI infrastructure that provides data governance, model hosting, and patient-facing interfaces for AI tools developed within the institution. SIRIS (the AIST patient education system) runs on the IRIS platform.",
+      "Mayo Clinic's clinical AI infrastructure that provides data governance, model hosting, and patient-facing interfaces for AI tools developed within the institution. SIRIS (the A-STAR patient education system) runs on the IRIS platform.",
     related: ["siris"],
     category: "Infrastructure",
   },

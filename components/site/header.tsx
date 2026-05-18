@@ -6,14 +6,11 @@ import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { Home } from "lucide-react";
 import { primaryNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { logos } from "@/lib/logos";
-import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { CommandPalette } from "@/components/site/command-palette";
-import { MobileNav } from "@/components/site/mobile-nav";
+import { SiteSidebar } from "@/components/site/command-palette";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -46,61 +43,36 @@ export function SiteHeader() {
             scrolled ? "h-10" : "h-12",
           )}
         >
-          {/* Logo — fades out on scroll; clicking always goes home */}
           <Link
             href="/"
             aria-label="A-STAR home"
-            className={cn(
-              "shrink-0 transition-all duration-300",
-              scrolled ? "pointer-events-none opacity-0" : "opacity-100",
-            )}
+            className="group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-muted)]"
           >
-            {/* Desktop: horizontal lockup */}
-            <Logo
-              variant="horizontal"
-              priority
-              width={112}
-              height={28}
-              className="hidden w-auto sm:block"
-            />
-            {/* Mobile: mark only */}
             <Image
               src={logos.markNeutral}
               alt="A-STAR"
-              width={24}
-              height={24}
+              width={28}
+              height={28}
               priority
-              className="block w-auto sm:hidden"
+              className="h-7 w-7"
             />
           </Link>
 
-          {/* Primary nav — Radix Navigation Menu for a11y */}
           <NavigationMenu.Root className="hidden md:block">
             <NavigationMenu.List className="flex items-center gap-1">
               {primaryNav.map((item) => {
                 const active = isActive(item.href);
                 const isResearch = item.href === "/research";
-                const isHome = item.href === "/";
 
                 if (isResearch) {
                   return <ProjectsNavItem key={item.href} active={active} />;
                 }
-
-                const handleHomeClick =
-                  isHome && pathname === "/"
-                    ? (e: React.MouseEvent) => {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }
-                    : undefined;
 
                 return (
                   <NavigationMenu.Item key={item.href}>
                     <NavigationMenu.Link asChild>
                       <Link
                         href={item.href}
-                        onClick={handleHomeClick}
-                        aria-label={isHome ? "Go to homepage" : undefined}
                         className={cn(
                           "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
                           active
@@ -108,12 +80,7 @@ export function SiteHeader() {
                             : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
                         )}
                       >
-                        {/* Home renders as icon only */}
-                        {isHome ? (
-                          <Home className="h-4 w-4" />
-                        ) : (
-                          item.title
-                        )}
+                        {item.title}
                         {active && (
                           <motion.span
                             layoutId="nav-active-indicator"
@@ -130,17 +97,14 @@ export function SiteHeader() {
           </NavigationMenu.Root>
 
           <div className="flex items-center gap-2">
-            <CommandPalette />
             <ThemeToggle />
-            <MobileNav />
+            <SiteSidebar />
           </div>
         </div>
       </div>
     </header>
   );
 }
-
-/* ── Shared dropdown content ─────────────────────────────────────────────── */
 
 function DropdownContent({ children }: { children: React.ReactNode }) {
   return (
@@ -160,11 +124,10 @@ function DropdownContent({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ── Projects nav item ───────────────────────────────────────────────────── */
-
 function ProjectsNavItem({ active }: { active: boolean }) {
   const router = useRouter();
   const featured = projects.filter((p) => p.featured);
+
   return (
     <NavigationMenu.Item className="relative">
       <NavigationMenu.Trigger
@@ -208,7 +171,7 @@ function ProjectsNavItem({ active }: { active: boolean }) {
         <div className="border-t border-[var(--color-border)] px-3 py-2">
           <NavigationMenu.Link asChild>
             <Link href="/research" className="text-xs font-medium text-[var(--color-accent)] hover:underline focus:outline-none focus:underline">
-              View research portfolio →
+              View research portfolio
             </Link>
           </NavigationMenu.Link>
         </div>
