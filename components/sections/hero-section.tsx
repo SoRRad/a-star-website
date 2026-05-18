@@ -52,9 +52,9 @@ export function HeroSection() {
             variant="mark"
             animated
             priority
-            width={120}
-            height={120}
-            sizes="(max-width: 640px) 96px, 128px"
+            width={128}
+            height={128}
+            sizes="128px"
             className="h-24 w-24 sm:h-32 sm:w-32"
           />
         </motion.div>

@@ -212,7 +212,7 @@ The canonical section order as of Step 5:
 | 01   | `#mission`       | Mission            |
 | —    | (after mission)  | Credibility strip  |
 | 02   | `#numbers`       | By the numbers     |
-| 03   | `#research`      | Research & Projects|
+| 03   | `#research`      | Projects           |
 | 04   | `#team`          | Team               |
 | 05   | `#news`          | From the lab       |
 | 06   | `#collaborators` | Collaborators      |

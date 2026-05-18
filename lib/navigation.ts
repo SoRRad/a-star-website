@@ -23,7 +23,7 @@ export type NavItem = {
 
 /**
  * Primary navigation shown in the header.
- * Home is rendered as icon-only in the header component.
+ * Home is rendered through the header logo mark.
  * Publications is accessible under the Projects dropdown and via /publications.
  * Archive is renamed to Resources (/resources).
  */
@@ -42,11 +42,11 @@ export const primaryNav: NavItem[] = [
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   { title: "Projects", href: "/research", icon: Compass },
-  { title: "Projects", href: "/projects", icon: FlaskConical },
+  { title: "Project Index", href: "/projects", icon: FlaskConical },
   { title: "Team", href: "/team", icon: Users },
   { title: "Events", href: "/events", icon: Calendar },
-  { title: "Resources", href: "/resources", icon: Library },
   { title: "News", href: "/news", icon: Newspaper },
+  { title: "Resources", href: "/resources", icon: Library },
   { title: "Publications", href: "/publications", icon: FileText },
   { title: "Join Us", href: "/join", icon: UserPlus },
   { title: "Contact", href: "/contact", icon: Mail },
@@ -54,19 +54,18 @@ export const allNav: NavItem[] = [
 
 export const footerNav = {
   research: [
-    { title: "Research Hub", href: "/research" },
-    { title: "Projects", href: "/projects" },
+    { title: "Projects", href: "/research" },
+    { title: "Project Index", href: "/projects" },
     { title: "Publications", href: "/publications" },
     { title: "Resources", href: "/resources" },
   ],
   lab: [
     { title: "Team", href: "/team" },
     { title: "News", href: "/news" },
-    { title: "Journal Club", href: "/events" },
+    { title: "Events", href: "/events" },
   ],
   connect: [
     { title: "Join Us", href: "/join" },
-    { title: "Events", href: "/events" },
     { title: "Contact", href: "/contact" },
   ],
 };

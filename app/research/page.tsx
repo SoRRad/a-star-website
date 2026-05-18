@@ -10,7 +10,7 @@ import { SurgicalJourneyMap } from "@/components/research/surgical-journey-map";
 import { ModelCard } from "@/components/research/model-card";
 
 export const metadata = {
-  title: "Research & Projects",
+  title: "Projects",
   description: "A-STAR publications, active projects, and surgical AI focus areas.",
 };
 
@@ -21,7 +21,7 @@ export default function ResearchPage() {
         <PublicationDashboard
           publications={publications}
           eyebrow="Research portfolio"
-          title="Research & Projects"
+          title="Projects dashboard"
           description="Explore A-STAR publications first, then follow the active systems and surgical AI directions that organize the lab's work."
           exportBaseName="astar-research-publications"
         />

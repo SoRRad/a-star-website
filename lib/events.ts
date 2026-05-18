@@ -47,7 +47,7 @@ export const events: LabEvent[] = [
     series: "A-STAR Lab Journal Club",
     type: "journal-club",
     format: "hybrid",
-    date: "2026-05-27",
+    date: "2026-05-20",
     time: "TBD",
     location: "Mayo Clinic, Rochester, MN — and virtual",
     description:
@@ -56,7 +56,7 @@ export const events: LabEvent[] = [
     rsvpRequired: true,
     rsvpEmail: "alomar.abdulrahman@mayo.edu",
     recurring: true,
-    recurrencePattern: "Recurring · Next session: May 27, 2026",
+    recurrencePattern: "Recurring · Next session: May 20, 2026",
     featured: true,
   },
   {
@@ -76,6 +76,25 @@ export const events: LabEvent[] = [
     recurring: false,
     people: ["reza-shahriarirad"],
     projects: [],
+    featured: true,
+  },
+  {
+    slug: "acs-ai-surgery-course-2026",
+    title: "ACS Artificial Intelligence in Surgery Course",
+    series: "ACS Clinical Congress 2026",
+    type: "workshop",
+    format: "in-person",
+    date: "2026-09-26",
+    endDate: "2026-09-29",
+    time: "TBD",
+    location: "Washington, DC",
+    description:
+      "Dr. Simon J. Laplante is expected to contribute to an ACS Clinical Congress 2026 educational session related to artificial intelligence in surgery. ACS lists Clinical Congress 2026 for September 26-29 in Washington, DC, with education, networking, and the latest surgical innovation. Final session details are forthcoming.",
+    status: "upcoming",
+    rsvpRequired: false,
+    recurring: false,
+    people: ["simon-laplante"],
+    externalUrl: "https://www.facs.org/for-medical-professionals/conferences-and-meetings/",
     featured: true,
   },
 ];

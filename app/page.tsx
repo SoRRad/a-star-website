@@ -1,6 +1,5 @@
 // Server component — no "use client"
 import { mainTeam, collaboratorTeam } from "@/lib/team";
-import { projects } from "@/lib/projects";
 import { stats } from "@/lib/stats";
 import { collaborators } from "@/lib/collaborators";
 import { openings } from "@/lib/openings";
@@ -48,9 +47,9 @@ export default function HomePage() {
 
       <CircuitDivider />
 
-      {/* 03 — Research & Projects */}
-      <Section code="03" label="Research & Projects" id="research">
-        <ResearchProjectsClient projects={projects} />
+      {/* 03 — Projects */}
+      <Section code="03" label="Projects" id="research">
+        <ResearchProjectsClient />
       </Section>
 
       <CircuitDivider />
