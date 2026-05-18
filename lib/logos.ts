@@ -1,22 +1,18 @@
 /**
  * Canonical logo paths. Always import from here instead of hardcoding paths.
  *
- * UI logo paths use transparent SVG variants so the mark and wordmarks sit
- * cleanly on the dark galaxy background. The raster PNG handoff exports are
- * preserved in public/logos/astar for favicon and social-image contexts, but
- * their opaque backgrounds make them unsuitable for hero/header placement.
+ * Current production A-STAR logo assets are the PNG files in
+ * public/logos/astar. The SVG files in the legacy folder are outdated and
+ * should not be used until regenerated from the new logo.
  */
 export const logos = {
-  // Full stacked (vertical) lockups - available for non-hero brand contexts.
-  fullStackedDark: "/logos/astar/astar-stacked-dark.svg",
-  fullStackedLight: "/logos/astar/astar-stacked-light.svg",
+  fullStackedDark: "/logos/astar/astar-stacked-dark.png",
+  fullStackedLight: "/logos/astar/astar-stacked-light.png",
 
-  // Full horizontal lockups - used where a wordmark is appropriate.
-  fullHorizontalDark: "/logos/astar/astar-horizontal-dark.svg",
-  fullHorizontalLight: "/logos/astar/astar-horizontal-light.svg",
+  fullHorizontalDark: "/logos/astar/astar-horizontal-dark.png",
+  fullHorizontalLight: "/logos/astar/astar-horizontal-light.png",
 
-  // Mark only (no wordmark).
-  markDark: "/logos/astar/astar-mark-dark.svg",
-  markLight: "/logos/astar/astar-mark-light.svg",
-  markNeutral: "/logos/astar/astar-mark-neutral.svg",
+  markDark: "/logos/astar/astar-mark-dark.png",
+  markLight: "/logos/astar/astar-mark-light.png",
+  markNeutral: "/logos/astar/astar-mark-neutral.png",
 } as const;

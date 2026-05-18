@@ -9,6 +9,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { primaryNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { logos } from "@/lib/logos";
+import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { SiteSidebar } from "@/components/site/command-palette";
 import { cn } from "@/lib/utils";
@@ -48,14 +49,7 @@ export function SiteHeader() {
             aria-label="A-STAR home"
             className="group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-muted)]"
           >
-            <Image
-              src={logos.markNeutral}
-              alt="A-STAR"
-              width={28}
-              height={28}
-              priority
-              className="h-7 w-7"
-            />
+            <Logo variant="mark" width={28} height={28} priority sizes="28px" className="h-7 w-7" />
           </Link>
 
           <NavigationMenu.Root className="hidden md:block">
@@ -158,7 +152,7 @@ function ProjectsNavItem({ active }: { active: boolean }) {
                 className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[var(--color-muted)] focus:bg-[var(--color-muted)] focus:outline-none"
               >
                 <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)]">
-                  <Image src={logos.markNeutral} alt="" width={16} height={16} className="h-4 w-4 opacity-70" />
+                  <Image src={logos.markLight} alt="" width={16} height={16} className="h-4 w-4 object-contain opacity-70" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold text-[var(--color-foreground)]">{project.name}</p>

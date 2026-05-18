@@ -97,7 +97,7 @@ Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design asse
 
 ## Logo Notes
 
-Use a transparent mark-only asset for the hero and header, a transparent horizontal logo for footer/wordmark contexts, a 512 PNG for favicon/apple icons, and a 1200x630-ish PNG for social sharing. Raster logo exports with baked white/checkerboard backgrounds should not be used on the dark galaxy UI. Optimized WebP variants are fine for large raster logos only when transparency and sharpness are preserved.
+Current production logo assets are PNG files in `public/logos/astar/`. Existing SVG files are legacy/outdated and should not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar, horizontal PNGs for footer wordmark contexts, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and `astar-og-image.png` or the dynamic `/opengraph-image` route for social sharing.
 
 ## Talks
 

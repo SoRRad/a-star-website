@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import Fuse from "fuse.js";
@@ -23,7 +22,7 @@ import { team } from "@/lib/team";
 import { publications } from "@/lib/publications";
 import { allNews } from "@/lib/news";
 import { archiveItems } from "@/lib/archive";
-import { logos } from "@/lib/logos";
+import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
 type ResultKind = "page" | "project" | "team" | "publication" | "news" | "resource";
@@ -195,7 +194,7 @@ export function SiteSidebar() {
                 >
                   <div className="flex shrink-0 items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
                     <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-                      <Image src={logos.markNeutral} alt="" width={26} height={26} className="h-6 w-6" />
+                      <Logo variant="mark" width={26} height={26} sizes="26px" className="h-6 w-6" />
                       <span className="font-display text-lg font-semibold tracking-tight">A-STAR</span>
                     </Link>
                     <button

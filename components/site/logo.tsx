@@ -26,9 +26,9 @@ export function Logo({
   height,
 }: LogoProps) {
   const sources = {
-    mark: { light: logos.markLight, dark: logos.markDark },
-    horizontal: { light: logos.fullHorizontalLight, dark: logos.fullHorizontalDark },
-    stacked: { light: logos.fullStackedLight, dark: logos.fullStackedDark },
+    mark: { light: logos.markDark, dark: logos.markLight },
+    horizontal: { light: logos.fullHorizontalDark, dark: logos.fullHorizontalLight },
+    stacked: { light: logos.fullStackedDark, dark: logos.fullStackedLight },
   };
 
   const dims = {
@@ -57,7 +57,7 @@ export function Logo({
         height={dims.h}
         priority={priority}
         sizes={sizes ?? defaultSizes}
-        className="block h-auto w-full dark:hidden"
+        className="block h-auto w-full object-contain dark:hidden"
       />
       {/* Dark mode variant */}
       <Image
@@ -68,7 +68,7 @@ export function Logo({
         height={dims.h}
         priority={priority}
         sizes={sizes ?? defaultSizes}
-        className="hidden h-auto w-full dark:block"
+        className="hidden h-auto w-full object-contain dark:block"
       />
     </div>
   );

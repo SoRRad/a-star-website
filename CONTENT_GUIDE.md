@@ -171,7 +171,7 @@ export const stats = [
 
 | Folder                       | What goes here                                | Recommended format       |
 | ---------------------------- | --------------------------------------------- | ------------------------ |
-| `/public/logos/astar/`       | A-STAR official logos                         | PNG (2x) or SVG          |
+| `/public/logos/astar/`       | A-STAR official logos                         | Current production PNGs  |
 | `/public/logos/partners/`    | Collaborator institution logos                | PNG transparent or SVG   |
 | `/public/team/`              | Team member headshots                         | JPG, square, 600×600+    |
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
@@ -179,11 +179,12 @@ export const stats = [
 All images should be optimized before commit (use [Squoosh](https://squoosh.app) or similar).
 
 Logo requirements:
-- Hero/header: mark-only transparent SVG/PNG/WebP with no baked checkerboard or white box.
-- Footer/wordmark contexts: horizontal transparent logo.
+- Current production logo assets are PNG files in `public/logos/astar`.
+- Existing SVG files are legacy/outdated and should not be used until regenerated from the new logo.
+- Hero/header/sidebar: mark-only production PNG.
+- Footer/wordmark contexts: horizontal production PNG.
 - Favicon/apple icon: 512 PNG.
-- OpenGraph/social: 1200x630 PNG or an equivalent full-bleed social image.
-- Large raster logo variants can be converted to WebP when transparency and sharpness are preserved.
+- OpenGraph/social: `astar-og-image.png` or the dynamic `/opengraph-image` route.
 
 ---
 
