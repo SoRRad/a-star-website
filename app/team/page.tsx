@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
-import { mainTeam, collaboratorTeam } from "@/lib/team";
+import { activeMainTeam, mainTeam, collaboratorTeam } from "@/lib/team";
 import { TeamRosterRow } from "@/components/lab/team-roster-row";
 
 export const metadata: Metadata = {
   title: "Team",
   description:
-    "The surgeons, scientists, and engineers building surgical AI at AIST — core team and institutional collaborators.",
+    "The surgeons, scientists, and engineers building surgical AI at A-STAR — core team and institutional collaborators.",
 };
 
 export default function TeamPage() {
+  const openRoleCount = mainTeam.filter((member) => member.isOpenPosition).length;
+  const coreTeamCount = activeMainTeam.length;
+  const coreTeamLabel = `${coreTeamCount} member${coreTeamCount === 1 ? "" : "s"}${
+    openRoleCount > 0
+      ? ` · ${openRoleCount} open role${openRoleCount === 1 ? "" : "s"}`
+      : ""
+  }`;
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Page header */}
@@ -21,7 +29,7 @@ export default function TeamPage() {
           Surgeons, scientists, and engineers building surgical AI together.
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-          AIST is a collaboration across surgical practice, artificial intelligence research,
+          A-STAR is a collaboration across surgical practice, artificial intelligence research,
           and engineering. Below: the core lab, our research fellows and engineers, and our
           institutional collaborators.
         </p>
@@ -37,7 +45,7 @@ export default function TeamPage() {
             Core team
           </h2>
           <span className="text-sm text-[var(--color-muted-foreground)]">
-            {mainTeam.length} members
+            {coreTeamLabel}
           </span>
         </div>
         <div className="divide-y divide-[var(--color-border)]">
@@ -63,7 +71,7 @@ export default function TeamPage() {
           </div>
           <p className="mb-10 max-w-2xl text-sm text-[var(--color-muted-foreground)]">
             Clinical and research collaborators whose contributions and partnerships
-            extend the AIST Lab&apos;s reach.
+            extend the A-STAR Lab&apos;s reach.
           </p>
           <div className="divide-y divide-[var(--color-border)]">
             {collaboratorTeam.map((member, idx) => (

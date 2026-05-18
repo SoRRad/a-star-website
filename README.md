@@ -46,7 +46,7 @@ Open <http://localhost:3000>. The site defaults to dark mode.
 ## Project structure
 
 ```
-aist-website/
+A-STAR-WEBSITE/
 ├── app/
 │   ├── globals.css            # Design system (all CSS variables live here)
 │   ├── layout.tsx             # Root layout: fonts, theme, header, footer, cursor
@@ -80,8 +80,7 @@ aist-website/
 └── public/
     ├── logos/                 # Brand assets
     ├── news/                  # News images
-    ├── team/                  # Team member headshots
-    └── logos/                 # Brand and partner logos
+    └── team/                  # Team member headshots
 ```
 
 ---

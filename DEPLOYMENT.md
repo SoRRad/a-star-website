@@ -22,7 +22,7 @@
 2. Verify your domain — go to Resend dashboard → Domains → Add Domain
 3. Add the DNS records (SPF, DKIM, DMARC) Resend provides to your DNS provider
 4. Wait 5–15 minutes for DNS propagation, then click "Verify"
-5. In Resend → API Keys → Create API Key → name it `aist-website-production`, scope `Sending access`
+5. In Resend → API Keys → Create API Key → name it `a-star-website-production`, scope `Sending access`
 6. Copy the key (starts with `re_`) — shown only once
 7. Add `RESEND_API_KEY = re_...` to Vercel env vars (Production + Preview)
 8. Add `CONTACT_TO_EMAIL = your.email@mayo.edu` to Vercel env vars
