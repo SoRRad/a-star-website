@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ContactForm } from "./contact-form";
+import { contactEmail, contactMailto } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -32,10 +33,10 @@ export default function ContactPage() {
         <div>
           <p className="eyebrow mb-3">Email</p>
           <a
-            href="mailto:shahriarirad.reza@mayo.edu"
+            href={contactMailto}
             className="text-base font-medium text-[var(--color-accent)] hover:underline"
           >
-            shahriarirad.reza@mayo.edu
+            {contactEmail}
           </a>
           <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">
             General inquiries. Response within 3–5 business days.

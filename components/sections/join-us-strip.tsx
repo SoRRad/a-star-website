@@ -5,6 +5,7 @@ import { ArrowRight, FlaskConical, Users, BookOpen } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 import { Magnetic } from "@/components/motion/magnetic";
 import type { Opening } from "@/lib/openings";
+import { contactMailto } from "@/lib/contact";
 
 const ctaCards = [
   {
@@ -18,7 +19,7 @@ const ctaCards = [
     icon: FlaskConical,
     title: "Collaborate",
     pitch: "Clinical partnerships, industry collaboration, and multi-site research.",
-    href: "/contact",
+    href: contactMailto,
     cta: "Get in touch",
   },
   {
@@ -42,7 +43,7 @@ export function JoinUsStrip({ openings }: JoinUsStripProps) {
       <Reveal>
         <p className="eyebrow mb-4 text-[var(--color-accent)]">Get involved</p>
         <h2
-          className="font-display mb-4 max-w-lg text-balance font-semibold text-[var(--color-ink-100)]"
+          className="font-display mb-4 max-w-lg text-balance font-semibold text-[var(--color-foreground)]"
           style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", letterSpacing: "-0.03em" }}
         >
           The surgical AI frontier needs more builders.
@@ -66,14 +67,14 @@ export function JoinUsStrip({ openings }: JoinUsStripProps) {
       <Reveal stagger className="grid gap-6 sm:grid-cols-3">
         {ctaCards.map((card) => (
           <RevealItem key={card.title}>
-            <div className="group flex h-full flex-col rounded-xl border border-[var(--color-navy-700)] bg-[var(--color-navy-900)] p-6 transition-colors hover:border-[var(--color-accent)]/40">
+            <div className="group flex h-full flex-col rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 shadow-sm transition-colors hover:border-[var(--color-accent)]/40">
               <card.icon className="mb-4 h-6 w-6 text-[var(--color-accent)]" aria-hidden="true" />
-              <h3 className="mb-2 text-base font-semibold text-[var(--color-ink-100)]">{card.title}</h3>
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-[var(--color-ink-400)]">{card.pitch}</p>
+              <h3 className="mb-2 text-base font-semibold text-[var(--color-foreground)]">{card.title}</h3>
+              <p className="mb-6 flex-1 text-sm leading-relaxed text-[var(--color-muted-foreground)]">{card.pitch}</p>
               <Magnetic>
                 <Link
                   href={card.href}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-ink-100)]"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-foreground)]"
                 >
                   {card.cta}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />

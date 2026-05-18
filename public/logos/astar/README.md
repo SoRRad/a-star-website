@@ -8,6 +8,10 @@ Active production logo files are PNG files in `public/logos/astar/`.
 The old SVG files under `legacy/` are outdated and must not be imported or
 hardcoded in active UI code.
 
+Use `*-on-light.png` for light backgrounds and `*-on-dark.png` for dark
+backgrounds. The dark-mode mark must remain light/white enough for navy or
+black surfaces; do not substitute the neutral mark in dark-mode UI.
+
 ## Canonical UI Files
 
 | File | Variant | Used by |

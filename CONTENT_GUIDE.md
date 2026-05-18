@@ -219,6 +219,8 @@ The canonical section order as of Step 5:
 | 06   | `#collaborators` | Collaborators      |
 | 07   | `#join`          | Join Us            |
 
+Sidebar navigation is intentionally limited to Home, Projects, Team, Events, and Contact. Keep News, Resources, Publications, Project Index, and Join accessible elsewhere, but do not add them back to the sidebar unless the navigation strategy changes.
+
 **Do not reorder sections without updating nav anchor links in `lib/navigation.ts`.**
 
 ## Development workflow

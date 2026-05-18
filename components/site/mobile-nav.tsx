@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { allNav } from "@/lib/navigation";
+import { sidebarNav } from "@/lib/navigation";
 import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -42,7 +42,7 @@ export function MobileNav() {
           <ThemeToggle />
         </div>
         <nav className="flex flex-col gap-1 p-4">
-          {allNav.map((item) => {
+          {sidebarNav.map((item) => {
             const Icon = item.icon;
             return (
               <Link

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { contactEmail } from "@/lib/contact";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
   const data = parsed.data;
   const resendApiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.CONTACT_FROM_EMAIL;
-  const toEmail = process.env.CONTACT_TO_EMAIL || "shahriarirad.reza@mayo.edu";
+  const toEmail = contactEmail;
   const subject = `[A-STAR Contact] ${data.inquiryType} — ${data.name}`;
   const text = [
     `Name: ${data.name}`,

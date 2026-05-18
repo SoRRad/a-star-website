@@ -11,6 +11,7 @@ import {
   Mail,
   Compass,
 } from "lucide-react";
+import { contactMailto } from "@/lib/contact";
 
 export type NavItem = {
   title: string;
@@ -49,7 +50,15 @@ export const allNav: NavItem[] = [
   { title: "Resources", href: "/resources", icon: Library },
   { title: "Publications", href: "/publications", icon: FileText },
   { title: "Join Us", href: "/join", icon: UserPlus },
-  { title: "Contact", href: "/contact", icon: Mail },
+  { title: "Contact", href: contactMailto, icon: Mail },
+];
+
+export const sidebarNav: NavItem[] = [
+  { title: "Home", href: "/", icon: Home },
+  { title: "Projects", href: "/research", icon: Compass },
+  { title: "Team", href: "/team", icon: Users },
+  { title: "Events", href: "/events", icon: Calendar },
+  { title: "Contact", href: contactMailto, icon: Mail },
 ];
 
 export const footerNav = {
@@ -66,6 +75,6 @@ export const footerNav = {
   ],
   connect: [
     { title: "Join Us", href: "/join" },
-    { title: "Contact", href: "/contact" },
+    { title: "Contact", href: contactMailto },
   ],
 };

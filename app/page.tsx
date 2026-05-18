@@ -86,8 +86,7 @@ export default function HomePage() {
       {/* 08 — Join Us */}
       <div
         id="join"
-        style={{ background: "var(--color-navy-1000)" }}
-        className="mt-24"
+        className="mt-24 border-y border-[var(--color-border)] bg-[var(--color-ink-50)] dark:bg-[var(--color-navy-1000)]"
       >
         <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <JoinUsStrip openings={openings} />

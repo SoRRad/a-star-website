@@ -12,7 +12,7 @@ The website for **A-STAR**, a Mayo Clinic research group advancing artificial in
 | Styling | Tailwind CSS v4 |
 | Search | Fuse.js inside the site sidebar |
 | Forms | React Hook Form / client forms + server-side contact API |
-| Theme | `next-themes` with dark default and light mode available |
+| Theme | `next-themes` with system preference default and manual toggle |
 | Email | Resend server-side only |
 | Hosting | Vercel |
 
@@ -24,7 +24,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open <http://localhost:3000>. The site defaults to dark mode; light mode remains available from the theme toggle.
+Open <http://localhost:3000>. The site follows the user's system theme on first visit; the theme toggle can still force dark or light mode.
 
 ## Content Map
 
@@ -98,6 +98,10 @@ Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design asse
 ## Logo Notes
 
 Current production logo assets are PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. `clean/` and `current/` are not used. Existing SVG files are legacy/outdated and must not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar/phase wheel/footer, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and the dynamic `/opengraph-image` route for social sharing.
+
+## Sidebar Navigation
+
+The sidebar intentionally stays compact: Home, Projects, Team, Events, and Contact. News, Resources, Publications, Project Index, and Join remain accessible from the top navigation, footer, page links, or direct routes.
 
 ## Talks
 

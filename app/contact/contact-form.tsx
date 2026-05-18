@@ -9,6 +9,7 @@ import { z } from "zod";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/projects";
+import { contactEmail, contactMailto } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 const INQUIRY_TYPES = [
@@ -136,8 +137,8 @@ export function ContactForm() {
           {submissionMode === "development"
             ? "Your form entry was accepted and logged on the server, but it was not emailed because Resend is not configured. Please email "
             : "Thank you for reaching out. For urgent follow-up, please email "}
-          <a href="mailto:shahriarirad.reza@mayo.edu" className="text-[var(--color-accent)] hover:underline">
-            shahriarirad.reza@mayo.edu
+          <a href={contactMailto} className="text-[var(--color-accent)] hover:underline">
+            {contactEmail}
           </a>{" "}
           directly. In the meantime, explore our{" "}
           <Link href="/research" className="text-[var(--color-accent)] hover:underline">research and projects</Link>{" "}
