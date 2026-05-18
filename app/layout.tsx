@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
@@ -7,6 +8,7 @@ import { CursorDot } from "@/components/motion/cursor-dot";
 import { RouteProgress } from "@/components/site/route-progress";
 import { RoboticArmProgress } from "@/components/motion/robotic-arm-progress";
 import { StarField } from "@/components/motion/star-field";
+import { ScrollToTop } from "@/components/site/scroll-to-top";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -111,6 +113,9 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
+          <Suspense fallback={null}>
+            <ScrollToTop />
+          </Suspense>
           <StarField />
           <RouteProgress />
           <RoboticArmProgress />

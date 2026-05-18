@@ -171,7 +171,7 @@ export const stats = [
 
 | Folder                       | What goes here                                | Recommended format       |
 | ---------------------------- | --------------------------------------------- | ------------------------ |
-| `/public/logos/astar/`       | A-STAR official logos                         | Current production PNGs  |
+| `/public/logos/astar/`       | A-STAR official logos                         | WebP (UI) + PNG (source/favicon) |
 | `/public/logos/partners/`    | Collaborator institution logos                | PNG transparent or SVG   |
 | `/public/team/`              | Team member headshots                         | JPG, square, 600×600+    |
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
@@ -179,11 +179,13 @@ export const stats = [
 All images should be optimized before commit (use [Squoosh](https://squoosh.app) or similar).
 
 Logo requirements:
-- Current production logo assets are PNG files in `public/logos/astar`.
-- Existing SVG files are legacy/outdated and should not be used until regenerated from the new logo.
-- Hero/header/sidebar: mark-only production PNG.
-- Footer/wordmark contexts: horizontal production PNG.
-- Favicon/apple icon: 512 PNG.
+- **Active UI logos** are WebP files with transparent backgrounds in `public/logos/astar/` (e.g. `astar-mark-dark.webp`). Paths are exported from `lib/logos.ts`.
+- The source PNG files are kept alongside for archival reference only.
+- SVG files under `public/logos/astar/legacy/` are outdated and must not be used in active UI code.
+- Hero/header/sidebar: `<Logo variant="mark" />` — renders correct dark/light WebP automatically.
+- Footer/wordmark contexts: `<Logo variant="horizontal" />`.
+- Phase wheel center: HTML `<Logo>` overlay (not SVG `<image>`).
+- Favicon/apple icon: 512 PNG (browser icon formats must remain PNG).
 - OpenGraph/social: `astar-og-image.png` or the dynamic `/opengraph-image` route.
 
 ---

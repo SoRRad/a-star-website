@@ -122,7 +122,7 @@ export const team: TeamMember[] = [
   {
     slug: "intekhab-hossain",
     name: "Intekhab Hossain",
-    role: "Research Fellow",
+    role: "Fellow",
     affiliation: "Mayo Clinic",
     bio: "Dr. Intekhab Hossain is currently a Minimally Invasive and Bariatric Surgery fellow and is also completing his Master of Science in Health Systems Leadership and Innovation, both through the University of Toronto. He completed his General Surgery Residency at Memorial University. His research interests include bariatric surgery, endobariatrics, artificial intelligence and quality improvement in surgery.",
     photo: "/team/intekhab-hossain.jpg",

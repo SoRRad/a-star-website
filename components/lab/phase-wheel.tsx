@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { phases } from "@/lib/phases";
-import { logos } from "@/lib/logos";
+import { Logo } from "@/components/site/logo";
 
 /* ── SVG geometry ── */
 const CX = 200;
@@ -78,9 +78,11 @@ export function PhaseWheel() {
     <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
       {/* ── Wheel ── */}
       <div className="mx-auto flex-shrink-0 lg:mx-0">
+        {/* relative container so the HTML logo overlay can be positioned over the SVG */}
+        <div className="relative w-full max-w-[360px]">
         <svg
           viewBox="0 0 400 400"
-          className="w-full max-w-[360px] cursor-pointer select-none focus:outline-none"
+          className="w-full cursor-pointer select-none focus:outline-none"
           role="group"
           aria-label="Surgical phase wheel — use arrow keys to cycle phases"
           tabIndex={0}
@@ -154,17 +156,29 @@ export function PhaseWheel() {
             })}
           </motion.g>
 
-          {/* Center — transparent mark, no white box */}
+          {/* Center hub circle — filled with card background */}
           <circle cx={CX} cy={CY} r={R_INNER - 4} fill="var(--color-card)" />
-          <image
-            href={logos.markNeutral}
-            x={CX - 30}
-            y={CY - 30}
-            width={60}
-            height={60}
-            preserveAspectRatio="xMidYMid meet"
-          />
         </svg>
+
+        {/* HTML logo overlay — centered over the wheel hub.
+            pointer-events-none so wheel click/keyboard interactions pass through. */}
+        <div
+          className="pointer-events-none absolute inset-0 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          {/* 50%/50% of the SVG viewBox maps to the center. The hub radius is
+              R_INNER-4 = 66 SVG units out of 400 → ~16.5% of SVG width.
+              At max-w-[360px] that's ≈60px diameter; we render at 52px to
+              leave a small visual margin inside the hub circle. */}
+          <Logo
+            variant="mark"
+            width={52}
+            height={52}
+            sizes="52px"
+            className="h-[13%] w-[13%]"
+          />
+        </div>
+        </div>
       </div>
 
       {/* ── Content panel ── */}
