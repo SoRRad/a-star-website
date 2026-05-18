@@ -171,7 +171,7 @@ export const stats = [
 
 | Folder                       | What goes here                                | Recommended format       |
 | ---------------------------- | --------------------------------------------- | ------------------------ |
-| `/public/logos/astar/`       | A-STAR official logos                         | WebP (UI) + PNG (source/favicon) |
+| `/public/logos/astar/`       | A-STAR official logos                         | PNG source/favicon + cleaned UI PNG |
 | `/public/logos/partners/`    | Collaborator institution logos                | PNG transparent or SVG   |
 | `/public/team/`              | Team member headshots                         | JPG, square, 600×600+    |
 | `/public/projects/`          | Project screenshots, demo thumbnails          | PNG or JPG               |
@@ -179,11 +179,11 @@ export const stats = [
 All images should be optimized before commit (use [Squoosh](https://squoosh.app) or similar).
 
 Logo requirements:
-- **Active UI logos** are WebP files with transparent backgrounds in `public/logos/astar/` (e.g. `astar-mark-dark.webp`). Paths are exported from `lib/logos.ts`.
-- The source PNG files are kept alongside for archival reference only.
+- **Active UI logos** are cleaned PNG files with alpha transparency in `public/logos/astar/clean/` (e.g. `astar-mark-on-dark.png`). Paths are exported from `lib/logos.ts`.
+- The source PNG files are kept alongside as the current production source exports.
 - SVG files under `public/logos/astar/legacy/` are outdated and must not be used in active UI code.
-- Hero/header/sidebar: `<Logo variant="mark" />` — renders correct dark/light WebP automatically.
-- Footer/wordmark contexts: `<Logo variant="horizontal" />`.
+- Hero/header/sidebar/footer: `<Logo variant="mark" />` — renders the correct dark/light PNG automatically.
+- Footer wordmark text should be HTML text next to the mark unless a fresh transparent horizontal export is approved.
 - Phase wheel center: HTML `<Logo>` overlay (not SVG `<image>`).
 - Favicon/apple icon: 512 PNG (browser icon formats must remain PNG).
 - OpenGraph/social: `astar-og-image.png` or the dynamic `/opengraph-image` route.
@@ -319,7 +319,7 @@ AMA/APA/BibTeX formatters in `lib/publication-utils.ts` handle punctuation autom
 
 ## Adding a news item
 
-News items drive the `/news` page, the home page "From the lab" section,
+News items drive the `/news` page, `/news/[slug]` detail pages, the home page "From the lab" section,
 and bidirectional mentions on team and project pages.
 
 ### Step-by-step
@@ -342,7 +342,7 @@ This is a second paragraph. Markdown headings/lists are not parsed — plain tex
   people: ["simon-laplante"],       // team slugs mentioned (drives 'Recent mentions' on team pages)
   projects: ["mosi"],               // project slugs (drives 'Featured in news' on project pages)
   publications: [],                 // publication slugs referenced
-  externalLink: "",                 // if set, 'Read more' opens this URL; if empty, body renders inline
+  externalLink: "",                 // optional external resource shown on the detail page
   featured: false,                  // true = appears as hero on news page
 },
 ```
@@ -353,6 +353,8 @@ This is a second paragraph. Markdown headings/lists are not parsed — plain tex
 
 4. The `allNews` export in `lib/news.ts` automatically sorts by date descending.
    The home page shows the 3 most recent items.
+5. News cards and "Read full story" links always route to `/news/{slug}`. Add
+   `externalLink` or `relatedLinks` when the detail page should link to an outside resource.
 
 ### The news hero
 

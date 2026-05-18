@@ -25,16 +25,11 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
     `${siteConfig.url}/news/${item.slug}`,
   )}`;
 
-  const href = item.externalLink ?? `/news/${item.slug}`;
-  const isExternal = !!item.externalLink;
+  const href = `/news/${item.slug}`;
 
   return (
-    <Link
-      href={href}
-      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="group block h-full"
-    >
-      <article className="flex h-full flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md">
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md">
+      <Link href={href} className="block">
         {/* Image */}
         <div className="relative aspect-[16/9] w-full overflow-hidden">
           <NewsImage
@@ -46,6 +41,7 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
             className="transition-transform duration-500 group-hover:scale-[1.02]"
           />
         </div>
+      </Link>
 
         {/* Content */}
         <div className="flex flex-1 flex-col p-5">
@@ -72,7 +68,7 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
             }`}
             style={{ letterSpacing: "-0.02em" }}
           >
-            {item.title}
+            <Link href={href}>{item.title}</Link>
           </h3>
 
           {/* Excerpt */}
@@ -80,11 +76,10 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
             {item.excerpt}
           </p>
 
-          <span className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)]">
-            Read more <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-          </span>
+          <Link href={href} className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)]">
+            Read full story <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </article>
-    </Link>
   );
 }

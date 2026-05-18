@@ -45,7 +45,7 @@ function generateStars(count: number): Star[] {
  * animation logic entirely in CSS so JS stays idle after mount.
  */
 export function StarField() {
-  const stars = useMemo(() => generateStars(90), []);
+  const stars = useMemo(() => generateStars(56), []);
 
   return (
     <div

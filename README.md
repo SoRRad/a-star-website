@@ -48,7 +48,7 @@ app/
   research/               Research dashboard, journey map, model cards
   resources/              Resources hub and glossary
   join/                   Open positions and project intake form
-  news/                   News index and detail pages
+  news/                   News index and /news/[slug] detail pages
   api/contact/            Server-side contact endpoint
 components/
   site/                   Header, sidebar, footer, layout chrome
@@ -93,11 +93,11 @@ git commit -m "Describe change"
 git push
 ```
 
-Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`; the temporary `New logos` folder is only a local handoff source.
+Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`; cleaned transparent UI PNGs live in `public/logos/astar/clean/`.
 
 ## Logo Notes
 
-Current production logo assets are PNG files in `public/logos/astar/`. Existing SVG files are legacy/outdated and should not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar, horizontal PNGs for footer wordmark contexts, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and `astar-og-image.png` or the dynamic `/opengraph-image` route for social sharing.
+Current production logo assets are PNG files in `public/logos/astar/`. Active UI uses cleaned alpha PNGs in `public/logos/astar/clean/`, exported through `lib/logos.ts`. Existing SVG files are legacy/outdated and must not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar/footer, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and the dynamic `/opengraph-image` route for social sharing.
 
 ## Talks
 
@@ -108,6 +108,7 @@ Add selected talks, courses, and educational resources in `lib/talks.ts`. Use ve
 - Set `NEXT_PUBLIC_SITE_URL` to the production domain.
 - Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` in Vercel.
 - Verify `/news` remains accessible.
+- Verify each `/news/[slug]` detail page renders and no news card links 404.
 - Verify all paths in `lib/logos.ts`, `lib/team.ts`, and `lib/news.ts` resolve to files in `public/`.
 - Submit `{domain}/sitemap.xml` after launch.
 

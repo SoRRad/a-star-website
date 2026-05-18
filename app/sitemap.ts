@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { allNav } from "@/lib/navigation";
+import { allNews } from "@/lib/news";
 import { projects } from "@/lib/projects";
 import { activeTeamMembers } from "@/lib/team";
 
@@ -29,5 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...projectRoutes, ...teamRoutes];
+  const newsRoutes: MetadataRoute.Sitemap = allNews.map(({ slug, date }) => ({
+    url: `${base}/news/${slug}`,
+    lastModified: new Date(date),
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...projectRoutes, ...teamRoutes, ...newsRoutes];
 }

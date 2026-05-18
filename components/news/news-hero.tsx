@@ -103,8 +103,7 @@ export function NewsHero({ item }: NewsHeroProps) {
 
         {/* Read more CTA */}
         <Link
-          href={item.externalLink ?? `/news/${item.slug}`}
-          {...(item.externalLink ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          href={`/news/${item.slug}`}
           className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-foreground)]"
         >
           Read the full story <ArrowRight className="h-3.5 w-3.5 transition-transform hover:translate-x-0.5" />

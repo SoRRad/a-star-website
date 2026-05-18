@@ -35,7 +35,10 @@ export function MobileNav() {
           <DialogTitle>Navigation</DialogTitle>
         </VisuallyHidden>
         <div className="flex items-center justify-between border-b border-[var(--color-border)] p-4">
-          <Logo variant="horizontal" />
+          <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+            <Logo variant="mark" width={28} height={28} sizes="28px" className="h-7 w-7" />
+            <span className="font-display text-lg font-semibold tracking-tight">A-STAR</span>
+          </Link>
           <ThemeToggle />
         </div>
         <nav className="flex flex-col gap-1 p-4">

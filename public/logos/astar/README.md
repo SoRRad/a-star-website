@@ -2,51 +2,44 @@
 
 ## Current Production Assets
 
-All active UI logo files are **WebP with transparency** located in `public/logos/astar/`.
-WebP versions were generated from the PNG originals with background-color keying to produce
-transparent backgrounds. The source PNG files are kept alongside for archival reference.
+Active UI logo files are cleaned **PNG files with alpha transparency** in
+`public/logos/astar/clean/`. They were generated from the current production PNG
+exports in `public/logos/astar/`.
 
-### Naming convention
+The old SVG files under `legacy/` are outdated and must not be imported or
+hardcoded in active UI code.
 
-| Suffix | Meaning | Use on |
+## Naming Convention
+
+| File suffix | Meaning | Use on |
 | --- | --- | --- |
-| `*-dark.webp` | Dark-ink logo ("onLight") | Light / white backgrounds |
-| `*-light.webp` | Light-ink logo ("onDark") | Dark backgrounds |
-| `*-neutral.webp` | Neutral / standalone variant | Depends on context |
+| `on-light.png` | Dark/navy logo artwork | Light backgrounds |
+| `on-dark.png` | Light/white logo artwork | Dark backgrounds |
+| `neutral.png` | Standalone mark variant | Context-specific |
 
-### Active UI files
+## Active UI Files
 
-| File | Variant | Intrinsic size | Used by |
-| --- | --- | --- | --- |
-| `astar-mark-dark.webp` | Mark (square), dark ink | 1254×1254 | `<Logo variant="mark">` in light mode |
-| `astar-mark-light.webp` | Mark (square), light ink | 1254×1254 | `<Logo variant="mark">` in dark mode |
-| `astar-mark-neutral.webp` | Mark (square), neutral | 1254×1254 | Available for standalone use |
-| `astar-horizontal-dark.webp` | Horizontal wordmark, dark ink | ~1580×559 | `<Logo variant="horizontal">` in light mode |
-| `astar-horizontal-light.webp` | Horizontal wordmark, light ink | ~1559×558 | `<Logo variant="horizontal">` in dark mode |
-| `astar-stacked-dark.webp` | Stacked wordmark, dark ink | ~1048×1132 | `<Logo variant="stacked">` in light mode |
-| `astar-stacked-light.webp` | Stacked wordmark, light ink | ~962×1103 | `<Logo variant="stacked">` in dark mode |
-| `favicon-512.png` | Browser favicon | 512×512 | `<link rel="icon">` in `app/layout.tsx` |
-| `apple-touch-icon.png` | Apple home-screen icon | 1254×1254 | `<link rel="apple-touch-icon">` |
-| `astar-og-image.png` | OpenGraph social image | 1731×909 | `og:image` meta tag |
+| File | Variant | Used by |
+| --- | --- | --- |
+| `clean/astar-mark-on-light.png` | Mark, dark ink | `<Logo variant="mark">` in light mode |
+| `clean/astar-mark-on-dark.png` | Mark, light ink | `<Logo variant="mark">` in dark mode |
+| `clean/astar-mark-neutral.png` | Mark, neutral | Reserved for standalone use |
+| `clean/astar-horizontal-on-light.png` | Horizontal wordmark, dark ink | Available through `lib/logos.ts` |
+| `clean/astar-horizontal-on-dark.png` | Horizontal wordmark, light ink | Available through `lib/logos.ts` |
+| `clean/astar-stacked-on-light.png` | Stacked wordmark, dark ink | Available through `lib/logos.ts` |
+| `clean/astar-stacked-on-dark.png` | Stacked wordmark, light ink | Available through `lib/logos.ts` |
+| `favicon-512.png` | Browser favicon | `app/layout.tsx` |
+| `apple-touch-icon.png` | Apple home-screen icon | `app/layout.tsx` |
 
-## Site logo usage
+## Site Logo Usage
 
 | Location | Component / file | Variant |
 | --- | --- | --- |
 | Header home link | `components/site/header.tsx` | `mark` |
-| Research dropdown icons | `components/site/header.tsx` | `mark` (via `<Logo>`) |
+| Research dropdown icons | `components/site/header.tsx` | `mark` |
 | Hero section | `components/sections/hero-section.tsx` | `mark` + HTML headline |
 | Sidebar | `components/site/command-palette.tsx` | `mark` |
-| Footer wordmark | `components/site/footer.tsx` | `horizontal` |
+| Footer | `components/site/footer.tsx` | `mark` + HTML text |
+| Phase wheel center | `components/lab/phase-wheel.tsx` | HTML `<Logo>` overlay |
 
-## How the Logo component works
-
-`components/site/logo.tsx` renders **two** `<Image>` elements simultaneously — one visible
-in light mode (`dark:hidden`) and one in dark mode (`dark:block`). This avoids
-`useTheme()` and produces no FOUC. Paths come from `lib/logos.ts`.
-
-## Legacy SVGs
-
-The original SVG files have been moved to `legacy/` and **must not be imported or
-hardcoded in any active site code**. They were generated from an older version of the logo
-artwork and are kept only for historical reference.
+Paths come from `lib/logos.ts`. Do not hardcode logo paths in components.

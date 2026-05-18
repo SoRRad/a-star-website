@@ -191,6 +191,31 @@ export function getNewsPrimaryImage(item: NewsItem): NewsImageEntry | undefined 
   return getNewsImages(item)[0];
 }
 
+export function getNewsBySlug(slug: string): NewsItem | undefined {
+  return allNews.find((item) => item.slug === slug);
+}
+
+export function getRelatedNews(item: NewsItem, limit = 3): NewsItem[] {
+  return allNews
+    .filter((candidate) => candidate.slug !== item.slug)
+    .map((candidate) => {
+      const peopleMatches = candidate.people.filter((slug) => item.people.includes(slug)).length;
+      const projectMatches = candidate.projects.filter((slug) => item.projects.includes(slug)).length;
+      const publicationMatches = candidate.publications.filter((slug) =>
+        item.publications.includes(slug),
+      ).length;
+      const categoryMatch = candidate.category === item.category ? 1 : 0;
+
+      return {
+        item: candidate,
+        score: peopleMatches * 3 + projectMatches * 3 + publicationMatches * 2 + categoryMatch,
+      };
+    })
+    .sort((a, b) => b.score - a.score || new Date(b.item.date).getTime() - new Date(a.item.date).getTime())
+    .slice(0, limit)
+    .map(({ item }) => item);
+}
+
 export function getNewsByPerson(slug: string): NewsItem[] {
   return allNews.filter((n) => n.people.includes(slug));
 }

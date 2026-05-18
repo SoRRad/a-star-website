@@ -31,11 +31,17 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-12 md:grid-cols-5">
           <div className="col-span-2">
             <Link href="/" className="inline-flex items-center">
-              <Logo
-                variant="horizontal"
-                sizes="200px"
-                className="w-[200px]"
-              />
+              <span className="flex items-center gap-3">
+                <Logo variant="mark" sizes="42px" width={42} height={42} className="h-10 w-10" />
+                <span>
+                  <span className="block font-display text-2xl font-semibold leading-none tracking-tight">
+                    A-STAR
+                  </span>
+                  <span className="mt-1 block text-xs font-medium uppercase tracking-widest text-[var(--color-muted-foreground)]">
+                    Surgical AI Lab
+                  </span>
+                </span>
+              </span>
             </Link>
 
             <p className="mt-4 max-w-sm font-display text-xl font-semibold leading-tight text-[var(--color-foreground)]" style={{ letterSpacing: "-0.03em" }}>

@@ -20,9 +20,9 @@ interface LogoProps {
  *   onLight = logo intended for light backgrounds (dark ink)  → markDark / fullHorizontalDark / fullStackedDark
  *   onDark  = logo intended for dark backgrounds (light ink)  → markLight / fullHorizontalLight / fullStackedLight
  *
- * All source files are WebP with transparent backgrounds (generated from the
- * PNG originals). The SVG files under public/logos/astar/legacy are outdated
- * and must not be imported here.
+ * All active UI sources are cleaned PNG files with alpha transparency generated
+ * from the production PNG originals. The SVG files under
+ * public/logos/astar/legacy are outdated and must not be imported here.
  */
 export function Logo({
   className,
@@ -41,11 +41,11 @@ export function Logo({
     stacked: { onLight: logos.fullStackedDark, onDark: logos.fullStackedLight },
   };
 
-  // Intrinsic dimensions derived from the cropped WebP files.
+  // Intrinsic dimensions derived from the cleaned PNG files.
   // These set the srcset optimization hints and aspect-ratio for layout.
-  // horizontal WebP is ~1580×559 after cropping (ratio ≈ 2.83).
-  // stacked  WebP is ~1048×1132 after cropping (ratio ≈ 0.93).
-  // mark     WebP is 1254×1254 (square).
+  // horizontal PNG is ~1500×500 after cleanup (ratio ≈ 3.0).
+  // stacked  PNG is ~980×1060 after cleanup (ratio ≈ 0.92).
+  // mark     PNG is square-ish after cleanup.
   const dims = {
     mark: { w: width ?? 80, h: height ?? 80 },
     horizontal: { w: width ?? 282, h: height ?? 100 },

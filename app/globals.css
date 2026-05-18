@@ -154,6 +154,7 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "cv11", "ss01", "ss03";
     scroll-padding-top: 48px;
+    overflow-x: hidden;
   }
 
   body {
@@ -163,6 +164,7 @@
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+    overflow-x: hidden;
   }
 
   /* Display type — Bricolage Grotesque: architectural, tight, confident */
