@@ -24,13 +24,14 @@ export type NavItem = {
 /**
  * Primary navigation shown in the header.
  * Home is rendered as icon-only in the header component.
- * News and Publications are removed — News lives on the homepage, Publications is under Research.
+ * Publications is accessible under the Projects dropdown and via /publications.
  * Archive is renamed to Resources (/resources).
  */
 export const primaryNav: NavItem[] = [
-  { title: "Research & Projects", href: "/research", icon: Compass, sectionId: "research" },
+  { title: "Projects", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
   { title: "Events", href: "/events", icon: Calendar, sectionId: "events" },
+  { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
   { title: "Resources", href: "/resources", icon: Library, sectionId: "resources" },
   { title: "Join", href: "/join", icon: UserPlus, sectionId: "join" },
 ];
@@ -40,7 +41,7 @@ export const primaryNav: NavItem[] = [
  */
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
-  { title: "Research & Projects", href: "/research", icon: Compass },
+  { title: "Projects", href: "/research", icon: Compass },
   { title: "Projects", href: "/projects", icon: FlaskConical },
   { title: "Team", href: "/team", icon: Users },
   { title: "Events", href: "/events", icon: Calendar },
@@ -53,7 +54,7 @@ export const allNav: NavItem[] = [
 
 export const footerNav = {
   research: [
-    { title: "Research & Projects", href: "/research" },
+    { title: "Research Hub", href: "/research" },
     { title: "Projects", href: "/projects" },
     { title: "Publications", href: "/publications" },
     { title: "Resources", href: "/resources" },

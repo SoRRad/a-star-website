@@ -30,6 +30,7 @@ export type Talk = {
 
 export const talks: Talk[] = [
   {
+    // Cross-ref: news.ts "laplante-asmbs-ai-webinar-2025" covers the same event as a lab announcement.
     slug: "asmbs-bariatric-happy-hour-ai-2025",
     title:
       "Bariatric Happy Hour! The Future of Surgery: Harnessing AI for Smarter, Safer, and Faster Procedures",
@@ -103,6 +104,8 @@ export const talks: Talk[] = [
     order: 5,
   },
   {
+    // Cross-ref: events.ts "asmbs-ai-course-2026" is the scheduling entry for this same course.
+    // Update details here and there in sync when confirmed dates/location become available.
     slug: "asmbs-ai-course",
     title: "ASMBS AI Course",
     speaker: "Simon J. Laplante, M.D., M.Sc.",

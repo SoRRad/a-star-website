@@ -132,7 +132,7 @@ function ProjectsNavItem({ active }: { active: boolean }) {
         )}
         onClick={() => router.push("/research")}
       >
-        Research & Projects
+        Projects
         {active && (
           <motion.span
             layoutId="nav-active-indicator"

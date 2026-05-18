@@ -2,6 +2,7 @@ export type TeamRole =
   | "Principal Investigator"
   | "AI Lead"
   | "Research Fellow"
+  | "Fellow"
   | "Resident"
   | "Engineer"
   | "Collaborator"
