@@ -47,7 +47,7 @@ export function Providers({ children }: { children: ReactNode }) {
       attribute="class"
       defaultTheme="system"
       enableSystem={true}
-      disableTransitionOnChange={false}
+      disableTransitionOnChange={true}
     >
       <SmoothScroll>{children}</SmoothScroll>
     </ThemeProvider>

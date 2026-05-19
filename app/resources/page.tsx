@@ -7,6 +7,7 @@ import {
   Database,
   ExternalLink,
   FileText,
+  FolderOpen,
   Globe,
   Lock,
   Presentation,
@@ -78,6 +79,13 @@ const HUB_SECTIONS = [
     href: "#talks",
     icon: Presentation,
     status: "Updated",
+  },
+  {
+    title: "Shared archive",
+    description: "Selected presentations, videos, and shared resources from A-STAR are available through the lab's Google Drive archive.",
+    href: "https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu",
+    icon: FolderOpen,
+    status: "Available",
   },
 ];
 
@@ -183,12 +191,12 @@ export default function ResourcesPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {HUB_SECTIONS.map(({ title, description, href, icon: Icon, status }) => (
-            <Reveal key={title} delay={0.03}>
-              <Link
-                href={href}
-                className="group relative flex h-full min-h-40 flex-col justify-between overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40"
-              >
+          {HUB_SECTIONS.map(({ title, description, href, icon: Icon, status }) => {
+            const isExternal = href.startsWith("http");
+            const cardClass =
+              "group relative flex h-full min-h-40 flex-col justify-between overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40";
+            const cardInner = (
+              <>
                 <div className="pointer-events-none absolute inset-x-8 top-7 h-px bg-gradient-to-r from-transparent via-[var(--color-accent)]/25 to-transparent" />
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-muted)]">
@@ -204,9 +212,50 @@ export default function ResourcesPage() {
                     {description}
                   </p>
                 </div>
-              </Link>
-            </Reveal>
-          ))}
+              </>
+            );
+            return (
+              <Reveal key={title} delay={0.03}>
+                {isExternal ? (
+                  <a href={href} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                    {cardInner}
+                  </a>
+                ) : (
+                  <Link href={href} className={cardClass}>
+                    {cardInner}
+                  </Link>
+                )}
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Shared archive CTA */}
+      <section className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+        <div className="rounded-lg border border-[var(--color-accent)]/30 bg-[var(--color-card)] p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10">
+                <FolderOpen className="h-5 w-5 text-[var(--color-accent)]" />
+              </div>
+              <div>
+                <h2 className="font-display text-xl font-semibold tracking-tight">Shared archive</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+                  Selected presentations, videos, and shared resources are available through the A-STAR shared archive on Google Drive.
+                </p>
+              </div>
+            </div>
+            <a
+              href="https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              Open archive
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
       </section>
 

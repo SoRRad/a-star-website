@@ -1,16 +1,15 @@
 # A-STAR Logo Assets
 
-## Current Production Assets
+## Active Production Files
 
-Active production logo files are PNG files in `public/logos/astar/`.
-`clean/` and `current/` are not used by the production website.
+All active logo files are PNG files in `public/logos/astar/`. The naming convention is:
 
-The old SVG files under `legacy/` are outdated and must not be imported or
-hardcoded in active UI code.
+- `*-on-light.png` — dark/navy ink logo, for use on light backgrounds
+- `*-on-dark.png` — white/light ink logo, for use on dark backgrounds
 
-Use `*-on-light.png` for light backgrounds and `*-on-dark.png` for dark
-backgrounds. The dark-mode mark must remain light/white enough for navy or
-black surfaces; do not substitute the neutral mark in dark-mode UI.
+The `astar-mark-neutral.png` (and `.webp`) is a transparent-background mark used for watermarks and decorative overlays.
+
+Do **not** use old SVG files or the non-prefixed variants — those have been removed from the repository.
 
 ## Canonical UI Files
 
@@ -18,14 +17,14 @@ black surfaces; do not substitute the neutral mark in dark-mode UI.
 | --- | --- | --- |
 | `astar-mark-on-light.png` | Mark, dark/navy ink | `<Logo variant="mark">` in light mode |
 | `astar-mark-on-dark.png` | Mark, white/light ink | `<Logo variant="mark">` in dark mode |
-| `astar-mark-neutral.png` | Mark, neutral | Reserved for standalone use |
+| `astar-mark-neutral.png` | Mark, neutral/transparent bg | Watermarks, overlays (`logos.markNeutral`) |
 | `astar-horizontal-on-light.png` | Horizontal wordmark, dark/navy ink | Available through `lib/logos.ts` |
 | `astar-horizontal-on-dark.png` | Horizontal wordmark, white/light ink | Available through `lib/logos.ts` |
 | `astar-stacked-on-light.png` | Stacked wordmark, dark/navy ink | Available through `lib/logos.ts` |
 | `astar-stacked-on-dark.png` | Stacked wordmark, white/light ink | Available through `lib/logos.ts` |
 | `favicon-512.png` | Browser favicon | `app/layout.tsx` |
 | `apple-touch-icon.png` | Apple home-screen icon | `app/layout.tsx` |
-| `astar-og-image.png` | Social image fallback | Metadata/OpenGraph contexts |
+| `astar-og-image.png` | Social image fallback | Manual OG fallback (dynamic route is `app/opengraph-image.tsx`) |
 
 ## Site Logo Usage
 
@@ -37,5 +36,8 @@ black surfaces; do not substitute the neutral mark in dark-mode UI.
 | Sidebar | `components/site/command-palette.tsx` | `mark` |
 | Footer | `components/site/footer.tsx` | `mark` + HTML text |
 | Phase wheel center | `components/lab/phase-wheel.tsx` | HTML `<Logo>` overlay |
+| Reveal watermark | `components/motion/reveal.tsx` | `markNeutral` |
+| Featured projects | `components/lab/featured-projects.tsx` | `markNeutral` |
+| Project cards | `components/lab/project-card.tsx` | `markNeutral` |
 
-Paths come from `lib/logos.ts`. Do not hardcode logo paths in components.
+All logo paths come from `lib/logos.ts`. Do not hardcode logo paths in components.
