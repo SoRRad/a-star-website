@@ -5,7 +5,6 @@ import { ArrowRight, FlaskConical, Users, BookOpen } from "lucide-react";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 import { Magnetic } from "@/components/motion/magnetic";
 import type { Opening } from "@/lib/openings";
-import { contactMailto } from "@/lib/contact";
 
 const ctaCards = [
   {
@@ -19,7 +18,7 @@ const ctaCards = [
     icon: FlaskConical,
     title: "Collaborate",
     pitch: "Clinical partnerships, industry collaboration, and multi-site research.",
-    href: contactMailto,
+    href: "/contact#collaborate",
     cta: "Get in touch",
   },
   {

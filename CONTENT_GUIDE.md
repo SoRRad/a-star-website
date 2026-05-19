@@ -496,3 +496,66 @@ The roster row shows a dashed placeholder and a "Apply on Mayo Careers" CTA inst
 standard bio/research-focus section. The playing card on the home page routes to `/join`.
 
 To tie the opening to the position in `lib/openings.ts`, add `teamSlug: "my-role-open"` to the matching opening entry.
+
+---
+
+## Site structure and navigation notes
+
+### Page responsibilities
+
+| Page | Purpose |
+| ---- | ------- |
+| `/research` | Main projects page — publications dashboard, surgical journey map, active projects |
+| `/projects` | Redirects to `/research` (old URL kept for backward compatibility) |
+| `/projects/[slug]` | Individual project detail pages — do not remove |
+| `/join` | Roles and opportunities (open positions, why A-STAR, profiles) |
+| `/contact` | Lab contact info, team emails, social links, general form, and project intake form |
+
+### Collaboration / project intake form
+
+The project intake ("Collaborate with A-STAR") form lives at `/contact#collaborate`.
+It was moved from `/join` so that `/join` stays focused on employment opportunities.
+The form submits to `/api/contact` with `inquiryType: "research-collaboration"`.
+
+To update the form fields, edit `app/contact/project-intake-form.tsx`.
+
+### Sidebar navigation
+
+The sidebar (opened via the menu button or Ctrl+K / ⌘K) shows a simplified set:
+
+| Label | Destination |
+| ----- | ----------- |
+| Home | `/` |
+| Projects | `/research` |
+| Team | `/team` |
+| Events | `/events` |
+| Contact | `/contact` |
+
+Edit `lib/navigation.ts` → `sidebarNav` to change these.
+
+### Google Drive archive link
+
+The A-STAR shared archive (presentations, videos) is at:
+`https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu`
+
+It appears on the `/resources` page as a hub card and a featured CTA band.
+To update the URL, search for the Drive URL in `app/resources/page.tsx`.
+
+### Contact email
+
+Primary contact: `shahriarirad.reza@mayo.edu` — defined in `lib/contact.ts`.
+Secondary contact: `alomar.abdulrahman@mayo.edu` — defined directly in `app/contact/page.tsx`.
+
+### Social links
+
+Set in `lib/site-config.ts` → `social`. LinkedIn, Twitter, and email are currently empty;
+populate them when accounts are ready. The footer and contact page will automatically
+show the icons once a URL is provided.
+
+### Active logos
+
+Production logo PNG files live in `public/logos/astar/`. Only the `-on-light` and
+`-on-dark` variants are used in UI. The neutral mark (`astar-mark-neutral.png`) is used
+for watermarks and decorative overlays. Old non-on-prefix files were removed.
+See `public/logos/astar/README.md` for the full table.
+

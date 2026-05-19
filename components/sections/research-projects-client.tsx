@@ -23,7 +23,7 @@ export function ResearchProjectsClient() {
 
       <PhaseWheel />
 
-      <ExploreMore href="/projects">Explore research and projects</ExploreMore>
+      <ExploreMore href="/research">Explore research and projects</ExploreMore>
     </>
   );
 }

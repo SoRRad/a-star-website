@@ -8,6 +8,7 @@ import { CursorDot } from "@/components/motion/cursor-dot";
 import { RouteProgress } from "@/components/site/route-progress";
 import { RoboticArmProgress } from "@/components/motion/robotic-arm-progress";
 import { StarField } from "@/components/motion/star-field";
+import { BackgroundPaths } from "@/components/motion/background-paths";
 import { ScrollToTop } from "@/components/site/scroll-to-top";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
@@ -117,6 +118,10 @@ export default function RootLayout({
             <ScrollToTop />
           </Suspense>
           <StarField />
+          {/* Fixed background path lines — mainly for light mode visual depth */}
+          <div className="pointer-events-none fixed inset-0 z-0">
+            <BackgroundPaths className="inset-0" />
+          </div>
           <RouteProgress />
           <RoboticArmProgress />
           <CursorDot />

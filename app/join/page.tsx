@@ -3,7 +3,6 @@ import { ArrowUpRight, Stethoscope, Code2, GraduationCap, FlaskConical, Globe, U
 import { openings } from "@/lib/openings";
 import { Button } from "@/components/ui/button";
 import { formatDateShort } from "@/lib/utils";
-import { ProjectIntakeForm } from "./project-intake-form";
 
 export const metadata = { title: "Join A-STAR" };
 
@@ -141,28 +140,21 @@ export default function JoinPage() {
         </div>
       </div>
 
-      {/* General interest */}
+      {/* General interest — links to Contact for collaboration intake */}
       <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-muted)] p-8">
-        <p className="eyebrow mb-3">General interest</p>
+        <p className="eyebrow mb-3">Get in touch</p>
         <p className="mb-6 text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
           Don&apos;t see an open position that fits? We still want to hear from you.
           Send a brief note about your background and what you&apos;re hoping to work on.
+          For research collaboration and project intake, visit the Contact page.
         </p>
-        <Button asChild variant="outline">
-          <Link href="/contact?inquiry=position">Get in touch →</Link>
-        </Button>
-      </div>
-
-      <div id="project-intake" className="mt-20 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 sm:p-8">
-        <p className="eyebrow mb-3">Project intake</p>
-        <h2 className="font-display text-3xl font-semibold tracking-tight">
-          Collaborate with A-STAR.
-        </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          Share a clinical question, dataset, validation opportunity, or co-development idea. Submissions use the existing server-side contact endpoint and route to the configured A-STAR contact email.
-        </p>
-        <div className="mt-8">
-          <ProjectIntakeForm />
+        <div className="flex flex-wrap gap-3">
+          <Button asChild variant="outline">
+            <Link href="/contact?inquiry=position">Position inquiry →</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/contact#collaborate">Research collaboration →</Link>
+          </Button>
         </div>
       </div>
     </section>

@@ -2,7 +2,6 @@ import type { LucideIcon } from "lucide-react";
 import {
   Home,
   Users,
-  FlaskConical,
   FileText,
   Newspaper,
   Calendar,
@@ -11,7 +10,6 @@ import {
   Mail,
   Compass,
 } from "lucide-react";
-import { contactMailto } from "@/lib/contact";
 
 export type NavItem = {
   title: string;
@@ -38,19 +36,19 @@ export const primaryNav: NavItem[] = [
 ];
 
 /**
- * Full navigation — used in command palette, mobile nav, footer.
+ * Full navigation — used in command palette, mobile nav, sitemap.
+ * Contact links to /contact (not mailto) so it appears correctly in the sitemap.
  */
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   { title: "Projects", href: "/research", icon: Compass },
-  { title: "Project Index", href: "/projects", icon: FlaskConical },
   { title: "Team", href: "/team", icon: Users },
   { title: "Events", href: "/events", icon: Calendar },
   { title: "News", href: "/news", icon: Newspaper },
   { title: "Resources", href: "/resources", icon: Library },
   { title: "Publications", href: "/publications", icon: FileText },
   { title: "Join Us", href: "/join", icon: UserPlus },
-  { title: "Contact", href: contactMailto, icon: Mail },
+  { title: "Contact", href: "/contact", icon: Mail },
 ];
 
 export const sidebarNav: NavItem[] = [
@@ -58,13 +56,12 @@ export const sidebarNav: NavItem[] = [
   { title: "Projects", href: "/research", icon: Compass },
   { title: "Team", href: "/team", icon: Users },
   { title: "Events", href: "/events", icon: Calendar },
-  { title: "Contact", href: contactMailto, icon: Mail },
+  { title: "Contact", href: "/contact", icon: Mail },
 ];
 
 export const footerNav = {
   research: [
     { title: "Projects", href: "/research" },
-    { title: "Project Index", href: "/projects" },
     { title: "Publications", href: "/publications" },
     { title: "Resources", href: "/resources" },
   ],
@@ -75,6 +72,6 @@ export const footerNav = {
   ],
   connect: [
     { title: "Join Us", href: "/join" },
-    { title: "Contact", href: contactMailto },
+    { title: "Contact", href: "/contact" },
   ],
 };

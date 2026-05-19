@@ -338,6 +338,15 @@
     mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
   }
 
+  /* Background path flow — used by BackgroundPaths component.
+     Animates stroke-dashoffset so each path segment slowly travels its curve,
+     evoking surgical instrument trajectories or constellation connections. */
+  @keyframes bg-path-flow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
   /* Noise overlay — adds tactile depth without imagery */
   .noise::before {
     content: "";
