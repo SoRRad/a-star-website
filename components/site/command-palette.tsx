@@ -107,26 +107,41 @@ export function CommandPalette() {
                     </button>
                   </div>
 
-                  <nav className="flex-1 px-4 py-5" aria-label="Sidebar navigation">
+                  <nav className="flex-1 px-4 py-5" aria-label="Site navigation">
                     <div className="space-y-2">
                       {sidebarNav.map((item) => {
                         const Icon = item.icon;
                         const active = isActive(item.href);
                         return (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setOpen(false)}
-                            className={cn(
-                              "flex min-h-12 items-center gap-3 rounded-md border px-3 text-sm font-medium transition-colors",
-                              active
-                                ? "border-[#64B5F6]/50 bg-[#64B5F6]/10 text-white"
-                                : "border-white/10 bg-white/[0.03] text-white/70 hover:border-[#64B5F6]/40 hover:text-white",
+                          <div key={item.href}>
+                            <Link
+                              href={item.href}
+                              onClick={() => setOpen(false)}
+                              className={cn(
+                                "flex min-h-12 items-center gap-3 rounded-md border px-3 text-sm font-medium transition-colors",
+                                active
+                                  ? "border-[#64B5F6]/50 bg-[#64B5F6]/10 text-white"
+                                  : "border-white/10 bg-white/[0.03] text-white/70 hover:border-[#64B5F6]/40 hover:text-white",
+                              )}
+                            >
+                              {Icon && <Icon className="h-4 w-4 shrink-0 text-[#64B5F6]" />}
+                              <span>{item.title}</span>
+                            </Link>
+                            {item.dropdown && (
+                              <div className="ml-5 mt-2 space-y-1 border-l border-white/10 pl-3">
+                                {item.dropdown.map((sub) => (
+                                  <Link
+                                    key={sub.href}
+                                    href={sub.href}
+                                    onClick={() => setOpen(false)}
+                                    className="block rounded-md px-3 py-2 text-sm text-white/55 transition-colors hover:bg-white/5 hover:text-white"
+                                  >
+                                    {sub.title}
+                                  </Link>
+                                ))}
+                              </div>
                             )}
-                          >
-                            {Icon && <Icon className="h-4 w-4 shrink-0 text-[#64B5F6]" />}
-                            <span>{item.title}</span>
-                          </Link>
+                          </div>
                         );
                       })}
                     </div>
