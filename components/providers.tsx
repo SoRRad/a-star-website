@@ -44,12 +44,7 @@ function SmoothScroll({ children }: { children: ReactNode }) {
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem={true}
-      disableTransitionOnChange={true}
-    >
+    <ThemeProvider>
       <SmoothScroll>{children}</SmoothScroll>
     </ThemeProvider>
   );
