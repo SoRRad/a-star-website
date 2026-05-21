@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
-import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from "next-themes";
+import type { ReactNode } from "react";
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+// Site is dark-only — no theme switching needed.
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 }

@@ -8,7 +8,6 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { primaryNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { Logo } from "@/components/site/logo";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { SiteSidebar } from "@/components/site/command-palette";
 import { cn } from "@/lib/utils";
 
@@ -89,7 +88,6 @@ export function SiteHeader() {
           </NavigationMenu.Root>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <SiteSidebar />
           </div>
         </div>

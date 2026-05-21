@@ -7,6 +7,16 @@ const repoRoot = dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   outputFileTracingRoot: repoRoot,
+  // Canonical route redirects — /research is the primary projects page
+  async redirects() {
+    return [
+      { source: "/projects", destination: "/research", permanent: true },
+      { source: "/news", destination: "/events", permanent: true },
+      { source: "/resources", destination: "/events", permanent: true },
+      { source: "/resources/glossary", destination: "/events", permanent: true },
+      { source: "/join", destination: "/contact#collaborate", permanent: true },
+    ];
+  },
   // Allow embedding GitHub Pages projects (MOSI) and Cloud Run apps (SIRIS) via iframe
   async headers() {
     return [

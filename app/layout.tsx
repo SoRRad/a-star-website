@@ -82,10 +82,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#070c18" },
-  ],
+  themeColor: "#070c18",
 };
 
 export default function RootLayout({
@@ -95,16 +92,8 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${sans.variable} ${mono.variable} ${display.variable}`}
+      className={`dark ${sans.variable} ${mono.variable} ${display.variable}`}
     >
-      <head>
-        {/* Anti-flash: apply theme class before React hydrates to prevent FOUC */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme');var dark=t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);d.classList.toggle('dark',dark);d.classList.toggle('light',!dark)}catch(e){document.documentElement.classList.add('light')}})()`,
-          }}
-        />
-      </head>
       {/* suppressHydrationWarning silences browser-extension attribute injections (e.g. Grammarly) */}
       <body suppressHydrationWarning className="relative min-h-screen overflow-x-hidden font-sans antialiased">
         <Providers>
@@ -118,7 +107,6 @@ export default function RootLayout({
             <ScrollToTop />
           </Suspense>
           <StarField />
-          {/* Fixed background path lines — mainly for light mode visual depth */}
           <div className="pointer-events-none fixed inset-0 z-0">
             <BackgroundPaths className="inset-0" />
           </div>
@@ -126,7 +114,7 @@ export default function RootLayout({
           <RoboticArmProgress />
           <CursorDot />
           <SiteHeader />
-          <main id="main" className="relative">
+          <main id="main" className="relative pt-12">
             {children}
           </main>
           <SiteFooter />
