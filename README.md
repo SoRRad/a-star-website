@@ -10,8 +10,10 @@ The website for **A-STAR**, a Mayo Clinic research group advancing surgical AI a
 | --- | --- |
 | Framework | Next.js 15 App Router + React 19 |
 | Styling | Tailwind CSS v4 |
+| 3D / background | `three`, `@react-three/fiber`, `@react-three/drei` |
+| Motion | `motion` |
 | Forms | Client validation + server-side contact API |
-| Theme | `next-themes` |
+| Theme | Dark-only cosmic identity |
 | Email | Resend server-side only |
 | Hosting | Vercel |
 
@@ -24,6 +26,14 @@ npm run dev
 ```
 
 Open <http://localhost:3000>.
+
+## Theme
+
+A-STAR is dark-only. The visual system fuses a stellar observatory language with neural network visualization: a deep cosmic field, blue stellar accents, glass panels, and research-theme constellation nodes around the home hero.
+
+Core theme docs live in `THEME.md`. In code, global tokens live in `app/globals.css`; cards and panels should use `.card-glass` or the same glass values: `bg-white/[0.03]`, `border-white/10`, and `backdrop-blur-sm`.
+
+The global background is mounted once in `app/layout.tsx` via `components/cosmic/cosmic-background.tsx`. It lazy-loads the Three.js scene so the first paint is not blocked. Reduced-motion users, compact/touch devices, and lower-capability devices receive the static CSS star fallback instead of the WebGL scene. Desktop-capable users see the star field, neural constellation nodes, hover labels, activation pulses, scroll camera drift, and cursor glow.
 
 ## Current Routes
 
@@ -83,11 +93,11 @@ CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
 CONTACT_FROM_EMAIL=
 ```
 
-If `RESEND_API_KEY` or `CONTACT_FROM_EMAIL` is missing, the API returns a truthful email-not-configured response and the UI directs users to email the lab directly.
+If `RESEND_API_KEY` or `CONTACT_FROM_EMAIL` is missing, the API accepts the submission in development mode, logs it server-side, and the UI honestly tells the user that email delivery is not configured.
 
 ## Logo Notes
 
-Active production logo assets are root-level PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. Do not use old SVG files, `public/logos/astar/clean/`, or `public/logos/astar/current/` in active UI.
+Active production logo assets are root-level PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. The site renders one logo per location; no runtime theme switching or dual-logo DOM pattern is used.
 
 ## Validation
 
