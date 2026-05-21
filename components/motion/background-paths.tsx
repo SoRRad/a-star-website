@@ -91,9 +91,8 @@ interface BackgroundPathsProps {
 /**
  * Subtle animated surgical/constellation path overlay.
  *
- * Light mode: soft blue path lines add visual depth to the otherwise flat
- * white background — giving the site its galactic-technical feel.
- * Dark mode: nearly invisible (opacity ~4%) so the StarField can dominate.
+ * Soft blue path lines add a galactic-technical underlay without competing
+ * with content.
  *
  * Uses CSS animations defined in globals.css (@keyframes bg-path-flow).
  * Respects prefers-reduced-motion.

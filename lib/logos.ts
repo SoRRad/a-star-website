@@ -6,20 +6,20 @@
  * not be used in active UI code until regenerated from the new logo artwork.
  *
  * Naming convention:
- *   "Dark"  suffix = dark-ink logo intended for light/white backgrounds (onLight).
- *   "Light" suffix = light-ink logo intended for dark backgrounds (onDark).
+ *   "Dark"  suffix = dark-ink source asset from the identity package.
+ *   "Light" suffix = light-ink source asset used on the dark cosmic site.
  */
 export const logos = {
   // Mark-only (square)
-  markDark: "/logos/astar/astar-mark-on-light.png", // dark/navy logo for light backgrounds
-  markLight: "/logos/astar/astar-mark-on-dark.png", // white/light logo for dark backgrounds
+  markDark: "/logos/astar/astar-mark-on-light.png",
+  markLight: "/logos/astar/astar-mark-on-dark.png",
   markNeutral: "/logos/astar/astar-mark-neutral.png", // neutral mark, transparent bg
 
   // Full horizontal wordmark
-  fullHorizontalDark: "/logos/astar/astar-horizontal-on-light.png", // dark/navy logo for light backgrounds
-  fullHorizontalLight: "/logos/astar/astar-horizontal-on-dark.png", // white/light logo for dark backgrounds
+  fullHorizontalDark: "/logos/astar/astar-horizontal-on-light.png",
+  fullHorizontalLight: "/logos/astar/astar-horizontal-on-dark.png",
 
   // Full stacked layout
-  fullStackedDark: "/logos/astar/astar-stacked-on-light.png", // dark/navy logo for light backgrounds
-  fullStackedLight: "/logos/astar/astar-stacked-on-dark.png", // white/light logo for dark backgrounds
+  fullStackedDark: "/logos/astar/astar-stacked-on-light.png",
+  fullStackedLight: "/logos/astar/astar-stacked-on-dark.png",
 } as const;

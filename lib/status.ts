@@ -1,7 +1,6 @@
 /**
  * Class-variance-authority preset for status badges used on project pages
- * and the project pipeline. Status colors live in globals.css as CSS vars
- * so they recolor automatically in dark mode.
+ * and the project pipeline. Status colors live in globals.css as CSS vars.
  */
 import { cva, type VariantProps } from "class-variance-authority";
 

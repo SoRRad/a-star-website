@@ -42,7 +42,7 @@ export function HeroSection() {
       <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-32 pt-20 text-center sm:px-6 sm:pt-28 lg:px-8">
         <motion.div style={{ scale: markScale }} className="relative mt-4 flex justify-center">
           <div
-            className="pointer-events-none absolute inset-0 -z-10 hidden rounded-full dark:block"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full"
             style={{
               background: "radial-gradient(circle, rgba(66,165,245,0.3) 0%, rgba(30,136,229,0.12) 42%, transparent 70%)",
               filter: "blur(28px)",
