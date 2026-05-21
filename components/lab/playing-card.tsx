@@ -31,7 +31,9 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
     member.links.email && { href: `mailto:${member.links.email}`, icon: Mail, label: "Email" },
   ].filter(Boolean) as { href: string; icon: LucideIcon; label: string }[];
 
-  const cardHref = member.isOpenPosition ? member.openPositionUrl ?? "/contact#collaborate" : `/team/${member.slug}`;
+  const cardHref = member.isOpenPosition
+    ? (member.openPositionUrl ?? "/contact#collaborate")
+    : `/team/${member.slug}`;
   const isOpen = !!member.isOpenPosition;
 
   return (
@@ -57,35 +59,50 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
         className={cn(
           "flex h-full w-full flex-col rounded-xl p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
           isOpen
-            ? "border-2 border-dashed border-[var(--color-coral-400)]/40 bg-[var(--color-card)]"
-            : "border border-[var(--color-ink-200)] bg-[var(--color-card)] dark:border-[var(--color-navy-700)]",
+            ? "border-2 border-dashed border-[var(--color-coral-400)]/40 bg-white/[0.03] backdrop-blur-sm"
+            : "card-glass border",
         )}
         aria-label={`${member.name} — ${member.role}${isOpen ? " — open position" : ""}`}
       >
         {/* Outer hairline inset bezel */}
         {!isOpen && (
-          <div className="pointer-events-none absolute inset-[4px] rounded-[10px] border border-[var(--color-border)] opacity-40" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute inset-[4px] rounded-[10px] border border-white/10 opacity-40"
+            aria-hidden="true"
+          />
         )}
 
         {/* Top-left corner pip */}
         <div className="flex shrink-0 flex-col items-start gap-0.5 px-1 pt-1">
           {isOpen ? (
-            <span className="rounded-sm border border-[var(--color-coral-400)]/40 bg-[var(--color-coral-400)]/10 px-1 py-0.5 font-mono text-[8px] font-semibold uppercase tracking-widest text-[var(--color-coral-400)]">
+            <span className="rounded-sm border border-[var(--color-coral-400)]/40 bg-[var(--color-coral-400)]/10 px-1 py-0.5 font-mono text-[8px] font-semibold tracking-widest text-[var(--color-coral-400)] uppercase">
               OPEN
             </span>
           ) : (
-            <Image src={logos.markNeutral} alt="" width={14} height={14} className="h-3.5 w-3.5 opacity-60" />
+            <Image
+              src={logos.markNeutral}
+              alt=""
+              width={14}
+              height={14}
+              className="h-3.5 w-3.5 opacity-60"
+            />
           )}
-          <span className="font-display text-[13px] font-semibold leading-none text-[var(--color-accent)]">
+          <span className="font-display text-[13px] leading-none font-semibold text-[var(--color-accent)]">
             {member.initials}
           </span>
         </div>
 
         {/* Photo area */}
-        <div className="relative mx-auto mt-2 w-full flex-1 overflow-hidden rounded-lg" style={{ maxHeight: "60%" }}>
+        <div
+          className="relative mx-auto mt-2 w-full flex-1 overflow-hidden rounded-lg"
+          style={{ maxHeight: "60%" }}
+        >
           {isOpen ? (
-            <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-[var(--color-coral-400)]/20 bg-[var(--color-muted)]">
-              <UserRound className="h-12 w-12 text-[var(--color-coral-400)]/45" aria-hidden="true" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-[var(--color-coral-400)]/20 bg-white/[0.03]">
+              <UserRound
+                className="h-12 w-12 text-[var(--color-coral-400)]/45"
+                aria-hidden="true"
+              />
             </div>
           ) : (
             <>
@@ -124,28 +141,41 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
         </div>
 
         {/* Bottom info strip */}
-        <div className="shrink-0 px-1 pb-6 pt-2">
-          <p className="truncate font-display text-[13px] font-semibold leading-snug tracking-tight text-[var(--color-foreground)]">
+        <div className="shrink-0 px-1 pt-2 pb-6">
+          <p className="font-display truncate text-[13px] leading-snug font-semibold tracking-tight text-white">
             {member.name.split(",")[0]}
           </p>
-          <p className={cn(
-            "mt-0.5 truncate font-mono text-[9px] font-medium uppercase tracking-widest",
-            isOpen ? "text-[var(--color-coral-400)]" : "text-[var(--color-accent)]",
-          )}>
+          <p
+            className={cn(
+              "mt-0.5 truncate font-mono text-[9px] font-medium tracking-widest uppercase",
+              isOpen ? "text-[var(--color-coral-400)]" : "text-[var(--color-accent)]",
+            )}
+          >
             {isOpen ? "Hiring Now" : member.role}
           </p>
-          <p className="mt-0.5 truncate text-[10px] text-[var(--color-muted-foreground)]">
-            {member.affiliation}
-          </p>
+          <p className="mt-0.5 truncate text-[10px] text-white/60">{member.affiliation}</p>
         </div>
 
         {/* Bottom-right corner pip (rotated 180°) */}
         {!isOpen && (
-          <div className="pointer-events-none absolute bottom-3 right-3 flex flex-col items-end gap-0.5 opacity-30" aria-hidden="true">
-            <span className="font-display text-[13px] font-semibold leading-none text-[var(--color-accent)]" style={{ transform: "rotate(180deg)" }}>
+          <div
+            className="pointer-events-none absolute right-3 bottom-3 flex flex-col items-end gap-0.5 opacity-30"
+            aria-hidden="true"
+          >
+            <span
+              className="font-display text-[13px] leading-none font-semibold text-[var(--color-accent)]"
+              style={{ transform: "rotate(180deg)" }}
+            >
               {member.initials}
             </span>
-            <Image src={logos.markNeutral} alt="" width={14} height={14} className="h-3.5 w-3.5" style={{ transform: "rotate(180deg)" }} />
+            <Image
+              src={logos.markNeutral}
+              alt=""
+              width={14}
+              height={14}
+              className="h-3.5 w-3.5"
+              style={{ transform: "rotate(180deg)" }}
+            />
           </div>
         )}
       </Link>
@@ -153,7 +183,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
       {/* Social link icons — siblings to <Link>, absolutely positioned over the card bottom */}
       {linkItems.length > 0 && (
         <div
-          className="pointer-events-none absolute bottom-3 left-0 right-0 flex items-center justify-center gap-1.5 px-3 z-10"
+          className="pointer-events-none absolute right-0 bottom-3 left-0 z-10 flex items-center justify-center gap-1.5 px-3"
           aria-label={`Links for ${member.name}`}
         >
           {linkItems.map(({ href, icon: Icon, label }) => (
@@ -164,7 +194,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
               rel="noopener noreferrer"
               aria-label={label}
               onClick={(e) => e.stopPropagation()}
-              className="pointer-events-auto rounded p-0.5 text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-accent)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-accent)]"
+              className="pointer-events-auto rounded p-0.5 text-white/50 transition-colors hover:text-[#64B5F6] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#64B5F6]"
             >
               <Icon className="h-3 w-3" />
             </a>

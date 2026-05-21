@@ -30,7 +30,7 @@ export function CollaboratorCard({ collaborator, className }: CollaboratorCardPr
       rel="noopener noreferrer"
       aria-label={collaborator.name}
       className={cn(
-        "group flex flex-col items-center justify-center gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 text-center transition-all duration-200 hover:scale-[1.02] hover:border-[var(--color-accent)]/40 hover:shadow-md",
+        "card-glass group flex flex-col items-center justify-center gap-3 rounded-xl p-6 text-center transition-all duration-200 hover:scale-[1.02]",
         className,
       )}
     >
@@ -40,27 +40,25 @@ export function CollaboratorCard({ collaborator, className }: CollaboratorCardPr
           alt={collaborator.name}
           width={140}
           height={48}
-          className="h-12 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100 dark:brightness-[1.15] dark:opacity-60 dark:group-hover:opacity-90"
+          className="h-12 w-auto object-contain opacity-70 transition-opacity group-hover:opacity-100 dark:opacity-60 dark:brightness-[1.15] dark:group-hover:opacity-90"
           onError={() => {
-              console.warn(`[A-STAR] Collaborator logo failed to load: ${collaborator.logo}`);
-              setImgError(true);
-            }}
+            console.warn(`[A-STAR] Collaborator logo failed to load: ${collaborator.logo}`);
+            setImgError(true);
+          }}
         />
       ) : (
         /* Logo placeholder */
         <div className="flex flex-col items-center gap-1">
-          <span className="font-display text-base font-semibold leading-tight text-[var(--color-foreground)]">
+          <span className="font-display text-base leading-tight font-semibold text-white">
             {displayName}
           </span>
-          <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
+          <span className="font-mono text-[9px] tracking-widest text-white/50 uppercase">
             Logo placeholder
           </span>
         </div>
       )}
 
-      <p className="text-xs leading-relaxed text-[var(--color-muted-foreground)]">
-        {collaborator.description}
-      </p>
+      <p className="text-xs leading-relaxed text-white/70">{collaborator.description}</p>
     </a>
   );
 }

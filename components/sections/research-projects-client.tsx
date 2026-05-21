@@ -10,15 +10,15 @@ export function ResearchProjectsClient() {
       <Reveal showMark>
         <p className="eyebrow mb-4">Projects</p>
         <h2
-          className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl"
+          className="font-display mb-4 max-w-xl text-3xl font-semibold tracking-tight text-balance lg:text-4xl"
           style={{ letterSpacing: "-0.03em" }}
         >
           Intelligence across the surgical journey.
         </h2>
-        <p className="mb-12 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-          A-STAR maps AI research to surgical planning, intraoperative guidance,
-          patient education, and validation, with each project grounded in a
-          clinical question that matters to surgeons and patients.
+        <p className="mb-12 max-w-2xl text-base leading-relaxed text-pretty text-white/70">
+          A-STAR maps AI research to surgical planning, intraoperative guidance, patient education,
+          and validation, with each project grounded in a clinical question that matters to surgeons
+          and patients.
         </p>
       </Reveal>
 

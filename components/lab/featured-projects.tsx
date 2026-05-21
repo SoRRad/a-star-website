@@ -14,13 +14,15 @@ export function FeaturedProjects() {
   return (
     <div className="flex flex-col gap-6">
       {projects.map((project) => {
-        const projectPhases = phases.filter((p) => project.phases.includes(p.id as typeof project.phases[number]));
+        const projectPhases = phases.filter((p) =>
+          project.phases.includes(p.id as (typeof project.phases)[number]),
+        );
         return (
           <motion.div
             key={project.slug}
             whileHover={{ y: -2 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] transition-colors hover:border-[var(--color-accent)]/40"
+            className="card-glass group relative overflow-hidden rounded-lg"
           >
             <Image
               src={logos.markNeutral}
@@ -28,7 +30,7 @@ export function FeaturedProjects() {
               aria-hidden="true"
               width={120}
               height={120}
-              className="pointer-events-none absolute -right-4 -top-4 h-32 w-32 select-none opacity-[0.04]"
+              className="pointer-events-none absolute -top-4 -right-4 h-32 w-32 opacity-[0.04] select-none"
             />
 
             <div className="flex flex-col gap-8 p-6 lg:flex-row lg:items-center lg:p-8">
@@ -38,7 +40,7 @@ export function FeaturedProjects() {
                   {projectPhases.map((p) => (
                     <span
                       key={p.id}
-                      className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]"
+                      className="rounded-sm border border-white/10 px-2 py-0.5 font-mono text-[10px] tracking-widest text-white/50 uppercase"
                     >
                       {p.code} / {p.title}
                     </span>
@@ -46,22 +48,20 @@ export function FeaturedProjects() {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
+                  <h3 className="font-display text-4xl leading-none font-semibold tracking-tight sm:text-5xl">
                     {project.name}
                   </h3>
-                  <p className="mt-1 text-sm font-medium text-[var(--color-muted-foreground)]">
-                    {project.longName}
-                  </p>
+                  <p className="mt-1 text-sm font-medium text-white/60">{project.longName}</p>
                 </div>
 
-                <p className="max-w-lg text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
+                <p className="max-w-lg leading-relaxed text-pretty text-white/70">
                   {project.description}
                 </p>
 
                 <div className="flex flex-wrap gap-3">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-foreground)]"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[#64B5F6] transition-colors hover:text-white"
                   >
                     Open project
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -71,7 +71,7 @@ export function FeaturedProjects() {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors hover:text-white"
                     >
                       Live tool
                     </a>
@@ -83,7 +83,7 @@ export function FeaturedProjects() {
                 {project.media?.[0] ? (
                   <ProjectMediaCard media={project.media[0]} compact />
                 ) : (
-                  <div className="flex min-h-[180px] items-center justify-center rounded-lg border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-muted)] to-[var(--color-card)]">
+                  <div className="flex min-h-[180px] items-center justify-center rounded-lg border border-white/10 bg-white/[0.03]">
                     <Image
                       src={logos.markNeutral}
                       alt=""

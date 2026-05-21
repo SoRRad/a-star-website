@@ -41,35 +41,39 @@ function EventCard({ event }: EventCardProps) {
   const day = d.getDate();
 
   return (
-    <div className="group flex gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md">
+    <div className="card-glass group flex gap-4 rounded-xl p-5 transition-all hover:-translate-y-0.5">
       {/* Date callout */}
       <div className="flex w-14 shrink-0 flex-col items-center justify-start rounded-lg bg-[var(--color-accent)]/10 py-3 text-center">
-        <span className="font-mono text-[10px] font-semibold tracking-widest text-[var(--color-accent)]">{month}</span>
-        <span className="font-display text-2xl font-bold leading-none text-[var(--color-foreground)]">{day}</span>
+        <span className="font-mono text-[10px] font-semibold tracking-widest text-[var(--color-accent)]">
+          {month}
+        </span>
+        <span className="font-display text-2xl leading-none font-bold text-[var(--color-foreground)]">
+          {day}
+        </span>
       </div>
 
       {/* Content */}
       <div className="min-w-0 flex-1">
         {/* Badges */}
         <div className="mb-2 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--color-muted)] px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-[var(--color-muted-foreground)]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.05] px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wide text-white/50 uppercase">
             {EVENT_TYPE_LABELS[event.type] ?? event.type}
           </span>
-          <span className="inline-flex items-center gap-1 text-xs text-[var(--color-muted-foreground)]">
+          <span className="inline-flex items-center gap-1 text-xs text-white/60">
             <FormatIcon className="h-3 w-3" />
             {event.format}
           </span>
         </div>
 
-        <h3 className="mb-1.5 font-display text-sm font-semibold leading-snug tracking-tight text-[var(--color-foreground)] group-hover:text-[var(--color-accent)] transition-colors line-clamp-2">
+        <h3 className="font-display mb-1.5 line-clamp-2 text-sm leading-snug font-semibold tracking-tight text-white transition-colors group-hover:text-[#64B5F6]">
           {event.title}
         </h3>
 
-        <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
+        <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-white/70">
           {event.description}
         </p>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--color-muted-foreground)]">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/60">
           {event.location && (
             <span className="flex items-center gap-1">
               <MapPin className="h-3 w-3 shrink-0" />
@@ -98,7 +102,7 @@ function EventCard({ event }: EventCardProps) {
             href={event.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-foreground)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:border-[#64B5F6] hover:text-[#64B5F6]"
             onClick={(e) => e.stopPropagation()}
           >
             Learn more
