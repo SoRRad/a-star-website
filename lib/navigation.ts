@@ -31,7 +31,7 @@ export const primaryNav: NavItem[] = [
       { title: "MOSI", href: "/projects/mosi", description: "Metabolic & Obesity Staging Index" },
       { title: "SIRIS", href: "/projects/siris", description: "Surgical-IRIS Education" },
       { title: "GoNoGoNet", href: "/projects/gonogonet", description: "Surgical safety zone detection" },
-      { title: "All projects ->", href: "/research", description: "Browse the full research portfolio" },
+      { title: "All projects →", href: "/research", description: "Browse the full research portfolio" },
     ],
   },
   {
@@ -42,7 +42,7 @@ export const primaryNav: NavItem[] = [
     dropdown: [
       { title: "Core team", href: "/team#core", description: "Faculty, fellows, and engineers" },
       { title: "Collaborators", href: "/team#collaborators", description: "Institutional and external partners" },
-      { title: "Full team ->", href: "/team", description: "Complete roster" },
+      { title: "Full team →", href: "/team", description: "Complete roster" },
     ],
   },
   {
@@ -54,7 +54,7 @@ export const primaryNav: NavItem[] = [
       { title: "Latest news", href: "/events#news", description: "Lab updates and press" },
       { title: "Upcoming events", href: "/events#upcoming", description: "Journal club, conferences, talks" },
       { title: "Publications", href: "/publications", description: "Peer-reviewed work" },
-      { title: "All news & events ->", href: "/events", description: "Browse everything" },
+      { title: "All news & events →", href: "/events", description: "Browse everything" },
     ],
   },
   {
