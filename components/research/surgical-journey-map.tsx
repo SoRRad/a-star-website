@@ -92,7 +92,7 @@ export function SurgicalJourneyMap({
                     {phase.title}
                   </span>
                   <span className="mt-2 block text-xs leading-relaxed text-[var(--color-muted-foreground)]">
-                    {phase.projects.length} linked project{phase.projects.length === 1 ? "" : "s"}
+                    {phase.description}
                   </span>
                   <span
                     className={cn(
@@ -150,11 +150,11 @@ export function SurgicalJourneyMap({
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
             <InfoBlock
-              label="Methods"
+              label="Project methods"
               value={linkedProjects.length ? linkedProjects.map((project) => project.modelCard.modelPipeline).join(" ") : "Computer vision, perioperative modeling, and validation methods are being scoped for this phase."}
             />
             <InfoBlock
-              label="Applications"
+              label="Project applications"
               value={linkedProjects.length ? linkedProjects.map((project) => project.modelCard.intendedUse).join(" ") : "Future applications will be described after a project reaches public development status."}
             />
           </div>

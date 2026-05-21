@@ -171,6 +171,12 @@ export const projects: Project[] = [
     lastUpdated: "2026-05-20",
     media: [
       {
+        type: "image",
+        src: "/projects/media/gonogonet-demo.avif",
+        alt: "GoNoGoNet demo preview",
+        caption: "GoNoGoNet surgical computer vision demo preview",
+      },
+      {
         type: "placeholder",
         alt: "GoNoGoNet demo GIF placeholder",
         caption: "Demo GIF forthcoming",
