@@ -198,7 +198,7 @@ export function CommandPalette() {
                         sizes="28px"
                         className="h-7 w-7"
                       />
-                      <span className="font-display text-lg font-semibold tracking-tight text-white">
+                      <span className="font-display text-lg font-semibold tracking-normal text-white">
                         A-STAR
                       </span>
                     </Link>

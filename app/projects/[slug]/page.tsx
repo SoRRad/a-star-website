@@ -103,8 +103,8 @@ export default async function ProjectPage({
         </div>
 
         <h1
-          className="font-display text-balance text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl lg:text-7xl"
+          style={{ letterSpacing: "0" }}
         >
           {project.name}
         </h1>
@@ -309,7 +309,7 @@ function ScientificSection({
   return (
     <section>
       <p className="eyebrow mb-2">{eyebrow}</p>
-      <h2 className="mb-4 font-display text-xl font-semibold tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+      <h2 className="mb-4 font-display text-xl font-semibold tracking-normal" style={{ letterSpacing: "0" }}>
         {title}
       </h2>
       {children}

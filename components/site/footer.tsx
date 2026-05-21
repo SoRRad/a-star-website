@@ -12,7 +12,7 @@ export function SiteFooter() {
             <Link href="/" className="inline-flex items-center gap-3">
               <Logo variant="mark" sizes="42px" width={42} height={42} className="h-10 w-10" />
               <span>
-                <span className="font-display block text-2xl leading-none font-semibold tracking-tight">
+                <span className="font-display block text-2xl leading-none font-semibold tracking-normal">
                   A-STAR
                 </span>
                 <span className="mt-1 block text-xs font-medium tracking-widest text-white/50 uppercase">

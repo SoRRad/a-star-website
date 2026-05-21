@@ -107,8 +107,8 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           </time>
         </div>
         <h1
-          className="font-display text-balance text-4xl font-semibold leading-[1.02] tracking-tight sm:text-5xl lg:text-6xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display text-balance text-4xl font-semibold leading-[1.02] tracking-normal sm:text-5xl lg:text-6xl"
+          style={{ letterSpacing: "0" }}
         >
           {item.title}
         </h1>
@@ -147,7 +147,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           {(item.externalLink || item.relatedLinks?.length) && (
             <section className="mt-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
-              <h2 className="font-display text-xl font-semibold tracking-tight">Related resources</h2>
+              <h2 className="font-display text-xl font-semibold tracking-normal">Related resources</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 {item.externalLink && (
                   <SafeLinkButton href={item.externalLink} label="View external resource" />
@@ -208,7 +208,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
       {related.length > 0 && (
         <section className="mt-16 border-t border-[var(--color-border)] pt-10">
           <div className="mb-5 flex items-end justify-between gap-4">
-            <h2 className="font-display text-2xl font-semibold tracking-tight">Related news</h2>
+            <h2 className="font-display text-2xl font-semibold tracking-normal">Related news</h2>
             <Link
               href="/events"
               className="inline-flex items-center gap-1 text-sm font-medium text-[var(--color-accent)] hover:underline"

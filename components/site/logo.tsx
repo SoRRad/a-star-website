@@ -106,7 +106,7 @@ function LogoFallback({
         className,
       )}
     >
-      <span className="font-display text-lg font-semibold leading-none tracking-tight">A-STAR</span>
+      <span className="font-display text-lg font-semibold leading-none tracking-normal">A-STAR</span>
       {variant === "stacked" && (
         <span className="mt-1 text-[10px] font-medium uppercase tracking-widest text-white/50">
           Surgical AI Lab

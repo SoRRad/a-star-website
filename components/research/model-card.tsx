@@ -22,7 +22,7 @@ export function ModelCard({
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="eyebrow mb-2">A-STAR model card</p>
-          <h3 className="font-display text-2xl font-semibold tracking-tight">
+          <h3 className="font-display text-2xl font-semibold tracking-normal">
             {project.name}
           </h3>
           <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">

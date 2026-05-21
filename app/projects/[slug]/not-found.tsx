@@ -4,7 +4,7 @@ export default function ProjectNotFound() {
   return (
     <section className="mx-auto max-w-3xl px-4 py-32 sm:px-6 lg:px-8">
       <p className="eyebrow mb-4">404</p>
-      <h1 className="font-display text-5xl font-semibold tracking-tight sm:text-6xl" style={{ letterSpacing: "-0.03em" }}>
+      <h1 className="font-display text-5xl font-semibold tracking-normal sm:text-6xl" style={{ letterSpacing: "0" }}>
         Project not found.
       </h1>
       <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted-foreground)]">

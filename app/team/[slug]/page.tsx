@@ -66,8 +66,8 @@ export default async function TeamMemberPage({
 
         <div className="flex-1">
           <h1
-            className="font-display text-balance text-4xl font-semibold tracking-tight sm:text-5xl"
-            style={{ letterSpacing: "-0.03em" }}
+            className="font-display text-balance text-4xl font-semibold tracking-normal sm:text-5xl"
+            style={{ letterSpacing: "0" }}
           >
             {member.name}
           </h1>

@@ -49,7 +49,7 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
                   <CategoryPill category={item.category} />
                   <time className="font-mono text-[10px] text-white/50">{formatted}</time>
                 </div>
-                <h3 className="font-display mb-2 line-clamp-2 text-sm leading-snug font-semibold tracking-tight text-white transition-colors group-hover:text-[#64B5F6]">
+                <h3 className="font-display mb-2 line-clamp-2 text-sm leading-snug font-semibold tracking-normal text-white transition-colors group-hover:text-[#64B5F6]">
                   {item.title}
                 </h3>
                 <p className="line-clamp-2 flex-1 text-xs leading-relaxed text-white/70">

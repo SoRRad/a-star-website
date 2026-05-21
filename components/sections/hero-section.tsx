@@ -30,7 +30,7 @@ export function HeroSection() {
           />
         </div>
 
-        <h1 className="font-display text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
+        <h1 className="font-display text-balance text-5xl font-semibold tracking-normal text-white sm:text-7xl">
           Augmenting the surgeon.
           <br />
           <span className="text-[#64B5F6]">Advancing the science.</span>

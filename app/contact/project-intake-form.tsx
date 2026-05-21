@@ -92,7 +92,7 @@ export function ProjectIntakeForm() {
       <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
         <div className="flex items-center gap-3">
           <CheckCircle2 className="h-5 w-5 text-[var(--color-status-deployed)]" />
-          <h3 className="font-display text-xl font-semibold tracking-tight">
+          <h3 className="font-display text-xl font-semibold tracking-normal">
             {submitted === "development" ? "Intake accepted locally." : "Intake submitted."}
           </h3>
         </div>

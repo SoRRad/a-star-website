@@ -117,10 +117,10 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
         {/* Name */}
         <Link href={member.isOpenPosition ? "/contact#collaborate" : `/team/${member.slug}`}>
           <h3
-            className="font-display text-balance font-semibold tracking-tight text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]"
+            className="font-display text-balance font-semibold tracking-normal text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]"
             style={{
               fontSize: variant === "main" ? "clamp(1.5rem, 3vw, 2.25rem)" : "clamp(1.25rem, 2.5vw, 1.75rem)",
-              letterSpacing: "-0.03em",
+              letterSpacing: "0",
             }}
           >
             {member.name}

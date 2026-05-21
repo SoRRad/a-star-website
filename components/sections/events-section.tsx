@@ -65,7 +65,7 @@ function EventCard({ event }: EventCardProps) {
           </span>
         </div>
 
-        <h3 className="font-display mb-1.5 line-clamp-2 text-sm leading-snug font-semibold tracking-tight text-white transition-colors group-hover:text-[#64B5F6]">
+        <h3 className="font-display mb-1.5 line-clamp-2 text-sm leading-snug font-semibold tracking-normal text-white transition-colors group-hover:text-[#64B5F6]">
           {event.title}
         </h3>
 

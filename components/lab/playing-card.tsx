@@ -142,7 +142,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
 
         {/* Bottom info strip */}
         <div className="shrink-0 px-1 pt-2 pb-6">
-          <p className="font-display truncate text-[13px] leading-snug font-semibold tracking-tight text-white">
+          <p className="font-display truncate text-[13px] leading-snug font-semibold tracking-normal text-white">
             {member.name.split(",")[0]}
           </p>
           <p

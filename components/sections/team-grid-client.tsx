@@ -21,7 +21,7 @@ export function TeamGridClient({ mainTeam, collaboratorTeam }: TeamGridClientPro
     <>
       <Reveal>
         <p className="eyebrow mb-4">The team</p>
-        <h2 className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-tight lg:text-4xl">
+        <h2 className="font-display mb-4 max-w-xl text-balance text-3xl font-semibold tracking-normal lg:text-4xl">
           The people behind A-STAR.
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
@@ -51,7 +51,7 @@ export function TeamGridClient({ mainTeam, collaboratorTeam }: TeamGridClientPro
                 href={`/team/${member.slug}`}
                 className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4 transition-colors hover:border-[var(--color-accent)]/40"
               >
-                <p className="font-display text-base font-semibold tracking-tight">{member.name}</p>
+                <p className="font-display text-base font-semibold tracking-normal">{member.name}</p>
                 <p className="mt-1 text-xs text-[var(--color-muted-foreground)]">{member.affiliation}</p>
               </Link>
             ))}
@@ -99,7 +99,7 @@ function TeamStrip({ member, index }: { member: TeamMember; index: number }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h3 className="truncate font-display text-base font-semibold tracking-tight text-[var(--color-foreground)]">
+              <h3 className="truncate font-display text-base font-semibold tracking-normal text-[var(--color-foreground)]">
                 {member.name}
               </h3>
               <p className={cn(

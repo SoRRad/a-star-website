@@ -129,7 +129,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-8 py-12">
         <div className="flex items-center gap-3">
           <CheckCircle2 className="h-6 w-6 shrink-0 text-[var(--color-status-deployed)]" />
-          <h2 className="font-display text-xl font-semibold tracking-tight">
+          <h2 className="font-display text-xl font-semibold tracking-normal">
             {submissionMode === "development" ? "Submission received in development mode." : "Message sent."}
           </h2>
         </div>

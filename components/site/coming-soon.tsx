@@ -11,7 +11,7 @@ export function ComingSoon({ title, step, description }: ComingSoonProps) {
   return (
     <section className="mx-auto max-w-3xl px-4 py-32 sm:px-6 lg:px-8">
       <p className="eyebrow">{step}</p>
-      <h1 className="font-display mt-4 text-balance text-5xl tracking-tight sm:text-6xl">
+      <h1 className="font-display mt-4 text-balance text-5xl tracking-normal sm:text-6xl">
         {title}
       </h1>
       <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted-foreground)]">

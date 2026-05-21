@@ -49,7 +49,7 @@ export function TalkCard({ talk, compact = false }: { talk: Talk; compact?: bool
         </span>
       </div>
 
-      <h3 className={cn("font-display font-semibold tracking-tight text-[var(--color-foreground)]", compact ? "text-base" : "text-lg")}>
+      <h3 className={cn("font-display font-semibold tracking-normal text-[var(--color-foreground)]", compact ? "text-base" : "text-lg")}>
         {talk.title}
       </h3>
       <p className="mt-2 text-sm font-medium text-[var(--color-accent)]">{talk.speaker}</p>

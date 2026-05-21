@@ -26,7 +26,7 @@ export function CollaborationCta() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
             <p className="eyebrow mb-4">Get involved</p>
-            <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+            <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-normal text-balance sm:text-5xl">
               Ready to build surgical AI with A-STAR?
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-pretty text-white/70">
@@ -56,7 +56,7 @@ export function CollaborationCta() {
                 <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/[0.03]">
                   <Icon className="h-5 w-5 text-[var(--color-accent)]" />
                 </div>
-                <h3 className="font-display text-lg font-semibold tracking-tight">{title}</h3>
+                <h3 className="font-display text-lg font-semibold tracking-normal">{title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-white/70">{text}</p>
               </div>
             ))}

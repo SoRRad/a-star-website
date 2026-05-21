@@ -101,7 +101,7 @@ export function JournalClubForm() {
   if (sent) {
     return (
       <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
-        <h3 className="font-display text-xl font-semibold tracking-tight">Journal Club request sent.</h3>
+        <h3 className="font-display text-xl font-semibold tracking-normal">Journal Club request sent.</h3>
         <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
           For urgent updates, email{" "}
           <a href={`mailto:${JOURNAL_CLUB_EMAIL}`} className="text-[var(--color-accent)] hover:underline">

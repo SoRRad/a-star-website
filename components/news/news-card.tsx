@@ -63,10 +63,10 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
 
         {/* Headline */}
         <h3
-          className={`font-display mb-2 font-semibold tracking-tight text-balance text-white transition-colors group-hover:text-[#64B5F6] ${
+          className={`font-display mb-2 font-semibold tracking-normal text-balance text-white transition-colors group-hover:text-[#64B5F6] ${
             size === "large" ? "text-xl sm:text-2xl" : "text-base"
           }`}
-          style={{ letterSpacing: "-0.02em" }}
+          style={{ letterSpacing: "0" }}
         >
           <Link href={href}>{item.title}</Link>
         </h3>

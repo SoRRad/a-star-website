@@ -10,8 +10,8 @@ export function ResearchProjectsClient() {
       <Reveal showMark>
         <p className="eyebrow mb-4">Projects</p>
         <h2
-          className="font-display mb-4 max-w-xl text-3xl font-semibold tracking-tight text-balance lg:text-4xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display mb-4 max-w-xl text-3xl font-semibold tracking-normal text-balance lg:text-4xl"
+          style={{ letterSpacing: "0" }}
         >
           Intelligence across the surgical journey.
         </h2>

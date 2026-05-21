@@ -41,8 +41,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </div>
         <h2
-          className="font-display mt-4 text-4xl leading-none font-semibold tracking-tight sm:text-5xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display mt-4 text-4xl leading-none font-semibold tracking-normal sm:text-5xl"
+          style={{ letterSpacing: "0" }}
         >
           {project.name}
         </h2>

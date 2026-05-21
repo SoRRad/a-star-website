@@ -48,7 +48,7 @@ export function FeaturedProjects() {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-4xl leading-none font-semibold tracking-tight sm:text-5xl">
+                  <h3 className="font-display text-4xl leading-none font-semibold tracking-normal sm:text-5xl">
                     {project.name}
                   </h3>
                   <p className="mt-1 text-sm font-medium text-white/60">{project.longName}</p>
