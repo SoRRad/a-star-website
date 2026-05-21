@@ -10,7 +10,7 @@ import { sidebarNav } from "@/lib/navigation";
 import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
-export function SiteSidebar() {
+export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
@@ -51,7 +51,7 @@ export function SiteSidebar() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open site navigation"
-        className="relative z-[140] inline-flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-foreground)] shadow-sm transition-colors hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-muted)]"
+        className="relative z-[140] inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-white shadow-sm transition-colors hover:border-[#64B5F6]/50 hover:bg-white/[0.06]"
       >
         <Menu className="h-4 w-4" />
       </button>
@@ -74,16 +74,26 @@ export function SiteSidebar() {
                   role="dialog"
                   aria-modal="true"
                   aria-label="A-STAR site navigation"
-                  className="fixed right-0 top-0 z-[260] flex h-dvh w-full max-w-[360px] flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl shadow-black/30"
+                  className="fixed top-0 right-0 z-[260] flex h-dvh w-full max-w-[360px] flex-col border-l border-white/10 bg-black/85 shadow-2xl shadow-black/30 backdrop-blur-xl"
                   initial={{ x: "100%" }}
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
                   transition={{ type: "spring", stiffness: 360, damping: 36 }}
                 >
-                  <div className="flex shrink-0 items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
-                    <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-                      <Logo variant="mark" width={28} height={28} sizes="28px" className="h-7 w-7" />
-                      <span className="font-display text-lg font-semibold tracking-tight text-[var(--color-foreground)]">
+                  <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-4 py-3">
+                    <Link
+                      href="/"
+                      className="flex items-center gap-2.5"
+                      onClick={() => setOpen(false)}
+                    >
+                      <Logo
+                        variant="mark"
+                        width={28}
+                        height={28}
+                        sizes="28px"
+                        className="h-7 w-7"
+                      />
+                      <span className="font-display text-lg font-semibold tracking-tight text-white">
                         A-STAR
                       </span>
                     </Link>
@@ -91,7 +101,7 @@ export function SiteSidebar() {
                       type="button"
                       onClick={() => setOpen(false)}
                       aria-label="Close navigation"
-                      className="rounded-md p-2 text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]"
+                      className="rounded-md p-2 text-white/60 transition-colors hover:bg-white/5 hover:text-white"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -110,11 +120,11 @@ export function SiteSidebar() {
                             className={cn(
                               "flex min-h-12 items-center gap-3 rounded-md border px-3 text-sm font-medium transition-colors",
                               active
-                                ? "border-[var(--color-accent)]/50 bg-[var(--color-accent)]/10 text-[var(--color-foreground)]"
-                                : "border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-muted-foreground)] hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]",
+                                ? "border-[#64B5F6]/50 bg-[#64B5F6]/10 text-white"
+                                : "border-white/10 bg-white/[0.03] text-white/70 hover:border-[#64B5F6]/40 hover:text-white",
                             )}
                           >
-                            {Icon && <Icon className="h-4 w-4 shrink-0 text-[var(--color-accent)]" />}
+                            {Icon && <Icon className="h-4 w-4 shrink-0 text-[#64B5F6]" />}
                             <span>{item.title}</span>
                           </Link>
                         );

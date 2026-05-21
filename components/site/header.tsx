@@ -8,88 +8,73 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { primaryNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { Logo } from "@/components/site/logo";
-import { SiteSidebar } from "@/components/site/command-palette";
+import { CommandPalette } from "@/components/site/command-palette";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
-  const [scrolled, setScrolled] = React.useState(false);
   const pathname = usePathname();
-
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 4);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className="sticky top-0 z-[120] w-full">
-      <div
-        className={cn(
-          "w-full transition-all duration-200",
-          scrolled
-            ? "border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur-xl"
-            : "border-b border-transparent bg-[var(--color-background)]/0",
-        )}
-      >
-        <div
-          className={cn(
-            "mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6 lg:px-8",
-            scrolled ? "h-10" : "h-12",
-          )}
+    <header className="fixed top-0 right-0 left-0 z-[120] border-b border-white/10 bg-black/60 backdrop-blur-xl">
+      <div className="mx-auto flex h-12 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          aria-label="A-STAR home"
+          className="group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-white/5"
         >
-          <Link
-            href="/"
-            aria-label="A-STAR home"
-            className="group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-muted)]"
-          >
-            <Logo variant="mark" width={28} height={28} priority sizes="28px" className="h-7 w-7" />
-          </Link>
+          <Logo
+            variant="mark"
+            width={24}
+            height={24}
+            priority
+            sizes="24px"
+            className="h-5 w-5 sm:h-6 sm:w-6"
+          />
+        </Link>
 
-          <NavigationMenu.Root className="hidden md:block">
-            <NavigationMenu.List className="flex items-center gap-1">
-              {primaryNav.map((item) => {
-                const active = isActive(item.href);
-                const isResearch = item.href === "/research";
+        <NavigationMenu.Root className="hidden md:block">
+          <NavigationMenu.List className="flex items-center gap-1">
+            {primaryNav.map((item) => {
+              const active = isActive(item.href);
+              const isResearch = item.href === "/research";
 
-                if (isResearch) {
-                  return <ProjectsNavItem key={item.href} active={active} />;
-                }
+              if (isResearch) {
+                return <ProjectsNavItem key={item.href} active={active} />;
+              }
 
-                return (
-                  <NavigationMenu.Item key={item.href}>
-                    <NavigationMenu.Link asChild>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                          active
-                            ? "text-[var(--color-foreground)]"
-                            : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
-                        )}
-                      >
-                        {item.title}
-                        {active && (
-                          <motion.span
-                            layoutId="nav-active-indicator"
-                            className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-[var(--color-accent)]"
-                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                          />
-                        )}
-                      </Link>
-                    </NavigationMenu.Link>
-                  </NavigationMenu.Item>
-                );
-              })}
-            </NavigationMenu.List>
-          </NavigationMenu.Root>
+              return (
+                <NavigationMenu.Item key={item.href}>
+                  <NavigationMenu.Link asChild>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                        active
+                          ? "text-[#64B5F6]"
+                          : "text-white/70 hover:bg-white/5 hover:text-white",
+                      )}
+                    >
+                      {item.title}
+                      {active && (
+                        <motion.span
+                          layoutId="nav-active-indicator"
+                          className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#64B5F6]"
+                          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                    </Link>
+                  </NavigationMenu.Link>
+                </NavigationMenu.Item>
+              );
+            })}
+          </NavigationMenu.List>
+        </NavigationMenu.Root>
 
-          <div className="flex items-center gap-2">
-            <SiteSidebar />
-          </div>
+        <div className="flex items-center gap-2">
+          <CommandPalette />
         </div>
       </div>
     </header>
@@ -105,7 +90,7 @@ function DropdownContent({ children }: { children: React.ReactNode }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 4 }}
           transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-0 top-full z-[130] mt-1 w-72 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] shadow-xl shadow-black/10"
+          className="absolute top-full left-0 z-[130] mt-1 w-72 overflow-hidden rounded-xl border border-white/10 bg-black/80 shadow-xl shadow-black/30 backdrop-blur-xl"
         >
           {children}
         </motion.div>
@@ -122,11 +107,9 @@ function ProjectsNavItem({ active }: { active: boolean }) {
     <NavigationMenu.Item className="relative">
       <NavigationMenu.Trigger
         className={cn(
-          "relative rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none select-none",
-          "data-[state=open]:bg-[var(--color-muted)] data-[state=open]:text-[var(--color-foreground)]",
-          active
-            ? "text-[var(--color-foreground)]"
-            : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
+          "relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors outline-none select-none",
+          "data-[state=open]:bg-white/5 data-[state=open]:text-white",
+          active ? "text-[#64B5F6]" : "text-white/70 hover:bg-white/5 hover:text-white",
         )}
         onClick={() => router.push("/research")}
       >
@@ -134,7 +117,7 @@ function ProjectsNavItem({ active }: { active: boolean }) {
         {active && (
           <motion.span
             layoutId="nav-active-indicator"
-            className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-[var(--color-accent)]"
+            className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#64B5F6]"
             transition={{ type: "spring", stiffness: 380, damping: 30 }}
           />
         )}
@@ -145,22 +128,31 @@ function ProjectsNavItem({ active }: { active: boolean }) {
             <NavigationMenu.Link key={project.slug} asChild>
               <Link
                 href={`/projects/${project.slug}`}
-                className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[var(--color-muted)] focus:bg-[var(--color-muted)] focus:outline-none"
+                className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-white/5 focus:bg-white/5 focus:outline-none"
               >
-                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)]">
-                  <Logo variant="mark" width={16} height={16} sizes="16px" className="h-4 w-4 opacity-80" />
+                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.03]">
+                  <Logo
+                    variant="mark"
+                    width={16}
+                    height={16}
+                    sizes="16px"
+                    className="h-4 w-4 opacity-80"
+                  />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-[var(--color-foreground)]">{project.name}</p>
-                  <p className="mt-0.5 truncate text-xs text-[var(--color-muted-foreground)]">{project.tagline}</p>
+                  <p className="text-sm font-semibold text-white">{project.name}</p>
+                  <p className="mt-0.5 truncate text-xs text-white/50">{project.tagline}</p>
                 </div>
               </Link>
             </NavigationMenu.Link>
           ))}
         </div>
-        <div className="border-t border-[var(--color-border)] px-3 py-2">
+        <div className="border-t border-white/10 px-3 py-2">
           <NavigationMenu.Link asChild>
-            <Link href="/research" className="text-xs font-medium text-[var(--color-accent)] hover:underline focus:outline-none focus:underline">
+            <Link
+              href="/research"
+              className="text-xs font-medium text-[#64B5F6] hover:underline focus:underline focus:outline-none"
+            >
               View research portfolio
             </Link>
           </NavigationMenu.Link>

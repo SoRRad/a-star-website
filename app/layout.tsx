@@ -73,9 +73,7 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: [
-      { url: "/logos/astar/favicon-512.png", type: "image/png", sizes: "512x512" },
-    ],
+    icon: [{ url: "/logos/astar/favicon-512.png", type: "image/png", sizes: "512x512" }],
     apple: "/logos/astar/apple-touch-icon.png",
   },
 };
@@ -84,21 +82,19 @@ export const viewport: Viewport = {
   themeColor: "#000814",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`dark ${sans.variable} ${mono.variable} ${display.variable}`}
-    >
+    <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable}`}>
       {/* suppressHydrationWarning silences browser-extension attribute injections (e.g. Grammarly) */}
-      <body suppressHydrationWarning className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased">
+      <body
+        suppressHydrationWarning
+        className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased"
+      >
         <Providers>
           <CosmicBackground />
           <a
             href="#main"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-foreground)] focus:px-4 focus:py-2 focus:text-[var(--color-background)]"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-foreground)] focus:px-4 focus:py-2 focus:text-[var(--color-background)]"
           >
             Skip to main content
           </a>
@@ -109,7 +105,7 @@ export default function RootLayout({
           <RoboticArmProgress />
           <CursorGlow />
           <SiteHeader />
-          <main id="main" className="relative z-10">
+          <main id="main" className="relative z-10 pt-12">
             {children}
           </main>
           <div className="relative z-10">
