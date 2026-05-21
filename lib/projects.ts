@@ -4,6 +4,15 @@ export type SurgicalPhase =
   | "intra-op-intelligence"
   | "patient-journey"
   | "outcomes-validation";
+export type ProjectMediaType = "image" | "gif" | "video" | "thumbnail" | "placeholder";
+
+export type ProjectMedia = {
+  type: ProjectMediaType;
+  src?: string;
+  poster?: string;
+  alt: string;
+  caption?: string;
+};
 
 export type Project = {
   slug: string;
@@ -20,8 +29,8 @@ export type Project = {
   featured?: boolean;
   order: number;
   lastUpdated?: string;
+  media?: ProjectMedia[];
   modelCard: ProjectModelCard;
-  // TODO Step 5: approach, results, roadmap, demo content
 };
 
 export type ProjectModelCard = {
@@ -53,6 +62,18 @@ export const projects: Project[] = [
     featured: true,
     order: 1,
     lastUpdated: "2026-04-01",
+    media: [
+      {
+        type: "placeholder",
+        alt: "MOSI demo placeholder",
+        caption: "Demo GIF forthcoming",
+      },
+      {
+        type: "placeholder",
+        alt: "MOSI model output thumbnail placeholder",
+        caption: "Model output thumbnail forthcoming",
+      },
+    ],
     modelCard: {
       intendedUse:
         "Pre-operative decision support for bariatric surgery candidate evaluation. Advisory only; clinical judgment remains with the treating surgeon.",
@@ -95,6 +116,18 @@ export const projects: Project[] = [
     featured: true,
     order: 2,
     lastUpdated: "2026-04-01",
+    media: [
+      {
+        type: "placeholder",
+        alt: "SIRIS annotated preview placeholder",
+        caption: "Annotated video preview forthcoming",
+      },
+      {
+        type: "placeholder",
+        alt: "SIRIS demo thumbnail placeholder",
+        caption: "Model output thumbnail forthcoming",
+      },
+    ],
     modelCard: {
       intendedUse:
         "Patient-facing education support for bariatric surgery preparation, question generation, and resource navigation.",
@@ -118,6 +151,59 @@ export const projects: Project[] = [
       limitations:
         "Current scope is bariatric surgery education, English-language interactions, and non-urgent preparation questions.",
       relatedPublications: ["bariatric-patient-education-2026"],
+    },
+  },
+  {
+    slug: "gonogonet",
+    name: "GoNoGoNet",
+    longName: "AI-guided Go/No-Go surgical safety zone detection",
+    tagline:
+      "Computer vision for surgical dissection safety-zone recognition and intraoperative decision support research.",
+    description:
+      "Computer vision model for identifying surgical dissection safety zones and supporting intraoperative decision-making.",
+    status: "validation",
+    phases: ["intra-op-intelligence"],
+    liveUrl: "",
+    team: ["simon-laplante", "hojjat-salehinejad", "reza-shahriarirad", "abdulrahman-alomar"],
+    collaborators: ["mayo-clinic-mars", "surgical-ai2-lab", "sara-lab"],
+    featured: true,
+    order: 3,
+    lastUpdated: "2026-05-20",
+    media: [
+      {
+        type: "placeholder",
+        alt: "GoNoGoNet demo GIF placeholder",
+        caption: "Demo GIF forthcoming",
+      },
+      {
+        type: "placeholder",
+        alt: "GoNoGoNet annotated video preview placeholder",
+        caption: "Annotated video preview forthcoming",
+      },
+      {
+        type: "placeholder",
+        alt: "GoNoGoNet model output thumbnail placeholder",
+        caption: "Model output thumbnail forthcoming",
+      },
+    ],
+    modelCard: {
+      intendedUse:
+        "Research decision-support for identifying laparoscopic dissection regions that may represent Go and No-Go safety zones. Advisory only; it is not a replacement for surgeon judgment.",
+      clinicalPhase: "Intraoperative surgical guidance and education",
+      inputData: ["Laparoscopic or operative video frames", "Procedure context for cholecystectomy-oriented validation workflows"],
+      output: ["Safety-zone / Go-No-Go visual guidance", "Pixel-level or heatmap-style model output for review"],
+      modelPipeline:
+        "Surgical computer vision and semantic segmentation workflow for safety-zone recognition in laparoscopic cholecystectomy contexts.",
+      validationStatus:
+        "Published retrospective and experimental validation records are linked; broader translational validation and generalizability testing remain required.",
+      deploymentReadiness:
+        "Research and validation phase. Not designed for autonomous clinical decision-making.",
+      limitations:
+        "Requires careful validation across datasets, institutions, surgeons, anatomy, case complexity, and real-time operating room constraints.",
+      relatedPublications: [
+        "gonogonet-validation-laparoscopic-cholecystectomy-2023",
+        "gonogonet-high-risk-behaviors-cholecystectomy-2023",
+      ],
     },
   },
 ];

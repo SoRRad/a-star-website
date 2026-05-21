@@ -99,9 +99,20 @@ function FooterColumn({ title, items }: { title: string; items: { title: string;
       <ul className="space-y-2.5">
         {items.map((item) => (
           <li key={item.href}>
-            <Link href={item.href} className="text-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
-              {item.title}
-            </Link>
+            {item.href.startsWith("http") ? (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]"
+              >
+                {item.title}
+              </a>
+            ) : (
+              <Link href={item.href} className="text-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
+                {item.title}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

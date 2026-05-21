@@ -65,7 +65,7 @@ export function TeamGridClient({ mainTeam, collaboratorTeam }: TeamGridClientPro
 }
 
 function TeamStrip({ member, index }: { member: TeamMember; index: number }) {
-  const href = member.isOpenPosition ? member.openPositionUrl ?? "/join" : `/team/${member.slug}`;
+  const href = member.isOpenPosition ? member.openPositionUrl ?? "/contact#collaborate" : `/team/${member.slug}`;
   const external = member.isOpenPosition && href.startsWith("http");
 
   return (

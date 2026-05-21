@@ -1,5 +1,5 @@
 export const sirisContent = {
-  problem: `Patients scheduled for bariatric surgery receive a preparation packet and a brief consultation — but the information gap between booking and operation is substantial. Studies show patients retain less than 40% of clinician-provided pre-operative education. Poor preparation correlates with higher peri-operative anxiety, lower compliance with pre-surgical dietary protocols, and reduced long-term success rates.`,
+  problem: `Patients scheduled for bariatric surgery receive a preparation packet and a brief consultation - but the information gap between booking and operation is substantial. Studies show patients retain less than 40% of clinician-provided preoperative education. Poor preparation correlates with higher perioperative anxiety, lower compliance with pre-surgical dietary protocols, and reduced long-term success rates.`,
 
   clinicalNeed: `AI-powered patient education can personalise content to a patient's specific procedure, comorbidities, and literacy level — something a static pamphlet cannot do. By integrating with the IRIS platform (Mayo Clinic's clinical AI infrastructure), SIRIS can surface institutional resources and answer procedure-specific questions with guardrails that prevent medical misadvice.`,
 

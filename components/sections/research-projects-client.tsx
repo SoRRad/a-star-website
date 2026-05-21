@@ -2,7 +2,7 @@
 
 import { Reveal } from "@/components/motion/reveal";
 import { ExploreMore } from "@/components/site/explore-more";
-import { PhaseWheel } from "@/components/lab/phase-wheel";
+import { FeaturedProjects } from "@/components/lab/featured-projects";
 
 export function ResearchProjectsClient() {
   return (
@@ -16,14 +16,15 @@ export function ResearchProjectsClient() {
           Intelligence across the surgical journey.
         </h2>
         <p className="mb-12 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-          A-STAR maps AI research to the four phases of surgical care — each phase
-          grounded in clinical problems that matter to surgeons and patients.
+          A-STAR maps AI research to surgical planning, intraoperative guidance,
+          patient education, and validation, with each project grounded in a
+          clinical question that matters to surgeons and patients.
         </p>
       </Reveal>
 
-      <PhaseWheel />
+      <FeaturedProjects />
 
-      <ExploreMore href="/research">Explore research and projects</ExploreMore>
+      <ExploreMore href="/research">Open the Projects page</ExploreMore>
     </>
   );
 }

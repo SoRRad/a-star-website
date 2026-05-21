@@ -10,6 +10,7 @@ All active logo files are PNG files in `public/logos/astar/`. The naming convent
 The `astar-mark-neutral.png` (and `.webp`) is a transparent-background mark used for watermarks and decorative overlays.
 
 Do **not** use old SVG files or the non-prefixed variants — those have been removed from the repository.
+Do **not** use `public/logos/astar/clean/` or `public/logos/astar/current/` in active UI. Production code should import paths from `lib/logos.ts`, and those paths should point to root-level PNG files in this folder.
 
 ## Canonical UI Files
 

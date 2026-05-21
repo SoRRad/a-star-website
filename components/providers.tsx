@@ -16,13 +16,14 @@ import Lenis from "lenis";
 function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const lenis = new Lenis({
-      duration: 0.9,
+      duration: 0.6,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1,
-      wheelMultiplier: 0.95,
+      wheelMultiplier: 1.2,
     });
 
     let raf: number;

@@ -7,6 +7,9 @@ const contactSchema = z.object({
   email: z.string().email("Valid email required"),
   institution: z.string().optional(),
   roleTitle: z.string().optional(),
+  affiliation: z.string().optional(),
+  role: z.string().optional(),
+  sessionInterest: z.string().optional(),
   inquiryType: z.enum([
     "general",
     "research-collaboration",
@@ -44,13 +47,16 @@ export async function POST(req: NextRequest) {
   const data = parsed.data;
   const resendApiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.CONTACT_FROM_EMAIL;
-  const toEmail = contactEmail;
+  const toEmail = process.env.CONTACT_TO_EMAIL || contactEmail;
   const subject = `[A-STAR Contact] ${data.inquiryType} — ${data.name}`;
   const text = [
     `Name: ${data.name}`,
     `Email: ${data.email}`,
     `Institution: ${data.institution || "Not provided"}`,
     `Role/title: ${data.roleTitle || "Not provided"}`,
+    `Affiliation: ${data.affiliation || "Not provided"}`,
+    `Role: ${data.role || "Not provided"}`,
+    `Session interest: ${data.sessionInterest || "Not provided"}`,
     `Inquiry type: ${data.inquiryType}`,
     `Collaboration type: ${data.collaborationType || "Not provided"}`,
     `Clinical area: ${data.clinicalArea || "Not provided"}`,
@@ -65,7 +71,19 @@ export async function POST(req: NextRequest) {
 
   if (!resendApiKey || !fromEmail) {
     console.log("[contact form submission]", JSON.stringify(data, null, 2));
-    return NextResponse.json({ success: true, mode: "development" });
+    const fallbackEmail =
+      data.inquiryType === "journal-club" ? "alomar.abdulrahman@mayo.edu" : toEmail;
+    return NextResponse.json(
+      {
+        error:
+          data.inquiryType === "journal-club"
+            ? "Email delivery is not configured yet. Please email alomar.abdulrahman@mayo.edu directly for Journal Club attendance."
+            : `Email delivery is not configured yet. Please email ${fallbackEmail} directly.`,
+        mode: "email-not-configured",
+        fallbackEmail,
+      },
+      { status: 503 },
+    );
   }
 
   try {

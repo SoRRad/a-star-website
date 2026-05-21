@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Github, Linkedin, Mail, Globe } from "lucide-react";
+import { Github, Linkedin, Mail, Globe, UserRound } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
@@ -31,7 +31,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
     member.links.email && { href: `mailto:${member.links.email}`, icon: Mail, label: "Email" },
   ].filter(Boolean) as { href: string; icon: React.ElementType; label: string }[];
 
-  const cardHref = member.isOpenPosition ? "/join" : `/team/${member.slug}`;
+  const cardHref = member.isOpenPosition ? member.openPositionUrl ?? "/contact#collaborate" : `/team/${member.slug}`;
   const isOpen = !!member.isOpenPosition;
 
   return (
@@ -85,12 +85,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
         <div className="relative mx-auto mt-2 w-full flex-1 overflow-hidden rounded-lg" style={{ maxHeight: "60%" }}>
           {isOpen ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-[var(--color-coral-400)]/20 bg-[var(--color-muted)]">
-              <span
-                className="font-display font-bold text-[var(--color-coral-400)]/30"
-                style={{ fontSize: "clamp(2rem, 7vw, 3rem)" }}
-              >
-                ?
-              </span>
+              <UserRound className="h-12 w-12 text-[var(--color-coral-400)]/45" aria-hidden="true" />
             </div>
           ) : (
             <>

@@ -9,22 +9,35 @@ import { collaborators } from "@/lib/collaborators";
 import { phases } from "@/lib/phases";
 import { publications } from "@/lib/publications";
 import { getNewsByProject } from "@/lib/news";
+import { getTalksByProject } from "@/lib/talks";
 import { NewsCard } from "@/components/news/news-card";
+import { TalkCard } from "@/components/resources/talk-card";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
 import { PlayingCard } from "@/components/lab/playing-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { ContentPlaceholder } from "@/components/lab/content-placeholder";
+import { ProjectMediaGrid } from "@/components/lab/project-media";
 import { PublicationCard } from "@/components/publications/publication-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { ModelCard } from "@/components/research/model-card";
 import { mosiContent } from "@/content/projects/mosi";
 import { sirisContent } from "@/content/projects/siris";
+import { gonogonetContent } from "@/content/projects/gonogonet";
 
-/* map slug → content object */
-const contentMap: Record<string, typeof mosiContent> = {
+type ProjectDetailContent = {
+  problem?: string;
+  clinicalNeed?: string;
+  dataSources?: string;
+  methods?: string;
+  validationPlan?: string;
+  currentStatus?: string;
+};
+
+const contentMap: Record<string, ProjectDetailContent> = {
   mosi: mosiContent,
   siris: sirisContent,
+  gonogonet: gonogonetContent,
 };
 
 export function generateStaticParams() {
@@ -63,6 +76,7 @@ export default async function ProjectPage({
     project.collaborators.includes(c.slug),
   );
   const relatedPubs = publications.filter((p) => p.projects.includes(slug));
+  const relatedTalks = getTalksByProject(slug);
   const projectNews = getNewsByProject(slug);
 
   return (
@@ -122,7 +136,7 @@ export default async function ProjectPage({
           <Button asChild variant="outline" size="lg">
             <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>
               <Mail className="h-4 w-4" />
-              Cite this project
+              Contact about this project
             </Link>
           </Button>
         </div>
@@ -185,6 +199,12 @@ export default async function ProjectPage({
           <ModelCard project={project} publications={publications} />
         </ScientificSection>
 
+        {project.media?.length ? (
+          <ScientificSection eyebrow="Project media" title="Demos and output previews">
+            <ProjectMediaGrid project={project} />
+          </ScientificSection>
+        ) : null}
+
         {/* ── 10. Team ── */}
         {projectTeam.length > 0 && (
           <ScientificSection eyebrow="Team" title="People behind this project">
@@ -228,6 +248,16 @@ export default async function ProjectPage({
           </ScientificSection>
         )}
 
+        {relatedTalks.length > 0 && (
+          <ScientificSection eyebrow="Related talks" title="Courses, webinars, and presentations">
+            <div className="grid gap-5 sm:grid-cols-2">
+              {relatedTalks.map((talk) => (
+                <TalkCard key={talk.slug} talk={talk} compact />
+              ))}
+            </div>
+          </ScientificSection>
+        )}
+
         {/* ── 13. Featured in news ── */}
         {projectNews.length > 0 && (
           <ScientificSection eyebrow="Featured in news" title="Coverage and mentions">
@@ -247,7 +277,7 @@ export default async function ProjectPage({
           </p>
           <Button asChild variant="accent">
             <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>
-              Reach out →
+              Reach out
             </Link>
           </Button>
         </div>
@@ -255,10 +285,10 @@ export default async function ProjectPage({
 
       <div className="mt-16">
         <Link
-          href="/projects"
+          href="/research"
           className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-accent)] hover:underline"
         >
-          ← All projects
+          Back to Projects
         </Link>
       </div>
     </article>

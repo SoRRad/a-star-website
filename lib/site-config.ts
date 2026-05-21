@@ -16,7 +16,7 @@ export const siteConfig = {
   fullName: "AI in Surgical Technology & Augmentation Research",
   tagline: "Augmenting the surgeon. Advancing the science.",
   description:
-    "A-STAR is a research lab advancing artificial intelligence across the full surgical journey — pre-operative planning, intra-operative guidance, post-operative recovery, and external validation of surgical AI systems.",
+    "A-STAR is a research lab advancing artificial intelligence across the full surgical journey - preoperative planning, intraoperative guidance, postoperative recovery, and external validation of surgical AI systems.",
   url: siteUrl,
   ogImage: "/opengraph-image",
   institution: {

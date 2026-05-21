@@ -12,7 +12,7 @@ export default function ProjectNotFound() {
       </p>
       <div className="mt-12 flex gap-4">
         <Link
-          href="/projects"
+          href="/research"
           className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-accent)] hover:underline"
         >
           ← All projects

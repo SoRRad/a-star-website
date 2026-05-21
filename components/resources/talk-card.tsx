@@ -3,36 +3,30 @@ import { ArrowUpRight, CalendarDays } from "lucide-react";
 import type { Talk } from "@/lib/talks";
 import { cn } from "@/lib/utils";
 
-const FORMAT_LABELS: Record<Talk["format"], string> = {
+const TYPE_LABELS: Record<Talk["type"], string> = {
   webinar: "Webinar",
   "invited-lecture": "Invited lecture",
   course: "Course",
-  conference: "Conference",
-  "chapter-meeting": "Chapter meeting",
+  "conference-talk": "Conference talk",
+  "session-chair": "Session chair",
+  moderator: "Moderator",
+  "session-director": "Session director",
 };
 
 const STATUS_LABELS: Record<Talk["status"], string> = {
   completed: "Completed",
   upcoming: "Upcoming",
-  "details-forthcoming": "Details forthcoming",
+  "metadata-to-confirm": "Metadata to confirm",
 };
 
 const STATUS_STYLES: Record<Talk["status"], string> = {
   completed: "border-emerald-400/40 bg-emerald-400/10 text-emerald-700 dark:text-emerald-400",
   upcoming: "border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-accent)]",
-  "details-forthcoming": "border-[var(--color-border)] bg-[var(--color-muted)] text-[var(--color-muted-foreground)]",
+  "metadata-to-confirm": "border-[var(--color-border)] bg-[var(--color-muted)] text-[var(--color-muted-foreground)]",
 };
 
 export function TalkCard({ talk, compact = false }: { talk: Talk; compact?: boolean }) {
-  const dateLabel = talk.date
-    ? new Date(talk.date + "T00:00:00").toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })
-    : talk.year
-      ? String(talk.year)
-      : "Date forthcoming";
+  const dateLabel = talk.displayDate;
   const href = talk.videoUrl ?? talk.url;
 
   return (
@@ -48,7 +42,7 @@ export function TalkCard({ talk, compact = false }: { talk: Talk; compact?: bool
 
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <span className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-          {FORMAT_LABELS[talk.format]}
+          {TYPE_LABELS[talk.type]}
         </span>
         <span className={cn("rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest", STATUS_STYLES[talk.status])}>
           {STATUS_LABELS[talk.status]}
