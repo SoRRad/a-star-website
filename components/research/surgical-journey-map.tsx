@@ -55,7 +55,7 @@ export function SurgicalJourneyMap({
 
           <div className="relative z-10 mb-8 max-w-md">
             <p className="eyebrow mb-3">Interactive surgical journey</p>
-            <h2 className="font-display text-3xl font-semibold tracking-tight">
+            <h2 className="font-display text-3xl font-semibold tracking-normal">
               Four translational phases, one validation path.
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
@@ -88,7 +88,7 @@ export function SurgicalJourneyMap({
                   >
                     {phase.code}
                   </span>
-                  <span className="block font-display text-lg font-semibold leading-tight tracking-tight">
+                  <span className="block font-display text-lg font-semibold leading-tight tracking-normal">
                     {phase.title}
                   </span>
                   <span className="mt-2 block text-xs leading-relaxed text-[var(--color-muted-foreground)]">
@@ -112,7 +112,7 @@ export function SurgicalJourneyMap({
           <p className="font-mono text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">
             {activePhase.code}
           </p>
-          <h3 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+          <h3 className="mt-2 font-display text-3xl font-semibold tracking-normal">
             {activePhase.title}
           </h3>
           <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">

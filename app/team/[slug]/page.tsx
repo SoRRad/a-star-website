@@ -1,7 +1,6 @@
-import type React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight, type LucideIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { activeTeamMembers, team } from "@/lib/team";
 import { projects } from "@/lib/projects";
@@ -51,7 +50,7 @@ export default async function TeamMemberPage({
     member.links.twitter && { href: member.links.twitter, Icon: Twitter, label: "Twitter" },
     member.links.scholar && { href: member.links.scholar, Icon: GraduationCap, label: "Google Scholar" },
     member.links.email && { href: `mailto:${member.links.email}`, Icon: Mail, label: "Email" },
-  ].filter(Boolean) as { href: string; Icon: React.ElementType; label: string }[];
+  ].filter(Boolean) as { href: string; Icon: LucideIcon; label: string }[];
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -67,8 +66,8 @@ export default async function TeamMemberPage({
 
         <div className="flex-1">
           <h1
-            className="font-display text-balance text-4xl font-semibold tracking-tight sm:text-5xl"
-            style={{ letterSpacing: "-0.03em" }}
+            className="font-display text-balance text-4xl font-semibold tracking-normal sm:text-5xl"
+            style={{ letterSpacing: "0" }}
           >
             {member.name}
           </h1>

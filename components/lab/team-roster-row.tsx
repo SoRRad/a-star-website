@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Github, Linkedin, Mail, Twitter, ArrowRight, UserRound } from "lucide-react";
+import { Globe, Github, Linkedin, Mail, Twitter, ArrowRight, UserRound, type LucideIcon } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
     member.links.linkedin && { href: member.links.linkedin, Icon: Linkedin, label: "LinkedIn" },
     member.links.twitter && { href: member.links.twitter, Icon: Twitter, label: "Twitter" },
     member.links.email && { href: `mailto:${member.links.email}`, Icon: Mail, label: "Email" },
-  ].filter(Boolean) as { href: string; Icon: React.ElementType; label: string }[];
+  ].filter(Boolean) as { href: string; Icon: LucideIcon; label: string }[];
 
   return (
     <div
@@ -117,10 +117,10 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
         {/* Name */}
         <Link href={member.isOpenPosition ? "/contact#collaborate" : `/team/${member.slug}`}>
           <h3
-            className="font-display text-balance font-semibold tracking-tight text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]"
+            className="font-display text-balance font-semibold tracking-normal text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]"
             style={{
               fontSize: variant === "main" ? "clamp(1.5rem, 3vw, 2.25rem)" : "clamp(1.25rem, 2.5vw, 1.75rem)",
-              letterSpacing: "-0.03em",
+              letterSpacing: "0",
             }}
           >
             {member.name}

@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section className="mx-auto max-w-3xl px-4 py-32 text-center sm:px-6 lg:px-8">
       <p className="eyebrow">404</p>
-      <h1 className="font-display mt-4 text-balance text-6xl tracking-tight sm:text-7xl">
+      <h1 className="font-display mt-4 text-balance text-6xl tracking-normal sm:text-7xl">
         Page not found
       </h1>
       <p className="mt-6 text-lg text-[var(--color-muted-foreground)]">

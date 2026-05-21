@@ -29,7 +29,7 @@ export function JournalClubForm() {
   const [values, setValues] = React.useState<JournalClubFormState>(initialState);
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState("");
-  const [sent, setSent] = React.useState(false);
+  const [sent, setSent] = React.useState<"sent" | "development" | null>(null);
 
   const update = (field: keyof JournalClubFormState) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -73,20 +73,20 @@ export function JournalClubForm() {
       const json = (await response.json().catch(() => ({}))) as {
         success?: boolean;
         error?: string;
-        mode?: string;
+        mode?: "development";
       };
 
-      if (!response.ok || json.mode === "email-not-configured") {
+      if (!response.ok) {
         setError(
           json.error ??
-            "Email delivery is not configured yet. Please email alomar.abdulrahman@mayo.edu directly for Journal Club attendance.",
+            "Journal Club attendance could not be submitted. Please email alomar.abdulrahman@mayo.edu directly.",
         );
         return;
       }
 
       if (json.success) {
         setValues(initialState);
-        setSent(true);
+        setSent(json.mode === "development" ? "development" : "sent");
         return;
       }
 
@@ -101,9 +101,11 @@ export function JournalClubForm() {
   if (sent) {
     return (
       <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
-        <h3 className="font-display text-xl font-semibold tracking-tight">Journal Club request sent.</h3>
+        <h3 className="font-display text-xl font-semibold tracking-normal">Journal Club request sent.</h3>
         <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          For urgent updates, email{" "}
+          {sent === "development"
+            ? "Your request was logged in development mode, but email delivery is not configured. For a guaranteed follow-up, email "
+            : "For urgent updates, email "}
           <a href={`mailto:${JOURNAL_CLUB_EMAIL}`} className="text-[var(--color-accent)] hover:underline">
             {JOURNAL_CLUB_EMAIL}
           </a>

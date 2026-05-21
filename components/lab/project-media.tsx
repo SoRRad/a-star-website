@@ -17,7 +17,8 @@ function mediaLabel(type: ProjectMedia["type"]) {
 }
 
 function MediaIcon({ type }: { type: ProjectMedia["type"] }) {
-  const Icon = type === "video" ? PlayCircle : type === "image" || type === "thumbnail" ? ImageIcon : Film;
+  const Icon =
+    type === "video" ? PlayCircle : type === "image" || type === "thumbnail" ? ImageIcon : Film;
   return <Icon className="h-5 w-5 text-[var(--color-accent)]" aria-hidden="true" />;
 }
 
@@ -27,10 +28,10 @@ export function ProjectMediaCard({ media, compact }: { media: ProjectMedia; comp
   const hasSrc = Boolean(media.src);
 
   return (
-    <figure className="group overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)]">
+    <figure className="card-glass group overflow-hidden rounded-lg">
       <div
         className={cn(
-          "relative flex items-center justify-center overflow-hidden bg-[var(--color-muted)]",
+          "relative flex items-center justify-center overflow-hidden bg-white/[0.03]",
           compact ? "aspect-[16/10]" : "aspect-video",
           !hasSrc && "border border-dashed border-[var(--color-accent)]/35",
         )}
@@ -57,17 +58,23 @@ export function ProjectMediaCard({ media, compact }: { media: ProjectMedia; comp
           />
         ) : (
           <>
-            <div className="absolute inset-0 bg-grid opacity-25" aria-hidden="true" />
-            <div className="absolute left-5 top-5 h-12 w-12 rounded-full border border-[var(--color-accent)]/25" aria-hidden="true" />
-            <div className="absolute bottom-6 right-5 h-px w-28 bg-gradient-to-r from-transparent via-[var(--color-accent)]/60 to-transparent" aria-hidden="true" />
+            <div className="bg-grid absolute inset-0 opacity-25" aria-hidden="true" />
+            <div
+              className="absolute top-5 left-5 h-12 w-12 rounded-full border border-[var(--color-accent)]/25"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute right-5 bottom-6 h-px w-28 bg-gradient-to-r from-transparent via-[var(--color-accent)]/60 to-transparent"
+              aria-hidden="true"
+            />
             <div className="relative z-10 flex max-w-56 flex-col items-center gap-3 px-4 text-center">
-              <span className="flex h-11 w-11 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)]">
+              <span className="flex h-11 w-11 items-center justify-center rounded-md border border-white/10 bg-white/[0.03]">
                 <MediaIcon type={media.type} />
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+              <span className="font-mono text-[10px] tracking-widest text-[var(--color-accent)] uppercase">
                 {mediaLabel(media.type)}
               </span>
-              <span className="text-sm font-medium leading-snug text-[var(--color-muted-foreground)]">
+              <span className="text-sm leading-snug font-medium text-white/60">
                 {media.caption ?? "Project media forthcoming"}
               </span>
             </div>
@@ -75,7 +82,7 @@ export function ProjectMediaCard({ media, compact }: { media: ProjectMedia; comp
         )}
       </div>
       {(media.caption || hasSrc) && (
-        <figcaption className="border-t border-[var(--color-border)] px-4 py-3 text-sm text-[var(--color-muted-foreground)]">
+        <figcaption className="border-t border-white/10 px-4 py-3 text-sm text-white/60">
           {media.caption ?? media.alt}
         </figcaption>
       )}
@@ -92,9 +99,18 @@ export function ProjectMediaGrid({ project, compact = false }: ProjectMediaGridP
   if (media.length === 0) return null;
 
   return (
-    <div className={cn("grid gap-4", compact ? "sm:grid-cols-2 xl:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3")}>
+    <div
+      className={cn(
+        "grid gap-4",
+        compact ? "sm:grid-cols-2 xl:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3",
+      )}
+    >
       {media.map((item, index) => (
-        <ProjectMediaCard key={`${project.slug}-${item.type}-${index}`} media={item} compact={compact} />
+        <ProjectMediaCard
+          key={`${project.slug}-${item.type}-${index}`}
+          media={item}
+          compact={compact}
+        />
       ))}
     </div>
   );

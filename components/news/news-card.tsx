@@ -28,7 +28,7 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
   const href = `/news/${item.slug}`;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md">
+    <article className="card-glass group flex h-full flex-col overflow-hidden rounded-xl transition-all hover:-translate-y-0.5">
       <Link href={href} className="block">
         {/* Image */}
         <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -43,43 +43,47 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
         </div>
       </Link>
 
-        {/* Content */}
-        <div className="flex flex-1 flex-col p-5">
-          {/* Meta */}
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <CategoryPill category={item.category} />
-            <time className="font-mono text-[10px] text-[var(--color-muted-foreground)]">{formatted}</time>
-            <a
-              href={linkedInUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Share on LinkedIn"
-              onClick={(e) => e.stopPropagation()}
-              className="ml-auto shrink-0 text-[var(--color-muted-foreground)]/40 transition-colors hover:text-[var(--color-accent)]"
-            >
-              <Linkedin className="h-3 w-3" />
-            </a>
-          </div>
-
-          {/* Headline */}
-          <h3
-            className={`font-display mb-2 text-balance font-semibold tracking-tight text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)] ${
-              size === "large" ? "text-xl sm:text-2xl" : "text-base"
-            }`}
-            style={{ letterSpacing: "-0.02em" }}
+      {/* Content */}
+      <div className="flex flex-1 flex-col p-5">
+        {/* Meta */}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <CategoryPill category={item.category} />
+          <time className="font-mono text-[10px] text-white/50">{formatted}</time>
+          <a
+            href={linkedInUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Share on LinkedIn"
+            onClick={(e) => e.stopPropagation()}
+            className="ml-auto shrink-0 text-white/35 transition-colors hover:text-[#64B5F6]"
           >
-            <Link href={href}>{item.title}</Link>
-          </h3>
-
-          {/* Excerpt */}
-          <p className="mb-4 flex-1 line-clamp-2 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-            {item.excerpt}
-          </p>
-
-          <Link href={href} className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-[var(--color-accent)]">
-            Read full story <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-          </Link>
+            <Linkedin className="h-3 w-3" />
+          </a>
         </div>
-      </article>
+
+        {/* Headline */}
+        <h3
+          className={`font-display mb-2 font-semibold tracking-normal text-balance text-white transition-colors group-hover:text-[#64B5F6] ${
+            size === "large" ? "text-xl sm:text-2xl" : "text-base"
+          }`}
+          style={{ letterSpacing: "0" }}
+        >
+          <Link href={href}>{item.title}</Link>
+        </h3>
+
+        {/* Excerpt */}
+        <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-white/70">
+          {item.excerpt}
+        </p>
+
+        <Link
+          href={href}
+          className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-[#64B5F6]"
+        >
+          Read full story{" "}
+          <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+        </Link>
+      </div>
+    </article>
   );
 }

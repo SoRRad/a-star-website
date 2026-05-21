@@ -1,171 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import * as React from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { usePathname } from "next/navigation";
 import { primaryNav } from "@/lib/navigation";
-import { projects } from "@/lib/projects";
 import { Logo } from "@/components/site/logo";
-import { SiteSidebar } from "@/components/site/command-palette";
-import { cn } from "@/lib/utils";
+import { CommandPalette } from "@/components/site/command-palette";
+import { PrimaryNavItem } from "@/components/site/primary-nav-item";
+import { NavigationMenu, NavigationMenuList } from "@/components/ui/navigation-menu";
 
 export function SiteHeader() {
-  const [scrolled, setScrolled] = React.useState(false);
   const pathname = usePathname();
-
-  React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 4);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
   return (
-    <header className="sticky top-0 z-[120] w-full">
-      <div
-        className={cn(
-          "w-full transition-all duration-200",
-          scrolled
-            ? "border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur-xl"
-            : "border-b border-transparent bg-[var(--color-background)]/0",
-        )}
-      >
-        <div
-          className={cn(
-            "mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-200 sm:px-6 lg:px-8",
-            scrolled ? "h-10" : "h-12",
-          )}
+    <header className="fixed left-0 right-0 top-0 z-[120] border-b border-white/10 bg-black/60 backdrop-blur-xl">
+      <div className="mx-auto flex h-12 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <Link
+          href="/"
+          aria-label="A-STAR home"
+          className="group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-white/5"
         >
-          <Link
-            href="/"
-            aria-label="A-STAR home"
-            className="group relative flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-[var(--color-muted)]"
-          >
-            <Logo variant="mark" width={28} height={28} priority sizes="28px" className="h-7 w-7" />
-          </Link>
+          <Logo
+            variant="mark"
+            width={24}
+            height={24}
+            priority
+            sizes="24px"
+            className="h-5 w-5 sm:h-6 sm:w-6"
+          />
+        </Link>
 
-          <NavigationMenu.Root className="hidden md:block">
-            <NavigationMenu.List className="flex items-center gap-1">
-              {primaryNav.map((item) => {
-                const active = isActive(item.href);
-                const isResearch = item.href === "/research";
+        <NavigationMenu className="hidden md:flex">
+          <NavigationMenuList>
+            {primaryNav.map((item) => (
+              <PrimaryNavItem key={item.href} item={item} active={isActive(item.href)} />
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
 
-                if (isResearch) {
-                  return <ProjectsNavItem key={item.href} active={active} />;
-                }
-
-                return (
-                  <NavigationMenu.Item key={item.href}>
-                    <NavigationMenu.Link asChild>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                          active
-                            ? "text-[var(--color-foreground)]"
-                            : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
-                        )}
-                      >
-                        {item.title}
-                        {active && (
-                          <motion.span
-                            layoutId="nav-active-indicator"
-                            className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-[var(--color-accent)]"
-                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                          />
-                        )}
-                      </Link>
-                    </NavigationMenu.Link>
-                  </NavigationMenu.Item>
-                );
-              })}
-            </NavigationMenu.List>
-          </NavigationMenu.Root>
-
-          <div className="flex items-center gap-2">
-            <SiteSidebar />
-          </div>
+        <div className="flex items-center gap-2">
+          <CommandPalette />
         </div>
       </div>
     </header>
-  );
-}
-
-function DropdownContent({ children }: { children: React.ReactNode }) {
-  return (
-    <AnimatePresence>
-      <NavigationMenu.Content asChild>
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 4 }}
-          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-0 top-full z-[130] mt-1 w-72 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-background)] shadow-xl shadow-black/10"
-        >
-          {children}
-        </motion.div>
-      </NavigationMenu.Content>
-    </AnimatePresence>
-  );
-}
-
-function ProjectsNavItem({ active }: { active: boolean }) {
-  const router = useRouter();
-  const featured = projects.filter((p) => p.featured);
-
-  return (
-    <NavigationMenu.Item className="relative">
-      <NavigationMenu.Trigger
-        className={cn(
-          "relative rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none select-none",
-          "data-[state=open]:bg-[var(--color-muted)] data-[state=open]:text-[var(--color-foreground)]",
-          active
-            ? "text-[var(--color-foreground)]"
-            : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]",
-        )}
-        onClick={() => router.push("/research")}
-      >
-        Projects
-        {active && (
-          <motion.span
-            layoutId="nav-active-indicator"
-            className="absolute inset-x-2 -bottom-[1px] h-0.5 rounded-full bg-[var(--color-accent)]"
-            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-          />
-        )}
-      </NavigationMenu.Trigger>
-      <DropdownContent>
-        <div className="p-2">
-          {featured.map((project) => (
-            <NavigationMenu.Link key={project.slug} asChild>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[var(--color-muted)] focus:bg-[var(--color-muted)] focus:outline-none"
-              >
-                <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)]">
-                  <Logo variant="mark" width={16} height={16} sizes="16px" className="h-4 w-4 opacity-80" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-[var(--color-foreground)]">{project.name}</p>
-                  <p className="mt-0.5 truncate text-xs text-[var(--color-muted-foreground)]">{project.tagline}</p>
-                </div>
-              </Link>
-            </NavigationMenu.Link>
-          ))}
-        </div>
-        <div className="border-t border-[var(--color-border)] px-3 py-2">
-          <NavigationMenu.Link asChild>
-            <Link href="/research" className="text-xs font-medium text-[var(--color-accent)] hover:underline focus:outline-none focus:underline">
-              View research portfolio
-            </Link>
-          </NavigationMenu.Link>
-        </div>
-      </DropdownContent>
-    </NavigationMenu.Item>
   );
 }

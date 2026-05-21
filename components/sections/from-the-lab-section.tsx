@@ -31,7 +31,7 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
             <Link
               key={item.slug}
               href={`/news/${item.slug}`}
-              className="group flex flex-col overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md"
+              className="card-glass group flex flex-col overflow-hidden rounded-lg transition-all hover:-translate-y-0.5"
             >
               <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <NewsImage
@@ -47,12 +47,12 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
               <div className="flex flex-1 flex-col p-4">
                 <div className="mb-2 flex items-center gap-2">
                   <CategoryPill category={item.category} />
-                  <time className="font-mono text-[10px] text-[var(--color-muted-foreground)]">{formatted}</time>
+                  <time className="font-mono text-[10px] text-white/50">{formatted}</time>
                 </div>
-                <h3 className="mb-2 line-clamp-2 font-display text-sm font-semibold leading-snug tracking-tight text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
+                <h3 className="font-display mb-2 line-clamp-2 text-sm leading-snug font-semibold tracking-normal text-white transition-colors group-hover:text-[#64B5F6]">
                   {item.title}
                 </h3>
-                <p className="flex-1 line-clamp-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
+                <p className="line-clamp-2 flex-1 text-xs leading-relaxed text-white/70">
                   {item.excerpt}
                 </p>
               </div>

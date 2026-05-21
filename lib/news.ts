@@ -71,7 +71,7 @@ The recorded session runs 01:02:06 and focuses on artificial intelligence in sur
     image: "/news/balfour-symposium-2025.jpg",
     imageAlt: "A-STAR Lab poster presentation at Balfour Symposium",
     excerpt:
-      "A-STAR Lab presented an abstract poster titled \"Development of a Computer Vision Deep Learning Model to Predict Optimal Surgical Management in Abdominal Wall Reconstruction\" at the 31st Annual Balfour Surgery Research Symposium.",
+      'A-STAR Lab presented an abstract poster titled "Development of a Computer Vision Deep Learning Model to Predict Optimal Surgical Management in Abdominal Wall Reconstruction" at the 31st Annual Balfour Surgery Research Symposium.',
     body: `On October 10, 2025, the A-STAR Lab presented an abstract poster at the 31st Annual Balfour Surgery Research Symposium.
 
 The poster, titled "Development of a Computer Vision Deep Learning Model to Predict Optimal Surgical Management in Abdominal Wall Reconstruction," highlighted ongoing work focused on applying computer vision and deep learning to support surgical decision-making in complex abdominal wall reconstruction.
@@ -148,11 +148,12 @@ The A-STAR Lab's participation reflects its continued commitment to collaboratio
       {
         src: "/news/asmbs-poster1-2026.jpg",
         alt: "MOSI abstract poster presented by the A-STAR Lab at the 2026 ASMBS Annual Meeting",
-        caption: "MOSI abstract poster: Mayo Obesity Staging Index, a novel obesity classification system",
+        caption:
+          "MOSI abstract poster: Mayo Obesity Staging Index, a novel obesity classification system",
       },
     ],
     excerpt:
-      "Dr. Simon J. Laplante delivered an invited talk on \"Quantum Computing: Solving Complex Surgical Data Challenges\" and the A-STAR Lab presented the MOSI abstract poster at the 2026 ASMBS Annual Meeting in San Antonio, Texas.",
+      'Dr. Simon J. Laplante delivered an invited talk on "Quantum Computing: Solving Complex Surgical Data Challenges" and the A-STAR Lab presented the MOSI abstract poster at the 2026 ASMBS Annual Meeting in San Antonio, Texas.',
     body: `From May 4–7, 2026, Dr. Simon J. Laplante and Dr. Abdulrahman Alomar represented the A-STAR Lab at the annual American Society for Metabolic and Bariatric Surgery (ASMBS) conference, held this year in San Antonio, Texas.
 
 During the meeting, Dr. Laplante delivered an invited talk titled "Quantum Computing: Solving Complex Surgical Data Challenges" as part of the session "No Longer The Future: AI, Digital Surgery, Machine Learning and Quantum Computing in Today's OR." He also served as moderator for the Innovation Without Borders session, contributing to discussions on emerging technologies and their role in the future of surgery.
@@ -200,7 +201,9 @@ export function getRelatedNews(item: NewsItem, limit = 3): NewsItem[] {
     .filter((candidate) => candidate.slug !== item.slug)
     .map((candidate) => {
       const peopleMatches = candidate.people.filter((slug) => item.people.includes(slug)).length;
-      const projectMatches = candidate.projects.filter((slug) => item.projects.includes(slug)).length;
+      const projectMatches = candidate.projects.filter((slug) =>
+        item.projects.includes(slug),
+      ).length;
       const publicationMatches = candidate.publications.filter((slug) =>
         item.publications.includes(slug),
       ).length;
@@ -211,7 +214,10 @@ export function getRelatedNews(item: NewsItem, limit = 3): NewsItem[] {
         score: peopleMatches * 3 + projectMatches * 3 + publicationMatches * 2 + categoryMatch,
       };
     })
-    .sort((a, b) => b.score - a.score || new Date(b.item.date).getTime() - new Date(a.item.date).getTime())
+    .sort(
+      (a, b) =>
+        b.score - a.score || new Date(b.item.date).getTime() - new Date(a.item.date).getTime(),
+    )
     .slice(0, limit)
     .map(({ item }) => item);
 }
@@ -247,10 +253,10 @@ export const CATEGORY_LABELS: Record<NewsCategory, string> = {
 };
 
 export const CATEGORY_COLORS: Record<NewsCategory, string> = {
-  conference: "border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 text-[var(--color-accent)]",
-  publication: "border-blue-300/40 bg-blue-300/10 text-blue-700 dark:text-blue-300",
-  award: "border-yellow-400/40 bg-yellow-400/10 text-amber-700 dark:text-yellow-400",
-  press: "border-purple-400/40 bg-purple-400/10 text-purple-700 dark:text-purple-400",
-  "lab-update": "border-emerald-400/40 bg-emerald-400/10 text-emerald-700 dark:text-emerald-400",
-  newsletter: "border-[var(--color-muted-foreground)]/40 bg-[var(--color-muted)] text-[var(--color-muted-foreground)]",
+  conference: "border-[#64B5F6]/40 bg-[#64B5F6]/10 text-[#64B5F6]",
+  publication: "border-blue-300/40 bg-blue-300/10 text-blue-300",
+  award: "border-yellow-400/40 bg-yellow-400/10 text-yellow-300",
+  press: "border-purple-400/40 bg-purple-400/10 text-purple-300",
+  "lab-update": "border-emerald-400/40 bg-emerald-400/10 text-emerald-300",
+  newsletter: "border-white/20 bg-white/[0.05] text-white/70",
 };

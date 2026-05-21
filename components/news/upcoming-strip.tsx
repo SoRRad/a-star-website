@@ -43,7 +43,7 @@ export function UpcomingStrip({ events }: UpcomingStripProps) {
                   </span>
                 )}
               </div>
-              <h3 className="font-display text-base font-semibold tracking-tight">{event.title}</h3>
+              <h3 className="font-display text-base font-semibold tracking-normal">{event.title}</h3>
               {event.location && (
                 <p className="mt-0.5 text-xs text-[var(--color-muted-foreground)]">{event.location}</p>
               )}

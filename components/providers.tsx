@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import { useEffect } from "react";
-import { ThemeProvider } from "@/components/theme-provider";
 import Lenis from "lenis";
 
 /**
@@ -43,9 +42,5 @@ function SmoothScroll({ children }: { children: ReactNode }) {
 }
 
 export function Providers({ children }: { children: ReactNode }) {
-  return (
-    <ThemeProvider>
-      <SmoothScroll>{children}</SmoothScroll>
-    </ThemeProvider>
-  );
+  return <SmoothScroll>{children}</SmoothScroll>;
 }

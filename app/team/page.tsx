@@ -23,8 +23,8 @@ export default function TeamPage() {
       <header className="mb-16 max-w-3xl">
         <p className="eyebrow mb-4">Team</p>
         <h1
-          className="font-display text-balance text-5xl font-semibold tracking-tight sm:text-6xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl"
+          style={{ letterSpacing: "0" }}
         >
           Surgeons, scientists, and engineers building surgical AI together.
         </h1>
@@ -36,11 +36,11 @@ export default function TeamPage() {
       </header>
 
       {/* Core team */}
-      <section className="mb-24">
+      <section id="core" className="mb-24 scroll-mt-24">
         <div className="mb-10 flex items-baseline justify-between gap-4">
           <h2
-            className="font-display text-3xl font-semibold tracking-tight"
-            style={{ letterSpacing: "-0.02em" }}
+            className="font-display text-3xl font-semibold tracking-normal"
+            style={{ letterSpacing: "0" }}
           >
             Core team
           </h2>
@@ -57,11 +57,11 @@ export default function TeamPage() {
 
       {/* Collaborators subsection */}
       {collaboratorTeam.length > 0 && (
-        <section>
+        <section id="collaborators" className="scroll-mt-24">
           <div className="mb-10 flex items-baseline justify-between gap-4">
             <h2
-              className="font-display text-3xl font-semibold tracking-tight"
-              style={{ letterSpacing: "-0.02em" }}
+              className="font-display text-3xl font-semibold tracking-normal"
+              style={{ letterSpacing: "0" }}
             >
               Collaborators
             </h2>

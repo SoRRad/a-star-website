@@ -1,8 +1,11 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
 export const metadata = { title: "Projects" };
 
-/** The main projects experience lives at /research. This page redirects so old links still resolve. */
+/**
+ * Canonical projects/research page: /research.
+ * /projects is retained as a permanent redirect for old bookmarks and links.
+ */
 export default function ProjectsPage() {
-  redirect("/research");
+  permanentRedirect("/research");
 }

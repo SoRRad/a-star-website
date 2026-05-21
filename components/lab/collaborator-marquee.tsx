@@ -22,7 +22,7 @@ export function CollaboratorMarquee({ items }: CollaboratorMarqueeProps) {
       }}
     >
       <div
-        className="flex items-center gap-6 [animation:marquee_50s_linear_infinite] hover:[animation-play-state:paused]"
+        className="flex [animation:marquee_50s_linear_infinite] items-center gap-6 hover:[animation-play-state:paused]"
         style={{ width: "max-content" }}
       >
         {doubled.map((c, i) => (
@@ -50,7 +50,7 @@ function MarqueeItem({ collaborator }: { collaborator: Collaborator }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={collaborator.name}
-      className="flex h-[100px] min-w-[240px] shrink-0 items-center justify-center rounded-xl border border-[var(--color-border)] bg-white px-6 shadow-sm transition-all hover:border-[var(--color-accent)]/40 hover:shadow-md dark:border-white/10 dark:bg-white dark:hover:border-white/20"
+      className="flex h-[100px] min-w-[240px] shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.92] px-6 shadow-sm backdrop-blur-sm transition-all hover:border-white/20"
     >
       {!imgError ? (
         <Image

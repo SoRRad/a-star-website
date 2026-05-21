@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
 export const metadata = { title: "Contact" };
 
 export default function JoinPage() {
-  redirect("/contact#collaborate");
+  permanentRedirect("/contact#collaborate");
 }

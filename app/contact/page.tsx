@@ -7,7 +7,6 @@ import { ProjectIntakeForm } from "./project-intake-form";
 import { JournalClubForm } from "./journal-club-form";
 import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/motion/reveal";
-import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 import { CollaborationCta } from "@/components/sections/collaboration-cta";
 
 export const metadata: Metadata = {
@@ -41,12 +40,11 @@ const SOCIAL_LINKS = [
 export default function ContactPage() {
   return (
     <div>
-      <section className="relative isolate overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-background)]">
-        <AiMeshBackground />
+      <section className="relative isolate overflow-hidden border-b border-[var(--color-border)] bg-transparent">
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <Reveal>
             <p className="eyebrow mb-4">Get in touch</p>
-            <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-tight sm:text-6xl">
+            <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-normal sm:text-6xl">
               Contact A-STAR.
             </h1>
           </Reveal>
@@ -64,7 +62,7 @@ export default function ContactPage() {
             <Reveal>
               <div>
                 <p className="eyebrow mb-3">Lab</p>
-                <p className="font-display text-xl font-semibold tracking-tight">A-STAR</p>
+                <p className="font-display text-xl font-semibold tracking-normal">A-STAR</p>
                 <p className="mt-1 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
                   AI in Surgical Technology &amp; Augmentation Research
                 </p>
@@ -157,7 +155,7 @@ export default function ContactPage() {
             <Reveal>
               <div className="mb-8">
                 <p className="eyebrow mb-3">General inquiry</p>
-                <h2 className="font-display text-2xl font-semibold tracking-tight">Send a message.</h2>
+                <h2 className="font-display text-2xl font-semibold tracking-normal">Send a message.</h2>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
                   Use this form for general inquiries, position interest, press, Journal Club, and collaboration questions.
                 </p>
@@ -172,7 +170,7 @@ export default function ContactPage() {
         <div id="collaborate" className="mt-24 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6 sm:p-8">
           <Reveal>
             <p className="eyebrow mb-3">Project intake</p>
-            <h2 className="font-display text-3xl font-semibold tracking-tight">Collaborate with A-STAR.</h2>
+            <h2 className="font-display text-3xl font-semibold tracking-normal">Collaborate with A-STAR.</h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
               Share a clinical question, dataset, validation opportunity, or co-development idea. Submissions route to the configured A-STAR contact email when email delivery is enabled.
             </p>
@@ -185,7 +183,7 @@ export default function ContactPage() {
         <div id="journal-club" className="mt-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6 sm:p-8">
           <Reveal>
             <p className="eyebrow mb-3">Journal Club intake</p>
-            <h2 className="font-display text-3xl font-semibold tracking-tight">Attend or propose a Journal Club session.</h2>
+            <h2 className="font-display text-3xl font-semibold tracking-normal">Attend or propose a Journal Club session.</h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
               This form only collects name, email, affiliation, role, session interest, and message.
             </p>

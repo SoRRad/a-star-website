@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, type LucideIcon } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +26,7 @@ export function TeamCard({ member, className }: TeamCardProps) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md",
+        "card-glass flex flex-col gap-3 rounded-xl p-5 transition-all duration-200 hover:-translate-y-0.5",
         className,
       )}
     >
@@ -61,11 +61,11 @@ export function TeamCard({ member, className }: TeamCardProps) {
 
         {/* Info */}
         <div className="flex-1">
-          <p className="font-semibold leading-snug text-[var(--color-foreground)] transition-colors group-hover:text-[var(--color-accent)]">
+          <p className="font-semibold leading-snug text-white transition-colors group-hover:text-[#64B5F6]">
             {member.name}
           </p>
           <p className="mt-0.5 text-xs font-medium text-[var(--color-accent)]">{member.role}</p>
-          <p className="mt-0.5 text-xs text-[var(--color-muted-foreground)]">{member.affiliation}</p>
+          <p className="mt-0.5 text-xs text-white/60">{member.affiliation}</p>
         </div>
       </Link>
 
@@ -89,7 +89,7 @@ function LinkIcons({
     links.twitter && { href: links.twitter, icon: Twitter, label: `${name} on Twitter` },
     links.scholar && { href: links.scholar, icon: GraduationCap, label: `${name} on Google Scholar` },
     links.email && { href: `mailto:${links.email}`, icon: Mail, label: `Email ${name}` },
-  ].filter(Boolean) as { href: string; icon: React.ElementType; label: string }[];
+  ].filter(Boolean) as { href: string; icon: LucideIcon; label: string }[];
 
   if (items.length === 0) return null;
 
@@ -102,7 +102,7 @@ function LinkIcons({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          className="text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-accent)]"
+          className="text-white/50 transition-colors hover:text-[#64B5F6]"
         >
           <Icon className="h-3.5 w-3.5" />
         </a>

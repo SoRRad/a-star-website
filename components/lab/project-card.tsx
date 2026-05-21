@@ -18,7 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-accent)]/40 hover:shadow-md"
+      className="card-glass group relative overflow-hidden rounded-xl transition-all hover:-translate-y-0.5"
     >
       <Image
         src={logos.markNeutral}
@@ -26,7 +26,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         aria-hidden="true"
         width={120}
         height={120}
-        className="pointer-events-none absolute -right-4 -top-4 h-32 w-32 select-none opacity-[0.04]"
+        className="pointer-events-none absolute -top-4 -right-4 h-32 w-32 opacity-[0.04] select-none"
       />
       <div className="p-8">
         <div className="flex flex-wrap items-center gap-2">
@@ -34,25 +34,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {projectPhases.map((p) => (
             <span
               key={p.id}
-              className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]"
+              className="rounded-sm border border-white/10 px-2 py-0.5 font-mono text-[10px] tracking-widest text-white/50 uppercase"
             >
               {p.code} / {p.title}
             </span>
           ))}
         </div>
         <h2
-          className="font-display mt-4 text-4xl font-semibold leading-none tracking-tight sm:text-5xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display mt-4 text-4xl leading-none font-semibold tracking-normal sm:text-5xl"
+          style={{ letterSpacing: "0" }}
         >
           {project.name}
         </h2>
-        <p className="mt-1 text-sm font-medium text-[var(--color-muted-foreground)]">
-          {project.longName}
-        </p>
-        <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
+        <p className="mt-1 text-sm font-medium text-white/60">{project.longName}</p>
+        <p className="mt-4 max-w-2xl leading-relaxed text-pretty text-white/70">
           {project.description}
         </p>
-        <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors group-hover:text-[var(--color-foreground)]">
+        <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[#64B5F6] transition-colors group-hover:text-white">
           View project
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
         </span>

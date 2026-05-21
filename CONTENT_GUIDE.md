@@ -18,6 +18,26 @@ Compatibility redirects only:
 
 Do not add active navigation, homepage CTAs, or footer links to the redirect-only pages.
 
+## Theme And Surfaces
+
+The site is dark-only. There is no user theme toggle and no runtime theme detection.
+
+Use `.card-glass` for cards and panels, or match its values directly when a utility class is clearer:
+
+```tsx
+className="rounded-lg border border-white/10 bg-white/[0.03] backdrop-blur-sm"
+```
+
+Text color should follow the cosmic pattern:
+
+- Headings: `text-white`
+- Primary body: `text-white/80`
+- Secondary body: `text-white/60` or `text-[var(--color-muted-foreground)]`
+- Fine print: `text-white/40`
+- Accent links: `text-[#64B5F6]` or `text-[var(--color-accent)]`
+
+Avoid solid section backgrounds unless the content needs separation; prefer transparent sections or subtle `bg-white/[0.02]`.
+
 ## Projects
 
 Edit project metadata in `lib/projects.ts`. Project detail copy lives in `content/projects/{slug}.ts`.
@@ -62,7 +82,7 @@ Journal Club intake fields are limited to:
 - Session interest
 - Message
 
-The contact API must not report success when email delivery is not configured. If Resend is missing, the UI should show the direct email fallback.
+When Resend is not configured, the contact API returns a development-mode success response, logs the submission server-side, and the UI states that email was not delivered. Production deployments should configure Resend before launch.
 
 Required environment variables:
 
@@ -75,4 +95,4 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ## Logos
 
-Use only root-level PNG assets from `public/logos/astar/` through `lib/logos.ts`. Do not use old SVG logos, `public/logos/astar/clean/`, or `public/logos/astar/current/` in active UI.
+Use only root-level PNG assets from `public/logos/astar/` through `lib/logos.ts`. The live site uses the dark-background variants and the transparent neutral mark. Do not render paired logo images for different themes in the DOM.

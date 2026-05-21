@@ -192,7 +192,7 @@ export function PhaseWheel() {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="eyebrow mb-3">Phase {activePhase.code} / {activePhase.title}</p>
-            <h3 className="font-display mb-4 text-2xl font-semibold tracking-tight lg:text-3xl">
+            <h3 className="font-display mb-4 text-2xl font-semibold tracking-normal lg:text-3xl">
               {activePhase.title}
             </h3>
             <p className="text-pretty leading-relaxed text-[var(--color-muted-foreground)]">

@@ -29,14 +29,14 @@ export function Section({ children, code, label, id, className }: SectionProps) 
       {/* Sticky section label — desktop only */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-2 top-0 hidden h-full xl:block"
+        className="pointer-events-none absolute top-0 -right-2 hidden h-full xl:block"
       >
         <div className="sticky top-1/2 flex -translate-y-1/2 flex-col items-center gap-1.5">
-          <span className="font-display text-[10px] font-semibold tracking-[0.2em] text-[var(--color-muted-foreground)] opacity-40 [writing-mode:vertical-rl]">
+          <span className="font-display text-[10px] font-semibold tracking-[0.2em] text-white/40 [writing-mode:vertical-rl]">
             {code}
           </span>
-          <span className="h-px w-8 bg-[var(--color-border)] opacity-40 [writing-mode:vertical-rl]" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[var(--color-muted-foreground)] opacity-30 [writing-mode:vertical-rl]">
+          <span className="h-px w-8 bg-white/20 [writing-mode:vertical-rl]" />
+          <span className="font-mono text-[9px] tracking-[0.25em] text-white/30 uppercase [writing-mode:vertical-rl]">
             {label}
           </span>
         </div>

@@ -4,15 +4,102 @@ import * as React from "react";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { sidebarNav } from "@/lib/navigation";
+import { drawerNav } from "@/lib/navigation";
+import { projects } from "@/lib/projects";
+import { allNews } from "@/lib/news";
+import { publications } from "@/lib/publications";
+import { activeTeamMembers } from "@/lib/team";
+import { upcomingEvents } from "@/lib/events";
 import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
-export function SiteSidebar() {
+type CommandResult = {
+  category: "Navigate" | "Projects" | "Team" | "News" | "Events" | "Publications";
+  title: string;
+  href: string;
+  description: string;
+  keywords: string;
+  level?: number;
+};
+
+const CATEGORY_ORDER: CommandResult["category"][] = [
+  "Navigate",
+  "Projects",
+  "Team",
+  "News",
+  "Events",
+  "Publications",
+];
+
+function buildCommandResults(): CommandResult[] {
+  const navResults = drawerNav.flatMap((item) => [
+    {
+      category: "Navigate" as const,
+      title: item.title,
+      href: item.href,
+      description: item.description ?? `Open ${item.title}`,
+      keywords: `${item.title} ${item.href} ${item.description ?? ""}`,
+      level: 0,
+    },
+    ...(item.dropdown ?? []).map((sub) => ({
+      category: "Navigate" as const,
+      title: sub.title,
+      href: sub.href,
+      description: sub.description,
+      keywords: `${sub.title} ${sub.href} ${sub.description}`,
+      level: 1,
+    })),
+  ]);
+
+  return [
+    ...navResults,
+    ...projects.map((project) => ({
+      category: "Projects" as const,
+      title: project.name,
+      href: `/projects/${project.slug}`,
+      description: project.longName,
+      keywords: `${project.name} ${project.longName} ${project.tagline} ${project.slug}`,
+    })),
+    ...activeTeamMembers.map((member) => ({
+      category: "Team" as const,
+      title: member.name,
+      href: `/team/${member.slug}`,
+      description: `${member.role} / ${member.affiliation}`,
+      keywords: `${member.name} ${member.role} ${member.affiliation} ${member.bio} ${(member.researchFocus ?? []).join(" ")}`,
+    })),
+    ...allNews.map((item) => ({
+      category: "News" as const,
+      title: item.title,
+      href: `/news/${item.slug}`,
+      description: item.excerpt,
+      keywords: `${item.title} ${item.excerpt} ${item.category} ${item.projects.join(" ")}`,
+    })),
+    ...upcomingEvents.map((event) => ({
+      category: "Events" as const,
+      title: event.title,
+      href: "/events#upcoming",
+      description: `${event.date} / ${event.location ?? event.format}`,
+      keywords: `${event.title} ${event.description} ${event.series ?? ""} ${event.type} ${event.format}`,
+    })),
+    ...publications.map((publication) => ({
+      category: "Publications" as const,
+      title: publication.title,
+      href: "/publications",
+      description: `${publication.venue} / ${publication.year}`,
+      keywords: `${publication.title} ${publication.authors.join(" ")} ${publication.venue} ${publication.tags.join(" ")}`,
+    })),
+  ];
+}
+
+const COMMAND_RESULTS = buildCommandResults();
+
+export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
+  const [query, setQuery] = React.useState("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const pathname = usePathname();
 
   React.useEffect(() => setMounted(true), []);
@@ -33,6 +120,7 @@ export function SiteSidebar() {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    window.setTimeout(() => inputRef.current?.focus(), 80);
     return () => {
       document.body.style.overflow = prevOverflow;
     };
@@ -42,16 +130,37 @@ export function SiteSidebar() {
     setOpen(false);
   }, [pathname]);
 
+  React.useEffect(() => {
+    if (!open) setQuery("");
+  }, [open]);
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredResults = React.useMemo(() => {
+    if (!normalizedQuery) return COMMAND_RESULTS;
+    return COMMAND_RESULTS.filter((item) =>
+      `${item.title} ${item.description} ${item.keywords} ${item.category}`
+        .toLowerCase()
+        .includes(normalizedQuery),
+    );
+  }, [normalizedQuery]);
+
+  const groupedResults = CATEGORY_ORDER.map((category) => ({
+    category,
+    items: filteredResults.filter((item) => item.category === category).slice(0, 8),
+  })).filter((group) => group.items.length > 0);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+
+  const close = () => setOpen(false);
 
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open site navigation"
-        className="relative z-[140] inline-flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-foreground)] shadow-sm transition-colors hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-muted)]"
+        aria-label="Open search and navigation"
+        className="relative z-[140] inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-white shadow-sm transition-colors hover:border-[#64B5F6]/50 hover:bg-white/[0.06]"
       >
         <Menu className="h-4 w-4" />
       </button>
@@ -68,58 +177,94 @@ export function SiteSidebar() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.18 }}
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                 />
                 <motion.aside
                   role="dialog"
                   aria-modal="true"
-                  aria-label="A-STAR site navigation"
-                  className="fixed right-0 top-0 z-[260] flex h-dvh w-full max-w-[360px] flex-col border-l border-[var(--color-border)] bg-[var(--color-background)] shadow-2xl shadow-black/30"
+                  aria-label="A-STAR search and navigation"
+                  className="fixed top-0 right-0 z-[260] flex h-dvh w-full max-w-[400px] flex-col border-l border-white/10 bg-black/85 shadow-2xl shadow-black/30 backdrop-blur-xl"
                   initial={{ x: "100%" }}
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
                   transition={{ type: "spring", stiffness: 360, damping: 36 }}
                 >
-                  <div className="flex shrink-0 items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
-                    <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-                      <Logo variant="mark" width={28} height={28} sizes="28px" className="h-7 w-7" />
-                      <span className="font-display text-lg font-semibold tracking-tight text-[var(--color-foreground)]">
+                  <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-4 py-3">
+                    <Link href="/" className="flex items-center gap-2.5" onClick={close}>
+                      <Logo
+                        variant="mark"
+                        width={28}
+                        height={28}
+                        sizes="28px"
+                        className="h-7 w-7"
+                      />
+                      <span className="font-display text-lg font-semibold tracking-normal text-white">
                         A-STAR
                       </span>
                     </Link>
                     <button
                       type="button"
-                      onClick={() => setOpen(false)}
+                      onClick={close}
                       aria-label="Close navigation"
-                      className="rounded-md p-2 text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]"
+                      className="rounded-md p-2 text-white/60 transition-colors hover:bg-white/5 hover:text-white"
                     >
                       <X className="h-4 w-4" />
                     </button>
                   </div>
 
-                  <nav className="flex-1 px-4 py-5" aria-label="Sidebar navigation">
-                    <div className="space-y-2">
-                      {sidebarNav.map((item) => {
-                        const Icon = item.icon;
-                        const active = isActive(item.href);
-                        return (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            onClick={() => setOpen(false)}
-                            className={cn(
-                              "flex min-h-12 items-center gap-3 rounded-md border px-3 text-sm font-medium transition-colors",
-                              active
-                                ? "border-[var(--color-accent)]/50 bg-[var(--color-accent)]/10 text-[var(--color-foreground)]"
-                                : "border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-muted-foreground)] hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]",
-                            )}
-                          >
-                            {Icon && <Icon className="h-4 w-4 shrink-0 text-[var(--color-accent)]" />}
-                            <span>{item.title}</span>
-                          </Link>
-                        );
-                      })}
-                    </div>
+                  <div className="border-b border-white/10 p-4">
+                    <label className="relative block">
+                      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+                      <input
+                        ref={inputRef}
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        placeholder="Search projects, team, news..."
+                        className="h-11 w-full rounded-md border border-white/10 bg-white/[0.04] pl-9 pr-3 text-sm text-white outline-none transition-colors placeholder:text-white/35 focus:border-[#64B5F6]/60 focus:bg-white/[0.06]"
+                      />
+                    </label>
+                  </div>
+
+                  <nav className="flex-1 overflow-y-auto px-4 py-5" aria-label="Site search">
+                    {groupedResults.length > 0 ? (
+                      <div className="space-y-6">
+                        {groupedResults.map((group) => (
+                          <section key={group.category}>
+                            <h2 className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#64B5F6]">
+                              {group.category}
+                            </h2>
+                            <div className="space-y-1.5">
+                              {group.items.map((item) => {
+                                const active = isActive(item.href);
+                                return (
+                                  <Link
+                                    key={`${group.category}-${item.href}-${item.title}`}
+                                    href={item.href}
+                                    onClick={close}
+                                    className={cn(
+                                      "block rounded-md border px-3 py-2.5 text-sm transition-colors",
+                                      item.level === 1 && "ml-5 border-l-2",
+                                      active
+                                        ? "border-[#64B5F6]/50 bg-[#64B5F6]/10 text-white"
+                                        : "border-white/10 bg-white/[0.03] text-white/75 hover:border-[#64B5F6]/40 hover:bg-white/[0.06] hover:text-white",
+                                    )}
+                                  >
+                                    <span className="block font-medium">{item.title}</span>
+                                    <span className="mt-0.5 line-clamp-2 block text-xs leading-relaxed text-white/45">
+                                      {item.description}
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </section>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="rounded-lg border border-white/10 bg-white/[0.03] p-5 text-sm text-white/60">
+                        No results for <span className="text-white">&quot;{query}&quot;</span>.
+                      </div>
+                    )}
                   </nav>
                 </motion.aside>
               </>

@@ -111,8 +111,8 @@ export function PublicationDashboard({
       <header className="mb-10">
         <p className="eyebrow mb-4">{eyebrow}</p>
         <h1
-          className="font-display text-balance text-5xl font-semibold tracking-tight sm:text-6xl"
-          style={{ letterSpacing: "-0.03em" }}
+          className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl"
+          style={{ letterSpacing: "0" }}
         >
           {title}
         </h1>
@@ -303,7 +303,7 @@ function MetricCell({ value, label }: { value: number; label: string }) {
     <div className="bg-[var(--color-card)] p-5 text-center">
       <div
         className="font-display font-semibold text-[var(--color-accent)]"
-        style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "-0.03em" }}
+        style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "0" }}
       >
         {value}
       </div>
