@@ -9,6 +9,7 @@ import { Logo } from "@/components/site/logo";
 import { Reveal } from "@/components/motion/reveal";
 import { Magnetic } from "@/components/motion/magnetic";
 import { siteConfig } from "@/lib/site-config";
+import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 
 export function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
@@ -36,6 +37,7 @@ export function HeroSection() {
         aria-hidden="true"
       />
       <div className="absolute inset-0 -z-10 bg-grid opacity-40" aria-hidden="true" />
+      <AiMeshBackground className="-z-10" />
 
       <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-32 pt-20 text-center sm:px-6 sm:pt-28 lg:px-8">
         <motion.div style={{ scale: markScale }} className="relative mt-4 flex justify-center">

@@ -7,14 +7,9 @@ import { motion } from "motion/react";
 import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
 import { StatusPipeline } from "@/components/lab/status-pipeline";
+import { ProjectMediaCard } from "@/components/lab/project-media";
 import { logos } from "@/lib/logos";
 
-/**
- * Featured project cards for MOSI and SIRIS.
- *
- * Each card shows: project name, tagline, phase tags, status badge, and a
- * placeholder visual with the A-STAR mark.
- */
 export function FeaturedProjects() {
   return (
     <div className="flex flex-col gap-6">
@@ -25,9 +20,8 @@ export function FeaturedProjects() {
             key={project.slug}
             whileHover={{ y: -2 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition-colors hover:border-[var(--color-accent)]/40"
+            className="group relative overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] transition-colors hover:border-[var(--color-accent)]/40"
           >
-            {/* Decorative background mark at very low opacity */}
             <Image
               src={logos.markNeutral}
               alt=""
@@ -37,8 +31,7 @@ export function FeaturedProjects() {
               className="pointer-events-none absolute -right-4 -top-4 h-32 w-32 select-none opacity-[0.04]"
             />
 
-            <div className="flex flex-col gap-8 p-8 lg:flex-row lg:items-center">
-              {/* Left: text */}
+            <div className="flex flex-col gap-8 p-6 lg:flex-row lg:items-center lg:p-8">
               <div className="flex-1 space-y-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <StatusPipeline status={project.status} />
@@ -53,10 +46,7 @@ export function FeaturedProjects() {
                 </div>
 
                 <div>
-                  <h3
-                    className="font-display text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-none tracking-tight"
-                    style={{ letterSpacing: "-0.03em" }}
-                  >
+                  <h3 className="font-display text-4xl font-semibold leading-none tracking-tight sm:text-5xl">
                     {project.name}
                   </h3>
                   <p className="mt-1 text-sm font-medium text-[var(--color-muted-foreground)]">
@@ -76,27 +66,34 @@ export function FeaturedProjects() {
                     Open project
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </Link>
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]"
-                  >
-                    Live tool ↗
-                  </a>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]"
+                    >
+                      Live tool
+                    </a>
+                  )}
                 </div>
               </div>
 
-              {/* Right: placeholder visual — becomes a micro-demo in Step 4 */}
-              <div className="flex min-h-[180px] min-w-[240px] items-center justify-center rounded-lg border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-muted)] to-[var(--color-card)] lg:min-w-[280px]">
-                <Image
-                  src={logos.markNeutral}
-                  alt=""
-                  aria-hidden="true"
-                  width={56}
-                  height={56}
-                  className="opacity-10"
-                />
+              <div className="min-w-[240px] lg:min-w-[280px]">
+                {project.media?.[0] ? (
+                  <ProjectMediaCard media={project.media[0]} compact />
+                ) : (
+                  <div className="flex min-h-[180px] items-center justify-center rounded-lg border border-[var(--color-border)] bg-gradient-to-br from-[var(--color-muted)] to-[var(--color-card)]">
+                    <Image
+                      src={logos.markNeutral}
+                      alt=""
+                      aria-hidden="true"
+                      width={56}
+                      height={56}
+                      className="opacity-10"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>

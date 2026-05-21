@@ -1,120 +1,79 @@
-# A-STAR Website — Deployment Guide
+# A-STAR Website - Deployment Guide
 
-## Pre-deployment checklist
+## Pre-deployment Checklist
 
 ### Content
-- [ ] All team photos in `/public/team/{slug}.jpg`
-- [ ] All partner logos in `/public/logos/partners/{slug}.png`
-- [ ] Real author lists on all publications in `lib/publications.ts`
-- [ ] Project content files have text for: Problem, Clinical Need, Methods, Validation Plan, Current Status
-- [ ] Glossary definitions reviewed and refined (15 seeded terms)
-- [ ] Production logos are present in `/public/logos/astar/` and mapped in `lib/logos.ts`
+
+- [ ] Project metadata, model cards, media placeholders, and linked publications reviewed in `lib/projects.ts`.
+- [ ] Individual project content reviewed in `content/projects/{slug}.ts`.
+- [ ] GoNoGoNet media can be added later under `public/projects/media/`.
+- [ ] News & Events records reviewed in `lib/events.ts`, `lib/news.ts`, and `lib/talks.ts`.
+- [ ] Contact and Journal Club direct fallback emails confirmed.
+- [ ] Production PNG logos are present in `public/logos/astar/` and mapped in `lib/logos.ts`.
 
 ### Configuration
-- [ ] `NEXT_PUBLIC_SITE_URL` set to production URL in Vercel env
-- [ ] `RESEND_API_KEY` set in Vercel env (see Email setup below)
-- [ ] `CONTACT_TO_EMAIL` set in Vercel env — email to receive contact form submissions
-- [ ] Update `siteConfig.social.email` in `lib/site-config.ts` with real email
-- [ ] Update `siteConfig.social.linkedin` if a lab account is created
 
-### Email service (Resend)
-1. Sign up at https://resend.com (free tier: 3,000 emails/month, 100/day)
-2. Verify your domain — go to Resend dashboard → Domains → Add Domain
-3. Add the DNS records (SPF, DKIM, DMARC) Resend provides to your DNS provider
-4. Wait 5–15 minutes for DNS propagation, then click "Verify"
-5. In Resend → API Keys → Create API Key → name it `a-star-website-production`, scope `Sending access`
-6. Copy the key (starts with `re_`) — shown only once
-7. Add `RESEND_API_KEY = re_...` to Vercel env vars (Production + Preview)
-8. Add `CONTACT_TO_EMAIL = your.email@mayo.edu` to Vercel env vars
+- [ ] `NEXT_PUBLIC_SITE_URL` set to production URL.
+- [ ] `RESEND_API_KEY` set in Vercel env.
+- [ ] `CONTACT_TO_EMAIL` set in Vercel env.
+- [ ] `CONTACT_FROM_EMAIL` set to a verified Resend sender.
+- [ ] Optional social links updated in `lib/site-config.ts`.
 
-### Wiring up the contact API
-After Resend is configured, update `app/api/contact/route.ts`:
+### Email Service
 
-```ts
-import { Resend } from "resend";
-// npm install resend
+1. Create or use a Resend account.
+2. Verify the sending domain in Resend.
+3. Add DNS records required by Resend.
+4. Create a sending API key.
+5. Add `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` in Vercel.
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+If email is not configured, the contact API returns an email-not-configured response instead of reporting success.
 
-// Replace the console.log with:
-await resend.emails.send({
-  from: "A-STAR Website <noreply@astar-lab.org>",
-  to: [process.env.CONTACT_TO_EMAIL!],
-  subject: `[A-STAR Contact] ${data.inquiryType}: ${data.name}`,
-  text: [
-    `Name: ${data.name}`,
-    `Email: ${data.email}`,
-    `Institution: ${data.institution ?? "N/A"}`,
-    `Inquiry type: ${data.inquiryType}`,
-    `Message:\n${data.message}`,
-  ].join("\n"),
-});
-```
+## Route Validation
 
-### SEO
-- [ ] Verify `/opengraph-image` returns a 1200×630 PNG
-- [ ] Verify `/projects/mosi/opengraph-image` returns correctly
-- [ ] Submit sitemap: `https://yourdomain.com/sitemap.xml`
-- [ ] Check `/robots.txt` is accessible
+Primary routes:
 
-### Performance audit
-- [ ] Run Lighthouse (Chrome → DevTools → Lighthouse)
-- [ ] Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95
+- [ ] `/`
+- [ ] `/research`
+- [ ] `/team`
+- [ ] `/events`
+- [ ] `/contact`
+- [ ] `/projects/gonogonet`
+- [ ] `/projects/mosi`
+- [ ] `/projects/siris`
 
-### Content (step 9 additions)
-- [ ] Archive thumbnails added for items in `content/archive/` (800×450 JPEG in `public/archive/thumbnails/`)
-- [ ] Mayo-only archive items (`access: "mayo-only"`) correctly flag so no direct link is shown
-- [ ] News detail pages render: `/news/asmbs-2026`, `/news/madani-visit-2025`, etc.
-- [ ] `/projects` shows the merged Research & Projects content; `/research` redirects to `/projects`
-- [ ] AI Engineer open position links to the correct Mayo Careers URL
+Compatibility redirects:
 
-### Manual test pass
-- [ ] Every page in both light and dark mode
-- [ ] Contact form submits; email arrives at `CONTACT_TO_EMAIL`
-- [ ] Journal Club "Add to calendar" downloads an `.ics` file
-- [ ] Publication filters work; CSV and BibTeX export download correctly
-- [ ] Cmd+K search drawer works at any scroll position
-- [ ] Scalpel scroll bar appears and animates on every page
-- [ ] Mobile (375px) — header, search drawer, playing cards, marquee
-- [ ] `/archive` renders with category/access filters
-- [ ] Clicking a news card on `/news` navigates to `/news/[slug]` detail page
-- [ ] ASMBS news detail shows SOARD hyperlink in body and in sidebar "Links" section
-- [ ] Team page shows AI Engineer with dashed placeholder and "Apply" CTA
+- [ ] `/projects` redirects to `/research`
+- [ ] `/news` redirects to `/events`
+- [ ] `/resources` redirects to `/events`
+- [ ] `/resources/glossary` redirects to `/events`
+- [ ] `/join` redirects to `/contact#collaborate`
 
----
+Kept detail routes:
 
-## Vercel deployment
+- [ ] `/news/[slug]` detail pages render and link back to `/events`.
+- [ ] `/projects/[slug]` detail pages render and link back to `/research`.
 
-1. Push to GitHub `main` branch
-2. Import at https://vercel.com/new
-3. Framework auto-detected as Next.js
-4. Add all environment variables (see Configuration section)
-5. Deploy
-6. Add custom domain: Vercel Project Settings → Domains
-7. DNS: point CNAME / A record per Vercel's instructions
+## Manual Test Pass
 
----
+- [ ] Run `npm run typecheck`.
+- [ ] Run `npm run build`.
+- [ ] Run `npm run lint`.
+- [ ] Start production server with `npm run start`.
+- [ ] Hard refresh the key routes above.
+- [ ] Check no hydration errors.
+- [ ] Check no broken image icons.
+- [ ] Check no horizontal overflow on mobile.
+- [ ] Check robotic progress indicator is hidden below `md`.
+- [ ] Check scrolling is responsive on desktop and native on mobile.
+- [ ] Check light and dark themes remain readable.
+- [ ] Check contact, collaboration, and Journal Club form fallbacks are truthful when email is not configured.
 
-## Post-deployment
+## Current Information Architecture
 
-- [ ] Test live site in incognito (no cached state)
-- [ ] Share URL with team members for sanity check
-- [ ] Set up Plausible analytics if desired: add `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` env var
-- [ ] Submit to Mayo Clinic web team for institutional indexing
-- [ ] Schedule content review cycle (every 2 weeks recommended)
-
----
-
-## Troubleshooting
-
-**Contact form shows "development mode" message after deploy:**
-→ `RESEND_API_KEY` not set in Vercel env. Add it and redeploy.
-
-**OG images don't work:**
-→ `NEXT_PUBLIC_SITE_URL` not set or set to localhost. Set to `https://yourdomain.com`.
-
-**Team photos show initials instead of photos:**
-→ Photo file missing at the path in `lib/team.ts`. Drop photo at `/public/team/{slug}.jpg`.
-
-**Partner logos show text fallback:**
-→ Logo file missing at the path in `lib/collaborators.ts`. Drop logo at `/public/logos/partners/{slug}.png`.
+- Main Projects page is `/research`.
+- Individual project pages are `/projects/[slug]`.
+- News and Events are merged at `/events`.
+- Contact and Join are merged at `/contact`.
+- Resources page is removed from active navigation; selected materials are linked from `/events` and the footer shared archive link.

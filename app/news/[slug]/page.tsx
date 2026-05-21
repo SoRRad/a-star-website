@@ -92,11 +92,11 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   return (
     <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
       <Link
-        href="/news"
+        href="/events"
         className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to news
+        Back to News & Events
       </Link>
 
       <header className="max-w-4xl">
@@ -210,10 +210,10 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           <div className="mb-5 flex items-end justify-between gap-4">
             <h2 className="font-display text-2xl font-semibold tracking-tight">Related news</h2>
             <Link
-              href="/news"
+              href="/events"
               className="inline-flex items-center gap-1 text-sm font-medium text-[var(--color-accent)] hover:underline"
             >
-              All news <ArrowRight className="h-3.5 w-3.5" />
+              News & Events <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

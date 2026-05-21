@@ -85,26 +85,31 @@ export function RoboticArmProgress() {
   const svgId = useId().replace(/:/g, "");
   const [progress, setProgress] = useState(0);
   const [width, setWidth] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const frameRef = useRef<number | null>(null);
   const latestProgress = useRef(0);
 
   useEffect(() => {
-    setWidth(window.innerWidth);
+    const updateViewport = () => {
+      setWidth(window.innerWidth);
+      setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
+    };
+    updateViewport();
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
     const onMotionChange = () => setReducedMotion(mq.matches);
-    const onResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("resize", updateViewport, { passive: true });
     mq.addEventListener("change", onMotionChange);
     return () => {
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", updateViewport);
       mq.removeEventListener("change", onMotionChange);
       if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
   }, []);
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (!isDesktop) return;
     latestProgress.current = value;
     if (frameRef.current !== null) return;
     frameRef.current = requestAnimationFrame(() => {
@@ -119,10 +124,12 @@ export function RoboticArmProgress() {
   const armGradientId = `${svgId}-robotic-arm-progress-arm`;
   const jointGradientId = `${svgId}-robotic-arm-progress-joint`;
 
+  if (!isDesktop) return null;
+
   if (reducedMotion) {
     return (
       <div
-        className="pointer-events-none fixed left-0 top-0 z-[200] h-[2px] bg-[var(--color-accent)] transition-all"
+        className="pointer-events-none fixed left-0 top-0 z-[200] hidden h-[2px] bg-[var(--color-accent)] transition-all md:block"
         style={{ width: `${progress * 100}%` }}
         aria-hidden="true"
       />
@@ -133,7 +140,7 @@ export function RoboticArmProgress() {
 
   return (
     <div
-      className="pointer-events-none fixed left-0 top-0 z-[200]"
+      className="pointer-events-none fixed left-0 top-0 z-[200] hidden md:block"
       aria-hidden="true"
       style={{ height: BAR_HEIGHT, width: "100%" }}
     >

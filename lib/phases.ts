@@ -18,10 +18,10 @@ export const phases: Phase[] = [
   {
     id: "intra-op-intelligence",
     code: "02",
-    title: "Intra-operative Intelligence",
+    title: "Intraoperative Intelligence",
     description:
-      "Real-time anatomy recognition, surgical phase detection, and Go/No-Go zone guidance for the operating theatre.",
-    projects: [],
+      "Real-time anatomy recognition, surgical phase detection, and Go/No-Go zone guidance for the operating theater.",
+    projects: ["gonogonet"],
   },
   {
     id: "patient-journey",

@@ -11,8 +11,8 @@ export const glossary: GlossaryEntry[] = [
     slug: "surgical-phase-recognition",
     term: "Surgical phase recognition",
     definition:
-      "Automated identification of the current stage in a surgical procedure — such as dissection, clipping, or extraction — from intra-operative video. Enables context-aware AI assistance and real-time safety guidance without manual annotation.",
-    related: ["anatomy-segmentation", "intra-operative"],
+      "Automated identification of the current stage in a surgical procedure - such as dissection, clipping, or extraction - from intraoperative video. Enables context-aware AI assistance and real-time safety guidance without manual annotation.",
+    related: ["anatomy-segmentation", "intraoperative"],
     category: "Computer Vision",
   },
   {
@@ -27,15 +27,15 @@ export const glossary: GlossaryEntry[] = [
     slug: "anatomy-segmentation",
     term: "Anatomy segmentation",
     definition:
-      "The process of delineating anatomical structures or regions of interest in medical images — a prerequisite for 3D pre-operative planning and intra-operative guidance. Deep neural networks now approach radiologist-level accuracy on specific structures.",
-    related: ["tool-tracking", "intra-operative"],
+      "The process of delineating anatomical structures or regions of interest in medical images - a prerequisite for 3D preoperative planning and intraoperative guidance. Deep neural networks now approach radiologist-level accuracy on specific structures.",
+    related: ["tool-tracking", "intraoperative"],
     category: "Computer Vision",
   },
   {
     slug: "go-no-go-zones",
     term: "Go/No-Go zones",
     definition:
-      "Intra-operative safety boundaries computed by AI to flag anatomical regions where instrument entry carries elevated risk of injury to critical structures such as bile ducts, major vessels, or neural tissue.",
+      "Intraoperative safety boundaries computed by AI to flag anatomical regions where instrument entry carries elevated risk of injury to critical structures such as bile ducts, major vessels, or neural tissue.",
     related: ["anatomy-segmentation", "tool-tracking"],
     category: "Safety Systems",
   },
@@ -59,7 +59,7 @@ export const glossary: GlossaryEntry[] = [
     slug: "digital-twin",
     term: "Digital twin",
     definition:
-      "A patient-specific computational model built from imaging, lab values, and clinical history that simulates physiological responses to surgical interventions. Enables pre-operative rehearsal and personalised outcome prediction.",
+      "A patient-specific computational model built from imaging, lab values, and clinical history that simulates physiological responses to surgical interventions. Enables preoperative rehearsal and personalized outcome prediction.",
     related: ["anatomy-segmentation"],
     category: "Emerging Concepts",
   },
@@ -107,7 +107,7 @@ export const glossary: GlossaryEntry[] = [
     slug: "twl",
     term: "Total Weight Loss (TWL)",
     definition:
-      "Total Weight Loss percentage — a primary outcome metric in bariatric surgery research, representing weight lost as a fraction of total pre-operative body weight. Preferred over Excess Weight Loss (EWL) in contemporary literature due to its independence from ideal body weight assumptions.",
+      "Total Weight Loss percentage - a primary outcome metric in bariatric surgery research, representing weight lost as a fraction of total preoperative body weight. Preferred over Excess Weight Loss (EWL) in contemporary literature due to its independence from ideal body weight assumptions.",
     related: ["mosi", "bariatric-surgery"],
     category: "Clinical Metrics",
   },

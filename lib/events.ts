@@ -26,22 +26,6 @@ export type LabEvent = {
 
 export const events: LabEvent[] = [
   {
-    slug: "asmbs-ai-course-2026",
-    title: "ASMBS AI Course",
-    type: "workshop",
-    format: "hybrid",
-    date: "2026-01-01",
-    time: "TBD",
-    location: "TBD",
-    description:
-      "Dr. Simon J. Laplante will contribute to an ASMBS AI course focused on the role of artificial intelligence in surgery, surgical innovation, and augmented surgical decision-making. Final course details are forthcoming.",
-    status: "upcoming",
-    rsvpRequired: false,
-    recurring: false,
-    people: ["simon-laplante"],
-    featured: true,
-  },
-  {
     slug: "astar-journal-club-may-2026",
     title: "A-STAR Lab Journal Club",
     series: "A-STAR Lab Journal Club",

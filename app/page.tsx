@@ -1,26 +1,17 @@
-// Server component — no "use client"
-import { mainTeam, collaboratorTeam } from "@/lib/team";
-import { stats } from "@/lib/stats";
 import { collaborators } from "@/lib/collaborators";
-import { openings } from "@/lib/openings";
 import { upcomingEvents } from "@/lib/events";
 import { allNews } from "@/lib/news";
-
 import { Section } from "@/components/site/section";
 import { CircuitDivider } from "@/components/site/circuit-divider";
-
-// Section components
 import { HeroSection } from "@/components/sections/hero-section";
 import { MissionSection } from "@/components/sections/mission-section";
-import { CredibilityStrip } from "@/components/sections/credibility-strip";
-import { CountersStripClient } from "@/components/sections/counters-strip-client";
 import { ResearchProjectsClient } from "@/components/sections/research-projects-client";
-import { TeamGridClient } from "@/components/sections/team-grid-client";
+import { ProjectDemoShowcase } from "@/components/sections/project-demo-showcase";
 import { EventsSection } from "@/components/sections/events-section";
 import { FromTheLabSection } from "@/components/sections/from-the-lab-section";
 import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
 import { Reveal } from "@/components/motion/reveal";
-import { JoinUsStrip } from "@/components/sections/join-us-strip";
+import { CollaborationCta } from "@/components/sections/collaboration-cta";
 
 export default function HomePage() {
   const recentNews = allNews.slice(0, 3);
@@ -30,67 +21,42 @@ export default function HomePage() {
     <>
       <HeroSection />
 
-      {/* 01 — Mission */}
       <Section code="01" label="Mission" id="mission">
         <MissionSection />
       </Section>
 
-      {/* Credibility strip */}
-      <CredibilityStrip />
-
       <CircuitDivider />
 
-      {/* 02 — By the numbers */}
-      <Section code="02" label="By the numbers" id="numbers">
-        <CountersStripClient stats={stats} />
-      </Section>
-
-      <CircuitDivider />
-
-      {/* 03 — Projects */}
-      <Section code="03" label="Projects" id="research">
+      <Section code="02" label="Projects" id="research">
         <ResearchProjectsClient />
       </Section>
 
       <CircuitDivider />
 
-      {/* 04 — Team */}
-      <Section code="04" label="Team" id="team">
-        <TeamGridClient mainTeam={mainTeam} collaboratorTeam={collaboratorTeam} />
+      <Section code="03" label="Demos" id="demos">
+        <ProjectDemoShowcase />
       </Section>
 
       <CircuitDivider />
 
-      {/* 05 — Upcoming Events */}
-      <Section code="05" label="Events" id="events">
+      <Section code="04" label="News & Events" id="events">
         <EventsSection events={upcomingEvents} />
+        <div className="mt-14">
+          <FromTheLabSection newsItems={recentNews} />
+        </div>
       </Section>
 
       <CircuitDivider />
 
-      {/* 06 — From the lab (news) */}
-      <Section code="06" label="From the lab" id="news">
-        <FromTheLabSection newsItems={recentNews} />
-      </Section>
-
-      <CircuitDivider />
-
-      {/* 07 — Collaborators */}
-      <Section code="07" label="Collaborators" id="collaborators">
+      <Section code="05" label="Collaborators" id="collaborators">
         <Reveal showMark>
           <p className="eyebrow mb-8">Collaborating institutions</p>
         </Reveal>
         <CollaboratorMarquee items={sortedCollaborators} />
       </Section>
 
-      {/* 08 — Join Us */}
-      <div
-        id="join"
-        className="mt-24 border-y border-[var(--color-border)] bg-[var(--color-muted)]"
-      >
-        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <JoinUsStrip openings={openings} />
-        </div>
+      <div id="contact" className="mt-24">
+        <CollaborationCta />
       </div>
     </>
   );

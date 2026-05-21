@@ -1,120 +1,192 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ExternalLink, FolderOpen } from "lucide-react";
 import { upcomingEvents, pastEvents } from "@/lib/events";
+import { allNews } from "@/lib/news";
+import { selectedTalks, type Talk } from "@/lib/talks";
 import { JournalClubButtons } from "@/components/sections/journal-club-buttons";
+import { NewsCard } from "@/components/news/news-card";
+import { TalkCard } from "@/components/resources/talk-card";
+import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 
 export const metadata: Metadata = {
-  title: "Events",
-  description: "A-STAR lab events — journal clubs, seminars, and surgical AI talks.",
+  title: "News & Events",
+  description: "A-STAR News & Events - journal clubs, seminars, surgical AI talks, education, and lab updates.",
 };
 
-const FORMAT_LABELS: Record<string, string> = {
-  "in-person": "In-person",
-  virtual: "Virtual",
-  hybrid: "Hybrid",
-};
+const DRIVE_URL = "https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu";
+
+function EventCard({ event }: { event: (typeof upcomingEvents)[number] }) {
+  const date = new Date(event.date + "T00:00:00");
+  const formatted = date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <article className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+      <div className="mb-4 flex flex-wrap items-start gap-3">
+        <span className="rounded-sm border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+          {event.type.replace(/-/g, " ")}
+        </span>
+        <span className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
+          {event.format}
+        </span>
+        {event.recurring && (
+          <span className="font-mono text-[10px] text-[var(--color-muted-foreground)]">
+            {event.recurrencePattern}
+          </span>
+        )}
+      </div>
+      <h2 className="font-display text-xl font-semibold tracking-tight">{event.title}</h2>
+      <p className="mt-1 font-mono text-sm font-medium text-[var(--color-foreground)]">{formatted}</p>
+      {event.time && event.time !== "TBD" && (
+        <p className="mt-0.5 font-mono text-xs text-[var(--color-muted-foreground)]">{event.time}</p>
+      )}
+      {event.location && <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">{event.location}</p>}
+      <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+        {event.description}
+      </p>
+      <div className="mt-6">
+        <JournalClubButtons event={event} />
+      </div>
+    </article>
+  );
+}
+
+function GroupedTalks({ title, talks }: { title: string; talks: Talk[] }) {
+  if (!talks.length) return null;
+  return (
+    <section className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+      <div className="mb-5">
+        <p className="eyebrow mb-2">Grouped program</p>
+        <h3 className="font-display text-2xl font-semibold tracking-tight">{title}</h3>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        {talks.map((talk) => (
+          <TalkCard key={talk.slug} talk={talk} compact />
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export default function EventsPage() {
+  const oxfordTalks = selectedTalks.filter((talk) => talk.group === "oxford-2025");
+  const asmbs2026Talks = selectedTalks.filter((talk) => talk.group === "asmbs-2026");
+  const standaloneTalks = selectedTalks.filter((talk) => !talk.group);
+  const visibleNews = allNews.filter((item) => item.slug !== "laplante-asmbs-ai-webinar-2025");
+
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <header className="mb-12">
-        <p className="eyebrow mb-4">Lab calendar</p>
-        <h1
-          className="font-display text-balance text-5xl font-semibold tracking-tight"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          Events.
-        </h1>
-        <p className="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-          Journal clubs, seminars, and surgical AI talks. Open to invited researchers and collaborators.
-        </p>
-      </header>
-
-      {/* Upcoming */}
-      {upcomingEvents.length > 0 && (
-        <section className="mb-16">
-          <p className="eyebrow mb-6">Upcoming</p>
-          <div className="flex flex-col gap-4">
-            {upcomingEvents.map((event) => {
-              const date = new Date(event.date + "T00:00:00");
-              const formatted = date.toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              });
-
-              return (
-                <div
-                  key={event.slug}
-                  className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6"
-                >
-                  <div className="mb-4 flex flex-wrap items-start gap-3">
-                    <span className="rounded-sm border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
-                      {event.type.replace(/-/g, " ")}
-                    </span>
-                    <span className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-                      {FORMAT_LABELS[event.format] ?? event.format}
-                    </span>
-                    {event.recurring && (
-                      <span className="font-mono text-[10px] text-[var(--color-muted-foreground)]">
-                        {event.recurrencePattern}
-                      </span>
-                    )}
-                  </div>
-
-                  <h2 className="font-display text-xl font-semibold tracking-tight">{event.title}</h2>
-                  <p className="mt-1 font-mono text-sm font-medium text-[var(--color-foreground)]">{formatted}</p>
-                  {event.time && event.time !== "TBD" && (
-                    <p className="mt-0.5 font-mono text-xs text-[var(--color-muted-foreground)]">{event.time}</p>
-                  )}
-                  {event.location && (
-                    <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">{event.location}</p>
-                  )}
-                  <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                    {event.description}
-                  </p>
-
-                  <div className="mt-6">
-                    <JournalClubButtons event={event} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Past events */}
-      <section>
-        <p className="eyebrow mb-6">Past</p>
-        {pastEvents.length === 0 ? (
-          <p className="text-sm text-[var(--color-muted-foreground)]">No past events to display yet.</p>
-        ) : (
-          <details className="group">
-            <summary className="cursor-pointer text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
-              Show {pastEvents.length} past event{pastEvents.length > 1 ? "s" : ""}
-            </summary>
-            <div className="mt-4 flex flex-col gap-4">
-              {pastEvents.map((event) => (
-                <div
-                  key={event.slug}
-                  className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-5 opacity-70"
-                >
-                  <h3 className="font-display text-lg font-semibold">{event.title}</h3>
-                  <p className="mt-1 font-mono text-xs text-[var(--color-muted-foreground)]">{event.date}</p>
-                </div>
-              ))}
-            </div>
-          </details>
-        )}
+    <main>
+      <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
+        <AiMeshBackground />
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+          <p className="eyebrow mb-4">Lab calendar and updates</p>
+          <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-tight sm:text-6xl">
+            News & Events.
+          </h1>
+          <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
+            Journal Club, invited talks, surgical AI education, conference activity, and lab updates in one place.
+          </p>
+        </div>
       </section>
 
-      <div className="mt-16 border-t border-[var(--color-border)] pt-8">
-        <Link href="/" className="text-sm font-medium text-[var(--color-accent)] hover:underline">
-          ← Back to home
-        </Link>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        {upcomingEvents.length > 0 && (
+          <section className="mb-16">
+            <p className="eyebrow mb-6">Upcoming events</p>
+            <div className="grid gap-5 lg:grid-cols-2">
+              {upcomingEvents.map((event) => (
+                <EventCard key={event.slug} event={event} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section id="journal-club" className="mb-16 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <p className="eyebrow mb-3">Journal Club</p>
+          <h2 className="font-display text-3xl font-semibold tracking-tight">Join an A-STAR Journal Club session.</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+            Journal Club intake now lives on the Contact page and collects only name, email, affiliation, role, session interest, and message.
+          </p>
+          <Link
+            href="/contact#journal-club"
+            className="mt-6 inline-flex items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Join Journal Club
+          </Link>
+        </section>
+
+        <section id="talks" className="mb-16">
+          <div className="mb-8">
+            <p className="eyebrow mb-3">Talks and education</p>
+            <h2 className="font-display text-3xl font-semibold tracking-tight">Selected AI talks, courses, and webinars.</h2>
+          </div>
+          <div className="space-y-6">
+            <GroupedTalks title="Sixth IBC Oxford University World Congress 2025" talks={oxfordTalks} />
+            <GroupedTalks title="ASMBS Annual Meeting 2026" talks={asmbs2026Talks} />
+            <div className="grid gap-5 lg:grid-cols-2">
+              {standaloneTalks.map((talk) => (
+                <TalkCard key={talk.slug} talk={talk} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16 rounded-lg border border-[var(--color-accent)]/30 bg-[var(--color-card)] p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-[var(--color-accent)]/40 bg-[var(--color-accent)]/10">
+                <FolderOpen className="h-5 w-5 text-[var(--color-accent)]" />
+              </div>
+              <div>
+                <h2 className="font-display text-xl font-semibold tracking-tight">Shared archive</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+                  Selected presentations, videos, and shared materials are available through the A-STAR shared archive.
+                </p>
+              </div>
+            </div>
+            <a
+              href={DRIVE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              Open archive
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-8">
+            <p className="eyebrow mb-3">Lab updates</p>
+            <h2 className="font-display text-3xl font-semibold tracking-tight">News from A-STAR.</h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {visibleNews.map((item) => (
+              <NewsCard key={item.slug} item={item} />
+            ))}
+          </div>
+        </section>
+
+        {pastEvents.length > 0 && (
+          <section className="mt-16 border-t border-[var(--color-border)] pt-8">
+            <p className="eyebrow mb-4">Past lab events</p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {pastEvents.map((event) => (
+                <article key={event.slug} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 opacity-80">
+                  <h3 className="font-display text-lg font-semibold">{event.title}</h3>
+                  <p className="mt-1 font-mono text-xs text-[var(--color-muted-foreground)]">{event.date}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
-    </div>
+    </main>
   );
 }

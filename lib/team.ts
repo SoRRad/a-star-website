@@ -179,7 +179,7 @@ export const team: TeamMember[] = [
     affiliation: "Mayo Clinic — A-STAR Lab",
     bio: "We are actively recruiting an AI Engineer to join the A-STAR Lab. The right candidate will work across the lab's surgical AI portfolio — computer vision, decision support, and validation — alongside our research fellows and clinical collaborators.",
     photo: "",
-    initials: "?",
+    initials: "",
     links: {
       profile:
         "https://jobs.mayoclinic.org/job/rochester/research-fellow-in-surgical-ai/33647/92856889248",

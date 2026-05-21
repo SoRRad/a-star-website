@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Github, Linkedin, Mail, Twitter, ArrowRight } from "lucide-react";
+import { Globe, Github, Linkedin, Mail, Twitter, ArrowRight, UserRound } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
@@ -49,12 +49,7 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
             )}
           >
             <div className="text-center">
-              <span
-                className="font-display font-bold text-[var(--color-accent)]/30"
-                style={{ fontSize: "clamp(3rem, 8vw, 5rem)" }}
-              >
-                ?
-              </span>
+              <UserRound className="mx-auto h-16 w-16 text-[var(--color-accent)]/35" aria-hidden="true" />
               <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
                 Coming soon
               </p>
@@ -120,7 +115,7 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
         </p>
 
         {/* Name */}
-        <Link href={member.isOpenPosition ? "/join" : `/team/${member.slug}`}>
+        <Link href={member.isOpenPosition ? "/contact#collaborate" : `/team/${member.slug}`}>
           <h3
             className="font-display text-balance font-semibold tracking-tight text-[var(--color-foreground)] transition-colors hover:text-[var(--color-accent)]"
             style={{
@@ -152,7 +147,7 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
               We&apos;re hiring
             </p>
             <a
-              href={member.openPositionUrl ?? "/join"}
+              href={member.openPositionUrl ?? "/contact#collaborate"}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"

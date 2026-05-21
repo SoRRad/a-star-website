@@ -1,8 +1,8 @@
-# A-STAR — AI in Surgical Technology & Augmentation Research
+# A-STAR - AI in Surgical Technology & Augmentation Research
 
 > Augmenting the surgeon. Advancing the science.
 
-The website for **A-STAR**, a Mayo Clinic research group advancing artificial intelligence across the surgical journey: planning, intraoperative intelligence, patient education, outcomes, and validation.
+The website for **A-STAR**, a Mayo Clinic research group advancing surgical AI across planning, intraoperative guidance, education, outcomes, and validation.
 
 ## Stack
 
@@ -10,9 +10,8 @@ The website for **A-STAR**, a Mayo Clinic research group advancing artificial in
 | --- | --- |
 | Framework | Next.js 15 App Router + React 19 |
 | Styling | Tailwind CSS v4 |
-| Search | Fuse.js inside the site sidebar |
-| Forms | React Hook Form / client forms + server-side contact API |
-| Theme | `next-themes` with system preference default and manual toggle |
+| Forms | Client validation + server-side contact API |
+| Theme | `next-themes` |
 | Email | Resend server-side only |
 | Hosting | Vercel |
 
@@ -24,96 +23,76 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open <http://localhost:3000>. The site follows the user's system theme on first visit; the theme toggle can still force dark or light mode.
+Open <http://localhost:3000>.
+
+## Current Routes
+
+- Home: `/`
+- Main Projects page: `/research`
+- Individual project pages: `/projects/[slug]`
+- Team: `/team`
+- News & Events: `/events`
+- Contact and Join: `/contact`
+- Publications: `/publications`
+
+Compatibility redirects:
+
+- `/projects` redirects to `/research`
+- `/news` redirects to `/events`
+- `/resources` and `/resources/glossary` redirect to `/events`
+- `/join` redirects to `/contact#collaborate`
 
 ## Content Map
 
 - Logos: `public/logos/astar/` and `lib/logos.ts`
+- Projects, model cards, and media metadata: `lib/projects.ts`
+- Project detail copy: `content/projects/{slug}.ts`
 - Publications: `lib/publications.ts`
-- Projects and model cards: `lib/projects.ts` and `content/projects/`
 - Team: `lib/team.ts` and `public/team/`
 - News: `lib/news.ts` and `public/news/`
 - Events: `lib/events.ts`
-- Talks and education resources: `lib/talks.ts`
-- Resources: `lib/archive.ts`, `app/resources/`, and `app/resources/glossary/`
+- Talks and education records: `lib/talks.ts`
+- Shared archive metadata: `lib/archive.ts`
 - Navigation: `lib/navigation.ts`
-- Site metadata: `lib/site-config.ts`
 
-## Project Structure
+## Project Media
+
+Project demo assets live in:
 
 ```text
-app/
-  layout.tsx              Root layout, metadata, theme anti-flash script
-  page.tsx                Home page
-  research/               Research dashboard, journey map, model cards
-  resources/              Resources hub and glossary
-  join/                   Open positions and project intake form
-  news/                   News index and /news/[slug] detail pages
-  api/contact/            Server-side contact endpoint
-components/
-  site/                   Header, sidebar, footer, layout chrome
-  resources/              Talk/resource cards
-  research/               Surgical journey map and model cards
-  sections/               Home page sections
-  lab/                    Project/team/cards and lab UI
-lib/
-  *.ts                    Structured content and config
-public/
-  logos/astar/            Production A-STAR logo assets
-  news/                   News images
-  team/                   Team headshots
+public/projects/media/
 ```
 
-## Security And Environment
+Add GIFs, MP4/WebM videos, thumbnails, and posters there, then reference them from the optional `media` field in `lib/projects.ts`.
 
-Keep secrets server-side. Do not expose `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, or `CONTACT_FROM_EMAIL` to client code.
+Suggested names:
 
-Required/optional environment variables:
+- `gonogonet-demo.gif`
+- `mosi-demo.gif`
+- `siris-demo.gif`
+- `project-slug-thumbnail.png`
+
+Use optimized GIFs or MP4/WebM when possible, and add thumbnails/posters for performance.
+
+## Contact Form Environment
 
 ```bash
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 RESEND_API_KEY=
 CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
 CONTACT_FROM_EMAIL=
-NEXT_PUBLIC_PLAUSIBLE_DOMAIN=
-GITHUB_TOKEN=
 ```
 
-Node is pinned to `20.x` in `package.json`; `.nvmrc` should contain `20`. Do not add `output: "export"` because the contact API and dynamic metadata rely on server runtime behavior.
-
-## Git Workflow
-
-```bash
-git status
-npm run typecheck
-npm run build
-npm run lint
-git add .
-git commit -m "Describe change"
-git push
-```
-
-Avoid committing `.next`, `node_modules`, `.env.local`, or raw local design assets. Production logo assets belong in `public/logos/astar/`.
+If `RESEND_API_KEY` or `CONTACT_FROM_EMAIL` is missing, the API returns a truthful email-not-configured response and the UI directs users to email the lab directly.
 
 ## Logo Notes
 
-Current production logo assets are PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. `clean/` and `current/` are not used. Existing SVG files are legacy/outdated and must not be used until regenerated from the new logo. Use mark-only PNGs for the hero/header/sidebar/phase wheel/footer, `favicon-512.png` for favicon metadata, `apple-touch-icon.png` for Apple icons, and the dynamic `/opengraph-image` route for social sharing.
+Active production logo assets are root-level PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. Do not use old SVG files, `public/logos/astar/clean/`, or `public/logos/astar/current/` in active UI.
 
-## Sidebar Navigation
+## Validation
 
-The sidebar intentionally stays compact: Home, Projects, Team, Events, and Contact. News, Resources, Publications, Project Index, and Join remain accessible from the top navigation, footer, page links, or direct routes.
-
-## Talks
-
-Add selected talks, courses, and educational resources in `lib/talks.ts`. Use verified titles, dates, venues, and links when available. For planned talks without exact details, mark `status: "details-forthcoming"` and replace the placeholder once exact dates, titles, images, or resource URLs are confirmed.
-
-## Deployment Checklist
-
-- Set `NEXT_PUBLIC_SITE_URL` to the production domain.
-- Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` in Vercel.
-- Verify `/news` remains accessible.
-- Verify each `/news/[slug]` detail page renders and no news card links 404.
-- Verify all paths in `lib/logos.ts`, `lib/team.ts`, and `lib/news.ts` resolve to files in `public/`.
-- Submit `{domain}/sitemap.xml` after launch.
-
-© Mayo Foundation for Medical Education and Research. All rights reserved unless otherwise specified.
+```bash
+npm run typecheck
+npm run build
+npm run lint
+```

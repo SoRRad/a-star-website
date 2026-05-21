@@ -5,10 +5,9 @@ import {
   FileText,
   Newspaper,
   Calendar,
-  Library,
-  UserPlus,
   Mail,
   Compass,
+  FolderOpen,
 } from "lucide-react";
 
 export type NavItem = {
@@ -23,16 +22,14 @@ export type NavItem = {
 /**
  * Primary navigation shown in the header.
  * Home is rendered through the header logo mark.
- * Publications is accessible under the Projects dropdown and via /publications.
- * Archive is renamed to Resources (/resources).
+ * Publications remains available by direct URL, but primary navigation keeps
+ * the lab surface focused on Projects, Team, News & Events, and Contact.
  */
 export const primaryNav: NavItem[] = [
   { title: "Projects", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
-  { title: "Events", href: "/events", icon: Calendar, sectionId: "events" },
-  { title: "News", href: "/news", icon: Newspaper, sectionId: "news" },
-  { title: "Resources", href: "/resources", icon: Library, sectionId: "resources" },
-  { title: "Join", href: "/join", icon: UserPlus, sectionId: "join" },
+  { title: "News & Events", href: "/events", icon: Calendar, sectionId: "events" },
+  { title: "Contact", href: "/contact", icon: Mail, sectionId: "contact" },
 ];
 
 /**
@@ -43,11 +40,8 @@ export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   { title: "Projects", href: "/research", icon: Compass },
   { title: "Team", href: "/team", icon: Users },
-  { title: "Events", href: "/events", icon: Calendar },
-  { title: "News", href: "/news", icon: Newspaper },
-  { title: "Resources", href: "/resources", icon: Library },
+  { title: "News & Events", href: "/events", icon: Newspaper },
   { title: "Publications", href: "/publications", icon: FileText },
-  { title: "Join Us", href: "/join", icon: UserPlus },
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -55,7 +49,7 @@ export const sidebarNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   { title: "Projects", href: "/research", icon: Compass },
   { title: "Team", href: "/team", icon: Users },
-  { title: "Events", href: "/events", icon: Calendar },
+  { title: "News & Events", href: "/events", icon: Calendar },
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -63,15 +57,13 @@ export const footerNav = {
   research: [
     { title: "Projects", href: "/research" },
     { title: "Publications", href: "/publications" },
-    { title: "Resources", href: "/resources" },
   ],
   lab: [
     { title: "Team", href: "/team" },
-    { title: "News", href: "/news" },
-    { title: "Events", href: "/events" },
+    { title: "News & Events", href: "/events" },
   ],
   connect: [
-    { title: "Join Us", href: "/join" },
     { title: "Contact", href: "/contact" },
+    { title: "Shared archive", href: "https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu", icon: FolderOpen },
   ],
 };
