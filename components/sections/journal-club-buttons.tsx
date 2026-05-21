@@ -7,9 +7,12 @@ import { downloadIcs } from "@/lib/calendar";
 import type { LabEvent } from "@/lib/events";
 
 export function JournalClubButtons({ event }: { event: LabEvent }) {
-  const rsvpHref = event.rsvpEmail
-    ? `mailto:${event.rsvpEmail}?subject=${encodeURIComponent("A-STAR Lab Journal Club RSVP")}`
-    : `/contact?inquiry=journal-club&event=${event.slug}`;
+  const rsvpHref =
+    event.type === "journal-club"
+      ? "/contact#journal-club"
+      : event.rsvpEmail
+        ? `mailto:${event.rsvpEmail}?subject=${encodeURIComponent("A-STAR Lab RSVP")}`
+        : `/contact?inquiry=journal-club&event=${event.slug}`;
 
   return (
     <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
@@ -23,15 +26,15 @@ export function JournalClubButtons({ event }: { event: LabEvent }) {
       </Button>
       {event.rsvpRequired && (
         <Button asChild variant="accent">
-          {event.rsvpEmail ? (
+          {rsvpHref.startsWith("mailto:") ? (
             <a href={rsvpHref}>
               <UserPlus className="h-4 w-4" />
-              Request to join
+              Join / RSVP
             </a>
           ) : (
             <Link href={rsvpHref}>
               <UserPlus className="h-4 w-4" />
-              Request to join
+              Open intake form
             </Link>
           )}
         </Button>
