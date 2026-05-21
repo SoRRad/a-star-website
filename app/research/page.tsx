@@ -7,7 +7,6 @@ import { ProjectCard } from "@/components/lab/project-card";
 import { ProjectMediaGrid } from "@/components/lab/project-media";
 import { SurgicalJourneyMap } from "@/components/research/surgical-journey-map";
 import { ModelCard } from "@/components/research/model-card";
-import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 
 export const metadata = {
   title: "Projects",
@@ -65,7 +64,6 @@ export default function ResearchPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
-        <AiMeshBackground />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <p className="eyebrow mb-4">Projects</p>
           <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-tight sm:text-6xl">

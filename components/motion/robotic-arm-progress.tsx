@@ -129,7 +129,7 @@ export function RoboticArmProgress() {
   if (reducedMotion) {
     return (
       <div
-        className="pointer-events-none fixed left-0 top-0 z-[200] hidden h-[2px] bg-[var(--color-accent)] transition-all md:block"
+        className="pointer-events-none fixed left-0 top-12 z-[110] hidden h-[2px] bg-[var(--color-accent)] transition-all md:block"
         style={{ width: `${progress * 100}%` }}
         aria-hidden="true"
       />
@@ -140,7 +140,7 @@ export function RoboticArmProgress() {
 
   return (
     <div
-      className="pointer-events-none fixed left-0 top-0 z-[200] hidden md:block"
+      className="pointer-events-none fixed left-0 top-12 z-[110] hidden md:block"
       aria-hidden="true"
       style={{ height: BAR_HEIGHT, width: "100%" }}
     >

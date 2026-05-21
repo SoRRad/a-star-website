@@ -7,7 +7,6 @@ import { ProjectIntakeForm } from "./project-intake-form";
 import { JournalClubForm } from "./journal-club-form";
 import { siteConfig } from "@/lib/site-config";
 import { Reveal } from "@/components/motion/reveal";
-import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 import { CollaborationCta } from "@/components/sections/collaboration-cta";
 
 export const metadata: Metadata = {
@@ -41,8 +40,7 @@ const SOCIAL_LINKS = [
 export default function ContactPage() {
   return (
     <div>
-      <section className="relative isolate overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-background)]">
-        <AiMeshBackground />
+      <section className="relative isolate overflow-hidden border-b border-[var(--color-border)] bg-transparent">
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <Reveal>
             <p className="eyebrow mb-4">Get in touch</p>

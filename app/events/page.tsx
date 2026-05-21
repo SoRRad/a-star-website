@@ -7,7 +7,6 @@ import { selectedTalks, type Talk } from "@/lib/talks";
 import { JournalClubButtons } from "@/components/sections/journal-club-buttons";
 import { NewsCard } from "@/components/news/news-card";
 import { TalkCard } from "@/components/resources/talk-card";
-import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 
 export const metadata: Metadata = {
   title: "News & Events",
@@ -82,7 +81,6 @@ export default function EventsPage() {
   return (
     <main>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
-        <AiMeshBackground />
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <p className="eyebrow mb-4">Lab calendar and updates</p>
           <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-tight sm:text-6xl">
@@ -96,7 +94,7 @@ export default function EventsPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {upcomingEvents.length > 0 && (
-          <section className="mb-16">
+          <section id="upcoming" className="mb-16 scroll-mt-24">
             <p className="eyebrow mb-6">Upcoming events</p>
             <div className="grid gap-5 lg:grid-cols-2">
               {upcomingEvents.map((event) => (
@@ -161,7 +159,7 @@ export default function EventsPage() {
           </div>
         </section>
 
-        <section>
+        <section id="news" className="scroll-mt-24">
           <div className="mb-8">
             <p className="eyebrow mb-3">Lab updates</p>
             <h2 className="font-display text-3xl font-semibold tracking-tight">News from A-STAR.</h2>

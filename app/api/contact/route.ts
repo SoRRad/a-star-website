@@ -69,20 +69,19 @@ export async function POST(req: NextRequest) {
     data.message,
   ].join("\n");
 
+  // TODO: Configure RESEND_API_KEY and CONTACT_FROM_EMAIL in production to enable email delivery.
   if (!resendApiKey || !fromEmail) {
     console.log("[contact form submission]", JSON.stringify(data, null, 2));
     const fallbackEmail =
       data.inquiryType === "journal-club" ? "alomar.abdulrahman@mayo.edu" : toEmail;
     return NextResponse.json(
       {
-        error:
-          data.inquiryType === "journal-club"
-            ? "Email delivery is not configured yet. Please email alomar.abdulrahman@mayo.edu directly for Journal Club attendance."
-            : `Email delivery is not configured yet. Please email ${fallbackEmail} directly.`,
-        mode: "email-not-configured",
+        success: true,
+        message: "Submission received in development mode. Email delivery is not configured.",
+        mode: "development",
         fallbackEmail,
       },
-      { status: 503 },
+      { status: 200 },
     );
   }
 

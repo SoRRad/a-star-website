@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight, Database, GraduationCap, Stethoscope } from "lucide-react";
-import { AiMeshBackground } from "@/components/motion/ai-mesh-background";
 
 const collaborationCards = [
   {
@@ -23,7 +22,6 @@ const collaborationCards = [
 export function CollaborationCta() {
   return (
     <section className="relative isolate overflow-hidden border-y border-white/10 bg-white/[0.02] backdrop-blur-sm">
-      <AiMeshBackground />
       <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>

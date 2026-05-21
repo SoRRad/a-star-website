@@ -36,7 +36,7 @@ export default function TeamPage() {
       </header>
 
       {/* Core team */}
-      <section className="mb-24">
+      <section id="core" className="mb-24 scroll-mt-24">
         <div className="mb-10 flex items-baseline justify-between gap-4">
           <h2
             className="font-display text-3xl font-semibold tracking-tight"
@@ -57,7 +57,7 @@ export default function TeamPage() {
 
       {/* Collaborators subsection */}
       {collaboratorTeam.length > 0 && (
-        <section>
+        <section id="collaborators" className="scroll-mt-24">
           <div className="mb-10 flex items-baseline justify-between gap-4">
             <h2
               className="font-display text-3xl font-semibold tracking-tight"
