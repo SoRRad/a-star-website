@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Github, Linkedin, Mail, Globe, UserRound } from "lucide-react";
+import { Github, Linkedin, Mail, Globe, UserRound, type LucideIcon } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
     member.links.github && { href: member.links.github, icon: Github, label: "GitHub" },
     member.links.linkedin && { href: member.links.linkedin, icon: Linkedin, label: "LinkedIn" },
     member.links.email && { href: `mailto:${member.links.email}`, icon: Mail, label: "Email" },
-  ].filter(Boolean) as { href: string; icon: React.ElementType; label: string }[];
+  ].filter(Boolean) as { href: string; icon: LucideIcon; label: string }[];
 
   const cardHref = member.isOpenPosition ? member.openPositionUrl ?? "/contact#collaborate" : `/team/${member.slug}`;
   const isOpen = !!member.isOpenPosition;

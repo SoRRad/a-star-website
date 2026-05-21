@@ -4,12 +4,11 @@ import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
-import { CursorDot } from "@/components/motion/cursor-dot";
 import { RouteProgress } from "@/components/site/route-progress";
 import { RoboticArmProgress } from "@/components/motion/robotic-arm-progress";
-import { StarField } from "@/components/motion/star-field";
-import { BackgroundPaths } from "@/components/motion/background-paths";
 import { ScrollToTop } from "@/components/site/scroll-to-top";
+import { CosmicBackground } from "@/components/cosmic/cosmic-background";
+import { CursorGlow } from "@/components/cosmic/cursor-glow";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -94,8 +93,9 @@ export default function RootLayout({
       className={`dark ${sans.variable} ${mono.variable} ${display.variable}`}
     >
       {/* suppressHydrationWarning silences browser-extension attribute injections (e.g. Grammarly) */}
-      <body suppressHydrationWarning className="relative min-h-screen overflow-x-hidden font-sans antialiased">
+      <body suppressHydrationWarning className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased">
         <Providers>
+          <CosmicBackground />
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-foreground)] focus:px-4 focus:py-2 focus:text-[var(--color-background)]"
@@ -105,18 +105,16 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <ScrollToTop />
           </Suspense>
-          <StarField />
-          <div className="pointer-events-none fixed inset-0 z-0">
-            <BackgroundPaths className="inset-0" />
-          </div>
           <RouteProgress />
           <RoboticArmProgress />
-          <CursorDot />
+          <CursorGlow />
           <SiteHeader />
-          <main id="main" className="relative">
+          <main id="main" className="relative z-10">
             {children}
           </main>
-          <SiteFooter />
+          <div className="relative z-10">
+            <SiteFooter />
+          </div>
         </Providers>
       </body>
     </html>

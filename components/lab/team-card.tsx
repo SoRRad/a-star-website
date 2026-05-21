@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, type LucideIcon } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { cn } from "@/lib/utils";
 
@@ -89,7 +89,7 @@ function LinkIcons({
     links.twitter && { href: links.twitter, icon: Twitter, label: `${name} on Twitter` },
     links.scholar && { href: links.scholar, icon: GraduationCap, label: `${name} on Google Scholar` },
     links.email && { href: `mailto:${links.email}`, icon: Mail, label: `Email ${name}` },
-  ].filter(Boolean) as { href: string; icon: React.ElementType; label: string }[];
+  ].filter(Boolean) as { href: string; icon: LucideIcon; label: string }[];
 
   if (items.length === 0) return null;
 
