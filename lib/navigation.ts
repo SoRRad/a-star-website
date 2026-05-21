@@ -71,7 +71,7 @@ export const allNav: NavItem[] = [
   { title: "Publications", href: "/publications", icon: FileText },
 ];
 
-export const sidebarNav: NavItem[] = [
+export const drawerNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   ...primaryNav,
   { title: "Publications", href: "/publications", icon: FileText },

@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { sidebarNav } from "@/lib/navigation";
+import { drawerNav } from "@/lib/navigation";
 import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
@@ -109,7 +109,7 @@ export function CommandPalette() {
 
                   <nav className="flex-1 px-4 py-5" aria-label="Site navigation">
                     <div className="space-y-2">
-                      {sidebarNav.map((item) => {
+                      {drawerNav.map((item) => {
                         const Icon = item.icon;
                         const active = isActive(item.href);
                         return (
