@@ -2,12 +2,10 @@ import type { LucideIcon } from "lucide-react";
 import {
   Home,
   Users,
-  FileText,
   Newspaper,
   Calendar,
   Mail,
   Compass,
-  FolderOpen,
 } from "lucide-react";
 
 export type NavItem = {
@@ -41,7 +39,6 @@ export const allNav: NavItem[] = [
   { title: "Projects", href: "/research", icon: Compass },
   { title: "Team", href: "/team", icon: Users },
   { title: "News & Events", href: "/events", icon: Newspaper },
-  { title: "Publications", href: "/publications", icon: FileText },
   { title: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -54,16 +51,15 @@ export const sidebarNav: NavItem[] = [
 ];
 
 export const footerNav = {
-  research: [
+  navigate: [
     { title: "Projects", href: "/research" },
-    { title: "Publications", href: "/publications" },
-  ],
-  lab: [
     { title: "Team", href: "/team" },
     { title: "News & Events", href: "/events" },
+    { title: "Contact", href: "/contact" },
   ],
   connect: [
+    { title: "Shared archive", href: "https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu" },
     { title: "Contact", href: "/contact" },
-    { title: "Shared archive", href: "https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu", icon: FolderOpen },
+    { title: "Journal Club", href: "/contact#journal-club" },
   ],
 };
