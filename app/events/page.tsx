@@ -159,14 +159,25 @@ export default function EventsPage() {
   return (
     <main>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-          <p className="eyebrow mb-4">Lab calendar and updates</p>
-          <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-normal sm:text-6xl">
-            News & Events.
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            background: "radial-gradient(circle, rgba(30,136,229,0.07) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <p className="eyebrow mb-5">Lab calendar and updates</p>
+          <h1
+            className="heading-xl max-w-3xl text-white"
+            style={{ fontSize: "clamp(2.75rem, 5.5vw, 4.5rem)" }}
+          >
+            News &amp; Events.
           </h1>
-          <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-            A compact feed for Journal Club, surgical AI talks, education, conference activity, and
-            lab updates.
+          <p className="text-lead mt-6 max-w-2xl">
+            Journal Club, surgical AI talks, education, conference activity, and lab updates —
+            all in one place.
           </p>
         </div>
       </section>
