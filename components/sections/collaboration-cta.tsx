@@ -124,14 +124,14 @@ export function CollaborationCta() {
                 style={{
                   fontFamily: "var(--font-caveat), Georgia, serif",
                   fontStyle: "italic",
-                  fontWeight: 600,
-                  color: "#64B5F6",
+                  fontWeight: 700,
+                  color: "#1E40AF",
                   fontSize: "1.18em",
-                  letterSpacing: "0",
+                  letterSpacing: "0.01em",
                   textShadow:
-                    "0 0 22px rgba(100,181,246,0.55), 0 0 44px rgba(100,181,246,0.3), 0 0 80px rgba(100,181,246,0.18)",
+                    "0 0 18px rgba(30,64,175,0.45), 0 0 36px rgba(30,64,175,0.2)",
                   display: "inline-block",
-                  transform: "translateY(0.04em) rotate(-2deg)",
+                  transform: "translateY(0.04em)",
                 }}
               >
                 A-STAR?
