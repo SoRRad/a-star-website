@@ -64,6 +64,5 @@ export const footerNav = {
     { title: "General inquiry", href: "/contact#general" },
     { title: "Journal Club", href: "/contact#journal-club" },
     { title: "Collaborate", href: "/contact#collaborate" },
-    { title: "laplante.simon@mayo.edu", href: "mailto:laplante.simon@mayo.edu" },
   ],
 };
