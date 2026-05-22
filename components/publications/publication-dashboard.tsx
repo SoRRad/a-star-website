@@ -126,9 +126,7 @@ export function PublicationDashboard({
         >
           {title}
         </h1>
-        <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-white/60">
-          {description}
-        </p>
+        <p className="text-lead mt-6 max-w-2xl">{description}</p>
       </header>
 
       <div className="mb-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-4">
@@ -308,7 +306,7 @@ export function PublicationDashboard({
                   aria-label="Pagination"
                   className="mt-8 flex items-center justify-between border-t border-[var(--color-border)] pt-6"
                 >
-                  <p className="text-xs text-white/50">
+                  <p className="text-xs tabular-nums text-white/50">
                     Showing{" "}
                     <span className="font-medium text-white/80">
                       {(safePage - 1) * PER_PAGE + 1}–
@@ -332,7 +330,7 @@ export function PublicationDashboard({
                         aria-label={`Page ${n}`}
                         aria-current={n === safePage ? "page" : undefined}
                         className={cn(
-                          "inline-flex h-8 min-w-8 items-center justify-center rounded-md border px-2 text-xs font-medium transition-colors",
+                          "inline-flex h-8 min-w-8 items-center justify-center rounded-md border px-2 text-xs font-medium tabular-nums transition-colors",
                           n === safePage
                             ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
                             : "border-[var(--color-border)] text-white/60 hover:border-[var(--color-accent)]/40 hover:text-white",
@@ -364,14 +362,12 @@ function MetricCell({ value, label }: { value: number; label: string }) {
   return (
     <div className="bg-[var(--color-card)] p-5 text-center">
       <div
-        className="font-display font-semibold text-[var(--color-accent)]"
-        style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "0" }}
+        className="font-display font-bold tabular-nums text-[var(--color-accent)]"
+        style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "-0.02em" }}
       >
         {value}
       </div>
-      <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]">
-        {label}
-      </p>
+      <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-white/40">{label}</p>
     </div>
   );
 }

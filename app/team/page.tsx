@@ -28,7 +28,7 @@ export default function TeamPage() {
         >
           Surgeons, scientists, and engineers building surgical AI together.
         </h1>
-        <p className="mt-6 text-lg leading-relaxed text-white/60">
+        <p className="text-lead mt-6">
           A-STAR is a collaboration across surgical practice, artificial intelligence research, and
           engineering. Below: the core lab, our research fellows and engineers, and our
           institutional collaborators.

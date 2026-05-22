@@ -32,7 +32,7 @@ export function Section({ children, code, label, id, className }: SectionProps) 
         className="pointer-events-none absolute top-0 -right-2 hidden h-full xl:block"
       >
         <div className="sticky top-1/2 flex -translate-y-1/2 flex-col items-center gap-1.5">
-          <span className="font-display text-[10px] font-semibold tracking-[0.2em] text-white/40 [writing-mode:vertical-rl]">
+          <span className="font-display text-[10px] font-semibold tabular-nums tracking-[0.2em] text-white/40 [writing-mode:vertical-rl]">
             {code}
           </span>
           <span className="h-px w-8 bg-white/20 [writing-mode:vertical-rl]" />
