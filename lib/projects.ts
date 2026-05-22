@@ -176,10 +176,11 @@ export const projects: Project[] = [
         alt: "GoNoGoNet demo preview",
         caption: "GoNoGoNet surgical computer vision demo preview",
       },
-      {
-        type: "placeholder",
-        alt: "GoNoGoNet demo GIF placeholder",
-        caption: "Demo GIF forthcoming",
+     {
+      type: "gif",
+      src: "/projects/media/gonogonet-demo.gif",
+      alt: "GoNoGoNet demo GIF",
+      caption: "GoNoGoNet surgical computer vision demo",
       },
       {
         type: "placeholder",
