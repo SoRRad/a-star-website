@@ -89,26 +89,14 @@ SAGES Nashville and ASMBS Bariatric Happy Hour are separate records. Oxford Sept
 
 Contact and Join are merged at `/contact`.
 
-Journal Club intake fields are limited to:
+The contact page uses `mailto:` links only — no forms, no backend, no API keys required.
+Three options are presented:
 
-- Name
-- Email
-- Affiliation
-- Role
-- Session interest
-- Message
+- **General Inquiry**: to `laplante.simon@mayo.edu`, subject "A-STAR inquiry"
+- **Journal Club**: to `laplante.simon@mayo.edu`, CC `Alomar.Abdulrahman@mayo.edu`, subject "A-STAR Journal Club inquiry"
+- **Project / Collaboration**: to `laplante.simon@mayo.edu`, CC `shahriarirad.reza@mayo.edu`, subject "A-STAR project collaboration inquiry"
 
-When Resend is not configured, the contact API returns `email_not_configured` and the UI states
-that email delivery is not configured. Production deployments should configure Resend before launch.
-
-Required environment variables:
-
-```bash
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
-CONTACT_FROM_EMAIL=
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-```
+Each card shows the recipient addresses as a fallback for visitors whose email client does not open automatically. To update contacts or subjects, edit `app/contact/page.tsx`.
 
 ## Logos
 

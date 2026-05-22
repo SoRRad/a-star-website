@@ -12,9 +12,8 @@ The website for **A-STAR**, a Mayo Clinic research group advancing surgical AI a
 | Styling | Tailwind CSS v4 |
 | 3D / background | `three`, `@react-three/fiber`, `@react-three/drei` |
 | Motion | `motion` |
-| Forms | Client validation + server-side contact API |
+| Contact | mailto: email draft links (no backend required) |
 | Theme | Dark-only cosmic identity |
-| Email | Resend server-side only |
 | Hosting | Vercel |
 
 ## Quick Start
@@ -88,16 +87,9 @@ The visible site navigation is intentionally focused on Projects, Team, News & E
 
 Team social links render only when a confirmed link is present in `lib/team.ts`.
 
-## Contact Form Environment
+## Contact
 
-```bash
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
-CONTACT_FROM_EMAIL=
-```
-
-If `RESEND_API_KEY` or `CONTACT_FROM_EMAIL` is missing, the API returns `email_not_configured` and the UI tells the user that email delivery is not configured. The site does not pretend a message was sent.
+Contact uses `mailto:` links that open the visitor's email client with subject and CC pre-filled. No backend, no API key, no environment variables required beyond `NEXT_PUBLIC_SITE_URL`.
 
 ## Logo Notes
 

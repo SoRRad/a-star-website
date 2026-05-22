@@ -171,16 +171,10 @@ export const projects: Project[] = [
     lastUpdated: "2026-05-20",
     media: [
       {
-        type: "image",
-        src: "/projects/media/gonogonet-demo.avif",
-        alt: "GoNoGoNet demo preview",
-        caption: "GoNoGoNet surgical computer vision demo preview",
-      },
-     {
-      type: "gif",
-      src: "/projects/media/gonogonet-demo.gif",
-      alt: "GoNoGoNet demo GIF",
-      caption: "GoNoGoNet surgical computer vision demo",
+        type: "gif",
+        src: "/projects/media/gonogonet-demo.gif",
+        alt: "GoNoGoNet surgical computer vision demo",
+        caption: "GoNoGoNet: Go/No-Go safety zone detection in laparoscopic cholecystectomy",
       },
       {
         type: "placeholder",

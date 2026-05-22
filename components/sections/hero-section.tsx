@@ -19,38 +19,54 @@ export function HeroSection() {
         }}
       />
 
-      {/* Diagnostic scan line — surgical feel */}
+      {/* Diagnostic scan line */}
       <div
         aria-hidden="true"
         className="animate-scan-line pointer-events-none absolute inset-x-0 h-px"
         style={{
           background:
             "linear-gradient(to right, transparent 0%, rgba(100,181,246,0.12) 20%, rgba(100,181,246,0.3) 50%, rgba(100,181,246,0.12) 80%, transparent 100%)",
+          willChange: "transform",
         }}
       />
 
-      {/* Subtle grid — depth texture */}
+      {/* A-STAR mark — slides in from left on xl+ screens, purely decorative */}
       <div
+        className="pointer-events-none absolute left-6 top-1/2 hidden -translate-y-1/2 xl:block"
+        style={{ opacity: 0.38 }}
         aria-hidden="true"
-        className="bg-grid pointer-events-none absolute inset-0 opacity-[0.3]"
-      />
-
-      <div className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-24 text-center sm:px-6">
-        {/* Logo — smaller, sharper */}
-        <div className="animate-fade-up mx-auto mb-14 w-[160px] sm:w-[200px]">
+      >
+        <div className="animate-slide-in-from-left">
           <Image
-            src="/logos/astar/astar-stacked-on-dark.png"
-            alt="A-STAR"
-            width={720}
-            height={780}
-            priority
-            sizes="(max-width: 640px) 160px, 200px"
-            className="h-auto w-full object-contain drop-shadow-[0_0_40px_rgba(100,181,246,0.25)]"
+            src="/logos/astar/astar-mark-on-dark.png"
+            alt=""
+            width={56}
+            height={56}
+            className="h-14 w-14 object-contain"
           />
         </div>
+      </div>
 
-        {/* Eyebrow tag */}
-        <div className="animate-fade-up-1 mb-8 flex items-center justify-center gap-3">
+      {/* Mirror mark on right side on very wide screens */}
+      <div
+        className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 2xl:block"
+        style={{ opacity: 0.18 }}
+        aria-hidden="true"
+      >
+        <div className="animate-slide-in-from-left">
+          <Image
+            src="/logos/astar/astar-mark-on-dark.png"
+            alt=""
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+          />
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-24 text-center sm:px-6">
+        {/* Eyebrow tag — first visible content */}
+        <div className="animate-fade-up mb-8 flex items-center justify-center gap-3">
           <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#64B5F6]/50" />
           <p className="eyebrow">AI in Surgical Technology &amp; Augmentation Research</p>
           <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#64B5F6]/50" />
@@ -58,7 +74,7 @@ export function HeroSection() {
 
         {/* Main headline — weight contrast: heavy top line, thin accent line */}
         <h1
-          className="animate-fade-up-2 text-balance"
+          className="animate-fade-up-1 text-balance"
           style={{ fontSize: "clamp(3.25rem, 7.5vw, 7rem)" }}
         >
           <span className="heading-heavy block text-[var(--color-text-primary)]">
@@ -73,13 +89,13 @@ export function HeroSection() {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lead animate-fade-up-3 mx-auto mt-8 max-w-2xl">
+        <p className="text-lead animate-fade-up-2 mx-auto mt-8 max-w-2xl">
           A-STAR develops surgical AI systems for planning, intraoperative guidance, patient
           education, and rigorous outcomes validation across the full surgical journey.
         </p>
 
         {/* CTAs */}
-        <div className="animate-fade-up-4 mt-12 flex flex-wrap items-center justify-center gap-4">
+        <div className="animate-fade-up-3 mt-12 flex flex-wrap items-center justify-center gap-4">
           <Magnetic>
             <Link href="/research" className="btn-primary group animate-glow-pulse">
               Explore research

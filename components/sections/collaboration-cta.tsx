@@ -64,9 +64,20 @@ export function CollaborationCta() {
         } as React.CSSProperties
       }
     >
+      {/* Pulsing radial rings — ambient motion, CSS only */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden" aria-hidden="true">
+        {[0, 1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="animate-ring absolute h-[480px] w-[480px] rounded-full border border-[#64B5F6]/[0.1]"
+            style={{ animationDelay: `${i * 1.5}s` }}
+          />
+        ))}
+      </div>
+
       {/* Pointer-tracking neural constellation overlay */}
       <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgb(100_181_246/0.13),transparent_34rem)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgb(100_181_246/0.1),transparent_34rem)]" />
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
@@ -97,10 +108,14 @@ export function CollaborationCta() {
           <div>
             <p className="eyebrow mb-6">Get involved</p>
             <h2
-              className="heading-xl max-w-xl text-balance text-white"
+              className="heading-xl max-w-xl text-balance"
               style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
             >
-              Ready to build surgical AI with A-STAR?
+              <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>Ready to build</span>
+              {" "}
+              <span style={{ fontWeight: 300, letterSpacing: "-0.01em", color: "rgb(255 255 255 / 0.65)" }}>
+                surgical AI with A-STAR?
+              </span>
             </h2>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-pretty text-white/60">
               Bring a clinical question, dataset, or educational idea. We help shape it into a

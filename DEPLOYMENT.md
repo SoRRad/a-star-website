@@ -14,12 +14,9 @@ npm run lint
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://a-starlab.com
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
-CONTACT_FROM_EMAIL=
 ```
 
-`CONTACT_FROM_EMAIL` must be a verified Resend sender. If email is not configured, the contact API returns `email_not_configured` and the forms explain that email delivery is not configured.
+Contact uses `mailto:` links only. No Resend API key or email service is required.
 
 ## Route Validation
 
@@ -49,7 +46,7 @@ These redirects are for old links only and should not appear as active navigatio
 - Hard refresh the primary routes.
 - Confirm `/research` has no global publication dashboard.
 - Confirm individual project pages show project-linked publications/media.
-- Confirm Journal Club RSVP links open `/contact#journal-club`.
-- Confirm contact forms show the honest email-not-configured message when email is not configured.
+- Confirm Journal Club links open `/contact#journal-club` and the mailto button opens an email draft.
+- Confirm Project/Collaboration mailto button opens email with correct CC.
 - Confirm the dark-only cosmic theme is readable.
 - Confirm mobile has no horizontal overflow and the robotic scroll indicator is hidden.
