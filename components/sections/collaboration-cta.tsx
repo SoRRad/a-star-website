@@ -122,16 +122,15 @@ export function CollaborationCta() {
               </span>
               <span
                 style={{
-                  fontFamily: "var(--font-caveat), Georgia, serif",
-                  fontStyle: "italic",
-                  fontWeight: 600,
-                  color: "#64B5F6",
-                  fontSize: "1.18em",
-                  letterSpacing: "0",
+                  fontFamily: "var(--font-orbitron), 'Courier New', monospace",
+                  fontStyle: "normal",
+                  fontWeight: 900,
+                  color: "#1E40AF",
+                  fontSize: "0.95em",
+                  letterSpacing: "0.08em",
                   textShadow:
-                    "0 0 22px rgba(100,181,246,0.55), 0 0 44px rgba(100,181,246,0.3), 0 0 80px rgba(100,181,246,0.18)",
+                    "0 0 20px rgba(30,64,175,0.5), 0 0 40px rgba(30,64,175,0.22)",
                   display: "inline-block",
-                  transform: "translateY(0.04em) rotate(-2deg)",
                 }}
               >
                 A-STAR?

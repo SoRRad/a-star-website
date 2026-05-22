@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Bricolage_Grotesque, Caveat, Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Geist_Mono, Orbitron } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
-import { RouteProgress } from "@/components/site/route-progress";
-import { RoboticArmProgress } from "@/components/motion/robotic-arm-progress";
 import { ScrollToTop } from "@/components/site/scroll-to-top";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CursorGlow } from "@/components/cosmic/cursor-glow";
@@ -30,11 +28,11 @@ const display = Bricolage_Grotesque({
   display: "swap",
 });
 
-const cursive = Caveat({
-  variable: "--font-caveat",
+const technical = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
   display: "swap",
-  weight: ["500", "600"],
+  weight: ["700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -89,7 +87,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable} ${cursive.variable}`}>
+    <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable} ${technical.variable}`}>
       <body
         suppressHydrationWarning
         className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased"
@@ -105,8 +103,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Suspense fallback={null}>
             <ScrollToTop />
           </Suspense>
-          <RouteProgress />
-          <RoboticArmProgress />
           <CursorGlow />
           <SiteHeader />
           <main id="main" className="relative z-10 pt-12">
