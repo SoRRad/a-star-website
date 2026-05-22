@@ -3,6 +3,7 @@ import { projects } from "@/lib/projects";
 import { phases } from "@/lib/phases";
 import { ProjectCard } from "@/components/lab/project-card";
 import { SurgicalJourneyMap } from "@/components/research/surgical-journey-map";
+import { ResearchShaderBg } from "@/components/ui/research-shader-bg";
 
 export const metadata = {
   title: "Projects",
@@ -43,15 +44,18 @@ export default function ResearchPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
+        {/* Aurora shader background */}
+        <ResearchShaderBg />
+        {/* Existing subtle radial on top of shader */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full"
           style={{
-            background: "radial-gradient(circle, rgba(30,136,229,0.08) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(30,136,229,0.06) 0%, transparent 70%)",
             filter: "blur(40px)",
           }}
         />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+        <div className="relative z-[2] mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <p className="eyebrow mb-5">Projects</p>
           <h1
             className="heading-xl max-w-4xl text-balance"

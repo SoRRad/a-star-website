@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, Database, GraduationCap, Stethoscope } from "lucide-react";
+import { AiHeroBackground } from "@/components/ui/ai-hero-background";
 
 const collaborationCards = [
   {
@@ -51,7 +52,7 @@ export function CollaborationCta() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate overflow-hidden border-y border-white/10 bg-white/[0.02] backdrop-blur-sm"
+      className="relative isolate overflow-hidden border-y border-white/10 bg-[#000814]/60"
       onPointerMove={onPointerMove}
       onPointerLeave={() => {
         sectionRef.current?.style.setProperty("--cta-x", "0px");
@@ -64,6 +65,9 @@ export function CollaborationCta() {
         } as React.CSSProperties
       }
     >
+      {/* Three.js neural dot field — deep background */}
+      <AiHeroBackground />
+
       {/* Pulsing radial rings — ambient motion, CSS only */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden" aria-hidden="true">
         {[0, 1, 2, 3].map((i) => (
