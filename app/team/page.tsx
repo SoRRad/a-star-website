@@ -19,7 +19,7 @@ export default function TeamPage() {
   }`;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+    <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Cosmic nebula shader behind the page header */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[520px] overflow-hidden">
         <TeamShaderBg />

@@ -24,36 +24,41 @@ export function AiHeroBackground() {
     const container = containerRef.current;
     if (!container) return;
 
-    while (container.firstChild) container.removeChild(container.firstChild);
+    let cleanup: (() => void) | undefined;
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: false,
-      alpha: true,
-      powerPreference: "high-performance",
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setClearColor(0x000000, 0);
-    container.appendChild(renderer.domElement);
+    try {
+      while (container.firstChild) container.removeChild(container.firstChild);
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera();
+      const renderer = new THREE.WebGLRenderer({
+        antialias: false,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      const w0 = Math.max(1, container.clientWidth);
+      const h0 = Math.max(1, container.clientHeight);
+      renderer.setSize(w0, h0);
+      renderer.setClearColor(0x000000, 0);
+      container.appendChild(renderer.domElement);
 
-    const renderPass = new RenderPass(scene, camera);
-    const bloom = new UnrealBloomPass(
-      new THREE.Vector2(container.clientWidth, container.clientHeight),
-      0.45,
-      0.7,
-      0.18
-    );
-    const rgbShift = new ShaderPass(RGBShiftShader);
-    rgbShift.uniforms["amount"].value = 0.0008;
-    rgbShift.uniforms["angle"].value = Math.PI / 3;
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera();
 
-    const composer = new EffectComposer(renderer);
-    composer.addPass(renderPass);
-    composer.addPass(bloom);
-    composer.addPass(rgbShift);
+      const renderPass = new RenderPass(scene, camera);
+      const bloom = new UnrealBloomPass(
+        new THREE.Vector2(w0, h0),
+        0.45,
+        0.7,
+        0.18
+      );
+      const rgbShift = new ShaderPass(RGBShiftShader);
+      rgbShift.uniforms["amount"].value = 0.0008;
+      rgbShift.uniforms["angle"].value = Math.PI / 3;
+
+      const composer = new EffectComposer(renderer);
+      composer.addPass(renderPass);
+      composer.addPass(bloom);
+      composer.addPass(rgbShift);
 
     const GRID = {
       cols: 72,
@@ -125,38 +130,43 @@ export function AiHeroBackground() {
       composer.render();
     }
 
-    const resizeCamera = () => {
-      if (!container) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      const aspect = w / h;
-      const wh = 10;
-      camera.left   = -(wh * aspect) / 2;
-      camera.right  =  (wh * aspect) / 2;
-      camera.top    =   wh / 2;
-      camera.bottom =  -wh / 2;
-      camera.near   = -100;
-      camera.far    =  100;
-      camera.position.set(0, 0, 10);
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      composer.setSize(w, h);
-      bloom.setSize(w, h);
-    };
+      const resizeCamera = () => {
+        if (!container) return;
+        const w = Math.max(1, container.clientWidth);
+        const h = Math.max(1, container.clientHeight);
+        const aspect = w / h;
+        const wh = 10;
+        camera.left   = -(wh * aspect) / 2;
+        camera.right  =  (wh * aspect) / 2;
+        camera.top    =   wh / 2;
+        camera.bottom =  -wh / 2;
+        camera.near   = -100;
+        camera.far    =  100;
+        camera.position.set(0, 0, 10);
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+        composer.setSize(w, h);
+        bloom.setSize(w, h);
+      };
 
-    const observer = new ResizeObserver(resizeCamera);
-    observer.observe(container);
-    resizeCamera();
-    animate();
+      const observer = new ResizeObserver(resizeCamera);
+      observer.observe(container);
+      resizeCamera();
+      animate();
 
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(animationFrameId);
-      while (container.firstChild) container.removeChild(container.firstChild);
-      geometry.dispose();
-      material.dispose();
-      renderer.dispose();
-    };
+      cleanup = () => {
+        observer.disconnect();
+        cancelAnimationFrame(animationFrameId);
+        while (container.firstChild) container.removeChild(container.firstChild);
+        geometry.dispose();
+        material.dispose();
+        renderer.dispose();
+      };
+    } catch (err) {
+      console.warn("AiHeroBackground: WebGL setup failed, skipping background", err);
+    }
+
+    return () => cleanup?.();
   }, []);
 
   return (

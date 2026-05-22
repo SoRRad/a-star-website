@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 // WebGL2 cosmic nebula/star-field shader — adapted for A-STAR deep-space palette.
-// Adapted from the nebula shader template — warm tones replaced with stellar blue.
 export function TeamShaderBg() {
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,16 +16,24 @@ export function TeamShaderBg() {
     if (typeof window === "undefined") return;
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
 
-    const gl = canvas.getContext("webgl2");
-    if (!gl) return;
+    let cleanup: (() => void) | undefined;
 
-    const vertSrc = `#version 300 es
+    try {
+      const gl = canvas.getContext("webgl2");
+      if (!gl) {
+        console.warn("TeamShaderBg: WebGL2 unavailable, skipping background");
+        return;
+      }
+
+      const vertSrc = `#version 300 es
 precision highp float;
 in vec4 position;
 void main(){ gl_Position = position; }`;
 
-    const fragSrc = `#version 300 es
+      const fragSrc = `#version 300 es
 precision highp float;
 out vec4 O;
 uniform vec2 resolution;
@@ -68,75 +75,84 @@ void main(void){
     uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);
     vec2 p=uv;
     float d=length(p);
-    // A-STAR stellar blue: shift color multipliers toward blue
     col+=.00125/d*(cos(sin(i)*vec3(0.5,1.0,2.8))+1.);
     float b=noise(i+p+bg*1.731);
     col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
-    // Mix toward deep stellar blue (not warm orange)
     col=mix(col,vec3(bg*.03,bg*.08,bg*.22),d);
   }
   O=vec4(col,1);
 }`;
 
-    const compile = (type: number, src: string) => {
-      const shader = gl.createShader(type)!;
-      gl.shaderSource(shader, src);
-      gl.compileShader(shader);
-      return shader;
-    };
+      const compile = (type: number, src: string) => {
+        const shader = gl.createShader(type);
+        if (!shader) throw new Error("Failed to create shader");
+        gl.shaderSource(shader, src);
+        gl.compileShader(shader);
+        return shader;
+      };
 
-    const vs = compile(gl.VERTEX_SHADER, vertSrc);
-    const fs = compile(gl.FRAGMENT_SHADER, fragSrc);
-    const program = gl.createProgram()!;
-    gl.attachShader(program, vs);
-    gl.attachShader(program, fs);
-    gl.linkProgram(program);
+      const vs = compile(gl.VERTEX_SHADER, vertSrc);
+      const fs = compile(gl.FRAGMENT_SHADER, fragSrc);
+      const program = gl.createProgram();
+      if (!program) throw new Error("Failed to create program");
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
 
-    const buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,-1,-1,1,1,1,-1]), gl.STATIC_DRAW);
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]), gl.STATIC_DRAW);
 
-    const pos = gl.getAttribLocation(program, "position");
-    gl.enableVertexAttribArray(pos);
-    gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+      const pos = gl.getAttribLocation(program, "position");
+      gl.enableVertexAttribArray(pos);
+      gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
 
-    const uRes  = gl.getUniformLocation(program, "resolution");
-    const uTime = gl.getUniformLocation(program, "time");
+      const uRes  = gl.getUniformLocation(program, "resolution");
+      const uTime = gl.getUniformLocation(program, "time");
 
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio, 1.5);
-      canvas.width  = canvas.parentElement!.clientWidth  * dpr;
-      canvas.height = canvas.parentElement!.clientHeight * dpr;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
+      const resize = () => {
+        const p = canvas.parentElement;
+        if (!p) return;
+        const dpr = Math.min(window.devicePixelRatio, 1.5);
+        canvas.width  = Math.max(1, p.clientWidth)  * dpr;
+        canvas.height = Math.max(1, p.clientHeight) * dpr;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      };
 
-    const observer = new ResizeObserver(resize);
-    if (canvas.parentElement) observer.observe(canvas.parentElement);
-    resize();
+      const observer = new ResizeObserver(resize);
+      observer.observe(parent);
+      resize();
 
-    let frameId: number;
-    let t = 0;
-    const animate = (now: number) => {
+      let frameId = 0;
+      const animate = (now: number) => {
+        frameId = requestAnimationFrame(animate);
+        const t = now * 0.001;
+        gl.useProgram(program);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, t);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      };
       frameId = requestAnimationFrame(animate);
-      t = now * 0.001;
-      gl.useProgram(program);
-      gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uTime, t);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    };
-    frameId = requestAnimationFrame(animate);
 
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frameId);
-      gl.deleteProgram(program);
-    };
+      cleanup = () => {
+        observer.disconnect();
+        cancelAnimationFrame(frameId);
+        gl.deleteProgram(program);
+        gl.deleteShader(vs);
+        gl.deleteShader(fs);
+        gl.deleteBuffer(buffer);
+      };
+    } catch (err) {
+      console.warn("TeamShaderBg: WebGL setup failed, skipping background", err);
+    }
+
+    return () => cleanup?.();
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 h-full w-full pointer-events-none"
+      className="pointer-events-none absolute inset-0 h-full w-full"
       style={{
         opacity: mounted ? 0.9 : 0,
         transition: "opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1)",

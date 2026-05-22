@@ -48,8 +48,8 @@ export function HeroSection() {
       />
 
       {/* Asymmetric two-column layout */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-start gap-12 lg:flex-row lg:items-center lg:gap-0">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-20 pt-24 sm:px-6 lg:px-8 lg:pb-24 lg:pt-28">
+        <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-0">
 
           {/* LEFT: text column ~58% — order-2 on mobile so logo appears above on small screens */}
           <div className="order-2 flex-1 lg:order-1 lg:pr-12">
@@ -97,7 +97,7 @@ export function HeroSection() {
             {/* CTAs */}
             <motion.div
               {...fadeUp(0.56)}
-              className="mt-12 flex flex-wrap items-center gap-4"
+              className="mt-10 flex flex-wrap items-center gap-3"
             >
               <Magnetic>
                 <Link href="/research" className="btn-primary group animate-glow-pulse">
@@ -147,19 +147,6 @@ export function HeroSection() {
           </motion.div>
 
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <motion.div
-          {...fadeIn(1.0)}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/25">
-            Scroll
-          </span>
-          <div className="h-10 w-px bg-gradient-to-b from-white/25 to-transparent" />
-        </motion.div>
       </div>
     </section>
   );

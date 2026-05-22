@@ -70,11 +70,11 @@ export function CollaborationCta() {
 
       {/* Pulsing radial rings — ambient motion, CSS only */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden" aria-hidden="true">
-        {[0, 1, 2, 3].map((i) => (
+        {[0, 1].map((i) => (
           <div
             key={i}
-            className="animate-ring absolute h-[480px] w-[480px] rounded-full border border-[#64B5F6]/[0.1]"
-            style={{ animationDelay: `${i * 1.5}s` }}
+            className="animate-ring absolute h-[480px] w-[480px] rounded-full border border-[#64B5F6]/[0.08]"
+            style={{ animationDelay: `${i * 3}s` }}
           />
         ))}
       </div>
@@ -118,7 +118,23 @@ export function CollaborationCta() {
               <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>Ready to build</span>
               {" "}
               <span style={{ fontWeight: 300, letterSpacing: "-0.01em", color: "rgb(255 255 255 / 0.65)" }}>
-                surgical AI with A-STAR?
+                surgical AI with{" "}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-caveat), Georgia, serif",
+                  fontStyle: "italic",
+                  fontWeight: 600,
+                  color: "#64B5F6",
+                  fontSize: "1.18em",
+                  letterSpacing: "0",
+                  textShadow:
+                    "0 0 22px rgba(100,181,246,0.55), 0 0 44px rgba(100,181,246,0.3), 0 0 80px rgba(100,181,246,0.18)",
+                  display: "inline-block",
+                  transform: "translateY(0.04em) rotate(-2deg)",
+                }}
+              >
+                A-STAR?
               </span>
             </h2>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-pretty text-white/60">
