@@ -170,13 +170,17 @@ export default function EventsPage() {
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <p className="eyebrow mb-5">Lab calendar and updates</p>
           <h1
-            className="heading-xl max-w-3xl text-white"
+            className="heading-xl max-w-3xl"
             style={{ fontSize: "clamp(2.75rem, 5.5vw, 4.5rem)" }}
           >
-            News &amp; Events.
+            <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>News</span>
+            {" "}
+            <span style={{ fontWeight: 300, letterSpacing: "-0.01em", color: "rgb(255 255 255 / 0.6)" }}>
+              &amp; Events.
+            </span>
           </h1>
           <p className="text-lead mt-6 max-w-2xl">
-            Journal Club, surgical AI talks, education, conference activity, and lab updates —
+            Journal Club, surgical AI talks, education, conference activity, and lab updates:
             all in one place.
           </p>
         </div>

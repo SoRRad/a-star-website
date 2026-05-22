@@ -54,10 +54,14 @@ export default function ResearchPage() {
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <p className="eyebrow mb-5">Projects</p>
           <h1
-            className="heading-xl max-w-4xl text-balance text-white"
+            className="heading-xl max-w-4xl text-balance"
             style={{ fontSize: "clamp(2.75rem, 5.5vw, 5rem)" }}
           >
-            Surgical AI systems across the full surgical journey.
+            <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>Surgical AI systems</span>
+            {" "}
+            <span style={{ fontWeight: 300, letterSpacing: "-0.01em", color: "rgb(255 255 255 / 0.6)" }}>
+              across the full surgical journey.
+            </span>
           </h1>
           <p className="text-lead mt-6 max-w-2xl">
             A-STAR organizes active systems around practical clinical questions, model-card

@@ -23,10 +23,14 @@ export default function TeamPage() {
       <header className="mb-16 max-w-3xl">
         <p className="eyebrow mb-5">Team</p>
         <h1
-          className="heading-xl text-balance text-white"
+          className="heading-xl text-balance"
           style={{ fontSize: "clamp(2.75rem, 5.5vw, 5rem)" }}
         >
-          Surgeons, scientists, and engineers building surgical AI together.
+          <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>Surgeons, scientists, and engineers</span>
+          {" "}
+          <span style={{ fontWeight: 300, letterSpacing: "-0.01em", color: "rgb(255 255 255 / 0.6)" }}>
+            building surgical AI together.
+          </span>
         </h1>
         <p className="text-lead mt-6">
           A-STAR is a collaboration across surgical practice, artificial intelligence research, and

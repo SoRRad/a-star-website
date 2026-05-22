@@ -56,20 +56,26 @@ export function HeroSection() {
           <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#64B5F6]/50" />
         </div>
 
-        {/* Main headline — editorial bold */}
+        {/* Main headline — weight contrast: heavy top line, thin accent line */}
         <h1
-          className="animate-fade-up-2 heading-display text-balance text-white"
+          className="animate-fade-up-2 text-balance"
           style={{ fontSize: "clamp(3.25rem, 7.5vw, 7rem)" }}
         >
-          Augmenting the surgeon.
-          <br />
-          <span className="text-[#64B5F6]">Advancing the science.</span>
+          <span className="heading-heavy block text-[var(--color-text-primary)]">
+            Augmenting the surgeon.
+          </span>
+          <span
+            className="heading-thin block text-[#64B5F6]"
+            style={{ fontSize: "clamp(2.75rem, 6.5vw, 6rem)" }}
+          >
+            Advancing the science.
+          </span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-lead animate-fade-up-3 mx-auto mt-8 max-w-2xl">
           A-STAR develops surgical AI systems for planning, intraoperative guidance, patient
-          education, and rigorous outcomes validation — across the full surgical journey.
+          education, and rigorous outcomes validation across the full surgical journey.
         </p>
 
         {/* CTAs */}
