@@ -21,30 +21,38 @@ const collaborationCards = [
 
 export function CollaborationCta() {
   return (
-    <section className="relative isolate overflow-hidden border-y border-white/10 bg-white/[0.02] backdrop-blur-sm">
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+    <section className="relative isolate overflow-hidden border-y border-white/[0.08]">
+      {/* Background treatment */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 50%, rgba(30,136,229,0.07) 0%, transparent 60%), linear-gradient(to bottom, rgba(255,255,255,0.015), rgba(255,255,255,0.02))",
+        }}
+      />
+      <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 opacity-20" />
+
+      <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <div>
-            <p className="eyebrow mb-4">Get involved</p>
-            <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-normal text-balance sm:text-5xl">
+            <p className="eyebrow mb-6">Get involved</p>
+            <h2
+              className="heading-xl max-w-xl text-balance text-white"
+              style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
+            >
               Ready to build surgical AI with A-STAR?
             </h2>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-pretty text-white/70">
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-pretty text-white/60">
               Bring a clinical question, dataset, or educational idea. We help shape it into a
               surgical AI project, validation pathway, or collaboration.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact#collaborate"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--color-accent)] px-5 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <Link href="/contact#collaborate" className="btn-primary group">
                 Start a collaboration
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-              <Link
-                href="/contact#journal-club"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm font-medium text-white backdrop-blur-md transition-colors hover:border-[#64B5F6] hover:bg-[#64B5F6]/10"
-              >
+              <Link href="/contact#journal-club" className="btn-ghost">
                 Join Journal Club
               </Link>
             </div>
@@ -52,12 +60,15 @@ export function CollaborationCta() {
 
           <div className="grid gap-4 sm:grid-cols-3">
             {collaborationCards.map(({ icon: Icon, title, text }) => (
-              <div key={title} className="card-glass min-h-48 rounded-lg p-5">
-                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/[0.03]">
+              <div
+                key={title}
+                className="card-glass card-glow group flex min-h-52 flex-col rounded-xl p-6 transition-all hover:-translate-y-1"
+              >
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-[#64B5F6]/20 bg-[#64B5F6]/[0.06] transition-colors group-hover:border-[#64B5F6]/40 group-hover:bg-[#64B5F6]/10">
                   <Icon className="h-5 w-5 text-[var(--color-accent)]" />
                 </div>
-                <h3 className="font-display text-lg font-semibold tracking-normal">{title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/70">{text}</p>
+                <h3 className="heading-lg text-lg text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/60">{text}</p>
               </div>
             ))}
           </div>

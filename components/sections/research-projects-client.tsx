@@ -8,17 +8,17 @@ export function ResearchProjectsClient() {
   return (
     <>
       <Reveal showMark>
-        <p className="eyebrow mb-4">Projects</p>
+        <p className="eyebrow mb-5">Projects</p>
         <h2
-          className="font-display mb-4 max-w-xl text-3xl font-semibold tracking-normal text-balance lg:text-4xl"
-          style={{ letterSpacing: "0" }}
+          className="heading-xl mb-5 max-w-2xl text-balance text-white"
+          style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
         >
           Intelligence across the surgical journey.
         </h2>
-        <p className="mb-12 max-w-2xl text-base leading-relaxed text-pretty text-white/70">
+        <p className="mb-14 max-w-2xl text-base leading-relaxed text-pretty text-white/60">
           A-STAR maps AI research to surgical planning, intraoperative guidance, patient education,
-          and validation, with each project grounded in a clinical question that matters to surgeons
-          and patients.
+          and validation — each project grounded in a clinical question that matters to surgeons and
+          patients.
         </p>
       </Reveal>
 

@@ -30,7 +30,7 @@ export function TeamCard({ member, className }: TeamCardProps) {
   return (
     <div
       className={cn(
-        "card-glass flex flex-col gap-3 rounded-xl p-5 transition-all duration-200 hover:-translate-y-0.5",
+        "card-glass card-glow flex flex-col gap-3 rounded-xl p-5 transition-all duration-250 hover:-translate-y-1",
         className,
       )}
     >
@@ -65,7 +65,7 @@ export function TeamCard({ member, className }: TeamCardProps) {
 
         {/* Info */}
         <div className="flex-1">
-          <p className="font-semibold leading-snug text-white transition-colors group-hover:text-[#64B5F6]">
+          <p className="font-semibold leading-snug tracking-tight text-white transition-colors group-hover:text-[#64B5F6]">
             {member.name}
           </p>
           <p className="mt-0.5 text-xs font-medium text-[var(--color-accent)]">{member.role}</p>
