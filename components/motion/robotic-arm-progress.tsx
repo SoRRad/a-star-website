@@ -1,6 +1,6 @@
 "use client";
 
-import { useScroll, useSpring, useMotionValueEvent } from "motion/react";
+import { useScroll, useMotionValueEvent } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 
 const BAR_HEIGHT = 22;
@@ -33,7 +33,6 @@ function CosmicPath({ width, opacity }: { width: number; opacity: number }) {
   );
 }
 
-// Surgical-cosmic arm: sleek segments with stellar blue glow and orbital ring
 function CosmicArm({
   armGradientId,
   jointGradientId,
@@ -46,17 +45,14 @@ function CosmicArm({
   const cy = BAR_HEIGHT / 2 + 1;
   return (
     <g transform={`translate(-34, ${cy - 15})`} filter={`url(#${glowFilterId})`}>
-      {/* Arm segments */}
       <path d="M8 22 L17 11" stroke={`url(#${armGradientId})`} strokeWidth="3.5" strokeLinecap="round" />
       <path d="M18 11 L31 15" stroke={`url(#${armGradientId})`} strokeWidth="3.5" strokeLinecap="round" />
       <path d="M31 15 L40 9"  stroke={`url(#${armGradientId})`} strokeWidth="2.5" strokeLinecap="round" />
 
-      {/* Joints */}
       <circle cx="8"  cy="22" r="4.5" fill={`url(#${jointGradientId})`} stroke="rgba(100,181,246,0.3)" strokeWidth="0.8" />
       <circle cx="18" cy="11" r="4.2" fill={`url(#${jointGradientId})`} stroke="rgba(100,181,246,0.3)" strokeWidth="0.8" />
       <circle cx="31" cy="15" r="3.6" fill={`url(#${jointGradientId})`} stroke="rgba(100,181,246,0.38)" strokeWidth="0.8" />
 
-      {/* Orbital ring at base joint — cosmic flair */}
       <ellipse
         cx="8" cy="22" rx="7" ry="2.5"
         fill="none"
@@ -66,16 +62,13 @@ function CosmicArm({
         transform="rotate(-20, 8, 22)"
       />
 
-      {/* Probe tip energy discharge */}
       <path d="M39 9 L45 7"  stroke="#64B5F6" strokeWidth="1.5" strokeLinecap="round" />
       <path d="M45 7 L49 4"  stroke="#93C5FD" strokeWidth="1.1" strokeLinecap="round" opacity="0.75" />
       <path d="M45 7 L49 10" stroke="#93C5FD" strokeWidth="1.1" strokeLinecap="round" opacity="0.75" />
 
-      {/* Joint core highlights */}
       <circle cx="8"  cy="22" r="1.5" fill="#E0F2FE" opacity="0.9" />
       <circle cx="18" cy="11" r="1.4" fill="#E0F2FE" opacity="0.9" />
 
-      {/* Micro-particles */}
       <circle cx="5"  cy="18" r="0.6" fill="#93C5FD" opacity="0.55" />
       <circle cx="12" cy="26" r="0.5" fill="#93C5FD" opacity="0.4" />
     </g>
@@ -84,23 +77,19 @@ function CosmicArm({
 
 export function RoboticArmProgress() {
   const { scrollYProgress } = useScroll();
-  // Spring smoothing: arm glides rather than jumps
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 24,
-    restDelta: 0.001,
-  });
+  // React 19's useId can include `«`/`»` characters; strip to alphanumeric for safe SVG IDs
+  const rawId = useId();
+  const svgId = rawId.replace(/[^a-zA-Z0-9]/g, "");
 
-  const svgId = useId().replace(/:/g, "");
   const [width, setWidth] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [simpleProgress, setSimpleProgress] = useState(0);
 
   // Direct DOM refs — zero React re-renders per animation frame
-  const armGroupRef   = useRef<SVGGElement>(null);
-  const clipRectRef   = useRef<SVGRectElement>(null);
-  const trailRectRef  = useRef<SVGRectElement>(null);
+  const armGroupRef  = useRef<SVGGElement>(null);
+  const clipRectRef  = useRef<SVGRectElement>(null);
+  const trailRectRef = useRef<SVGRectElement>(null);
 
   useEffect(() => {
     const updateViewport = () => {
@@ -121,20 +110,22 @@ export function RoboticArmProgress() {
     };
   }, []);
 
-  // Reduced-motion: simple state update (re-render only on scroll)
+  // Reduced-motion: simple state update
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (reducedMotion) setSimpleProgress(value);
-  });
+    if (reducedMotion) {
+      setSimpleProgress(value);
+      return;
+    }
+    if (!isDesktop || width === 0) return;
 
-  // Full animation: mutate SVG DOM directly — no React re-renders
-  useMotionValueEvent(smoothProgress, "change", (value) => {
-    if (!isDesktop || reducedMotion || width === 0) return;
+    // Track scroll directly (no spring) — Lenis already smooths the scroll itself.
+    // Direct DOM mutation = zero React re-renders.
     const x = value * width;
 
     if (armGroupRef.current) {
       const armX = Math.min(width - 8, Math.max(38, x));
       armGroupRef.current.setAttribute("transform", `translate(${armX}, 0)`);
-      (armGroupRef.current as SVGGElement).style.opacity = x > 38 ? "1" : "0";
+      armGroupRef.current.style.opacity = x > 38 ? "1" : "0";
     }
     if (clipRectRef.current) {
       clipRectRef.current.setAttribute("width", `${Math.max(0, x)}`);
@@ -142,15 +133,15 @@ export function RoboticArmProgress() {
     if (trailRectRef.current) {
       const trailW = 72;
       trailRectRef.current.setAttribute("x", `${Math.max(0, x - trailW)}`);
-      (trailRectRef.current as SVGRectElement).style.opacity = x > trailW ? "1" : "0";
+      trailRectRef.current.style.opacity = x > trailW ? "1" : "0";
     }
   });
 
-  const clipId         = `${svgId}-cosmic-clip`;
-  const trailGradId    = `${svgId}-cosmic-trail`;
-  const armGradId      = `${svgId}-cosmic-arm`;
-  const jointGradId    = `${svgId}-cosmic-joint`;
-  const glowFilterId   = `${svgId}-cosmic-glow`;
+  const clipId       = `${svgId}-cclip`;
+  const trailGradId  = `${svgId}-ctrail`;
+  const armGradId    = `${svgId}-carm`;
+  const jointGradId  = `${svgId}-cjoint`;
+  const glowFilterId = `${svgId}-cglow`;
 
   if (!isDesktop) return null;
 
@@ -197,17 +188,14 @@ export function RoboticArmProgress() {
           </filter>
         </defs>
 
-        {/* Ghost baseline */}
         <line
           x1={0} y1={BAR_HEIGHT / 2 + 1}
           x2={width} y2={BAR_HEIGHT / 2 + 1}
           stroke="#64B5F6" strokeWidth="0.4" opacity="0.07"
         />
 
-        {/* Dim track */}
         <CosmicPath width={width} opacity={0.15} />
 
-        {/* Filled track (clipped to progress) */}
         <clipPath id={clipId}>
           <rect ref={clipRectRef} x={0} y={0} width={0} height={BAR_HEIGHT + 8} />
         </clipPath>
@@ -215,7 +203,6 @@ export function RoboticArmProgress() {
           <CosmicPath width={width} opacity={1} />
         </g>
 
-        {/* Glow trail behind arm */}
         <rect
           ref={trailRectRef}
           x={0} y={BAR_HEIGHT / 2}
@@ -224,7 +211,6 @@ export function RoboticArmProgress() {
           opacity={0}
         />
 
-        {/* Cosmic arm — position updated directly via ref */}
         <g ref={armGroupRef} transform="translate(38, 0)" style={{ opacity: 0 }}>
           <CosmicArm
             armGradientId={armGradId}

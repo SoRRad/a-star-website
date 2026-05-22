@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Caveat, Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
@@ -28,6 +28,13 @@ const display = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
   display: "swap",
+});
+
+const cursive = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -82,7 +89,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable}`}>
+    <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable} ${cursive.variable}`}>
       <body
         suppressHydrationWarning
         className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased"
