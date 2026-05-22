@@ -43,12 +43,23 @@ export default function ResearchPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-          <p className="eyebrow mb-4">Projects</p>
-          <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-normal sm:text-6xl">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            background: "radial-gradient(circle, rgba(30,136,229,0.08) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <p className="eyebrow mb-5">Projects</p>
+          <h1
+            className="heading-xl max-w-4xl text-balance text-white"
+            style={{ fontSize: "clamp(2.75rem, 5.5vw, 5rem)" }}
+          >
             Surgical AI systems across the full surgical journey.
           </h1>
-          <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
+          <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/60">
             A-STAR organizes active systems around practical clinical questions, model-card
             discipline, and staged validation across planning, guidance, education, and outcomes.
           </p>
@@ -60,9 +71,12 @@ export default function ResearchPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="mb-10">
+        <div className="mb-12">
           <p className="eyebrow mb-4">Research directions</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             Focus areas for a growing surgical AI lab.
           </h2>
         </div>
@@ -70,15 +84,13 @@ export default function ResearchPage() {
           {researchDirections.map(({ icon: Icon, title, text }) => (
             <article
               key={title}
-              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5"
+              className="card-glass card-glow group rounded-xl p-6 transition-all hover:-translate-y-1"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-muted)]">
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-[#64B5F6]/20 bg-[#64B5F6]/[0.06] transition-colors group-hover:border-[#64B5F6]/40 group-hover:bg-[#64B5F6]/10">
                 <Icon className="h-5 w-5 text-[var(--color-accent)]" />
               </div>
-              <h3 className="font-display text-xl font-semibold tracking-normal">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                {text}
-              </p>
+              <h3 className="heading-lg text-xl text-white">{title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">{text}</p>
             </article>
           ))}
         </div>
@@ -87,7 +99,10 @@ export default function ResearchPage() {
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mb-10">
           <p className="eyebrow mb-4">Active projects / systems</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             Specific systems with intended use, validation state, and readiness.
           </h2>
         </div>

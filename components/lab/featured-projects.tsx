@@ -22,9 +22,9 @@ export function FeaturedProjects() {
         return (
           <motion.div
             key={project.slug}
-            whileHover={{ y: -2 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="card-glass group relative overflow-hidden rounded-lg"
+            whileHover={{ y: -3 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="card-glass card-glow group relative overflow-hidden rounded-xl"
           >
             <Image
               src={logos.markNeutral}
@@ -50,13 +50,16 @@ export function FeaturedProjects() {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-4xl leading-none font-semibold tracking-normal sm:text-5xl">
+                  <h3
+                    className="heading-xl leading-none text-white"
+                    style={{ fontSize: "clamp(2.25rem, 4vw, 3.5rem)" }}
+                  >
                     {project.name}
                   </h3>
-                  <p className="mt-1 text-sm font-medium text-white/60">{project.longName}</p>
+                  <p className="mt-2 text-sm font-medium text-white/50">{project.longName}</p>
                 </div>
 
-                <p className="max-w-lg leading-relaxed text-pretty text-white/70">
+                <p className="max-w-lg leading-relaxed text-pretty text-white/65">
                   {project.description}
                 </p>
 

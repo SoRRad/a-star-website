@@ -3,13 +3,15 @@ import { Reveal } from "@/components/motion/reveal";
 export function MissionSection() {
   return (
     <Reveal showMark>
-      <p className="eyebrow mb-6">Our mission</p>
+      <p className="eyebrow mb-8">Our mission</p>
       <p
-        className="font-display max-w-4xl text-balance font-semibold leading-[1.05]"
-        style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", letterSpacing: "-0.03em" }}
+        className="heading-xl max-w-5xl text-balance text-white"
+        style={{ fontSize: "clamp(2rem, 4.5vw, 4rem)" }}
       >
         A-STAR advances artificial intelligence across the full surgical journey —
-        from risk stratification through patient education and rigorous validation.
+        from{" "}
+        <span className="text-[#64B5F6]">risk stratification</span> through patient
+        education and rigorous validation.
       </p>
     </Reveal>
   );
