@@ -191,6 +191,17 @@
     text-underline-offset: 3px;
     text-decoration-thickness: 1px;
   }
+
+  select,
+  option {
+    background-color: var(--color-cosmos-deep);
+    color: var(--color-text-primary);
+  }
+
+  select:disabled,
+  option:disabled {
+    color: var(--color-text-muted);
+  }
 }
 
 @layer utilities {

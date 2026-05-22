@@ -9,7 +9,6 @@ import { z } from "zod";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/projects";
-import { contactEmail, contactMailto } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 const INQUIRY_TYPES = [
@@ -75,7 +74,6 @@ export function ContactForm() {
 
   const [submitted, setSubmitted] = React.useState(false);
   const [serverError, setServerError] = React.useState("");
-  const [submissionMode, setSubmissionMode] = React.useState<"sent" | "development">("sent");
 
   const {
     register,
@@ -113,11 +111,17 @@ export function ContactForm() {
       });
       if (!res.ok) {
         const json = await res.json().catch(() => ({}));
-        setServerError((json as { error?: string }).error ?? "Submission failed. Please try again.");
+        setServerError(
+          (json as { error?: string }).error ??
+            "Submission failed. Please try again later.",
+        );
         return;
       }
-      const json = (await res.json().catch(() => ({}))) as { mode?: "development" };
-      setSubmissionMode(json.mode === "development" ? "development" : "sent");
+      const json = (await res.json().catch(() => ({}))) as { success?: boolean };
+      if (!json.success) {
+        setServerError("Submission failed. Please try again later.");
+        return;
+      }
       setSubmitted(true);
     } catch {
       setServerError("Network error. Please check your connection and try again.");
@@ -129,29 +133,12 @@ export function ContactForm() {
       <div className="flex flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] px-8 py-12">
         <div className="flex items-center gap-3">
           <CheckCircle2 className="h-6 w-6 shrink-0 text-[var(--color-status-deployed)]" />
-          <h2 className="font-display text-xl font-semibold tracking-normal">
-            {submissionMode === "development" ? "Submission received in development mode." : "Message sent."}
-          </h2>
+          <h2 className="font-display text-xl font-semibold tracking-normal">Message sent.</h2>
         </div>
         <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          {submissionMode === "development"
-            ? "Your form entry was accepted and logged on the server, but it was not emailed because Resend is not configured. For time-sensitive follow-up, please email "
-            : "Thank you for reaching out. For urgent follow-up, please email "}
-          <a href={contactMailto} className="text-[var(--color-accent)] hover:underline">
-            {contactEmail}
-          </a>{" "}
-          directly. In the meantime, explore our{" "}
+          Thank you for reaching out. In the meantime, explore our{" "}
           <Link href="/research" className="text-[var(--color-accent)] hover:underline">research and projects</Link>.
         </p>
-        <details className="mt-2">
-          <summary className="cursor-pointer text-xs font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
-            Where do these messages go right now?
-          </summary>
-          <p className="mt-2 text-xs leading-relaxed text-[var(--color-muted-foreground)]">
-            Submissions are logged to the development server console only. Email forwarding will be
-            enabled when <code>RESEND_API_KEY</code> and <code>CONTACT_FROM_EMAIL</code> are configured.
-          </p>
-        </details>
       </div>
     );
   }

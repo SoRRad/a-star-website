@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, Database, GraduationCap, Stethoscope } from "lucide-react";
 
@@ -19,9 +22,75 @@ const collaborationCards = [
   },
 ];
 
+const nodes = [
+  { x: 9, y: 22, size: 3 },
+  { x: 22, y: 64, size: 2 },
+  { x: 35, y: 34, size: 4 },
+  { x: 52, y: 70, size: 3 },
+  { x: 68, y: 26, size: 2 },
+  { x: 82, y: 56, size: 4 },
+  { x: 93, y: 18, size: 2 },
+];
+
 export function CollaborationCta() {
+  const sectionRef = React.useRef<HTMLElement>(null);
+
+  const onPointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty(
+      "--cta-x",
+      `${((event.clientX - rect.left) / rect.width - 0.5) * 18}px`,
+    );
+    event.currentTarget.style.setProperty(
+      "--cta-y",
+      `${((event.clientY - rect.top) / rect.height - 0.5) * 18}px`,
+    );
+  };
+
   return (
-    <section className="relative isolate overflow-hidden border-y border-white/10 bg-white/[0.02] backdrop-blur-sm">
+    <section
+      ref={sectionRef}
+      className="relative isolate overflow-hidden border-y border-white/10 bg-white/[0.02] backdrop-blur-sm"
+      onPointerMove={onPointerMove}
+      onPointerLeave={() => {
+        sectionRef.current?.style.setProperty("--cta-x", "0px");
+        sectionRef.current?.style.setProperty("--cta-y", "0px");
+      }}
+      style={
+        {
+          "--cta-x": "0px",
+          "--cta-y": "0px",
+        } as React.CSSProperties
+      }
+    >
+      <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgb(100_181_246/0.13),transparent_34rem)]" />
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="h-full w-full opacity-70 transition-transform duration-500 ease-out motion-reduce:transition-none"
+          style={{ transform: "translate3d(var(--cta-x), var(--cta-y), 0)" }}
+        >
+          <path
+            d="M9 22 L35 34 L68 26 L93 18 M22 64 L35 34 L52 70 L82 56 L68 26"
+            fill="none"
+            stroke="rgb(100 181 246 / 0.28)"
+            strokeWidth="0.18"
+            vectorEffect="non-scaling-stroke"
+          />
+          {nodes.map((node) => (
+            <circle
+              key={`${node.x}-${node.y}`}
+              cx={node.x}
+              cy={node.y}
+              r={node.size / 5}
+              fill="rgb(100 181 246 / 0.75)"
+            />
+          ))}
+        </svg>
+      </div>
+
       <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>

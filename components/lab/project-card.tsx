@@ -50,11 +50,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <p className="mt-4 max-w-2xl leading-relaxed text-pretty text-white/70">
           {project.description}
         </p>
+        <dl className="mt-6 grid gap-3 border-t border-white/10 pt-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ModelSummary label="Intended use" value={project.modelCard.intendedUse} />
+          <ModelSummary label="Clinical phase" value={project.modelCard.clinicalPhase} />
+          <ModelSummary label="Validation" value={project.modelCard.validationStatus} />
+          <ModelSummary label="Readiness" value={project.modelCard.deploymentReadiness} />
+        </dl>
         <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[#64B5F6] transition-colors group-hover:text-white">
           View project
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>
     </Link>
+  );
+}
+
+function ModelSummary({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="mb-1 font-mono text-[10px] uppercase tracking-widest text-[#64B5F6]">
+        {label}
+      </dt>
+      <dd className="line-clamp-3 text-xs leading-relaxed text-white/60">{value}</dd>
+    </div>
   );
 }

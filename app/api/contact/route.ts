@@ -69,19 +69,15 @@ export async function POST(req: NextRequest) {
     data.message,
   ].join("\n");
 
-  // TODO: Configure RESEND_API_KEY and CONTACT_FROM_EMAIL in production to enable email delivery.
   if (!resendApiKey || !fromEmail) {
-    console.log("[contact form submission]", JSON.stringify(data, null, 2));
-    const fallbackEmail =
-      data.inquiryType === "journal-club" ? "alomar.abdulrahman@mayo.edu" : toEmail;
     return NextResponse.json(
       {
-        success: true,
-        message: "Submission received in development mode. Email delivery is not configured.",
-        mode: "development",
-        fallbackEmail,
+        success: false,
+        code: "email_not_configured",
+        error:
+          "Email delivery is not configured on this deployment yet. Please try again later or contact the A-STAR team directly.",
       },
-      { status: 200 },
+      { status: 503 },
     );
   }
 
@@ -103,5 +99,5 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, code: "sent" });
 }

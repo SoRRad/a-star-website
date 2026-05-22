@@ -4,25 +4,17 @@ import type { ReactNode } from "react";
 import { useEffect } from "react";
 import Lenis from "lenis";
 
-/**
- * Application-wide providers.
- *
- * Lenis smooth scroll is initialised here with a calm, professional config.
- * prefers-reduced-motion is respected — Lenis is disabled entirely when set.
- *
- * Add future providers (analytics, query client, modals) inside Providers below.
- */
 function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const lenis = new Lenis({
-      duration: 0.9,
+      duration: 0.72,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1,
-      wheelMultiplier: 0.95,
+      wheelMultiplier: 1.08,
     });
 
     let raf: number;

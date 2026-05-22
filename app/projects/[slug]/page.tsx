@@ -1,8 +1,8 @@
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowUpRight, Github, Mail } from "lucide-react";
-// ArrowUpRight kept for liveUrl/github CTAs in header
-import type { Metadata } from "next";
+import { ArrowUpRight, ExternalLink, Github, Mail } from "lucide-react";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
@@ -40,6 +40,8 @@ const contentMap: Record<string, ProjectDetailContent> = {
   gonogonet: gonogonetContent,
 };
 
+const GONOGONET_VIDEO_URL = "https://www.youtube.com/watch?v=MmcW8JK1Qv4";
+
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
@@ -53,7 +55,7 @@ export async function generateMetadata({
   const project = projects.find((p) => p.slug === slug);
   if (!project) return { title: "Project not found" };
   return {
-    title: `${project.name} — ${project.longName}`,
+    title: `${project.name} - ${project.longName}`,
     description: project.tagline,
   };
 }
@@ -72,27 +74,25 @@ export default async function ProjectPage({
     project.phases.includes(p.id as (typeof project.phases)[number]),
   );
   const projectTeam = team.filter((m) => project.team.includes(m.slug));
-  const projectCollaborators = collaborators.filter((c) =>
-    project.collaborators.includes(c.slug),
-  );
+  const projectCollaborators = collaborators.filter((c) => project.collaborators.includes(c.slug));
   const relatedPubs = publications.filter((p) => p.projects.includes(slug));
   const relatedTalks = getTalksByProject(slug);
   const projectNews = getNewsByProject(slug);
+  const isGoNoGoNet = slug === "gonogonet";
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <Breadcrumbs />
 
-      {/* ── 1. Header ── */}
       <header className="mb-12 mt-6">
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <StatusPipeline status={project.status} />
-          {projectPhases.map((p) => (
+          {projectPhases.map((phase) => (
             <span
-              key={p.id}
+              key={phase.id}
               className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]"
             >
-              {p.code} / {p.title}
+              {phase.code} / {phase.title}
             </span>
           ))}
           {project.lastUpdated && (
@@ -102,10 +102,7 @@ export default async function ProjectPage({
           )}
         </div>
 
-        <h1
-          className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl lg:text-7xl"
-          style={{ letterSpacing: "0" }}
-        >
+        <h1 className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl lg:text-7xl">
           {project.name}
         </h1>
         <p className="mt-3 text-xl font-medium text-[var(--color-muted-foreground)]">
@@ -115,7 +112,6 @@ export default async function ProjectPage({
           {project.tagline}
         </p>
 
-        {/* ── 2. CTAs ── */}
         <div className="mt-8 flex flex-wrap gap-3">
           {project.liveUrl && (
             <Button asChild variant="accent" size="lg">
@@ -144,106 +140,112 @@ export default async function ProjectPage({
 
       <hr className="border-[var(--color-border)]" />
 
-      {/* ── Scientific content sections ── */}
       <div className="mt-12 space-y-12">
-
-        {/* ── 3. The Problem ── */}
         <ScientificSection eyebrow="The Problem" title="What is broken clinically?">
-          {content?.problem
-            ? <Prose>{content.problem}</Prose>
-            : <ContentPlaceholder section="The Problem" slug={slug} />
-          }
+          {content?.problem ? (
+            <Prose>{content.problem}</Prose>
+          ) : (
+            <ContentPlaceholder section="The Problem" slug={slug} />
+          )}
         </ScientificSection>
 
-        {/* ── 4. Clinical Need ── */}
         <ScientificSection eyebrow="Clinical Need" title="Why this matters in surgery">
-          {content?.clinicalNeed
-            ? <Prose>{content.clinicalNeed}</Prose>
-            : <ContentPlaceholder section="Clinical Need" slug={slug} />
-          }
+          {content?.clinicalNeed ? (
+            <Prose>{content.clinicalNeed}</Prose>
+          ) : (
+            <ContentPlaceholder section="Clinical Need" slug={slug} />
+          )}
         </ScientificSection>
 
-        {/* ── 5. Data Sources ── */}
         <ScientificSection eyebrow="Data Sources" title="Where the data comes from">
-          {content?.dataSources
-            ? <Prose>{content.dataSources}</Prose>
-            : <ContentPlaceholder section="Data Sources" slug={slug} />
-          }
+          {content?.dataSources ? (
+            <Prose>{content.dataSources}</Prose>
+          ) : (
+            <ContentPlaceholder section="Data Sources" slug={slug} />
+          )}
         </ScientificSection>
 
-        {/* ── 6. Methods / Approach ── */}
         <ScientificSection eyebrow="Methods" title="Technical approach">
-          {content?.methods
-            ? <Prose>{content.methods}</Prose>
-            : <ContentPlaceholder section="Methods / Approach" slug={slug} />
-          }
+          {content?.methods ? (
+            <Prose>{content.methods}</Prose>
+          ) : (
+            <ContentPlaceholder section="Methods / Approach" slug={slug} />
+          )}
         </ScientificSection>
 
-        {/* ── 7. Validation Plan ── */}
         <ScientificSection eyebrow="Validation Plan" title="How the claims will be tested">
-          {content?.validationPlan
-            ? <Prose>{content.validationPlan}</Prose>
-            : <ContentPlaceholder section="Validation Plan" slug={slug} />
-          }
+          {content?.validationPlan ? (
+            <Prose>{content.validationPlan}</Prose>
+          ) : (
+            <ContentPlaceholder section="Validation Plan" slug={slug} />
+          )}
         </ScientificSection>
 
-        {/* ── 8. Current Status ── */}
         <ScientificSection eyebrow="Current Status" title="What stage we're at">
-          {content?.currentStatus
-            ? <Prose>{content.currentStatus}</Prose>
-            : <ContentPlaceholder section="Current Status" slug={slug} />
-          }
+          {content?.currentStatus ? (
+            <Prose>{content.currentStatus}</Prose>
+          ) : (
+            <ContentPlaceholder section="Current Status" slug={slug} />
+          )}
         </ScientificSection>
 
         <ScientificSection eyebrow="Model Card" title="Intended use, readiness, and limitations">
           <ModelCard project={project} publications={publications} />
         </ScientificSection>
 
-        {project.media?.length ? (
+        {project.media?.length || isGoNoGoNet ? (
           <ScientificSection eyebrow="Project media" title="Demos and output previews">
-            <ProjectMediaGrid project={project} />
+            {project.media?.length ? <ProjectMediaGrid project={project} /> : null}
+            {isGoNoGoNet && (
+              <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+                <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+                  GoNoGoNet uses the local optimized preview when available. Future clipped demo
+                  files can be placed at <code>public/projects/media/gonogonet-demo.mp4</code>,{" "}
+                  <code>public/projects/media/gonogonet-demo.gif</code>, or{" "}
+                  <code>public/projects/media/gonogonet-demo.avif</code>.
+                </p>
+                <a
+                  href={GONOGONET_VIDEO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] hover:underline"
+                >
+                  View source demo on YouTube
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            )}
           </ScientificSection>
         ) : null}
 
-        {/* ── 10. Team ── */}
         {projectTeam.length > 0 && (
           <ScientificSection eyebrow="Team" title="People behind this project">
             <div className="flex flex-wrap justify-start gap-4">
-              {projectTeam.map((member, i) => (
+              {projectTeam.map((member, index) => (
                 <div key={member.slug} className="w-[calc(50%-8px)] max-w-[180px] sm:w-[160px]">
-                  <PlayingCard member={member} index={i} />
+                  <PlayingCard member={member} index={index} />
                 </div>
               ))}
             </div>
           </ScientificSection>
         )}
 
-        {/* ── 11. Collaborators ── */}
         {projectCollaborators.length > 0 && (
           <ScientificSection eyebrow="Collaborating Institutions" title="Partners on this project">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {projectCollaborators.map((c) => (
-                <CollaboratorCard key={c.slug} collaborator={c} />
+              {projectCollaborators.map((collaborator) => (
+                <CollaboratorCard key={collaborator.slug} collaborator={collaborator} />
               ))}
             </div>
           </ScientificSection>
         )}
 
-        {/* ── 12. Related Publications ── */}
         {relatedPubs.length > 0 && (
           <ScientificSection eyebrow="Related Publications" title="Research outputs">
             <div className="space-y-4">
-              {relatedPubs.map((pub) => (
-                <PublicationCard key={pub.slug} publication={pub} />
+              {relatedPubs.map((publication) => (
+                <PublicationCard key={publication.slug} publication={publication} />
               ))}
-            </div>
-            <div className="mt-4">
-              <Link
-                href={`/publications?project=${slug}`}
-                className="text-sm font-medium text-[var(--color-accent)] hover:underline"
-              >
-                View all publications →
-              </Link>
             </div>
           </ScientificSection>
         )}
@@ -258,7 +260,6 @@ export default async function ProjectPage({
           </ScientificSection>
         )}
 
-        {/* ── 13. Featured in news ── */}
         {projectNews.length > 0 && (
           <ScientificSection eyebrow="Featured in news" title="Coverage and mentions">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -269,16 +270,14 @@ export default async function ProjectPage({
           </ScientificSection>
         )}
 
-        {/* ── 14. Get Involved ── */}
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
           <p className="eyebrow mb-2">Get involved</p>
           <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-            Interested in collaborating on {project.name}? We welcome clinical partnerships, dataset contributions, and research collaboration.
+            Interested in collaborating on {project.name}? We welcome clinical partnerships,
+            dataset contributions, and research collaboration.
           </p>
           <Button asChild variant="accent">
-            <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>
-              Reach out
-            </Link>
+            <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>Reach out</Link>
           </Button>
         </div>
       </div>
@@ -295,8 +294,6 @@ export default async function ProjectPage({
   );
 }
 
-/* ── Shared layout wrappers ── */
-
 function ScientificSection({
   eyebrow,
   title,
@@ -304,14 +301,12 @@ function ScientificSection({
 }: {
   eyebrow: string;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <section>
       <p className="eyebrow mb-2">{eyebrow}</p>
-      <h2 className="mb-4 font-display text-xl font-semibold tracking-normal" style={{ letterSpacing: "0" }}>
-        {title}
-      </h2>
+      <h2 className="mb-4 font-display text-xl font-semibold tracking-normal">{title}</h2>
       {children}
     </section>
   );
@@ -324,6 +319,3 @@ function Prose({ children }: { children: string }) {
     </p>
   );
 }
-
-/* ── Model Card ── */
-
