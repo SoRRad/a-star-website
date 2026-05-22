@@ -80,18 +80,19 @@ export function NeuralNodes() {
         return (
           <group key={node.id} position={node.position}>
             <mesh
+              scale={isHovered ? 2 : 1}
               onPointerEnter={() => setHoveredId(node.id)}
               onPointerLeave={() => setHoveredId(null)}
             >
-              <sphereGeometry args={[isHovered ? 0.12 : 0.06, 16, 16]} />
+              <sphereGeometry args={[0.06, 16, 16]} />
               <meshBasicMaterial
                 color={isHovered ? "#64B5F6" : "#1E88E5"}
                 transparent
                 opacity={isHovered ? 1 : 0.7}
               />
             </mesh>
-            <mesh>
-              <sphereGeometry args={[isHovered ? 0.4 : 0.2, 16, 16]} />
+            <mesh scale={isHovered ? 2 : 1}>
+              <sphereGeometry args={[0.2, 16, 16]} />
               <meshBasicMaterial
                 color="#1E88E5"
                 transparent

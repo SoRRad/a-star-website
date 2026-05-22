@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { NeuralNodes } from "./neural-nodes";
 import { ActivationPulses } from "./activation-pulses";
 
-const STAR_COUNT = 3500;
+const STAR_COUNT = 2000;
 const FIELD_DEPTH = 800;
 const FIELD_RADIUS = 400;
 
@@ -110,10 +110,10 @@ export function StarField() {
   return (
     <Canvas
       camera={{ position: [0, 0, 1], fov: 75, near: 0.1, far: 2000 }}
-      dpr={[1, 1.5]}
+      dpr={[1, 1]}
       eventSource={eventSource}
       eventPrefix="client"
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      gl={{ antialias: false, alpha: true, powerPreference: "default" }}
       style={{ background: "transparent", pointerEvents: "none" }}
     >
       <fog attach="fog" args={["#000814", 100, 600]} />
