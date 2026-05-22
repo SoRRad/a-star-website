@@ -64,32 +64,55 @@ export default function ResearchPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-          <p className="eyebrow mb-4">Projects</p>
-          <h1 className="font-display max-w-3xl text-balance text-5xl font-semibold tracking-normal sm:text-6xl">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(30,136,229,0.08) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+          <p className="eyebrow mb-5">Projects</p>
+          <h1
+            className="heading-xl max-w-4xl text-balance text-white"
+            style={{ fontSize: "clamp(2.75rem, 5.5vw, 5rem)" }}
+          >
             Surgical AI systems across the full surgical journey.
           </h1>
-          <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-            A-STAR organizes active systems around practical clinical questions, model-card discipline, and staged validation across planning, guidance, education, and outcomes.
+          <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/60">
+            A-STAR organizes active systems around practical clinical questions, model-card
+            discipline, and staged validation across planning, guidance, education, and outcomes.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <p className="eyebrow mb-3">Vision across the surgical journey</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <p className="eyebrow mb-4">Vision across the surgical journey</p>
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             From planning to validation, each phase asks what surgical AI can safely clarify.
           </h2>
-          <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
-            The surgical journey map connects current projects to the clinical phase, methods, applications, and validation context they are built to support.
+          <p className="mt-5 max-w-2xl text-pretty leading-relaxed text-white/60">
+            The surgical journey map connects current projects to the clinical phase, methods,
+            applications, and validation context they are built to support.
           </p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {platformVision.map((item) => (
-            <article key={item.title} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
-              <h3 className="font-display text-xl font-semibold tracking-normal">{item.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">{item.text}</p>
+          {platformVision.map((item, i) => (
+            <article
+              key={item.title}
+              className="card-glass card-glow group rounded-xl p-6 transition-all hover:-translate-y-1"
+            >
+              <div className="mb-4 inline-flex items-center justify-center rounded-md border border-[#64B5F6]/15 bg-[#64B5F6]/5 px-2 py-0.5 font-mono text-[10px] tracking-widest text-[var(--color-accent)]">
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <h3 className="heading-lg text-xl text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">{item.text}</p>
             </article>
           ))}
         </div>
@@ -100,20 +123,26 @@ export default function ResearchPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="mb-10">
+        <div className="mb-12">
           <p className="eyebrow mb-4">Research directions</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             Broad directions for a growing surgical AI lab.
           </h2>
         </div>
         <div className="grid gap-5 lg:grid-cols-2">
           {researchDirections.map(({ icon: Icon, title, text }) => (
-            <article key={title} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-muted)]">
+            <article
+              key={title}
+              className="card-glass card-glow group rounded-xl p-6 transition-all hover:-translate-y-1"
+            >
+              <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-[#64B5F6]/20 bg-[#64B5F6]/[0.06] transition-colors group-hover:border-[#64B5F6]/40 group-hover:bg-[#64B5F6]/10">
                 <Icon className="h-5 w-5 text-[var(--color-accent)]" />
               </div>
-              <h3 className="font-display text-xl font-semibold tracking-normal">{title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">{text}</p>
+              <h3 className="heading-lg text-xl text-white">{title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">{text}</p>
             </article>
           ))}
         </div>
@@ -122,7 +151,10 @@ export default function ResearchPage() {
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="mb-10">
           <p className="eyebrow mb-4">Systems and model cards</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             Intended use, inputs, outputs, and validation state in one place.
           </h2>
           <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
@@ -132,15 +164,18 @@ export default function ResearchPage() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           {projects.map((project) => (
-            <div key={project.slug} className="flex flex-col gap-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4">
+            <div
+              key={project.slug}
+              className="card-glass flex flex-col gap-4 rounded-xl p-5 transition-all hover:-translate-y-0.5"
+            >
               <ModelCard project={project} publications={publications} compact />
               <ProjectMediaGrid project={{ ...project, media: project.media?.slice(0, 1) }} compact />
               <Link
                 href={`/projects/${project.slug}`}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] hover:underline"
+                className="group inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] transition-colors hover:text-white"
               >
                 Open {project.name}
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
           ))}
@@ -150,17 +185,23 @@ export default function ResearchPage() {
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="mb-10">
           <p className="eyebrow mb-4">Project media</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             Demo slots for model outputs and surgical AI previews.
           </h2>
         </div>
         <div className="space-y-8">
           {projects.map((project) => (
-            <article key={project.slug} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <article
+              key={project.slug}
+              className="card-glass card-glow rounded-xl p-6 transition-all"
+            >
               <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
                 <div>
-                  <h3 className="font-display text-2xl font-semibold tracking-normal">{project.name}</h3>
-                  <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">{project.longName}</p>
+                  <h3 className="heading-lg text-2xl text-white">{project.name}</h3>
+                  <p className="mt-1 text-sm text-white/50">{project.longName}</p>
                 </div>
                 <Link href={`/projects/${project.slug}`} className="text-sm font-medium text-[var(--color-accent)] hover:underline">
                   Project detail
@@ -175,7 +216,10 @@ export default function ResearchPage() {
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mb-10">
           <p className="eyebrow mb-4">Specific projects</p>
-          <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2
+            className="heading-xl max-w-3xl text-balance text-white"
+            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+          >
             Active systems and validation efforts.
           </h2>
         </div>

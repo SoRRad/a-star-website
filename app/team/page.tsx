@@ -21,16 +21,16 @@ export default function TeamPage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Page header */}
       <header className="mb-16 max-w-3xl">
-        <p className="eyebrow mb-4">Team</p>
+        <p className="eyebrow mb-5">Team</p>
         <h1
-          className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl"
-          style={{ letterSpacing: "0" }}
+          className="heading-xl text-balance text-white"
+          style={{ fontSize: "clamp(2.75rem, 5.5vw, 5rem)" }}
         >
           Surgeons, scientists, and engineers building surgical AI together.
         </h1>
-        <p className="mt-6 text-lg leading-relaxed text-[var(--color-muted-foreground)]">
-          A-STAR is a collaboration across surgical practice, artificial intelligence research,
-          and engineering. Below: the core lab, our research fellows and engineers, and our
+        <p className="mt-6 text-lg leading-relaxed text-white/60">
+          A-STAR is a collaboration across surgical practice, artificial intelligence research, and
+          engineering. Below: the core lab, our research fellows and engineers, and our
           institutional collaborators.
         </p>
       </header>
@@ -38,10 +38,7 @@ export default function TeamPage() {
       {/* Core team */}
       <section id="core" className="mb-24 scroll-mt-24">
         <div className="mb-10 flex items-baseline justify-between gap-4">
-          <h2
-            className="font-display text-3xl font-semibold tracking-normal"
-            style={{ letterSpacing: "0" }}
-          >
+          <h2 className="heading-lg text-3xl text-white sm:text-4xl">
             Core team
           </h2>
           <span className="text-sm text-[var(--color-muted-foreground)]">

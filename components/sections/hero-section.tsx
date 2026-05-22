@@ -63,16 +63,7 @@ export function HeroSection() {
         >
           Augmenting the surgeon.
           <br />
-          <span
-            style={{
-              background: "linear-gradient(135deg, #64B5F6 0%, #1E88E5 60%, #90CAF9 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Advancing the science.
-          </span>
+          <span className="text-[#64B5F6]">Advancing the science.</span>
         </h1>
 
         {/* Subheadline */}

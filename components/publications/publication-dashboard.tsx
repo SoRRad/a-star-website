@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, ChevronDown, ChevronUp, RotateCcw, Download } from "lucide-react";
+import { Search, ChevronDown, ChevronUp, RotateCcw, Download, ChevronLeft, ChevronRight } from "lucide-react";
+
+const PER_PAGE = 10;
 import {
   filterPublications,
   getPublicationMetrics,
@@ -47,14 +49,22 @@ export function PublicationDashboard({
     theme: searchParams.get("theme") ?? "all",
   }));
   const [filtersOpen, setFiltersOpen] = React.useState(false);
+  const [page, setPage] = React.useState(1);
 
   const setFilter = (key: keyof PublicationFilterState, value: string) => {
     setFilters((f) => ({ ...f, [key]: value }));
+    setPage(1);
   };
 
-  const resetFilters = () => setFilters(defaultFilters);
+  const resetFilters = () => {
+    setFilters(defaultFilters);
+    setPage(1);
+  };
 
   const filtered = filterPublications(publications, filters);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = filtered.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
   const metrics = getPublicationMetrics(publications);
   const metricCells =
     customMetrics ??
@@ -108,15 +118,15 @@ export function PublicationDashboard({
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <header className="mb-10">
-        <p className="eyebrow mb-4">{eyebrow}</p>
+      <header className="mb-12">
+        <p className="eyebrow mb-5">{eyebrow}</p>
         <h1
-          className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl"
-          style={{ letterSpacing: "0" }}
+          className="heading-xl text-balance text-white"
+          style={{ fontSize: "clamp(2.75rem, 5.5vw, 5rem)" }}
         >
           {title}
         </h1>
-        <p className="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
+        <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-white/60">
           {description}
         </p>
       </header>
@@ -282,15 +292,67 @@ export function PublicationDashboard({
               </button>
             </div>
           ) : (
-            <div className="flex flex-col gap-4">
-              {filtered.map((pub) => (
-                <PublicationCard
-                  key={pub.slug}
-                  publication={pub}
-                  onFilterProject={(p) => setFilter("project", p)}
-                />
-              ))}
-            </div>
+            <>
+              <div className="flex flex-col gap-4">
+                {paginated.map((pub) => (
+                  <PublicationCard
+                    key={pub.slug}
+                    publication={pub}
+                    onFilterProject={(p) => setFilter("project", p)}
+                  />
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <nav
+                  aria-label="Pagination"
+                  className="mt-8 flex items-center justify-between border-t border-[var(--color-border)] pt-6"
+                >
+                  <p className="text-xs text-white/50">
+                    Showing{" "}
+                    <span className="font-medium text-white/80">
+                      {(safePage - 1) * PER_PAGE + 1}–
+                      {Math.min(safePage * PER_PAGE, filtered.length)}
+                    </span>{" "}
+                    of <span className="font-medium text-white/80">{filtered.length}</span>
+                  </p>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={safePage === 1}
+                      aria-label="Previous page"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-border)] text-white/60 transition-colors hover:border-[var(--color-accent)]/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-[var(--color-border)] disabled:hover:text-white/60"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                      <button
+                        key={n}
+                        onClick={() => setPage(n)}
+                        aria-label={`Page ${n}`}
+                        aria-current={n === safePage ? "page" : undefined}
+                        className={cn(
+                          "inline-flex h-8 min-w-8 items-center justify-center rounded-md border px-2 text-xs font-medium transition-colors",
+                          n === safePage
+                            ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
+                            : "border-[var(--color-border)] text-white/60 hover:border-[var(--color-accent)]/40 hover:text-white",
+                        )}
+                      >
+                        {n}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={safePage === totalPages}
+                      aria-label="Next page"
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--color-border)] text-white/60 transition-colors hover:border-[var(--color-accent)]/40 hover:text-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-[var(--color-border)] disabled:hover:text-white/60"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </nav>
+              )}
+            </>
           )}
         </div>
       </div>
