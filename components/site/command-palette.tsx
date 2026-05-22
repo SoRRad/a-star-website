@@ -9,14 +9,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { drawerNav } from "@/lib/navigation";
 import { projects } from "@/lib/projects";
 import { allNews } from "@/lib/news";
-import { publications } from "@/lib/publications";
 import { activeTeamMembers } from "@/lib/team";
 import { upcomingEvents } from "@/lib/events";
 import { Logo } from "@/components/site/logo";
 import { cn } from "@/lib/utils";
 
 type CommandResult = {
-  category: "Navigate" | "Projects" | "Team" | "News" | "Events" | "Publications";
+  category: "Navigate" | "Projects" | "Team" | "News" | "Events";
   title: string;
   href: string;
   description: string;
@@ -30,7 +29,6 @@ const CATEGORY_ORDER: CommandResult["category"][] = [
   "Team",
   "News",
   "Events",
-  "Publications",
 ];
 
 function buildCommandResults(): CommandResult[] {
@@ -82,13 +80,6 @@ function buildCommandResults(): CommandResult[] {
       href: "/events#upcoming",
       description: `${event.date} / ${event.location ?? event.format}`,
       keywords: `${event.title} ${event.description} ${event.series ?? ""} ${event.type} ${event.format}`,
-    })),
-    ...publications.map((publication) => ({
-      category: "Publications" as const,
-      title: publication.title,
-      href: "/publications",
-      description: `${publication.venue} / ${publication.year}`,
-      keywords: `${publication.title} ${publication.authors.join(" ")} ${publication.venue} ${publication.tags.join(" ")}`,
     })),
   ];
 }

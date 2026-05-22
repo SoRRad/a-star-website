@@ -43,7 +43,6 @@ The global background is mounted once in `app/layout.tsx` via `components/cosmic
 - Team: `/team`
 - News & Events: `/events`
 - Contact and Join: `/contact`
-- Publications: `/publications`
 
 Compatibility redirects:
 
@@ -77,12 +76,34 @@ Add GIFs, MP4/WebM videos, thumbnails, and posters there, then reference them fr
 
 Suggested names:
 
-- `gonogonet-demo.gif`
+- `gonogonet-demo.avif`
 - `mosi-demo.gif`
 - `siris-demo.gif`
 - `project-slug-thumbnail.png`
 
 Use optimized GIFs or MP4/WebM when possible, and add thumbnails/posters for performance.
+
+## Events Media
+
+Event images live in:
+
+```text
+public/events/
+```
+
+The first Journal Club image should be placed at:
+
+```text
+public/events/journal-club-may20-2026.jpg
+```
+
+If that file is missing, `/events` renders a styled placeholder instead of a broken image.
+
+## Visible Navigation
+
+The visible site navigation is intentionally focused on Projects, Team, News & Events, and Contact. Resources and Join are redirect-only compatibility routes. The shared archive remains linked from `/events` and the footer. The publication index remains available for project/news context and direct URLs, but it is not part of visible navigation.
+
+Team social links render only when a confirmed link is present in `lib/team.ts`.
 
 ## Contact Form Environment
 

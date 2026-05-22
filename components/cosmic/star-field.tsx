@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { NeuralNodes } from "./neural-nodes";
 import { ActivationPulses } from "./activation-pulses";
 
-const STAR_COUNT = 8000;
+const STAR_COUNT = 3500;
 const FIELD_DEPTH = 800;
 const FIELD_RADIUS = 400;
 

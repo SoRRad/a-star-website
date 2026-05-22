@@ -24,23 +24,54 @@ export type LabEvent = {
   featured?: boolean;
 };
 
+export type JournalClubSession = {
+  slug: string;
+  title: string;
+  date: string;
+  imageSrc: string;
+  description: string;
+  topics: string[];
+};
+
+export const journalClubIntakeHref = "/contact#journal-club";
+
+export const nextJournalClub = {
+  label: "TBD",
+  href: journalClubIntakeHref,
+} as const;
+
+export const journalClubSessions: JournalClubSession[] = [
+  {
+    slug: "first-astar-journal-club",
+    title: "First A-STAR Journal Club",
+    date: "2026-05-20",
+    imageSrc: "/events/journal-club-may20-2026.jpg",
+    description: "The first A-STAR Journal Club was held on May 20, 2026.",
+    topics: [
+      "Video-language models \u2014 Abdulrahman Alomar, M.D.",
+      "Synthetic data in surgery \u2014 Reza Shahriarirad, M.D.",
+    ],
+  },
+];
+
 export const events: LabEvent[] = [
   {
     slug: "astar-journal-club-may-2026",
-    title: "A-STAR Lab Journal Club",
+    title: "First A-STAR Journal Club",
     series: "A-STAR Lab Journal Club",
     type: "journal-club",
     format: "hybrid",
     date: "2026-05-20",
     time: "TBD",
-    location: "Mayo Clinic, Rochester, MN — and virtual",
+    location: "Mayo Clinic, Rochester, MN and virtual",
     description:
-      "During this session, participants will discuss recent advances in artificial intelligence in surgery and brainstorm new ideas for future research and innovation. This event is limited to Mayo Clinic employees.",
-    status: "upcoming",
+      "The first A-STAR Journal Club was held on May 20, 2026. Discussed topics included video-language models and synthetic data in surgery.",
+    status: "past",
     rsvpRequired: true,
     rsvpEmail: "alomar.abdulrahman@mayo.edu",
     recurring: true,
-    recurrencePattern: "Recurring · Next session: May 20, 2026",
+    recurrencePattern: "Recurring - Next session: TBD",
+    people: ["abdulrahman-alomar", "reza-shahriarirad"],
     featured: true,
   },
   {
