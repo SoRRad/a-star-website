@@ -6,41 +6,41 @@ brand
 
 ## Users
 
-**Surgeons (primary)** — practicing surgeons and surgical fellows evaluating whether AI tools are clinically rigorous, not hype. They read critically, distrust buzzwords, and respect demonstrated validation. They arrive via conference mentions, colleague referrals, or institutional search.
+**Surgical AI researchers (primary)** — computer vision and ML researchers evaluating A-STAR as a collaboration partner, dataset source, or validation benchmark. They arrive via publications, conference presentations, or peer referrals. They scan for technical specificity: named tasks, model architectures, cohort sizes, validation methodology. They leave if the site reads as marketing. They stay if it reads as science.
 
-**Surgical AI researchers** — computer vision and ML researchers looking for collaboration, dataset access, or validation benchmarks. They scan for technical specificity: model architectures, dataset sizes, task definitions, validation methodology.
+**Practicing surgeons** — surgical fellows and attendings who have heard about AI in surgery and want to understand what rigorous work looks like versus hype. They are skeptical of vendor claims and respond to clinical honesty: named procedures, stated limitations, real validation data.
 
-**Funders and institutional partners** — department chairs, grant reviewers, and industry partners assessing research maturity and translational credibility. They need to understand scope, outcomes, and team composition quickly.
+**Funders and institutional partners** — department chairs, grant reviewers, and industry collaborators assessing research maturity. They need to understand scope, team composition, and outcomes within two minutes of arriving.
 
-**Trainees and students** — medical students, residents, and engineering students considering the lab for research positions or learning about surgical AI as a field.
+**Trainees and students** — medical students, residents, and engineering students exploring surgical AI as a field or seeking a research position at the lab.
 
 ## Product Purpose
 
-A-STAR (AI in Surgical Technology & Augmentation Research) is a research lab at Mayo Clinic advancing artificial intelligence across the full surgical journey — preoperative planning, intraoperative guidance, postoperative recovery, and external validation of surgical AI systems.
+A-STAR (AI in Surgical Technology & Augmentation Research) is a research lab at Mayo Clinic at the intersection of innovation, surgery, and artificial intelligence — advancing AI across the full surgical journey: preoperative planning, intraoperative guidance, postoperative recovery, and external validation of surgical AI systems.
 
-The site's job is to communicate the lab's scientific credibility, active research portfolio, and collaborative ambition to an expert audience. Success means a surgeon or researcher leaving with a clear sense of what the lab does, who leads it, and why the work is trustworthy — not just exciting.
+The site communicates the lab's technical depth, active research portfolio, and clinical grounding to a research-literate audience. Success means a surgical AI researcher leaving with a clear picture of what the lab builds, how it validates, who is involved, and why collaboration is worth pursuing.
 
 ## Brand Personality
 
-**Precise · Rigorous · Authoritative**
+**Pioneering · Surgical · Rigorous**
 
-The brand speaks like a lead surgeon who also builds systems: confident, technical, direct. It does not over-explain, does not use hedging language, and does not reach for hype. It earns trust by showing specificity — named procedures, named models, named validation benchmarks — rather than claiming it.
+A-STAR exists at the intersection of innovation, surgery, and artificial intelligence. The brand embodies all three simultaneously: it is at the frontier of what AI can do in the OR (pioneering), it is grounded in real operative context and clinical practice (surgical), and it holds itself to model-card discipline and prospective validation (rigorous). It does not over-explain, does not hedge, and does not reach for hype. It earns trust by showing the work.
 
 ## Anti-references
 
-- **Generic med-tech SaaS** — stock photos of doctors looking at tablets, "AI-powered" as a noun, blue-gradient hero with a glowing brain. Looks like a vendor pitch, not a research lab.
-- **Hype-cycle AI startup** — excessive particle animations, "the future of surgery" headlines, modal popups on load. Signals immaturity.
-- **Bland academic lab page** — university CMS template, grey tables, no visual hierarchy, a list of PDFs as the homepage. Communicates nothing.
-- **Design-agency maximalism** — scroll-jacking, full-screen cursor effects, animations that compete with content. Distracts from the work.
+- **Verb Surgical / Intuitive Surgical** — cinematic OR footage, hype copy about "the future of surgery," slick brand design that prioritizes aspiration over evidence. Looks like a vendor, not a lab.
+- **Generic hospital system sites** — Mayo.edu / Cleveland Clinic style: safe, accessible, no visual identity, designed for patients not researchers. Not the register.
+- **AI startup landing pages** — gradient mesh backgrounds, particle animations, "the future of X" headlines, three-word value props. Signals immaturity and trend-chasing.
+- **Academic lab pages** — university CMS templates, grey tables, PDF link lists, no visual hierarchy. Communicates nothing about the work.
 
 ## Design Principles
 
-1. **Specificity earns trust.** Named procedures, model names, validation cohort sizes, and clinical contexts outperform any claim about "advancing AI in surgery." Show the work; let it speak.
-2. **The surgeon is the expert.** Never talk down to the audience. Skip introductory definitions. Use clinical and technical vocabulary correctly. The site should feel peer-reviewed, not marketed.
-3. **Restraint is a signal.** A dark, structured, minimal surface communicates that the lab is focused on outcomes, not optics. Every animation and decorative element must justify its existence by aiding comprehension or navigation — not decoration alone.
-4. **Hierarchy serves scanning.** Surgeons and researchers scan before they read. Visual hierarchy — type scale, weight, color role — must let a first-time visitor orient in under 10 seconds: what the lab does, who runs it, what it has built.
-5. **Validation is the product.** The lab's differentiator is rigorous external validation. Every research card, publication entry, and project summary should surface the validation state prominently — not buried.
+1. **Show the technical work.** Surgical AI researchers scan for specificity: model names, task definitions, dataset sizes, validation cohorts. Surface these before abstractions. Never write "advanced AI" without the specific method behind it.
+2. **The lab is clinical AND technical.** A-STAR is not a CS lab that studies surgery from afar, and not a surgical group that added an AI tool. The design should reflect both domains with equal weight — clinical precision and engineering rigor coexist.
+3. **Validation is the differentiator.** External, prospective, multi-site validation is what separates credible surgical AI from prototype demos. Surface validation state on every research artifact: project cards, publications, system descriptions.
+4. **Hierarchy serves the scanner.** Researchers, surgeons, and funders all scan before reading. The visual hierarchy must let a first-time visitor understand the lab's purpose, active work, and team in under 10 seconds — without reading a paragraph.
+5. **Restraint signals focus.** A dark, structured, visually minimal surface communicates that the lab is focused on outcomes, not optics. Every animation and decoration must justify itself by aiding navigation or comprehension — not decoration alone.
 
 ## Accessibility & Inclusion
 
-WCAG 2.1 AA minimum. Reduced-motion preference respected (Three.js canvas and Framer Motion animations both check `prefers-reduced-motion`). Keyboard navigation through all interactive elements. The Three.js background degrades gracefully on mobile and low-capability devices.
+WCAG 2.1 AA minimum. Reduced-motion preference respected across Three.js canvas and Framer Motion. Keyboard navigation on all interactive elements. Three.js background degrades gracefully on mobile and low-capability hardware.
