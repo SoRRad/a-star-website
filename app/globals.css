@@ -5,25 +5,24 @@
  *
  * Aesthetic direction: editorial-meets-technical with a galactic undercurrent.
  * Deep space black as the dark canvas, electric blue as the sharp accent,
- * subtle star-field particles for cosmic depth. Light mode stays clean and
- * clinical; dark mode reveals the full galaxy character.
+ * subtle star-field particles for cosmic depth. The redesign is intentionally
+ * dark-only for now.
  * ------------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------------
  * THEME TOKENS
  *
- * Semantic tokens are defined in @theme for light mode (the default) and
- * overridden inside .dark for dark mode. Components reference tokens by name,
- * not by raw color value — no component needs a dark: class for basic
- * background/text/border behavior.
+ * Semantic tokens are defined in @theme with dark defaults. The .dark block
+ * mirrors those values for compatibility. Components reference tokens by name,
+ * not by raw color value.
  *
- * To debug a light-mode-only issue: inspect the element, note which token
+ * To debug a contrast issue: inspect the element, note which token
  * is in use, then check that token's value in @theme. The most common bug
  * is --color-muted-foreground being too light against --color-background
  * or --color-card.
  *
- * Hero logo glow: the radial glow div uses hidden dark:block — zero halo
- * in light mode, clean blue bloom in dark mode. Never use drop-shadow
+ * Hero logo glow uses a separate radial layer
+ * with a clean blue bloom. Never use drop-shadow
  * on the logo image itself.
  * ------------------------------------------------------------------------- */
 
@@ -71,19 +70,19 @@
   --color-ink-900: #0f172a;
 
   /* Semantic tokens — referenced by components */
-  --color-background: var(--color-ink-50);
-  --color-foreground: var(--color-navy-900);
-  --color-muted: var(--color-ink-100);
-  --color-muted-foreground: var(--color-ink-700);
-  --color-border: var(--color-ink-200);
-  --color-input: var(--color-ink-200);
-  --color-ring: var(--color-blue-500);
-  --color-primary: var(--color-navy-900);
-  --color-primary-foreground: var(--color-ink-50);
-  --color-accent: var(--color-blue-500);
+  --color-background: #070c18;
+  --color-foreground: var(--color-ink-100);
+  --color-muted: #0f1829;
+  --color-muted-foreground: var(--color-ink-400);
+  --color-border: color-mix(in oklab, var(--color-navy-700) 60%, transparent);
+  --color-input: #0f1829;
+  --color-ring: var(--color-blue-400);
+  --color-primary: var(--color-ink-50);
+  --color-primary-foreground: var(--color-navy-900);
+  --color-accent: var(--color-blue-400);
   --color-accent-foreground: #ffffff;
-  --color-card: #ffffff;
-  --color-card-foreground: var(--color-navy-900);
+  --color-card: #0b0f1f;
+  --color-card-foreground: var(--color-ink-100);
 
   /* Status colors for project pipeline */
   --color-status-concept: var(--color-ink-400);
@@ -121,7 +120,7 @@
 }
 
 /* ----------------------------------------------------------------------------
- * Dark mode overrides
+ * Dark compatibility mirror
  * ------------------------------------------------------------------------- */
 
 .dark {

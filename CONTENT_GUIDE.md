@@ -7,7 +7,8 @@
 - Team: `/team`
 - News & Events: `/events`
 - Contact, collaboration intake, and Journal Club intake: `/contact`
-- Publications: `/publications`
+
+The standalone publication index is direct-only and should not be added to visible navigation or footer links.
 
 Compatibility redirects only:
 
@@ -32,7 +33,7 @@ public/projects/media/
 
 Suggested names:
 
-- `gonogonet-demo.gif`
+- `gonogonet-demo.avif`
 - `gonogonet-thumbnail.png`
 - `mosi-demo.gif`
 - `siris-demo.gif`
@@ -46,6 +47,20 @@ Use `/events` as the public News & Events page.
 - `lib/events.ts`: calendar-style events and Journal Club sessions.
 - `lib/talks.ts`: talks, webinars, courses, Oxford sessions, ASMBS items, and project-linked education.
 - `lib/news.ts`: lab updates and `/news/[slug]` detail pages.
+
+Journal Club images live in:
+
+```text
+public/events/
+```
+
+The first A-STAR Journal Club image path is:
+
+```text
+public/events/journal-club-may20-2026.jpg
+```
+
+If the image is missing, `/events` should render the polished placeholder.
 
 SAGES Nashville and ASMBS Bariatric Happy Hour are separate records. Oxford September 2025 items should display month/year only when exact days are not confirmed.
 
@@ -76,3 +91,11 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ## Logos
 
 Use only root-level PNG assets from `public/logos/astar/` through `lib/logos.ts`. Do not use old SVG logos, `public/logos/astar/clean/`, or `public/logos/astar/current/` in active UI.
+
+## Team Links
+
+Team social/profile links are optional and render only when present. Supported keys in `lib/team.ts` are `profile`, `email`, `github`, `linkedin`, `twitter`, `scholar`, `cv`, `pubmed`, and `orcid`. Do not add placeholder links.
+
+## Visible UI
+
+Resources, Join, Publications, and Project Index should not appear in visible navigation or footer sections. Resources and Join remain redirect-only compatibility paths, and the shared archive remains linked from `/events` and the footer.

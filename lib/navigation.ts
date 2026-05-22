@@ -1,11 +1,11 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Home,
-  Users,
-  Newspaper,
   Calendar,
-  Mail,
   Compass,
+  Home,
+  Mail,
+  Newspaper,
+  Users,
 } from "lucide-react";
 
 export type NavItem = {
@@ -13,16 +13,10 @@ export type NavItem = {
   href: string;
   description?: string;
   icon?: LucideIcon;
-  /** Section id on the home page for smart anchor scrolling */
+  /** Section id on the home page for smart anchor scrolling. */
   sectionId?: string;
 };
 
-/**
- * Primary navigation shown in the header.
- * Home is rendered through the header logo mark.
- * Publications remains available by direct URL, but primary navigation keeps
- * the lab surface focused on Projects, Team, News & Events, and Contact.
- */
 export const primaryNav: NavItem[] = [
   { title: "Projects", href: "/research", icon: Compass, sectionId: "research" },
   { title: "Team", href: "/team", icon: Users, sectionId: "team" },
@@ -30,10 +24,6 @@ export const primaryNav: NavItem[] = [
   { title: "Contact", href: "/contact", icon: Mail, sectionId: "contact" },
 ];
 
-/**
- * Full navigation — used in command palette, mobile nav, sitemap.
- * Contact links to /contact (not mailto) so it appears correctly in the sitemap.
- */
 export const allNav: NavItem[] = [
   { title: "Home", href: "/", icon: Home },
   { title: "Projects", href: "/research", icon: Compass },

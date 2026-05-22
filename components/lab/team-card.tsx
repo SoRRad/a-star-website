@@ -3,13 +3,17 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap } from "lucide-react";
+import { BadgeCheck, BookOpen, FileText, Github, Linkedin, Twitter, Mail, Globe, GraduationCap } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { cn } from "@/lib/utils";
 
 interface TeamCardProps {
   member: TeamMember;
   className?: string;
+}
+
+function emailHref(value: string) {
+  return value.startsWith("mailto:") ? value : `mailto:${value}`;
 }
 
 /**
@@ -88,7 +92,10 @@ function LinkIcons({
     links.linkedin && { href: links.linkedin, icon: Linkedin, label: `${name} on LinkedIn` },
     links.twitter && { href: links.twitter, icon: Twitter, label: `${name} on Twitter` },
     links.scholar && { href: links.scholar, icon: GraduationCap, label: `${name} on Google Scholar` },
-    links.email && { href: `mailto:${links.email}`, icon: Mail, label: `Email ${name}` },
+    links.cv && { href: links.cv, icon: FileText, label: `${name} CV` },
+    links.pubmed && { href: links.pubmed, icon: BookOpen, label: `${name} on PubMed` },
+    links.orcid && { href: links.orcid, icon: BadgeCheck, label: `${name} ORCID` },
+    links.email && { href: emailHref(links.email), icon: Mail, label: `Email ${name}` },
   ].filter(Boolean) as { href: string; icon: React.ElementType; label: string }[];
 
   if (items.length === 0) return null;
@@ -99,8 +106,8 @@ function LinkIcons({
         <a
           key={href}
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
+          target={href.startsWith("mailto:") ? undefined : "_blank"}
+          rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
           aria-label={label}
           className="text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-accent)]"
         >

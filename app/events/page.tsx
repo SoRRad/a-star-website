@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { ExternalLink, FolderOpen } from "lucide-react";
-import { upcomingEvents, pastEvents } from "@/lib/events";
+import { journalClubSessions, nextJournalClub, upcomingEvents, pastEvents } from "@/lib/events";
 import { allNews } from "@/lib/news";
 import { selectedTalks, type Talk } from "@/lib/talks";
 import { JournalClubButtons } from "@/components/sections/journal-club-buttons";
@@ -15,6 +18,10 @@ export const metadata: Metadata = {
 };
 
 const DRIVE_URL = "https://drive.google.com/drive/folders/14j7C__2NIsRNPPbnrschwiKW7UKv7uOu";
+
+function publicFileExists(src: string) {
+  return existsSync(join(process.cwd(), "public", src.replace(/^\//, "")));
+}
 
 function EventCard({ event }: { event: (typeof upcomingEvents)[number] }) {
   const date = new Date(event.date + "T00:00:00");
@@ -56,6 +63,90 @@ function EventCard({ event }: { event: (typeof upcomingEvents)[number] }) {
   );
 }
 
+function JournalClubSection() {
+  const session = journalClubSessions[0];
+  if (!session) return null;
+
+  const date = new Date(session.date + "T00:00:00");
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  const hasImage = publicFileExists(session.imageSrc);
+
+  return (
+    <section id="journal-club" className="mb-16 overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-card)]">
+      <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="relative min-h-72 border-b border-[var(--color-border)] bg-[var(--color-muted)] lg:border-b-0 lg:border-r">
+          {hasImage ? (
+            <Image
+              src={session.imageSrc}
+              alt="A-STAR Journal Club session"
+              fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="relative flex h-full min-h-72 items-center justify-center overflow-hidden p-8 text-center">
+              <div className="absolute inset-0 bg-grid opacity-25" aria-hidden="true" />
+              <div className="absolute left-8 top-8 h-20 w-20 rounded-full border border-[var(--color-accent)]/25" aria-hidden="true" />
+              <div className="absolute bottom-10 right-8 h-px w-40 bg-gradient-to-r from-transparent via-[var(--color-accent)]/60 to-transparent" aria-hidden="true" />
+              <div className="relative z-10 max-w-sm">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-accent)]">
+                  Image forthcoming
+                </p>
+                <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+                  A-STAR Journal Club
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+                  Add the session image at public/events/journal-club-may20-2026.jpg.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="p-6 sm:p-8">
+          <p className="eyebrow mb-3">Journal Club</p>
+          <h2 className="font-display text-3xl font-semibold tracking-tight">A-STAR Journal Club</h2>
+          <article className="mt-6">
+            <p className="font-mono text-xs uppercase tracking-widest text-[var(--color-muted-foreground)]">
+              {formattedDate}
+            </p>
+            <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight">{session.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
+              {session.description} Discussed topics included:
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-[var(--color-muted-foreground)]">
+              {session.topics.map((topic) => (
+                <li key={topic} className="flex gap-2">
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
+                  <span>{topic}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <div className="mt-6 rounded-md border border-[var(--color-border)] bg-[var(--color-background)]/60 p-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-muted-foreground)]">
+              Next Journal Club
+            </p>
+            <p className="mt-1 font-display text-2xl font-semibold tracking-tight">{nextJournalClub.label}</p>
+          </div>
+
+          <Link
+            href={nextJournalClub.href}
+            className="mt-6 inline-flex items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
+            Join Journal Club
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function GroupedTalks({ title, talks }: { title: string; talks: Talk[] }) {
   if (!talks.length) return null;
   return (
@@ -77,7 +168,12 @@ export default function EventsPage() {
   const oxfordTalks = selectedTalks.filter((talk) => talk.group === "oxford-2025");
   const asmbs2026Talks = selectedTalks.filter((talk) => talk.group === "asmbs-2026");
   const standaloneTalks = selectedTalks.filter((talk) => !talk.group);
-  const visibleNews = allNews.filter((item) => item.slug !== "laplante-asmbs-ai-webinar-2025");
+  const visibleNews = allNews.filter(
+    (item) =>
+      item.slug !== "laplante-asmbs-ai-webinar-2025" &&
+      !item.title.toLowerCase().includes("journal club"),
+  );
+  const visiblePastEvents = pastEvents.filter((event) => event.type !== "journal-club");
 
   return (
     <main>
@@ -106,19 +202,7 @@ export default function EventsPage() {
           </section>
         )}
 
-        <section id="journal-club" className="mb-16 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
-          <p className="eyebrow mb-3">Journal Club</p>
-          <h2 className="font-display text-3xl font-semibold tracking-tight">Join an A-STAR Journal Club session.</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-            Journal Club intake now lives on the Contact page and collects only name, email, affiliation, role, session interest, and message.
-          </p>
-          <Link
-            href="/contact#journal-club"
-            className="mt-6 inline-flex items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
-          >
-            Join Journal Club
-          </Link>
-        </section>
+        <JournalClubSection />
 
         <section id="talks" className="mb-16">
           <div className="mb-8">
@@ -173,11 +257,11 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {pastEvents.length > 0 && (
+        {visiblePastEvents.length > 0 && (
           <section className="mt-16 border-t border-[var(--color-border)] pt-8">
             <p className="eyebrow mb-4">Past lab events</p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {pastEvents.map((event) => (
+              {visiblePastEvents.map((event) => (
                 <article key={event.slug} className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 opacity-80">
                   <h3 className="font-display text-lg font-semibold">{event.title}</h3>
                   <p className="mt-1 font-mono text-xs text-[var(--color-muted-foreground)]">{event.date}</p>

@@ -1,7 +1,7 @@
 import type React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight } from "lucide-react";
+import { BadgeCheck, BookOpen, FileText, Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { activeTeamMembers, team } from "@/lib/team";
 import { projects } from "@/lib/projects";
@@ -14,6 +14,10 @@ import { TalkCard } from "@/components/resources/talk-card";
 
 export function generateStaticParams() {
   return activeTeamMembers.map((m) => ({ slug: m.slug }));
+}
+
+function emailHref(value: string) {
+  return value.startsWith("mailto:") ? value : `mailto:${value}`;
 }
 
 export async function generateMetadata({
@@ -50,7 +54,10 @@ export default async function TeamMemberPage({
     member.links.linkedin && { href: member.links.linkedin, Icon: Linkedin, label: "LinkedIn" },
     member.links.twitter && { href: member.links.twitter, Icon: Twitter, label: "Twitter" },
     member.links.scholar && { href: member.links.scholar, Icon: GraduationCap, label: "Google Scholar" },
-    member.links.email && { href: `mailto:${member.links.email}`, Icon: Mail, label: "Email" },
+    member.links.cv && { href: member.links.cv, Icon: FileText, label: "CV" },
+    member.links.pubmed && { href: member.links.pubmed, Icon: BookOpen, label: "PubMed" },
+    member.links.orcid && { href: member.links.orcid, Icon: BadgeCheck, label: "ORCID" },
+    member.links.email && { href: emailHref(member.links.email), Icon: Mail, label: "Email" },
   ].filter(Boolean) as { href: string; Icon: React.ElementType; label: string }[];
 
   return (
@@ -85,8 +92,8 @@ export default async function TeamMemberPage({
                 <a
                   key={href}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                   className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] px-3 py-1.5 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]"
                 >
                   <Icon className="h-3.5 w-3.5" />

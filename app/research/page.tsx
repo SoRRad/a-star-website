@@ -72,7 +72,7 @@ export default function ResearchPage() {
             Surgical AI systems across the full surgical journey.
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
-            A-STAR organizes projects around practical clinical questions, model-card discipline, and staged validation. Project detail pages hold linked publications, demos, and project-specific status.
+            A-STAR organizes active systems around practical clinical questions, model-card discipline, and staged validation across planning, guidance, education, and outcomes.
           </p>
         </div>
       </section>
@@ -83,6 +83,9 @@ export default function ResearchPage() {
           <h2 className="font-display max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
             From planning to validation, each phase asks what surgical AI can safely clarify.
           </h2>
+          <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-[var(--color-muted-foreground)]">
+            The surgical journey map connects current projects to the clinical phase, methods, applications, and validation context they are built to support.
+          </p>
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {platformVision.map((item) => (

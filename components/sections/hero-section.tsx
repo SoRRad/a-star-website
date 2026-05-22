@@ -20,7 +20,7 @@ export function HeroSection() {
   return (
     <section ref={heroRef} className="relative isolate min-h-[90vh] overflow-hidden">
       <div
-        className="animate-nebula absolute left-1/2 top-0 -z-10 h-[700px] w-[1100px] rounded-full opacity-10 dark:opacity-20"
+        className="animate-nebula absolute left-1/2 top-0 -z-10 h-[700px] w-[1100px] rounded-full opacity-20"
         style={{
           background: "radial-gradient(ellipse 80% 60% at 50% 0%, #3b82f6 0%, #6366f1 45%, transparent 70%)",
           transform: "translate(-50%, -25%)",
@@ -29,7 +29,7 @@ export function HeroSection() {
         aria-hidden="true"
       />
       <div
-        className="absolute left-[30%] top-[20%] -z-10 h-[400px] w-[600px] rounded-full opacity-5 dark:opacity-10"
+        className="absolute left-[30%] top-[20%] -z-10 h-[400px] w-[600px] rounded-full opacity-10"
         style={{
           background: "radial-gradient(ellipse at center, #1e88e5 0%, transparent 70%)",
           filter: "blur(60px)",
@@ -42,7 +42,7 @@ export function HeroSection() {
       <div className="mx-auto flex max-w-5xl flex-col items-center px-4 pb-32 pt-20 text-center sm:px-6 sm:pt-28 lg:px-8">
         <motion.div style={{ scale: markScale }} className="relative mt-4 flex justify-center">
           <div
-            className="pointer-events-none absolute inset-0 -z-10 hidden rounded-full dark:block"
+            className="pointer-events-none absolute inset-0 -z-10 block rounded-full"
             style={{
               background: "radial-gradient(circle, rgba(66,165,245,0.3) 0%, rgba(30,136,229,0.12) 42%, transparent 70%)",
               filter: "blur(28px)",

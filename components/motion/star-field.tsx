@@ -30,19 +30,15 @@ function generateStars(count: number): Star[] {
     size: 1 + rng() * 1.5,          // 1–2.5 px
     duration: 2.5 + rng() * 3.5,    // 2.5–6 s
     delay: rng() * 5,               // 0–5 s offset
-    opacity: 0.3 + rng() * 0.7,     // 0.3–1.0 in dark mode
+    opacity: 0.3 + rng() * 0.7,
   }));
 }
 
 /**
  * Full-viewport star field, fixed behind all content.
  *
- * Light mode: stars are nearly invisible (very faint dots) so the clean
- * clinical look is preserved. Dark mode: vivid glowing blue-white stars
- * that evoke the galaxy/cosmos feel.
- *
- * Uses CSS custom properties to control per-star animation, keeping
- * animation logic entirely in CSS so JS stays idle after mount.
+ * The site is dark-only for now, so this stays intentionally lightweight:
+ * a small CSS-driven particle field, no canvas or Three.js worker.
  */
 export function StarField() {
   const stars = useMemo(() => generateStars(56), []);
@@ -57,7 +53,7 @@ export function StarField() {
           key={star.id}
           className="absolute rounded-full motion-reduce:animate-none animate-twinkle
             bg-[var(--color-blue-400)]
-            opacity-[0.05] dark:opacity-[var(--star-opacity)]"
+            opacity-[var(--star-opacity)]"
           style={
             {
               left: `${star.x}%`,

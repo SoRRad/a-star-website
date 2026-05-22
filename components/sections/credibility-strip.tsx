@@ -6,7 +6,7 @@ const badges = [
     icon: FileText,
     title: "Peer-reviewed work",
     description: "Published in SOARD and Surgical Endoscopy",
-    href: "/publications",
+    href: "/research",
   },
   {
     icon: Hospital,
