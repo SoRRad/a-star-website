@@ -11,8 +11,8 @@ const ctaCards = [
     icon: Users,
     title: "Join the lab",
     pitch: "We recruit exceptional fellows, engineers, and visiting scholars.",
-    href: "/join",
-    cta: "Apply now",
+    href: "/contact#collaborate",
+    cta: "Contact us",
   },
   {
     icon: FlaskConical,
@@ -24,9 +24,9 @@ const ctaCards = [
   {
     icon: BookOpen,
     title: "Read our research",
-    pitch: "Browse publications, preprints, and technical reports from A-STAR.",
-    href: "/publications",
-    cta: "Explore research",
+    pitch: "Browse active systems, model cards, and validation directions from A-STAR.",
+    href: "/research",
+    cta: "View projects",
   },
 ];
 

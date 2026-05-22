@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Github, Linkedin, Mail, Twitter, ArrowRight, UserRound, type LucideIcon } from "lucide-react";
+import { BadgeCheck, BookOpen, FileText, Globe, Github, GraduationCap, Linkedin, Mail, Twitter, ArrowRight, UserRound, type LucideIcon } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,10 @@ interface TeamRosterRowProps {
   member: TeamMember;
   index: number;
   variant: "main" | "collaborator";
+}
+
+function emailHref(value: string) {
+  return value.startsWith("mailto:") ? value : `mailto:${value}`;
 }
 
 export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
@@ -28,7 +32,11 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
     member.links.github && { href: member.links.github, Icon: Github, label: "GitHub" },
     member.links.linkedin && { href: member.links.linkedin, Icon: Linkedin, label: "LinkedIn" },
     member.links.twitter && { href: member.links.twitter, Icon: Twitter, label: "Twitter" },
-    member.links.email && { href: `mailto:${member.links.email}`, Icon: Mail, label: "Email" },
+    member.links.scholar && { href: member.links.scholar, Icon: GraduationCap, label: "Google Scholar" },
+    member.links.cv && { href: member.links.cv, Icon: FileText, label: "CV" },
+    member.links.pubmed && { href: member.links.pubmed, Icon: BookOpen, label: "PubMed" },
+    member.links.orcid && { href: member.links.orcid, Icon: BadgeCheck, label: "ORCID" },
+    member.links.email && { href: emailHref(member.links.email), Icon: Mail, label: "Email" },
   ].filter(Boolean) as { href: string; Icon: LucideIcon; label: string }[];
 
   return (
@@ -181,8 +189,8 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
                   <a
                     key={href}
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                     className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-3 py-1 text-xs font-medium text-[var(--color-muted-foreground)] transition-colors hover:border-[var(--color-accent)]/40 hover:text-[var(--color-foreground)]"
                   >
                     <Icon className="h-3 w-3" />

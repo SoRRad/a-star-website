@@ -18,11 +18,11 @@ function SmoothScroll({ children }: { children: ReactNode }) {
     if (window.matchMedia("(max-width: 767px)").matches) return;
 
     const lenis = new Lenis({
-      duration: 0.85,
+      duration: 0.9,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1,
-      wheelMultiplier: 1,
+      wheelMultiplier: 0.95,
     });
 
     let raf: number;

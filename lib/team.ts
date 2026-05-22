@@ -23,6 +23,9 @@ export type TeamMember = {
     linkedin?: string;
     twitter?: string;
     scholar?: string;
+    cv?: string;
+    pubmed?: string;
+    orcid?: string;
   };
   researchFocus?: string[];
   featured?: boolean;
@@ -86,9 +89,13 @@ export const team: TeamMember[] = [
     photo: "/team/reza-shahriarirad.jpg",
     initials: "R.S.",
     links: {
-      profile: "https://sorrad.github.io/RezaShahriarirad_CV/",
+      email: "mailto:Shahriarirad.reza@mayo.edu",
       github: "https://github.com/SoRRad",
       linkedin: "https://www.linkedin.com/in/reza-shahriarirad/",
+      scholar: "https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en",
+      cv: "https://sorrad.github.io/RezaShahriarirad_CV/",
+      pubmed: "https://www.ncbi.nlm.nih.gov/myncbi/reza.shahriari.1/bibliography/public/",
+      orcid: "https://orcid.org/0000-0001-5454-495X",
     },
     researchFocus: [
       "Surgical Innovation",

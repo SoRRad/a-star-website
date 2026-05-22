@@ -6,6 +6,7 @@ import { CircuitDivider } from "@/components/site/circuit-divider";
 import { HeroSection } from "@/components/sections/hero-section";
 import { MissionSection } from "@/components/sections/mission-section";
 import { ResearchProjectsClient } from "@/components/sections/research-projects-client";
+import { ProjectDemoShowcase } from "@/components/sections/project-demo-showcase";
 import { EventsSection } from "@/components/sections/events-section";
 import { FromTheLabSection } from "@/components/sections/from-the-lab-section";
 import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
@@ -32,7 +33,13 @@ export default function HomePage() {
 
       <CircuitDivider />
 
-      <Section code="03" label="News & Events" id="events">
+      <Section code="03" label="Demos" id="demos">
+        <ProjectDemoShowcase />
+      </Section>
+
+      <CircuitDivider />
+
+      <Section code="04" label="News & Events" id="events">
         <EventsSection events={upcomingEvents} />
         <div className="mt-14">
           <FromTheLabSection newsItems={recentNews} />
@@ -41,7 +48,7 @@ export default function HomePage() {
 
       <CircuitDivider />
 
-      <Section code="04" label="Collaborators" id="collaborators">
+      <Section code="05" label="Collaborators" id="collaborators">
         <Reveal showMark>
           <p className="eyebrow mb-8">Collaborating institutions</p>
         </Reveal>

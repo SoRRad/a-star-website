@@ -141,9 +141,7 @@ export function ContactForm() {
             {contactEmail}
           </a>{" "}
           directly. In the meantime, explore our{" "}
-          <Link href="/research" className="text-[var(--color-accent)] hover:underline">research and projects</Link>{" "}
-          or read our{" "}
-          <Link href="/publications" className="text-[var(--color-accent)] hover:underline">publications</Link>.
+          <Link href="/research" className="text-[var(--color-accent)] hover:underline">research and projects</Link>.
         </p>
         <details className="mt-2">
           <summary className="cursor-pointer text-xs font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
