@@ -1,94 +1,106 @@
 "use client";
 
-import { useScroll, useMotionValueEvent } from "motion/react";
+import { useScroll, useSpring, useMotionValueEvent } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 
 const BAR_HEIGHT = 22;
 const PATH_UNIT = 44;
 
-function TechnicalPathUnit({ x }: { x: number }) {
-  const centerY = BAR_HEIGHT / 2 + 1;
-
+function CosmicPathUnit({ x }: { x: number }) {
+  const cy = BAR_HEIGHT / 2 + 1;
   return (
     <g transform={`translate(${x}, 0)`}>
       <path
-        d={`M0 ${centerY} C10 ${centerY - 4} 14 ${centerY - 4} 22 ${centerY} S34 ${centerY + 4} 44 ${centerY}`}
+        d={`M0 ${cy} C10 ${cy - 4} 14 ${cy - 4} 22 ${cy} S34 ${cy + 4} 44 ${cy}`}
         stroke="var(--color-accent)"
         strokeWidth="1.2"
         fill="none"
         strokeLinecap="round"
       />
-      <circle cx="22" cy={centerY} r="1.8" fill="var(--color-accent)" />
+      <circle cx="22" cy={cy} r="1.8" fill="var(--color-accent)" />
     </g>
   );
 }
 
-function TechnicalPath({ width, opacity }: { width: number; opacity: number }) {
+function CosmicPath({ width, opacity }: { width: number; opacity: number }) {
   const count = Math.ceil(width / PATH_UNIT) + 1;
   return (
     <g opacity={opacity}>
       {Array.from({ length: count }, (_, i) => (
-        <TechnicalPathUnit key={i} x={i * PATH_UNIT} />
+        <CosmicPathUnit key={i} x={i * PATH_UNIT} />
       ))}
     </g>
   );
 }
 
-function RoboticArm({
-  x,
+// Surgical-cosmic arm: sleek segments with stellar blue glow and orbital ring
+function CosmicArm({
   armGradientId,
   jointGradientId,
+  glowFilterId,
 }: {
-  x: number;
   armGradientId: string;
   jointGradientId: string;
+  glowFilterId: string;
 }) {
-  const cx = x;
   const cy = BAR_HEIGHT / 2 + 1;
-
   return (
-    <g transform={`translate(${cx - 34}, ${cy - 15})`}>
-      <path
-        d="M8 22 L17 11"
-        stroke={`url(#${armGradientId})`}
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M18 11 L31 15"
-        stroke={`url(#${armGradientId})`}
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M31 15 L40 9"
-        stroke={`url(#${armGradientId})`}
-        strokeWidth="3"
-        strokeLinecap="round"
+    <g transform={`translate(-34, ${cy - 15})`} filter={`url(#${glowFilterId})`}>
+      {/* Arm segments */}
+      <path d="M8 22 L17 11" stroke={`url(#${armGradientId})`} strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M18 11 L31 15" stroke={`url(#${armGradientId})`} strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M31 15 L40 9"  stroke={`url(#${armGradientId})`} strokeWidth="2.5" strokeLinecap="round" />
+
+      {/* Joints */}
+      <circle cx="8"  cy="22" r="4.5" fill={`url(#${jointGradientId})`} stroke="rgba(100,181,246,0.3)" strokeWidth="0.8" />
+      <circle cx="18" cy="11" r="4.2" fill={`url(#${jointGradientId})`} stroke="rgba(100,181,246,0.3)" strokeWidth="0.8" />
+      <circle cx="31" cy="15" r="3.6" fill={`url(#${jointGradientId})`} stroke="rgba(100,181,246,0.38)" strokeWidth="0.8" />
+
+      {/* Orbital ring at base joint — cosmic flair */}
+      <ellipse
+        cx="8" cy="22" rx="7" ry="2.5"
+        fill="none"
+        stroke="#64B5F6"
+        strokeWidth="0.45"
+        opacity="0.5"
+        transform="rotate(-20, 8, 22)"
       />
 
-      <circle cx="8" cy="22" r="4.5" fill={`url(#${jointGradientId})`} stroke="#0F2748" strokeWidth="0.7" />
-      <circle cx="18" cy="11" r="4.2" fill={`url(#${jointGradientId})`} stroke="#0F2748" strokeWidth="0.7" />
-      <circle cx="31" cy="15" r="3.6" fill="#CBD5E1" stroke="#334155" strokeWidth="0.7" />
+      {/* Probe tip energy discharge */}
+      <path d="M39 9 L45 7"  stroke="#64B5F6" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M45 7 L49 4"  stroke="#93C5FD" strokeWidth="1.1" strokeLinecap="round" opacity="0.75" />
+      <path d="M45 7 L49 10" stroke="#93C5FD" strokeWidth="1.1" strokeLinecap="round" opacity="0.75" />
 
-      <path d="M39 9 L45 7" stroke="#38BDF8" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M45 7 L48 4" stroke="#94A3B8" strokeWidth="1.1" strokeLinecap="round" />
-      <path d="M45 7 L49 9" stroke="#94A3B8" strokeWidth="1.1" strokeLinecap="round" />
-      <circle cx="8" cy="22" r="1.5" fill="#E0F2FE" />
-      <circle cx="18" cy="11" r="1.4" fill="#E0F2FE" />
+      {/* Joint core highlights */}
+      <circle cx="8"  cy="22" r="1.5" fill="#E0F2FE" opacity="0.9" />
+      <circle cx="18" cy="11" r="1.4" fill="#E0F2FE" opacity="0.9" />
+
+      {/* Micro-particles */}
+      <circle cx="5"  cy="18" r="0.6" fill="#93C5FD" opacity="0.55" />
+      <circle cx="12" cy="26" r="0.5" fill="#93C5FD" opacity="0.4" />
     </g>
   );
 }
 
 export function RoboticArmProgress() {
   const { scrollYProgress } = useScroll();
+  // Spring smoothing: arm glides rather than jumps
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    restDelta: 0.001,
+  });
+
   const svgId = useId().replace(/:/g, "");
-  const [progress, setProgress] = useState(0);
   const [width, setWidth] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const frameRef = useRef<number | null>(null);
-  const latestProgress = useRef(0);
+  const [simpleProgress, setSimpleProgress] = useState(0);
+
+  // Direct DOM refs — zero React re-renders per animation frame
+  const armGroupRef   = useRef<SVGGElement>(null);
+  const clipRectRef   = useRef<SVGRectElement>(null);
+  const trailRectRef  = useRef<SVGRectElement>(null);
 
   useEffect(() => {
     const updateViewport = () => {
@@ -96,41 +108,57 @@ export function RoboticArmProgress() {
       setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
     };
     updateViewport();
+
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
     const onMotionChange = () => setReducedMotion(mq.matches);
+
     window.addEventListener("resize", updateViewport, { passive: true });
     mq.addEventListener("change", onMotionChange);
     return () => {
       window.removeEventListener("resize", updateViewport);
       mq.removeEventListener("change", onMotionChange);
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
   }, []);
 
+  // Reduced-motion: simple state update (re-render only on scroll)
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (!isDesktop) return;
-    latestProgress.current = value;
-    if (frameRef.current !== null) return;
-    frameRef.current = requestAnimationFrame(() => {
-      setProgress(latestProgress.current);
-      frameRef.current = null;
-    });
+    if (reducedMotion) setSimpleProgress(value);
   });
 
-  const filledWidth = progress * width;
-  const clipId = `${svgId}-robotic-arm-progress-clip`;
-  const trailGradientId = `${svgId}-robotic-arm-progress-trail`;
-  const armGradientId = `${svgId}-robotic-arm-progress-arm`;
-  const jointGradientId = `${svgId}-robotic-arm-progress-joint`;
+  // Full animation: mutate SVG DOM directly — no React re-renders
+  useMotionValueEvent(smoothProgress, "change", (value) => {
+    if (!isDesktop || reducedMotion || width === 0) return;
+    const x = value * width;
+
+    if (armGroupRef.current) {
+      const armX = Math.min(width - 8, Math.max(38, x));
+      armGroupRef.current.setAttribute("transform", `translate(${armX}, 0)`);
+      (armGroupRef.current as SVGGElement).style.opacity = x > 38 ? "1" : "0";
+    }
+    if (clipRectRef.current) {
+      clipRectRef.current.setAttribute("width", `${Math.max(0, x)}`);
+    }
+    if (trailRectRef.current) {
+      const trailW = 72;
+      trailRectRef.current.setAttribute("x", `${Math.max(0, x - trailW)}`);
+      (trailRectRef.current as SVGRectElement).style.opacity = x > trailW ? "1" : "0";
+    }
+  });
+
+  const clipId         = `${svgId}-cosmic-clip`;
+  const trailGradId    = `${svgId}-cosmic-trail`;
+  const armGradId      = `${svgId}-cosmic-arm`;
+  const jointGradId    = `${svgId}-cosmic-joint`;
+  const glowFilterId   = `${svgId}-cosmic-glow`;
 
   if (!isDesktop) return null;
 
   if (reducedMotion) {
     return (
       <div
-        className="pointer-events-none fixed left-0 top-12 z-[110] hidden h-[2px] bg-[var(--color-accent)] transition-all md:block"
-        style={{ width: `${progress * 100}%` }}
+        className="pointer-events-none fixed left-0 top-12 z-[110] hidden h-[2px] bg-[var(--color-accent)] md:block"
+        style={{ width: `${simpleProgress * 100}%`, transition: "width 150ms linear" }}
         aria-hidden="true"
       />
     );
@@ -142,62 +170,68 @@ export function RoboticArmProgress() {
     <div
       className="pointer-events-none fixed left-0 top-12 z-[110] hidden md:block"
       aria-hidden="true"
-      style={{ height: BAR_HEIGHT, width: "100%" }}
+      style={{ height: BAR_HEIGHT + 8, width: "100%" }}
     >
-      <svg width={width} height={BAR_HEIGHT} style={{ display: "block", overflow: "visible" }}>
+      <svg width={width} height={BAR_HEIGHT + 8} style={{ display: "block", overflow: "visible" }}>
         <defs>
-          <linearGradient id={trailGradientId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0" />
-            <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.28" />
+          <linearGradient id={trailGradId} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#64B5F6" stopOpacity="0" />
+            <stop offset="100%" stopColor="#64B5F6" stopOpacity="0.38" />
           </linearGradient>
-          <linearGradient id={armGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#E2E8F0" />
-            <stop offset="48%" stopColor="#94A3B8" />
-            <stop offset="100%" stopColor="#475569" />
+          <linearGradient id={armGradId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stopColor="#E0F2FE" />
+            <stop offset="35%"  stopColor="#64B5F6" />
+            <stop offset="100%" stopColor="#1565C0" />
           </linearGradient>
-          <radialGradient id={jointGradientId} cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#E0F2FE" />
-            <stop offset="45%" stopColor="#38BDF8" />
-            <stop offset="100%" stopColor="#0F2748" />
+          <radialGradient id={jointGradId} cx="35%" cy="30%" r="70%">
+            <stop offset="0%"   stopColor="#E0F2FE" />
+            <stop offset="42%"  stopColor="#64B5F6" />
+            <stop offset="100%" stopColor="#0D3B7A" />
           </radialGradient>
+          <filter id={glowFilterId} x="-40%" y="-60%" width="180%" height="220%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
+        {/* Ghost baseline */}
         <line
-          x1={0}
-          y1={BAR_HEIGHT / 2 + 1}
-          x2={width}
-          y2={BAR_HEIGHT / 2 + 1}
-          stroke="var(--color-accent)"
-          strokeWidth="0.5"
-          opacity="0.08"
+          x1={0} y1={BAR_HEIGHT / 2 + 1}
+          x2={width} y2={BAR_HEIGHT / 2 + 1}
+          stroke="#64B5F6" strokeWidth="0.4" opacity="0.07"
         />
 
-        <TechnicalPath width={width} opacity={0.16} />
+        {/* Dim track */}
+        <CosmicPath width={width} opacity={0.15} />
 
+        {/* Filled track (clipped to progress) */}
         <clipPath id={clipId}>
-          <rect x={0} y={0} width={filledWidth} height={BAR_HEIGHT + 4} />
+          <rect ref={clipRectRef} x={0} y={0} width={0} height={BAR_HEIGHT + 8} />
         </clipPath>
         <g clipPath={`url(#${clipId})`}>
-          <TechnicalPath width={width} opacity={0.95} />
+          <CosmicPath width={width} opacity={1} />
         </g>
 
-        {filledWidth > 28 && (
-          <rect
-            x={Math.max(0, filledWidth - 72)}
-            y={BAR_HEIGHT / 2}
-            width={72}
-            height={2}
-            fill={`url(#${trailGradientId})`}
-          />
-        )}
+        {/* Glow trail behind arm */}
+        <rect
+          ref={trailRectRef}
+          x={0} y={BAR_HEIGHT / 2}
+          width={72} height={2}
+          fill={`url(#${trailGradId})`}
+          opacity={0}
+        />
 
-        {filledWidth > 38 && (
-          <RoboticArm
-            x={Math.min(width - 8, filledWidth)}
-            armGradientId={armGradientId}
-            jointGradientId={jointGradientId}
+        {/* Cosmic arm — position updated directly via ref */}
+        <g ref={armGroupRef} transform="translate(38, 0)" style={{ opacity: 0 }}>
+          <CosmicArm
+            armGradientId={armGradId}
+            jointGradientId={jointGradId}
+            glowFilterId={glowFilterId}
           />
-        )}
+        </g>
       </svg>
     </div>
   );

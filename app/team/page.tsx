@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { activeMainTeam, mainTeam, collaboratorTeam } from "@/lib/team";
 import { TeamRosterRow } from "@/components/lab/team-roster-row";
+import { TeamShaderBg } from "@/components/ui/team-shader-bg";
 
 export const metadata: Metadata = {
   title: "Team",
@@ -19,8 +20,15 @@ export default function TeamPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      {/* Cosmic nebula shader behind the page header */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[520px] overflow-hidden">
+        <TeamShaderBg />
+        {/* Gradient fade — ensures content below header remains readable */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[var(--color-background)]" />
+      </div>
+
       {/* Page header */}
-      <header className="mb-16 max-w-3xl">
+      <header className="relative z-10 mb-16 max-w-3xl">
         <p className="eyebrow mb-5">Team</p>
         <h1
           className="heading-xl text-balance"
@@ -40,7 +48,7 @@ export default function TeamPage() {
       </header>
 
       {/* Core team */}
-      <section id="core" className="mb-24 scroll-mt-24">
+      <section id="core" className="relative z-10 mb-24 scroll-mt-24">
         <div className="mb-10 flex items-baseline justify-between gap-4">
           <h2 className="heading-lg text-3xl text-white sm:text-4xl">
             Core team
@@ -58,7 +66,7 @@ export default function TeamPage() {
 
       {/* Collaborators subsection */}
       {collaboratorTeam.length > 0 && (
-        <section id="collaborators" className="scroll-mt-24">
+        <section id="collaborators" className="relative z-10 scroll-mt-24">
           <div className="mb-10 flex items-baseline justify-between gap-4">
             <h2
               className="font-display text-3xl font-semibold tracking-normal"

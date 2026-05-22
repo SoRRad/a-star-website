@@ -51,8 +51,8 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start gap-12 lg:flex-row lg:items-center lg:gap-0">
 
-          {/* LEFT: text column ~58% */}
-          <div className="flex-1 lg:pr-12">
+          {/* LEFT: text column ~58% — order-2 on mobile so logo appears above on small screens */}
+          <div className="order-2 flex-1 lg:order-1 lg:pr-12">
             {/* Eyebrow */}
             <motion.div
               {...fadeUp(0)}
@@ -113,10 +113,10 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* RIGHT: large logo column ~42% */}
+          {/* RIGHT: large logo column ~42% — order-1 on mobile (shows above text) */}
           <motion.div
             {...fadeIn(0.2)}
-            className="relative flex w-full items-center justify-center lg:w-[42%] lg:justify-end"
+            className="relative order-1 flex w-full items-center justify-center lg:order-2 lg:w-[42%] lg:justify-end"
             aria-hidden="true"
           >
             {/* Halo behind logo */}
