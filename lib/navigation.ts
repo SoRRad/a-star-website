@@ -47,13 +47,22 @@ export const allNav: NavItem[] = [
 export const drawerNav: NavItem[] = allNav;
 
 export const footerNav = {
-  navigate: [
-    { title: "Projects", href: "/research" },
+  lab: [
+    { title: "Home", href: "/" },
     { title: "Team", href: "/team" },
     { title: "News & Events", href: "/events" },
     { title: "Contact", href: "/contact" },
   ],
+  research: [
+    { title: "All Projects", href: "/research" },
+    { title: "Surgical Planning", href: "/research#surgical-planning" },
+    { title: "Intraoperative AI", href: "/research#intraoperative" },
+    { title: "Outcomes Validation", href: "/research#outcomes" },
+  ],
   connect: [
+    { title: "General Inquiry", href: "/contact#general" },
     { title: "Journal Club", href: "/contact#journal-club" },
+    { title: "Collaborate", href: "/contact#collaborate" },
+    { title: "laplante.simon@mayo.edu", href: "mailto:laplante.simon@mayo.edu" },
   ],
 };
