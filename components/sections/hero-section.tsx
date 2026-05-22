@@ -3,19 +3,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { Magnetic } from "@/components/motion/magnetic";
 
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+
 export function HeroSection() {
+  const reduced = useReducedMotion();
+
+  const fadeUp = (delay: number) => ({
+    initial: reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.75, ease: EASE_OUT, delay },
+  });
+
+  const fadeIn = (delay: number) => ({
+    initial: reduced ? { opacity: 1 } : { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.9, ease: EASE_OUT, delay },
+  });
+
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Deep radial glow — stellar core */}
+    <section className="relative flex min-h-screen items-center overflow-hidden">
+      {/* Stellar core glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[40%] h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        className="pointer-events-none absolute left-1/2 top-[45%] h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(30,136,229,0.13) 0%, rgba(30,136,229,0.04) 40%, transparent 70%)",
-          filter: "blur(60px)",
+            "radial-gradient(circle, rgba(30,136,229,0.11) 0%, rgba(30,136,229,0.03) 45%, transparent 70%)",
+          filter: "blur(70px)",
         }}
       />
 
@@ -25,99 +42,124 @@ export function HeroSection() {
         className="animate-scan-line pointer-events-none absolute inset-x-0 h-px"
         style={{
           background:
-            "linear-gradient(to right, transparent 0%, rgba(100,181,246,0.12) 20%, rgba(100,181,246,0.3) 50%, rgba(100,181,246,0.12) 80%, transparent 100%)",
+            "linear-gradient(to right, transparent 0%, rgba(100,181,246,0.10) 20%, rgba(100,181,246,0.28) 50%, rgba(100,181,246,0.10) 80%, transparent 100%)",
           willChange: "transform",
         }}
       />
 
-      {/* A-STAR mark — slides in from left on xl+ screens, purely decorative */}
-      <div
-        className="pointer-events-none absolute left-6 top-1/2 hidden -translate-y-1/2 xl:block"
-        style={{ opacity: 0.38 }}
-        aria-hidden="true"
-      >
-        <div className="animate-slide-in-from-left">
-          <Image
-            src="/logos/astar/astar-mark-on-dark.png"
-            alt=""
-            width={56}
-            height={56}
-            className="h-14 w-14 object-contain"
-          />
-        </div>
-      </div>
+      {/* Asymmetric two-column layout */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-start gap-12 lg:flex-row lg:items-center lg:gap-0">
 
-      {/* Mirror mark on right side on very wide screens */}
-      <div
-        className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 2xl:block"
-        style={{ opacity: 0.18 }}
-        aria-hidden="true"
-      >
-        <div className="animate-slide-in-from-left">
-          <Image
-            src="/logos/astar/astar-mark-on-dark.png"
-            alt=""
-            width={40}
-            height={40}
-            className="h-10 w-10 object-contain"
-          />
-        </div>
-      </div>
+          {/* LEFT: text column ~58% */}
+          <div className="flex-1 lg:pr-12">
+            {/* Eyebrow */}
+            <motion.div
+              {...fadeUp(0)}
+              className="mb-8 flex items-center gap-3"
+            >
+              <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#64B5F6]/50" />
+              <p className="eyebrow">AI in Surgical Technology &amp; Augmentation Research</p>
+            </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-24 text-center sm:px-6">
-        {/* Eyebrow tag — first visible content */}
-        <div className="animate-fade-up mb-8 flex items-center justify-center gap-3">
-          <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#64B5F6]/50" />
-          <p className="eyebrow">AI in Surgical Technology &amp; Augmentation Research</p>
-          <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#64B5F6]/50" />
-        </div>
+            {/* Headline */}
+            <h1 className="text-left" style={{ fontSize: "clamp(3rem, 6.5vw, 6.5rem)" }}>
+              <motion.span
+                {...fadeUp(0.08)}
+                className="heading-heavy block text-[var(--color-text-primary)] leading-[0.95]"
+              >
+                Augmenting
+              </motion.span>
+              <motion.span
+                {...fadeUp(0.18)}
+                className="heading-heavy block text-[var(--color-text-primary)] leading-[0.95]"
+              >
+                the surgeon.
+              </motion.span>
+              <motion.span
+                {...fadeUp(0.3)}
+                className="heading-thin block text-[#64B5F6] leading-[1.05] mt-3"
+                style={{ fontSize: "clamp(2.5rem, 5.5vw, 5.5rem)" }}
+              >
+                Advancing the science.
+              </motion.span>
+            </h1>
 
-        {/* Main headline — weight contrast: heavy top line, thin accent line */}
-        <h1
-          className="animate-fade-up-1 text-balance"
-          style={{ fontSize: "clamp(3.25rem, 7.5vw, 7rem)" }}
-        >
-          <span className="heading-heavy block text-[var(--color-text-primary)]">
-            Augmenting the surgeon.
-          </span>
-          <span
-            className="heading-thin block text-[#64B5F6]"
-            style={{ fontSize: "clamp(2.75rem, 6.5vw, 6rem)" }}
+            {/* Subheadline */}
+            <motion.p
+              {...fadeUp(0.44)}
+              className="text-lead mt-8 max-w-xl"
+            >
+              A-STAR develops surgical AI systems for planning, intraoperative guidance, patient
+              education, and rigorous outcomes validation across the full surgical journey.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              {...fadeUp(0.56)}
+              className="mt-12 flex flex-wrap items-center gap-4"
+            >
+              <Magnetic>
+                <Link href="/research" className="btn-primary group animate-glow-pulse">
+                  Explore research
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link href="/team" className="btn-ghost">
+                  Meet the team
+                </Link>
+              </Magnetic>
+            </motion.div>
+          </div>
+
+          {/* RIGHT: large logo column ~42% */}
+          <motion.div
+            {...fadeIn(0.2)}
+            className="relative flex w-full items-center justify-center lg:w-[42%] lg:justify-end"
+            aria-hidden="true"
           >
-            Advancing the science.
-          </span>
-        </h1>
+            {/* Halo behind logo */}
+            <div
+              className="pointer-events-none absolute inset-0 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle at 55% 50%, rgba(30,136,229,0.18) 0%, rgba(30,136,229,0.05) 45%, transparent 70%)",
+                filter: "blur(32px)",
+              }}
+            />
+            <motion.div
+              initial={reduced ? {} : { opacity: 0, scale: 0.88, rotate: -4 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 1.1, ease: EASE_OUT, delay: 0.25 }}
+              className="relative"
+            >
+              <Image
+                src="/logos/astar/astar-mark-on-dark.png"
+                alt="A-STAR mark"
+                width={320}
+                height={320}
+                priority
+                className="h-48 w-48 object-contain sm:h-64 sm:w-64 lg:h-72 lg:w-72 xl:h-80 xl:w-80"
+                style={{ opacity: 0.88 }}
+              />
+            </motion.div>
+          </motion.div>
 
-        {/* Subheadline */}
-        <p className="text-lead animate-fade-up-2 mx-auto mt-8 max-w-2xl">
-          A-STAR develops surgical AI systems for planning, intraoperative guidance, patient
-          education, and rigorous outcomes validation across the full surgical journey.
-        </p>
-
-        {/* CTAs */}
-        <div className="animate-fade-up-3 mt-12 flex flex-wrap items-center justify-center gap-4">
-          <Magnetic>
-            <Link href="/research" className="btn-primary group animate-glow-pulse">
-              Explore research
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </Magnetic>
-          <Magnetic>
-            <Link href="/team" className="btn-ghost">
-              Meet the team
-            </Link>
-          </Magnetic>
         </div>
       </div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <div className="flex flex-col items-center gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/30">
+        <motion.div
+          {...fadeIn(1.0)}
+          className="flex flex-col items-center gap-2"
+        >
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/25">
             Scroll
           </span>
-          <div className="h-10 w-px bg-gradient-to-b from-white/30 to-transparent" />
-        </div>
+          <div className="h-10 w-px bg-gradient-to-b from-white/25 to-transparent" />
+        </motion.div>
       </div>
     </section>
   );

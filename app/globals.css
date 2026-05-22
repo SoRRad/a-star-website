@@ -450,7 +450,7 @@
   }
 
   .animate-ekg {
-    animation: ekg-pulse 1.8s var(--ease-in-out-soft) infinite;
+    animation: ekg-pulse 1.8s ease-in-out infinite;
   }
 
   @keyframes stroke-draw {
@@ -465,7 +465,7 @@
   .animate-stroke-draw {
     stroke-dasharray: var(--draw-length, 1000);
     stroke-dashoffset: var(--draw-length, 1000);
-    animation: stroke-draw 1.6s var(--ease-out-soft) forwards;
+    animation: stroke-draw 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   @keyframes logo-glow-pulse {
@@ -484,7 +484,7 @@
 
   .animate-logo-glow {
     background: radial-gradient(circle, rgb(30 136 229 / 0.15) 0%, transparent 70%);
-    animation: logo-glow-pulse 2.4s var(--ease-in-out-soft) infinite;
+    animation: logo-glow-pulse 2.4s ease-in-out infinite;
   }
 
   @keyframes logo-entrance {
@@ -499,7 +499,7 @@
   }
 
   .animate-logo-entrance {
-    animation: logo-entrance 600ms var(--ease-out-soft) both;
+    animation: logo-entrance 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   @keyframes twinkle {
@@ -590,7 +590,7 @@
   }
 
   .animate-glow-pulse {
-    animation: glow-pulse 3s var(--ease-in-out-soft) infinite;
+    animation: glow-pulse 3s ease-in-out infinite;
   }
 
   @keyframes fade-up {
@@ -599,14 +599,14 @@
   }
 
   .animate-fade-up {
-    animation: fade-up 0.7s var(--ease-out-soft) both;
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
     will-change: transform, opacity;
   }
 
-  .animate-fade-up-1 { animation: fade-up 0.7s var(--ease-out-soft) 0.1s both; will-change: transform, opacity; }
-  .animate-fade-up-2 { animation: fade-up 0.7s var(--ease-out-soft) 0.25s both; will-change: transform, opacity; }
-  .animate-fade-up-3 { animation: fade-up 0.7s var(--ease-out-soft) 0.4s both; will-change: transform, opacity; }
-  .animate-fade-up-4 { animation: fade-up 0.7s var(--ease-out-soft) 0.55s both; will-change: transform, opacity; }
+  .animate-fade-up-1 { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; will-change: transform, opacity; }
+  .animate-fade-up-2 { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both; will-change: transform, opacity; }
+  .animate-fade-up-3 { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both; will-change: transform, opacity; }
+  .animate-fade-up-4 { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both; will-change: transform, opacity; }
 
   @keyframes slide-in-from-left {
     from {
@@ -620,7 +620,7 @@
   }
 
   .animate-slide-in-from-left {
-    animation: slide-in-from-left 0.8s var(--ease-out-soft) 0.5s both;
+    animation: slide-in-from-left 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
     will-change: transform, opacity;
   }
 
@@ -631,7 +631,7 @@
   }
 
   .animate-ring {
-    animation: ring-expand 6s var(--ease-out-soft) infinite;
+    animation: ring-expand 6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
     will-change: transform, opacity;
   }
 
