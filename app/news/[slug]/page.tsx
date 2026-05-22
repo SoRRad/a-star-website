@@ -187,17 +187,23 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           <MetaBlock title="Publications">
             {mentionedPublications.length ? (
-              mentionedPublications.map((publication) => (
-                <Link
-                  key={publication.slug}
-                  href={publication.url ?? "/publications"}
-                  target={publication.url ? "_blank" : undefined}
-                  rel={publication.url ? "noopener noreferrer" : undefined}
-                  className="text-[var(--color-accent)] hover:underline"
-                >
-                  {publication.title}
-                </Link>
-              ))
+              mentionedPublications.map((publication) =>
+                publication.url ? (
+                  <Link
+                    key={publication.slug}
+                    href={publication.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--color-accent)] hover:underline"
+                  >
+                    {publication.title}
+                  </Link>
+                ) : (
+                  <span key={publication.slug} className="text-[var(--color-muted-foreground)]">
+                    {publication.title}
+                  </span>
+                ),
+              )
             ) : (
               <span className="text-[var(--color-muted-foreground)]">No publications tagged</span>
             )}

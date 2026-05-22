@@ -49,17 +49,23 @@ export function ModelCard({
         </p>
         {related.length > 0 ? (
           <div className="space-y-2">
-            {related.map((publication) => (
-              <Link
-                key={publication.slug}
-                href={publication.url ?? `/publications?query=${encodeURIComponent(publication.title)}`}
-                target={publication.url ? "_blank" : undefined}
-                rel={publication.url ? "noopener noreferrer" : undefined}
-                className="block text-sm leading-snug text-[var(--color-accent)] hover:underline"
-              >
-                {publication.title}
-              </Link>
-            ))}
+            {related.map((publication) =>
+              publication.url ? (
+                <Link
+                  key={publication.slug}
+                  href={publication.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm leading-snug text-[var(--color-accent)] hover:underline"
+                >
+                  {publication.title}
+                </Link>
+              ) : (
+                <p key={publication.slug} className="text-sm leading-snug text-[var(--color-muted-foreground)]">
+                  {publication.title}
+                </p>
+              ),
+            )}
           </div>
         ) : (
           <p className="text-sm text-[var(--color-muted-foreground)]">

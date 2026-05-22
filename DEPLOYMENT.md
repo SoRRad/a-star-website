@@ -19,7 +19,7 @@ CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
 CONTACT_FROM_EMAIL=
 ```
 
-`CONTACT_FROM_EMAIL` must be a verified Resend sender. If email is not configured, the contact API accepts the submission in development mode, logs it server-side, and the forms explain that email delivery is not configured.
+`CONTACT_FROM_EMAIL` must be a verified Resend sender. If email is not configured, the contact API returns `email_not_configured` and the forms explain that email delivery is not configured.
 
 ## Route Validation
 
@@ -50,6 +50,6 @@ These redirects are for old links only and should not appear as active navigatio
 - Confirm `/research` has no global publication dashboard.
 - Confirm individual project pages show project-linked publications/media.
 - Confirm Journal Club RSVP links open `/contact#journal-club`.
-- Confirm contact forms show the honest development-mode message when email is not configured.
+- Confirm contact forms show the honest email-not-configured message when email is not configured.
 - Confirm the dark-only cosmic theme is readable.
 - Confirm mobile has no horizontal overflow and the robotic scroll indicator is hidden.
