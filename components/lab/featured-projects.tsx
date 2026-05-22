@@ -11,9 +11,11 @@ import { ProjectMediaCard } from "@/components/lab/project-media";
 import { logos } from "@/lib/logos";
 
 export function FeaturedProjects() {
+  const homepageProjects = projects.filter((project) => project.slug === "gonogonet");
+
   return (
     <div className="flex flex-col gap-6">
-      {projects.map((project) => {
+      {homepageProjects.map((project) => {
         const projectPhases = phases.filter((p) =>
           project.phases.includes(p.id as (typeof project.phases)[number]),
         );

@@ -68,7 +68,6 @@ export const events: LabEvent[] = [
       "The first A-STAR Journal Club was held on May 20, 2026. Discussed topics included video-language models and synthetic data in surgery.",
     status: "past",
     rsvpRequired: true,
-    rsvpEmail: "alomar.abdulrahman@mayo.edu",
     recurring: true,
     recurrencePattern: "Recurring - Next session: TBD",
     people: ["abdulrahman-alomar", "reza-shahriarirad"],

@@ -27,15 +27,13 @@ const mono = Geist_Mono({
 const display = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
-  /* Variable font — axes enable optical size and width variation.
-   * Weight range is controlled by the axes; do not specify static weights. */
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.fullName}`,
+    default: `${siteConfig.name} - ${siteConfig.fullName}`,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -52,7 +50,7 @@ export const metadata: Metadata = {
     "surgical augmentation",
   ],
   openGraph: {
-    title: `${siteConfig.name} — ${siteConfig.fullName}`,
+    title: `${siteConfig.name} - ${siteConfig.fullName}`,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -85,7 +83,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable}`}>
-      {/* suppressHydrationWarning silences browser-extension attribute injections (e.g. Grammarly) */}
       <body
         suppressHydrationWarning
         className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased"

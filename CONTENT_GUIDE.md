@@ -80,7 +80,8 @@ The first A-STAR Journal Club image path is:
 public/events/journal-club-may20-2026.jpg
 ```
 
-If the image is missing, `/events` should render the polished placeholder.
+The compact `/events` page does not display Journal Club photos. Keep the path documented for a
+future detail page or media archive, but do not add it back to the visible event list.
 
 SAGES Nashville and ASMBS Bariatric Happy Hour are separate records. Oxford September 2025 items should display month/year only when exact days are not confirmed.
 
@@ -97,7 +98,8 @@ Journal Club intake fields are limited to:
 - Session interest
 - Message
 
-When Resend is not configured, the contact API returns a development-mode success response, logs the submission server-side, and the UI states that email was not delivered. Production deployments should configure Resend before launch.
+When Resend is not configured, the contact API returns `email_not_configured` and the UI states
+that email delivery is not configured. Production deployments should configure Resend before launch.
 
 Required environment variables:
 
@@ -118,4 +120,6 @@ Team social/profile links are optional and render only when present. Supported k
 
 ## Visible UI
 
-Resources, Join, Publications, and Project Index should not appear in visible navigation or footer sections. Resources and Join remain redirect-only compatibility paths, and the shared archive remains linked from `/events` and the footer.
+Resources, Join, Publications, Project Index, and Shared archive should not appear in visible
+navigation, footer, contact sections, or command/menu UI. Resources and Join remain redirect-only
+compatibility paths.

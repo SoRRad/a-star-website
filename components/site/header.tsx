@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 import { primaryNav } from "@/lib/navigation";
 import { Logo } from "@/components/site/logo";
 import { CommandPalette } from "@/components/site/command-palette";
-import { PrimaryNavItem } from "@/components/site/primary-nav-item";
-import { NavigationMenu, NavigationMenuList } from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -32,13 +31,22 @@ export function SiteHeader() {
           />
         </Link>
 
-        <NavigationMenu className="hidden md:flex">
-          <NavigationMenuList>
-            {primaryNav.map((item) => (
-              <PrimaryNavItem key={item.href} item={item} active={isActive(item.href)} />
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+          {primaryNav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                isActive(item.href)
+                  ? "bg-white/[0.07] text-white"
+                  : "text-white/68 hover:bg-white/[0.05] hover:text-white",
+              )}
+            >
+              {item.title}
+            </Link>
+          ))}
+        </nav>
 
         <div className="flex items-center gap-2">
           <CommandPalette />

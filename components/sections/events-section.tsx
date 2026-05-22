@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, MapPin, Video, Users, ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Users, Video } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ExploreMore } from "@/components/site/explore-more";
 import type { LabEvent } from "@/lib/events";
@@ -20,105 +20,73 @@ const FORMAT_ICONS = {
 } as const;
 
 function formatEventDate(date: string, endDate?: string) {
-  const d = new Date(date + "T00:00:00");
-  const opts: Intl.DateTimeFormatOptions = { month: "short", day: "numeric", year: "numeric" };
-  if (!endDate) return d.toLocaleDateString("en-US", opts);
-  const e = new Date(endDate + "T00:00:00");
-  if (d.getMonth() === e.getMonth() && d.getFullYear() === e.getFullYear()) {
-    return `${d.toLocaleDateString("en-US", { month: "short", day: "numeric" })}–${e.toLocaleDateString("en-US", { day: "numeric", year: "numeric" })}`;
+  const start = new Date(`${date}T00:00:00`);
+  const full: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
+
+  if (!endDate) return start.toLocaleDateString("en-US", full);
+
+  const end = new Date(`${endDate}T00:00:00`);
+  if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+    return `${start.toLocaleDateString("en-US", { month: "long" })} ${start.getDate()}-${end.getDate()}, ${start.getFullYear()}`;
   }
-  return `${d.toLocaleDateString("en-US", opts)} – ${e.toLocaleDateString("en-US", opts)}`;
+
+  return `${start.toLocaleDateString("en-US", full)} - ${end.toLocaleDateString("en-US", full)}`;
 }
 
-interface EventCardProps {
-  event: LabEvent;
-}
-
-function EventCard({ event }: EventCardProps) {
+function EventCard({ event }: { event: LabEvent }) {
   const FormatIcon = FORMAT_ICONS[event.format];
-  const d = new Date(event.date + "T00:00:00");
-  const month = d.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
-  const day = d.getDate();
 
   return (
-    <div className="card-glass group flex gap-4 rounded-xl p-5 transition-all hover:-translate-y-0.5">
-      {/* Date callout */}
-      <div className="flex w-14 shrink-0 flex-col items-center justify-start rounded-lg bg-[var(--color-accent)]/10 py-3 text-center">
-        <span className="font-mono text-[10px] font-semibold tracking-widest text-[var(--color-accent)]">
-          {month}
+    <div className="card-glass group rounded-xl p-5 transition-all hover:-translate-y-0.5">
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.05] px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wide text-white/50 uppercase">
+          {EVENT_TYPE_LABELS[event.type] ?? event.type}
         </span>
-        <span className="font-display text-2xl leading-none font-bold text-[var(--color-foreground)]">
-          {day}
+        <span className="inline-flex items-center gap-1 text-xs text-white/60">
+          <FormatIcon className="h-3 w-3" />
+          {event.format}
         </span>
       </div>
 
-      {/* Content */}
-      <div className="min-w-0 flex-1">
-        {/* Badges */}
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.05] px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wide text-white/50 uppercase">
-            {EVENT_TYPE_LABELS[event.type] ?? event.type}
-          </span>
-          <span className="inline-flex items-center gap-1 text-xs text-white/60">
-            <FormatIcon className="h-3 w-3" />
-            {event.format}
-          </span>
-        </div>
+      <h3 className="font-display mb-1.5 line-clamp-2 text-sm leading-snug font-semibold tracking-normal text-white transition-colors group-hover:text-[#64B5F6]">
+        {event.title}
+      </h3>
 
-        <h3 className="font-display mb-1.5 line-clamp-2 text-sm leading-snug font-semibold tracking-normal text-white transition-colors group-hover:text-[#64B5F6]">
-          {event.title}
-        </h3>
+      <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-white/70">
+        {event.description}
+      </p>
 
-        <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-white/70">
-          {event.description}
-        </p>
-
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/60">
-          {event.location && (
-            <span className="flex items-center gap-1">
-              <MapPin className="h-3 w-3 shrink-0" />
-              {event.location}
-            </span>
-          )}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/60">
+        {event.location && (
           <span className="flex items-center gap-1">
-            <Calendar className="h-3 w-3 shrink-0" />
-            {formatEventDate(event.date, event.endDate)}
-            {event.time && event.time !== "TBD" ? ` · ${event.time}` : ""}
+            <MapPin className="h-3 w-3 shrink-0" />
+            {event.location}
           </span>
-        </div>
-
-        {event.rsvpRequired && event.rsvpEmail && (
-          <a
-            href={`mailto:${event.rsvpEmail}?subject=RSVP: ${encodeURIComponent(event.title)}`}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-xs font-medium text-white transition-opacity hover:opacity-90"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Mail className="h-3 w-3" />
-            RSVP
-          </a>
         )}
-        {!event.rsvpRequired && event.externalUrl && (
-          <a
-            href={event.externalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:border-[#64B5F6] hover:text-[#64B5F6]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Learn more
-            <ArrowRight className="h-3 w-3" />
-          </a>
-        )}
+        <span className="flex items-center gap-1">
+          <Calendar className="h-3 w-3 shrink-0" />
+          {formatEventDate(event.date, event.endDate)}
+          {event.time && event.time !== "TBD" ? ` · ${event.time}` : ""}
+        </span>
       </div>
+
+      {event.externalUrl && (
+        <a
+          href={event.externalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:border-[#64B5F6] hover:text-[#64B5F6]"
+          onClick={(e) => e.stopPropagation()}
+        >
+          Learn more
+          <ArrowRight className="h-3 w-3" />
+        </a>
+      )}
     </div>
   );
 }
 
-interface EventsSectionProps {
-  events: LabEvent[];
-}
-
-export function EventsSection({ events }: EventsSectionProps) {
+export function EventsSection({ events }: { events: LabEvent[] }) {
   if (events.length === 0) return null;
 
   return (

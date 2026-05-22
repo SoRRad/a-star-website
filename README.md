@@ -42,7 +42,7 @@ The global background is mounted once in `app/layout.tsx` via `components/cosmic
 - Individual project pages: `/projects/[slug]`
 - Team: `/team`
 - News & Events: `/events`
-- Contact and Join: `/contact`
+- Contact and collaboration intake: `/contact`
 
 Compatibility redirects:
 
@@ -61,7 +61,6 @@ Compatibility redirects:
 - News: `lib/news.ts` and `public/news/`
 - Events: `lib/events.ts`
 - Talks and education records: `lib/talks.ts`
-- Shared archive metadata: `lib/archive.ts`
 - Navigation: `lib/navigation.ts`
 
 ## Project Media
@@ -83,25 +82,9 @@ Suggested names:
 
 Use optimized GIFs or MP4/WebM when possible, and add thumbnails/posters for performance.
 
-## Events Media
-
-Event images live in:
-
-```text
-public/events/
-```
-
-The first Journal Club image should be placed at:
-
-```text
-public/events/journal-club-may20-2026.jpg
-```
-
-If that file is missing, `/events` renders a styled placeholder instead of a broken image.
-
 ## Visible Navigation
 
-The visible site navigation is intentionally focused on Projects, Team, News & Events, and Contact. Resources and Join are redirect-only compatibility routes. The shared archive remains linked from `/events` and the footer. The publication index remains available for project/news context and direct URLs, but it is not part of visible navigation.
+The visible site navigation is intentionally focused on Projects, Team, News & Events, and Contact. Resources and Join are redirect-only compatibility routes. Shared archive links and the publication index are not part of the visible site navigation, footer, contact page, or command/menu UI.
 
 Team social links render only when a confirmed link is present in `lib/team.ts`.
 
@@ -114,11 +97,11 @@ CONTACT_TO_EMAIL=shahriarirad.reza@mayo.edu
 CONTACT_FROM_EMAIL=
 ```
 
-If `RESEND_API_KEY` or `CONTACT_FROM_EMAIL` is missing, the API accepts the submission in development mode, logs it server-side, and the UI honestly tells the user that email delivery is not configured.
+If `RESEND_API_KEY` or `CONTACT_FROM_EMAIL` is missing, the API returns `email_not_configured` and the UI tells the user that email delivery is not configured. The site does not pretend a message was sent.
 
 ## Logo Notes
 
-Active production logo assets are root-level PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. The site renders one logo per location; no runtime theme switching or dual-logo DOM pattern is used.
+Active production logo assets are root-level PNG files in `public/logos/astar/`, exported through `lib/logos.ts`. The site renders one dark-first logo asset per location.
 
 ## Validation
 

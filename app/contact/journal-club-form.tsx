@@ -5,8 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const JOURNAL_CLUB_EMAIL = "alomar.abdulrahman@mayo.edu";
-
 type JournalClubFormState = {
   name: string;
   email: string;
@@ -29,7 +27,7 @@ export function JournalClubForm() {
   const [values, setValues] = React.useState<JournalClubFormState>(initialState);
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState("");
-  const [sent, setSent] = React.useState<"sent" | "development" | null>(null);
+  const [sent, setSent] = React.useState(false);
 
   const update = (field: keyof JournalClubFormState) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -73,26 +71,25 @@ export function JournalClubForm() {
       const json = (await response.json().catch(() => ({}))) as {
         success?: boolean;
         error?: string;
-        mode?: "development";
       };
 
       if (!response.ok) {
         setError(
           json.error ??
-            "Journal Club attendance could not be submitted. Please email alomar.abdulrahman@mayo.edu directly.",
+            "Journal Club attendance could not be submitted. Please try again later.",
         );
         return;
       }
 
       if (json.success) {
         setValues(initialState);
-        setSent(json.mode === "development" ? "development" : "sent");
+        setSent(true);
         return;
       }
 
-      setError(`Submission failed. Please email ${JOURNAL_CLUB_EMAIL} directly for Journal Club attendance.`);
+      setError("Submission failed. Please try again later.");
     } catch {
-      setError(`Network error. Please email ${JOURNAL_CLUB_EMAIL} directly for Journal Club attendance.`);
+      setError("Network error. Please check your connection and try again.");
     } finally {
       setSubmitting(false);
     }
@@ -101,15 +98,9 @@ export function JournalClubForm() {
   if (sent) {
     return (
       <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
-        <h3 className="font-display text-xl font-semibold tracking-normal">Journal Club request sent.</h3>
+        <h3 className="font-display text-xl font-semibold tracking-normal">Message sent.</h3>
         <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-          {sent === "development"
-            ? "Your request was logged in development mode, but email delivery is not configured. For a guaranteed follow-up, email "
-            : "For urgent updates, email "}
-          <a href={`mailto:${JOURNAL_CLUB_EMAIL}`} className="text-[var(--color-accent)] hover:underline">
-            {JOURNAL_CLUB_EMAIL}
-          </a>
-          .
+          Thank you. The A-STAR team will review your Journal Club request.
         </p>
       </div>
     );
@@ -153,10 +144,7 @@ export function JournalClubForm() {
       </Field>
       {error && (
         <p className="rounded-md border border-red-500/30 bg-red-500/10 px-4 py-2.5 text-sm text-red-500">
-          {error}{" "}
-          <a href={`mailto:${JOURNAL_CLUB_EMAIL}`} className="font-medium underline">
-            {JOURNAL_CLUB_EMAIL}
-          </a>
+          {error}
         </p>
       )}
       <Button type="submit" variant="accent" size="lg" disabled={submitting}>
