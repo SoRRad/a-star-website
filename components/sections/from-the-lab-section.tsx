@@ -50,7 +50,7 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
               <div className="flex flex-1 flex-col p-5">
                 <div className="mb-3 flex items-center gap-2">
                   <CategoryPill category={item.category} />
-                  <time className="font-mono text-[10px] text-white/40">{formatted}</time>
+                  <time className="font-mono text-[10px] tabular-nums text-white/40">{formatted}</time>
                 </div>
                 <h3 className="heading-lg mb-2 line-clamp-2 text-sm leading-snug text-white transition-colors group-hover:text-[#64B5F6]">
                   {item.title}

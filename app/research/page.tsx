@@ -59,7 +59,7 @@ export default function ResearchPage() {
           >
             Surgical AI systems across the full surgical journey.
           </h1>
-          <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/60">
+          <p className="text-lead mt-6 max-w-2xl">
             A-STAR organizes active systems around practical clinical questions, model-card
             discipline, and staged validation across planning, guidance, education, and outcomes.
           </p>

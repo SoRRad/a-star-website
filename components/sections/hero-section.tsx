@@ -67,7 +67,7 @@ export function HeroSection() {
         </h1>
 
         {/* Subheadline */}
-        <p className="animate-fade-up-3 mx-auto mt-8 max-w-2xl text-pretty text-lg leading-relaxed text-white/60">
+        <p className="text-lead animate-fade-up-3 mx-auto mt-8 max-w-2xl">
           A-STAR develops surgical AI systems for planning, intraoperative guidance, patient
           education, and rigorous outcomes validation — across the full surgical journey.
         </p>
