@@ -21,10 +21,13 @@ export default function TeamPage() {
   return (
     <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Cosmic nebula shader behind the page header */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[520px] overflow-hidden">
+      <div className="pointer-events-none absolute inset-x-[-4rem] top-0 z-0 h-[560px] overflow-hidden">
         <TeamShaderBg />
-        {/* Gradient fade — ensures content below header remains readable */}
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-[var(--color-background)]" />
+        {/* Fade all four edges so the shader dissolves into the page background */}
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-[#000814]" />
+        <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#000814] to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-[#000814] to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#000814] to-transparent" />
       </div>
 
       {/* Page header */}

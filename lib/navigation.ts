@@ -51,7 +51,6 @@ export const footerNav = {
     { title: "Home", href: "/" },
     { title: "Team", href: "/team" },
     { title: "News & Events", href: "/events" },
-    { title: "Publications", href: "/publications" },
     { title: "Contact", href: "/contact" },
   ],
   research: [
