@@ -6,6 +6,7 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
+// Neural dot field — 48×48 grid, throttled to 30fps, paused off-screen.
 export function AiHeroBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -45,7 +46,6 @@ export function AiHeroBackground() {
       composer.addPass(new RenderPass(scene, camera));
       composer.addPass(bloom);
 
-      // Reduced grid: 48×48 = 2304 particles (was 72×72 = 5184)
       const COLS = 48;
       const ROWS = 48;
       const SPACING = 0.65;
@@ -79,16 +79,20 @@ export function AiHeroBackground() {
       dots.instanceMatrix.needsUpdate = true;
 
       const mat4 = new THREE.Matrix4();
-      const clock = new THREE.Clock();
-      let animId: number;
+      let animId = 0;
+      let lastT = 0;
+      let elapsed = 0;
 
-      function animate() {
+      function animate(now: number) {
         animId = requestAnimationFrame(animate);
-        const t = clock.getElapsedTime() * 0.4;
+        // Throttle to ~30fps
+        if (now - lastT < 33) return;
+        elapsed += (now - lastT) * 0.001 * 0.4;
+        lastT = now;
         for (let i = 0; i < total; i++) {
           const x0 = basePos[i * 2];
           const y0 = basePos[i * 2 + 1];
-          const wave = 1 + 0.6 * Math.sin(t - distArr[i] * 0.1);
+          const wave = 1 + 0.6 * Math.sin(elapsed - distArr[i] * 0.1);
           mat4.set(wave, 0, 0, x0, 0, wave, 0, y0, 0, 0, 1, 0, 0, 0, 0, 1);
           dots.setMatrixAt(i, mat4);
         }
@@ -115,13 +119,27 @@ export function AiHeroBackground() {
         bloom.setSize(w, h);
       };
 
-      const observer = new ResizeObserver(resizeCamera);
-      observer.observe(container);
+      const resizeObs = new ResizeObserver(resizeCamera);
+      resizeObs.observe(container);
       resizeCamera();
-      animate();
+
+      // Pause rAF when the section is off-screen
+      const io = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          if (!animId) {
+            lastT = performance.now();
+            animId = requestAnimationFrame(animate);
+          }
+        } else {
+          cancelAnimationFrame(animId);
+          animId = 0;
+        }
+      }, { threshold: 0 });
+      io.observe(container);
 
       cleanup = () => {
-        observer.disconnect();
+        io.disconnect();
+        resizeObs.disconnect();
         cancelAnimationFrame(animId);
         while (container.firstChild) container.removeChild(container.firstChild);
         geometry.dispose();
