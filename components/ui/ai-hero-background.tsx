@@ -5,8 +5,11 @@ import * as THREE from "three";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
+import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader.js";
 
-// Neural dot field — 48×48 grid, throttled to 30fps, paused off-screen.
+// Neural dot field — 56×56 hexagonal grid, radial position wave, UnrealBloom + subtle RGB shift.
+// Starts immediately; IntersectionObserver toggles a `paused` flag to skip renders off-screen.
 export function AiHeroBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -41,24 +44,32 @@ export function AiHeroBackground() {
       const scene = new THREE.Scene();
       const camera = new THREE.OrthographicCamera();
 
-      const bloom = new UnrealBloomPass(new THREE.Vector2(w0, h0), 0.4, 0.7, 0.2);
+      const bloom = new UnrealBloomPass(new THREE.Vector2(w0, h0), 0.45, 0.7, 0.18);
+      const rgbShift = new ShaderPass(RGBShiftShader);
+      rgbShift.uniforms["amount"].value = 0.0008;
+      rgbShift.uniforms["angle"].value = Math.PI / 3;
       const composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
       composer.addPass(bloom);
+      composer.addPass(rgbShift);
 
-      const COLS = 48;
-      const ROWS = 48;
+      // 56×56 = 3136 dots — visible density without overloading the GPU
+      const COLS = 56;
+      const ROWS = 56;
       const SPACING = 0.65;
       const JITTER = 0.28;
+      const HEX_OFFSET = 0.5;
       const total = COLS * ROWS;
 
-      const geometry = new THREE.CircleGeometry(0.025, 6);
+      const geometry = new THREE.CircleGeometry(0.025, 7);
       const material = new THREE.MeshBasicMaterial({ color: 0x64b5f6 });
       const dots = new THREE.InstancedMesh(geometry, material, total);
+      dots.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
       scene.add(dots);
 
       const basePos = new Float32Array(total * 2);
       const distArr = new Float32Array(total);
+      const angArr  = new Float32Array(total);
       const dummy = new THREE.Object3D();
       const xOff = (COLS - 1) * SPACING * 0.5;
       const yOff = (ROWS - 1) * SPACING * 0.5;
@@ -66,11 +77,14 @@ export function AiHeroBackground() {
       let idx = 0;
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++, idx++) {
-          const x = c * SPACING - xOff + (Math.random() - 0.5) * JITTER;
-          const y = r * SPACING - yOff + (c % 2) * 0.5 * SPACING + (Math.random() - 0.5) * JITTER;
-          basePos[idx * 2] = x;
+          const x = c * SPACING - xOff + (c % 2) * HEX_OFFSET * SPACING + (Math.random() - 0.5) * JITTER;
+          const y = r * SPACING - yOff + (Math.random() - 0.5) * JITTER;
+          basePos[idx * 2]     = x;
           basePos[idx * 2 + 1] = y;
-          distArr[idx] = Math.hypot(x, y);
+          const len = Math.hypot(x, y);
+          const ang = Math.atan2(y, x);
+          distArr[idx] = len + 0.75 * Math.cos(ang * 8.0);
+          angArr[idx]  = ang;
           dummy.position.set(x, y, 0);
           dummy.updateMatrix();
           dots.setMatrixAt(idx, dummy.matrix);
@@ -78,22 +92,39 @@ export function AiHeroBackground() {
       }
       dots.instanceMatrix.needsUpdate = true;
 
+      // Rounded square wave: softer than sine, gives that neural-pulse stepped feel
+      function rsw(t: number, delta: number, a: number, f: number) {
+        return ((2 * a) / Math.PI) * Math.atan(Math.sin(2 * Math.PI * t * f) / delta);
+      }
+
       const mat4 = new THREE.Matrix4();
       let animId = 0;
-      let lastT = 0;
+      let paused = false;
+      let lastT  = performance.now();
       let elapsed = 0;
 
       function animate(now: number) {
         animId = requestAnimationFrame(animate);
-        // Throttle to ~30fps
+        if (paused) return;
+
+        // Throttle to ~30fps to keep the main thread free for scrolling
         if (now - lastT < 33) return;
-        elapsed += (now - lastT) * 0.001 * 0.4;
+        const dt = Math.min(now - lastT, 100); // clamp so big gaps don't jump
+        elapsed += dt * 0.001;
         lastT = now;
+
+        rgbShift.uniforms["amount"].value = 0.0005 + 0.0010 * (Math.sin(elapsed * 0.6) * 0.5 + 0.5);
+
         for (let i = 0; i < total; i++) {
-          const x0 = basePos[i * 2];
-          const y0 = basePos[i * 2 + 1];
-          const wave = 1 + 0.6 * Math.sin(elapsed - distArr[i] * 0.1);
-          mat4.set(wave, 0, 0, x0, 0, wave, 0, y0, 0, 0, 1, 0, 0, 0, 0, 1);
+          const x0   = basePos[i * 2];
+          const y0   = basePos[i * 2 + 1];
+          const dist = distArr[i];
+          // localDelta: tighter wave near center, looser at edges
+          const localDelta = THREE.MathUtils.lerp(0.05, 0.2, Math.min(1, dist / 70));
+          const tt = elapsed * 0.5 - dist * 0.035;
+          const k  = 1 + rsw(tt, localDelta, 0.75, 0.3);
+          // Radial position wave: dots expand outward from origin
+          mat4.set(1, 0, 0, x0 * k, 0, 1, 0, y0 * k, 0, 0, 1, 0, 0, 0, 0, 1);
           dots.setMatrixAt(i, mat4);
         }
         dots.instanceMatrix.needsUpdate = true;
@@ -106,12 +137,12 @@ export function AiHeroBackground() {
         const h = Math.max(1, container.clientHeight);
         const aspect = w / h;
         const wh = 10;
-        camera.left = -(wh * aspect) / 2;
-        camera.right = (wh * aspect) / 2;
-        camera.top = wh / 2;
-        camera.bottom = -wh / 2;
-        camera.near = -100;
-        camera.far = 100;
+        camera.left   = -(wh * aspect) / 2;
+        camera.right  =  (wh * aspect) / 2;
+        camera.top    =   wh / 2;
+        camera.bottom =  -wh / 2;
+        camera.near   = -100;
+        camera.far    =  100;
         camera.position.set(0, 0, 10);
         camera.updateProjectionMatrix();
         renderer.setSize(w, h);
@@ -123,18 +154,14 @@ export function AiHeroBackground() {
       resizeObs.observe(container);
       resizeCamera();
 
-      // Pause rAF when the section is off-screen
-      const io = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          if (!animId) {
-            lastT = performance.now();
-            animId = requestAnimationFrame(animate);
-          }
-        } else {
-          cancelAnimationFrame(animId);
-          animId = 0;
-        }
-      }, { threshold: 0 });
+      // Start immediately — don't defer to IO (IO fires async and can miss initial state)
+      animId = requestAnimationFrame(animate);
+
+      // IO only toggles the paused flag — loop keeps running, renders are skipped
+      const io = new IntersectionObserver(
+        (entries) => { paused = !entries[0].isIntersecting; },
+        { threshold: 0 },
+      );
       io.observe(container);
 
       cleanup = () => {
