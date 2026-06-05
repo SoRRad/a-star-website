@@ -72,8 +72,8 @@ export function NewsCard({ item, size = "small" }: NewsCardProps) {
         </h3>
 
         {/* Excerpt */}
-        <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-white/70">
-          {item.excerpt}
+        <p className="mb-4 flex-1 text-sm leading-relaxed text-white/70">
+          {item.summary}
         </p>
 
         <Link

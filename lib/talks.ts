@@ -21,6 +21,8 @@ export type Talk = {
   location?: string;
   type: TalkType;
   status: TalkStatus;
+  summary?: string;
+  details?: string;
   description: string;
   url?: string;
   videoUrl?: string;
@@ -273,11 +275,15 @@ export const talks: Talk[] = [
     venue: "George Washington University",
     location: "Washington, DC",
     type: "invited-lecture",
-    status: "upcoming",
+    status: "completed",
+    summary:
+      "Dr. Simon J. Laplante delivered an invited lecture on AI in medicine and surgery at George Washington University.",
+    details:
+      "The lecture covered basic AI concepts and their impact on clinical care, keeping this record categorized as a talk rather than a conference attendance item.",
     description:
-      "Dr. Laplante is scheduled to deliver an invited lecture on AI in medicine and surgery, from basic concepts to impact on clinical care.",
+      "Dr. Laplante delivered an invited lecture on AI in medicine and surgery, from basic concepts to impact on clinical care.",
     projects: [],
-    tags: ["Invited Lecture", "AI Fundamentals", "Medicine", "Surgery", "Clinical Care"],
+    tags: ["Invited Lecture", "Lecture", "Talk", "AI Fundamentals", "Surgical AI"],
   },
 ];
 

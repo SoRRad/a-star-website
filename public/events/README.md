@@ -1,8 +1,8 @@
 Event images live here.
 
-Expected Journal Club image:
+Archived Journal Club source image:
 
 - journal-club-may20-2026.jpg
 
-If the image is missing, the Events page renders a styled placeholder instead
-of requesting a broken image.
+The compact News & Events page does not display Journal Club photos. Keep
+Journal Club artwork here only for future detail pages or internal archives.

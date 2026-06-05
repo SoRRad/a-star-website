@@ -1,13 +1,23 @@
 import type { LabEvent } from "./events";
 
+const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
 function formatIcsDate(iso: string): string {
   const d = new Date(iso + "T18:00:00Z");
   return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 }
 
+export function canGenerateIcs(event: LabEvent): boolean {
+  return event.status !== "tbd" && ISO_DATE_PATTERN.test(event.date);
+}
+
 export function generateIcsContent(event: LabEvent): string {
+  if (!canGenerateIcs(event)) {
+    throw new Error(`Cannot generate calendar content for undated event: ${event.slug}`);
+  }
+
   const dtstart = formatIcsDate(event.date);
-  const dtend = formatIcsDate(event.date);
+  const dtend = formatIcsDate(event.endDate ?? event.date);
   const uid = `${event.slug}@astar-lab`;
   const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 

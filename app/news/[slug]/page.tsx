@@ -82,6 +82,9 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   });
   const primaryImage = getNewsPrimaryImage(item);
   const galleryImages = getNewsImages(item);
+  const secondaryGalleryImages = primaryImage
+    ? galleryImages.filter((image) => image.src !== primaryImage.src)
+    : galleryImages;
   const related = getRelatedNews(item, 3);
   const mentionedPeople = team.filter((member) => item.people.includes(member.slug));
   const mentionedProjects = projects.filter((project) => item.projects.includes(project.slug));
@@ -143,7 +146,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             {renderBody(item.body)}
           </div>
 
-          {galleryImages.length > 1 && <NewsGallery images={galleryImages} />}
+          {secondaryGalleryImages.length > 0 && <NewsGallery images={secondaryGalleryImages} />}
 
           {(item.externalLink || item.relatedLinks?.length) && (
             <section className="mt-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">

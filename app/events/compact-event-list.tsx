@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, ExternalLink, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,8 @@ export type CompactEventItem = {
   description: string;
   topics?: string[];
   projects?: string[];
+  tags?: string[];
+  images?: { src: string; alt: string; caption?: string }[];
   links?: { label: string; href: string }[];
   cta?: { label: string; href: string };
 };
@@ -36,12 +39,12 @@ const CARD_GLOW: Record<CompactEventItem["accent"], string> = {
   news: "hover:border-violet-300/25",
 };
 
-const LEFT_BAR: Record<CompactEventItem["accent"], string> = {
-  default: "bg-white/20",
-  journal: "bg-cyan-300/60",
-  conference: "bg-[#64B5F6]/70",
-  talk: "bg-emerald-300/60",
-  news: "bg-violet-300/60",
+const DETAIL_TINT: Record<CompactEventItem["accent"], string> = {
+  default: "bg-white/[0.025]",
+  journal: "bg-cyan-300/[0.035]",
+  conference: "bg-[#64B5F6]/[0.035]",
+  talk: "bg-emerald-300/[0.035]",
+  news: "bg-violet-300/[0.035]",
 };
 
 const NODE_GLOW: Record<CompactEventItem["accent"], string> = {
@@ -57,7 +60,7 @@ type FilterKey = "all" | CompactEventItem["accent"];
 const FILTER_OPTIONS: { key: FilterKey; label: string }[] = [
   { key: "all", label: "All" },
   { key: "journal", label: "Journal Club" },
-  { key: "conference", label: "Conference" },
+  { key: "conference", label: "Conferences" },
   { key: "talk", label: "Talks" },
   { key: "news", label: "News" },
 ];
@@ -207,6 +210,7 @@ function TimelineGroup({
 
 function TimelineRow({ item }: { item: CompactEventItem }) {
   const [open, setOpen] = React.useState(false);
+  const contentId = React.useId();
 
   return (
     <article className="relative grid gap-3 sm:grid-cols-[6.5rem_1fr] sm:gap-6">
@@ -235,7 +239,8 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="grid w-full gap-3 px-4 py-4 text-left sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
+          aria-controls={contentId}
+          className="grid w-full gap-3 px-4 py-4 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#64B5F6]/70 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start"
         >
           <div className="min-w-0">
             <div className="mb-2.5 flex flex-wrap items-center gap-2">
@@ -252,11 +257,12 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
               </span>
             </div>
             <h3 className="heading-md text-base text-white">{item.title}</h3>
-            <p className="mt-1.5 line-clamp-1 text-sm leading-relaxed text-white/50">
+            <p className="mt-1.5 max-w-4xl text-sm leading-relaxed text-white/55">
               {item.shortDescription}
             </p>
+            <TagList tags={item.tags} />
           </div>
-          <span className="inline-flex shrink-0 items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35 transition-colors hover:text-white/60">
+          <span className="inline-flex shrink-0 items-center gap-1.5 pt-0.5 font-mono text-[10px] uppercase tracking-widest text-white/35 transition-colors hover:text-white/60">
             {open ? "Collapse" : "Expand"}
             <ChevronDown
               className={cn("h-3.5 w-3.5 transition-transform duration-200", open && "rotate-180")}
@@ -273,15 +279,19 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
         >
           <div className="overflow-hidden">
             <div
+              id={contentId}
+              role="region"
+              aria-label={`Details for ${item.title}`}
               className={cn(
                 "border-t border-white/[0.06] px-4 py-5",
-                "border-l-2",
-                LEFT_BAR[item.accent],
+                DETAIL_TINT[item.accent],
               )}
             >
               <p className="max-w-3xl text-sm leading-relaxed text-white/65">
                 {item.description}
               </p>
+
+              {item.images?.length ? <ExpandedImageGrid images={item.images} /> : null}
 
               {item.topics?.length ? (
                 <ul className="mt-4 space-y-2 text-sm">
@@ -344,5 +354,54 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
         </div>
       </div>
     </article>
+  );
+}
+
+function TagList({ tags }: { tags?: string[] }) {
+  if (!tags?.length) return null;
+
+  return (
+    <div className="mt-3 flex flex-wrap gap-1.5">
+      {tags.slice(0, 6).map((tag) => (
+        <span
+          key={tag}
+          className="rounded-full border border-white/[0.08] bg-white/[0.025] px-2 py-0.5 text-[11px] leading-5 text-white/42"
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function ExpandedImageGrid({
+  images,
+}: {
+  images: NonNullable<CompactEventItem["images"]>;
+}) {
+  return (
+    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+      {images.map((image) => (
+        <figure
+          key={image.src}
+          className="overflow-hidden rounded-lg border border-white/[0.08] bg-[#000814]/70"
+        >
+          <div className="relative aspect-[4/3] w-full">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              className="object-cover"
+            />
+          </div>
+          {image.caption ? (
+            <figcaption className="border-t border-white/[0.08] px-3 py-2 text-xs leading-relaxed text-white/55">
+              {image.caption}
+            </figcaption>
+          ) : null}
+        </figure>
+      ))}
+    </div>
   );
 }

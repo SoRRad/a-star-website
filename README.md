@@ -4,6 +4,9 @@
 
 The website for **A-STAR**, a Mayo Clinic research group advancing surgical AI across planning, intraoperative guidance, education, outcomes, and validation.
 
+Official Mayo Clinic research page:
+<https://www.mayo.edu/research/labs/artificial-intelligence-surgical-technologies/overview>
+
 ## Stack
 
 | Concern | Choice |
@@ -61,6 +64,65 @@ Compatibility redirects:
 - Events: `lib/events.ts`
 - Talks and education records: `lib/talks.ts`
 - Navigation: `lib/navigation.ts`
+
+## Updating Site Content
+
+Most public copy and structured content is data-driven. Keep updates focused to the files below so
+the site stays easy to review and deploy.
+
+### Site-wide information
+
+- Edit `lib/site-config.ts` for the lab name, tagline, canonical site URL, official Mayo Clinic
+  lab URL, institution name, and institution address.
+- Edit `lib/navigation.ts` for visible navigation and footer links. Do not add visible
+  `/publications`, shared archive, or redirect-only route links.
+- Edit `app/contact/page.tsx` for contact recipients, mailto subjects, location text, and contact
+  card copy.
+- Keep the site dark-only. Do not add light-mode language, theme toggles, or light-mode assets.
+
+### Adding pictures and media
+
+- News images live in `public/news/` and are referenced from `lib/news.ts` with paths such as
+  `/news/example.jpg`.
+- Journal Club or event source images live in `public/events/`, but the compact `/events` page does
+  not display Journal Club photos.
+- Project media lives in `public/projects/media/` and is referenced from each project's optional
+  `media` field in `lib/projects.ts`.
+- Team photos live in `public/team/` and are referenced from `lib/team.ts`.
+- Use browser-friendly formats: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.mp4`, or `.webm`.
+  Do not reference HEIC uploads directly from the website.
+- Keep images optimized. Large news/gallery images should usually stay below 500KB unless detail
+  review is the reason for the image.
+
+### Updating news and events
+
+- Add news stories in `lib/news.ts`. Use complete `summary` and `details` fields so the `/events`
+  expandable rows do not repeat an incomplete teaser.
+- Put conference attendance, summits, research meetings, abstracts, and poster presentations in the
+  `conference` news category.
+- Put invited lectures, webinars, courses, panels, moderation, and educational presentations in
+  `lib/talks.ts`.
+- Put Journal Club sessions and calendar-style lab events in `lib/events.ts`.
+- Keep Journal Club CTAs pointed at `/contact#journal-club`.
+- Add meaningful `tags`, `people`, `projects`, and `publications` only when those relationships are
+  accurate.
+
+### Updating projects
+
+- Edit project metadata in `lib/projects.ts`.
+- Edit long-form project detail copy in `content/projects/{slug}.ts`.
+- Project detail pages are served from `/projects/[slug]`, while the main public project index is
+  `/research`.
+- Add or update model-card, validation, media, and publication relationships in the project data
+  rather than hardcoding them into pages.
+
+### Updating homepage sections
+
+- Homepage composition lives in `app/page.tsx`.
+- Section components live in `components/sections/`.
+- Collaborator information lives in `lib/collaborators.ts` and renders through the collaborator
+  marquee.
+- Team data lives in `lib/team.ts`; do not add placeholder social/profile links.
 
 ## Project Media
 

@@ -1,4 +1,10 @@
-export type EventType = "journal-club" | "seminar" | "conference" | "workshop" | "talk";
+export type EventType =
+  | "journal-club"
+  | "seminar"
+  | "conference"
+  | "workshop"
+  | "course"
+  | "talk";
 export type EventFormat = "in-person" | "virtual" | "hybrid";
 export type EventStatus = "upcoming" | "past" | "tbd";
 
@@ -12,6 +18,8 @@ export type LabEvent = {
   endDate?: string;
   time?: string;
   location?: string;
+  summary: string;
+  details: string;
   description: string;
   status: EventStatus;
   rsvpRequired: boolean;
@@ -20,6 +28,7 @@ export type LabEvent = {
   recurrencePattern?: string;
   people?: string[];
   projects?: string[];
+  tags?: string[];
   externalUrl?: string;
   featured?: boolean;
 };
@@ -28,7 +37,7 @@ export type JournalClubSession = {
   slug: string;
   title: string;
   date: string;
-  imageSrc: string;
+  imageSrc?: string;
   description: string;
   topics: string[];
 };
@@ -36,7 +45,8 @@ export type JournalClubSession = {
 export const journalClubIntakeHref = "/contact#journal-club";
 
 export const nextJournalClub = {
-  label: "TBD",
+  label: "Second A-STAR Journal Club \u2014 June 8, 2026",
+  date: "2026-06-08",
   href: journalClubIntakeHref,
 } as const;
 
@@ -52,6 +62,13 @@ export const journalClubSessions: JournalClubSession[] = [
       "Synthetic data in surgery \u2014 Reza Shahriarirad, M.D.",
     ],
   },
+  {
+    slug: "second-astar-journal-club",
+    title: "Second A-STAR Journal Club",
+    date: "2026-06-08",
+    description: "The second A-STAR Journal Club is scheduled for June 8, 2026.",
+    topics: [],
+  },
 ];
 
 export const events: LabEvent[] = [
@@ -62,52 +79,61 @@ export const events: LabEvent[] = [
     type: "journal-club",
     format: "hybrid",
     date: "2026-05-20",
-    time: "TBD",
     location: "Mayo Clinic, Rochester, MN and virtual",
+    summary: "The first A-STAR Journal Club was held on May 20, 2026.",
+    details:
+      "The session discussed video-language models with Abdulrahman Alomar, M.D. and synthetic data in surgery with Reza Shahriarirad, M.D.",
     description:
       "The first A-STAR Journal Club was held on May 20, 2026. Discussed topics included video-language models and synthetic data in surgery.",
     status: "past",
     rsvpRequired: true,
     recurring: true,
-    recurrencePattern: "Recurring - Next session: TBD",
+    recurrencePattern: "Recurring - next session: Second A-STAR Journal Club, June 8, 2026",
     people: ["abdulrahman-alomar", "reza-shahriarirad"],
+    tags: ["Journal Club", "Video-language Models", "Synthetic Data", "Surgical AI"],
     featured: true,
   },
   {
-    slug: "ai-research-summit-2026",
-    title: "A-STAR Lab Abstract Accepted for the 2026 AI Research Summit",
-    series: "AI Research Summit",
-    type: "conference",
-    format: "in-person",
-    date: "2026-06-04",
-    endDate: "2026-06-05",
-    time: "All day",
-    location: "Mayo Civic Center, Rochester, MN",
+    slug: "astar-journal-club-june-2026",
+    title: "Second A-STAR Journal Club",
+    series: "A-STAR Lab Journal Club",
+    type: "journal-club",
+    format: "hybrid",
+    date: "2026-06-08",
+    location: "Mayo Clinic, Rochester, MN and virtual",
+    summary: "The second A-STAR Journal Club is scheduled for June 8, 2026.",
+    details:
+      "Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
     description:
-      "An abstract presentation by Dr. Reza Shahriarirad, titled 'Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age,' has been accepted for poster presentation at the 2026 AI Research Summit. This work highlights the A-STAR Lab's continued efforts to apply AI to clinically meaningful questions in bariatric surgery, including the use of AI-derived biomarkers to better understand physiologic changes following surgical weight loss.",
+      "The second A-STAR Journal Club is scheduled for June 8, 2026. Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
     status: "upcoming",
-    rsvpRequired: false,
-    recurring: false,
-    people: ["reza-shahriarirad"],
-    projects: [],
+    rsvpRequired: true,
+    recurring: true,
+    recurrencePattern: "Recurring Journal Club session",
+    people: [],
+    tags: ["Journal Club", "Surgical AI"],
     featured: true,
   },
   {
     slug: "acs-ai-surgery-course-2026",
     title: "ACS Artificial Intelligence in Surgery Course",
     series: "ACS Clinical Congress 2026",
-    type: "workshop",
+    type: "course",
     format: "in-person",
     date: "2026-09-26",
     endDate: "2026-09-29",
-    time: "TBD",
     location: "Washington, DC",
+    summary:
+      "Dr. Simon J. Laplante is expected to contribute to an ACS Clinical Congress educational session on artificial intelligence in surgery.",
+    details:
+      "ACS lists Clinical Congress 2026 for September 26-29 in Washington, DC. Final session metadata is still forthcoming.",
     description:
       "Dr. Simon J. Laplante is expected to contribute to an ACS Clinical Congress 2026 educational session related to artificial intelligence in surgery. ACS lists Clinical Congress 2026 for September 26-29 in Washington, DC, with education, networking, and the latest surgical innovation. Final session details are forthcoming.",
     status: "upcoming",
     rsvpRequired: false,
     recurring: false,
     people: ["simon-laplante"],
+    tags: ["Talk", "Course", "Lecture", "Surgical AI", "Education"],
     externalUrl: "https://www.facs.org/for-medical-professionals/conferences-and-meetings/",
     featured: true,
   },

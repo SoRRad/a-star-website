@@ -10,6 +10,7 @@ const EVENT_TYPE_LABELS: Record<string, string> = {
   seminar: "Seminar",
   conference: "Conference",
   workshop: "Workshop",
+  course: "Course",
   talk: "Talk",
 };
 
@@ -52,8 +53,8 @@ function EventCard({ event }: { event: LabEvent }) {
         {event.title}
       </h3>
 
-      <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-white/70">
-        {event.description}
+      <p className="mb-3 text-xs leading-relaxed text-white/70">
+        {event.summary}
       </p>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/60">

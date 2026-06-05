@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { events, journalClubIntakeHref, journalClubSessions, nextJournalClub } from "@/lib/events";
-import { allNews, CATEGORY_LABELS } from "@/lib/news";
+import { events, journalClubIntakeHref } from "@/lib/events";
+import { allNews, CATEGORY_LABELS, getNewsImages } from "@/lib/news";
 import { selectedTalks } from "@/lib/talks";
 import { projects } from "@/lib/projects";
 import { CompactEventList, type CompactEventItem } from "./compact-event-list";
@@ -38,49 +38,57 @@ function projectLabels(slugs?: string[]) {
   return slugs?.map((slug) => projectNames.get(slug) ?? slug.toUpperCase()).filter(Boolean);
 }
 
+function eventTypeLabel(type: (typeof events)[number]["type"]) {
+  const labels: Record<(typeof events)[number]["type"], string> = {
+    "journal-club": "Journal Club",
+    seminar: "Seminar",
+    conference: "Conference / Summit",
+    workshop: "Workshop",
+    course: "Course",
+    talk: "Talk",
+  };
+
+  return labels[type];
+}
+
+function talkTypeLabel(type: (typeof selectedTalks)[number]["type"]) {
+  const labels: Record<(typeof selectedTalks)[number]["type"], string> = {
+    webinar: "Webinar",
+    "invited-lecture": "Invited lecture",
+    course: "Course",
+    "conference-talk": "Conference talk",
+    "session-chair": "Session chair",
+    moderator: "Moderator",
+    "session-director": "Session director",
+  };
+
+  return labels[type];
+}
+
 function toEventItem(event: (typeof events)[number]): CompactEventItem {
   return {
     id: `event-${event.slug}`,
     title: event.title,
     dateLabel: formatDateRange(event.date, event.endDate),
     sortDate: event.endDate ?? event.date,
-    type: event.type === "journal-club" ? "Journal Club" : event.type.replace(/-/g, " "),
+    type: eventTypeLabel(event.type),
     accent:
       event.type === "journal-club"
         ? "journal"
-        : event.type === "conference" || event.type === "workshop"
+        : event.type === "conference"
           ? "conference"
+          : event.type === "talk" || event.type === "course" || event.type === "workshop"
+            ? "talk"
           : "default",
-    shortDescription: event.description,
-    description:
-      event.time && event.time !== "TBD"
-        ? `${event.description} Time: ${event.time}.`
-        : event.description,
+    shortDescription: event.summary,
+    description: event.details,
+    tags: event.tags,
     projects: projectLabels(event.projects),
     links: event.externalUrl ? [{ label: "Learn more", href: event.externalUrl }] : undefined,
     cta:
       event.type === "journal-club"
         ? { label: "Join Journal Club", href: journalClubIntakeHref }
         : undefined,
-  };
-}
-
-function toJournalClubItem(): CompactEventItem | null {
-  const session = journalClubSessions[0];
-  if (!session) return null;
-
-  return {
-    id: `journal-${session.slug}`,
-    title: session.title,
-    dateLabel: formatDate(session.date),
-    sortDate: session.date,
-    type: "Journal Club",
-    accent: "journal",
-    shortDescription:
-      "Video-language models and synthetic data in surgery were discussed in the first A-STAR Journal Club.",
-    description: `${session.description} Discussed topics included:`,
-    topics: [...session.topics, `Next Journal Club: ${nextJournalClub.label}`],
-    cta: { label: "Join Journal Club", href: nextJournalClub.href },
   };
 }
 
@@ -91,10 +99,12 @@ function toNewsItem(item: (typeof allNews)[number]): CompactEventItem {
     dateLabel: formatDate(item.date),
     sortDate: item.date,
     type: CATEGORY_LABELS[item.category],
-    accent: "news",
-    shortDescription: item.excerpt,
-    description: item.excerpt,
+    accent: item.category === "conference" ? "conference" : "news",
+    shortDescription: item.summary,
+    description: item.details,
+    tags: item.tags,
     projects: projectLabels(item.projects),
+    images: item.slug === "astar-ai-summit-2026" ? getNewsImages(item) : undefined,
     links: [
       { label: "Read update", href: `/news/${item.slug}` },
       ...(item.externalLink ? [{ label: "External resource", href: item.externalLink }] : []),
@@ -114,45 +124,31 @@ function toTalkItem(talk: (typeof selectedTalks)[number]): CompactEventItem {
     title: talk.title,
     dateLabel: talk.displayDate,
     sortDate: talk.date,
-    type: talk.type.replace(/-/g, " "),
+    type: talkTypeLabel(talk.type),
     accent: "talk",
-    shortDescription: `${talk.speaker} at ${talk.venue}.`,
-    description: talk.description,
+    shortDescription: talk.summary ?? `${talk.speaker} at ${talk.venue}.`,
+    description: talk.details ?? talk.description,
+    tags: talk.tags,
     projects: projectLabels(talk.projects),
     links: links.length ? links : undefined,
   };
 }
 
 export default function EventsPage() {
-  const now = new Date();
   const upcomingDated = events
-    .filter((event) => event.status === "upcoming" || new Date(`${event.date}T23:59:59`) >= now)
-    .filter((event) => event.status !== "past")
+    .filter((event) => event.status === "upcoming")
     .sort((a, b) => a.date.localeCompare(b.date))
     .map(toEventItem);
-
-  const nextJournalClubItem: CompactEventItem = {
-    id: "journal-next",
-    title: "Next Journal Club",
-    dateLabel: "TBD",
-    type: "Journal Club",
-    accent: "journal",
-    shortDescription: "The next A-STAR Journal Club date is to be announced.",
-    description:
-      "The next A-STAR Journal Club date is TBD. Use the intake form to join the distribution list or propose a topic.",
-    cta: { label: "Join Journal Club", href: journalClubIntakeHref },
-  };
-
-  const journalClubPast = toJournalClubItem();
   const pastEventRows = events
-    .filter((event) => event.status === "past" && event.type !== "journal-club")
+    .filter((event) => event.status === "past")
     .map(toEventItem);
   const talkRows = selectedTalks.map(toTalkItem);
   const newsRows = allNews
     .filter((item) => !item.title.toLowerCase().includes("journal club"))
+    .filter((item) => item.slug !== "laplante-asmbs-ai-webinar-2025")
     .map(toNewsItem);
 
-  const past = [...(journalClubPast ? [journalClubPast] : []), ...pastEventRows, ...talkRows, ...newsRows].sort(
+  const past = [...pastEventRows, ...talkRows, ...newsRows].sort(
     (a, b) => (b.sortDate ?? "").localeCompare(a.sortDate ?? ""),
   );
 
@@ -187,7 +183,7 @@ export default function EventsPage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <CompactEventList upcoming={[...upcomingDated, nextJournalClubItem]} past={past} />
+        <CompactEventList upcoming={upcomingDated} past={past} />
       </div>
     </main>
   );

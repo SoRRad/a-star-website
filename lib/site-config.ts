@@ -19,6 +19,8 @@ export const siteConfig = {
     "A-STAR is a research lab advancing artificial intelligence across the full surgical journey - preoperative planning, intraoperative guidance, postoperative recovery, and external validation of surgical AI systems.",
   url: siteUrl,
   ogImage: "/opengraph-image",
+  officialMayoLabUrl:
+    "https://www.mayo.edu/research/labs/artificial-intelligence-surgical-technologies/overview",
   institution: {
     name: "Mayo Clinic",
     department: "Surgery Innovation",

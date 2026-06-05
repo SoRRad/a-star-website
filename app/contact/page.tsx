@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
+import { siteConfig } from "@/lib/site-config";
 import { ContactCards, type ContactOption } from "./contact-cards";
 import { mailtoHref } from "./mailto-helper";
 
@@ -107,7 +108,15 @@ export default function ContactPage() {
                   <span className="flex items-start gap-2">
                     <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--color-accent)]" />
                     <span>
-                      Mayo Clinic, Rochester, Minnesota
+                      <a
+                        href={siteConfig.officialMayoLabUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white/75 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-[var(--color-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                      >
+                        Mayo Clinic
+                      </a>
+                      , Rochester, Minnesota
                       <br />
                       Department of Metabolic and Abdominal Wall Reconstructive Surgery
                       <br />

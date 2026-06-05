@@ -68,6 +68,34 @@ Use `/events` as the public News & Events page.
 - `lib/talks.ts`: talks, webinars, courses, Oxford sessions, ASMBS items, and project-linked education.
 - `lib/news.ts`: lab updates and `/news/[slug]` detail pages.
 
+News images live in:
+
+```text
+public/news/
+```
+
+For conference and summit news, add browser-friendly images as `.jpg`, `.jpeg`, `.png`, or `.webp`
+and reference them from `lib/news.ts` with public paths such as `/news/example.jpg`. Avoid
+referencing HEIC source uploads directly in the site.
+
+The 2026 AI Research Summit images use:
+
+```text
+public/news/aisummit2026-1.jpg
+public/news/aisummit2026-2.jpg
+```
+
+News and Events categorization:
+
+- **Conferences / Summits**: conference attendance, summits, research meetings, poster sessions,
+  abstracts, and team attendance. Use the `conference` news category.
+- **Talks**: invited lectures, courses, panels, webinars, moderation, and educational
+  presentations. Keep these in `lib/talks.ts` unless a broader lab-news story is needed.
+- **Journal Club**: A-STAR Journal Club sessions and announcements. Keep the public CTA at
+  `/contact#journal-club`.
+- **Lab News**: collaborator visits, lab announcements, and updates that are not primarily a
+  conference, talk, or Journal Club item.
+
 Journal Club images live in:
 
 ```text

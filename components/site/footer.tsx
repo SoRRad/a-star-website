@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { ExternalLink, MapPin } from "lucide-react";
 import { footerNav } from "@/lib/navigation";
+import { siteConfig } from "@/lib/site-config";
 import { Logo } from "@/components/site/logo";
 
 export function SiteFooter() {
@@ -29,6 +30,15 @@ export function SiteFooter() {
               <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#64B5F6]" />
               <span>Mayo Clinic, Rochester, Minnesota</span>
             </p>
+            <a
+              href={siteConfig.officialMayoLabUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm text-white/55 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            >
+              Official Mayo Clinic research page
+              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+            </a>
           </div>
 
           <FooterColumn title="Lab" items={footerNav.lab} />

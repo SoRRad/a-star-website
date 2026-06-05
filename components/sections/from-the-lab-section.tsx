@@ -55,8 +55,8 @@ export function FromTheLabSection({ newsItems }: FromTheLabSectionProps) {
                 <h3 className="heading-lg mb-2 line-clamp-2 text-sm leading-snug text-white transition-colors group-hover:text-[#64B5F6]">
                   {item.title}
                 </h3>
-                <p className="line-clamp-2 flex-1 text-xs leading-relaxed text-white/60">
-                  {item.excerpt}
+                <p className="flex-1 text-xs leading-relaxed text-white/60">
+                  {item.summary}
                 </p>
               </div>
             </Link>
