@@ -49,4 +49,4 @@ These redirects are for old links only and should not appear as active navigatio
 - Confirm Journal Club links open `/contact#journal-club` and the mailto button opens an email draft.
 - Confirm Project/Collaboration mailto button opens email with correct CC.
 - Confirm the dark-only cosmic theme is readable.
-- Confirm mobile has no horizontal overflow and the robotic scroll indicator is hidden.
+- Confirm mobile has no horizontal overflow.

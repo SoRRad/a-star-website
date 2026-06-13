@@ -89,7 +89,7 @@ Team social links render only when a confirmed link is present in `lib/team.ts`.
 
 ## Contact
 
-Contact uses `mailto:` links that open the visitor's email client with subject and CC pre-filled. No backend, no API key, no environment variables required beyond `NEXT_PUBLIC_SITE_URL`.
+Contact uses `mailto:` links that open the visitor's email client with subject, CC, and a prefilled body template (Name/Affiliation/Role/Message) pre-filled. No backend, no API key, no environment variables required beyond `NEXT_PUBLIC_SITE_URL`.
 
 ## Logo Notes
 

@@ -96,7 +96,7 @@ Three options are presented:
 - **Journal Club**: to `laplante.simon@mayo.edu`, CC `Alomar.Abdulrahman@mayo.edu`, subject "A-STAR Journal Club inquiry"
 - **Project / Collaboration**: to `laplante.simon@mayo.edu`, CC `shahriarirad.reza@mayo.edu`, subject "A-STAR project collaboration inquiry"
 
-Each card shows the recipient addresses as a fallback for visitors whose email client does not open automatically. To update contacts or subjects, edit `app/contact/page.tsx`.
+Each mailto link also includes a prefilled body template (Name/Affiliation/Role/Message, plus a topic field for Journal Club and Collaboration). Each card shows the recipient addresses as a fallback for visitors whose email client does not open automatically. To update contacts, subjects, or body templates, edit `app/contact/page.tsx`.
 
 ## Logos
 
