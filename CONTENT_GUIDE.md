@@ -113,6 +113,19 @@ future detail page or media archive, but do not add it back to the visible event
 
 SAGES Nashville and ASMBS Bariatric Happy Hour are separate records. Oxford September 2025 items should display month/year only when exact days are not confirmed.
 
+A `NewsItem` can set `displayInTimeline: false` to omit it from the combined `/events` timeline
+(for example, a write-up that duplicates a dedicated Journal Club entry already shown via
+`lib/events.ts`'s `journalClubSessions`). Omit the field (or set it to `true`) for normal news
+items, which is the default.
+
+## Talks
+
+Add talks, webinars, courses, and invited lectures to `lib/talks.ts` as a `Talk` entry: `slug`,
+`title`, `speaker`/`speakerSlug`, `date`/`displayDate`/`year`, `venue`, `type`, `status`
+(`completed` | `upcoming` | `metadata-to-confirm`), `description`, `projects`, and `tags`. Talks
+that are part of the same multi-session event (e.g. an Oxford or ASMBS meeting) share a `group`
+value (`"oxford-2025"` | `"asmbs-2026"`) so they can be associated together.
+
 ## Contact And Journal Club
 
 Contact and Join are merged at `/contact`.
@@ -124,11 +137,21 @@ Three options are presented:
 - **Journal Club**: to `laplante.simon@mayo.edu`, CC `Alomar.Abdulrahman@mayo.edu`, subject "A-STAR Journal Club inquiry"
 - **Project / Collaboration**: to `laplante.simon@mayo.edu`, CC `shahriarirad.reza@mayo.edu`, subject "A-STAR project collaboration inquiry"
 
-Each card shows the recipient addresses as a fallback for visitors whose email client does not open automatically. To update contacts or subjects, edit `app/contact/page.tsx`.
+Each mailto link also includes a prefilled body template (Name/Affiliation/Role/Message, plus a topic field for Journal Club and Collaboration). Each card shows the recipient addresses as a fallback for visitors whose email client does not open automatically. To update contacts, subjects, or body templates, edit `app/contact/page.tsx`.
 
 ## Logos
 
 Use only root-level PNG assets from `public/logos/astar/` through `lib/logos.ts`. The live site uses the dark-background variants and the transparent neutral mark. Do not render paired logo images for different themes in the DOM.
+
+## Team
+
+Add new team members to `lib/team.ts` as a `TeamMember` entry: `slug`, `name`, `role` (one of the
+`TeamRole` values), `affiliation`, `bio`, `photo` (path under `public/team/`), `initials`
+(shown if the photo fails to load), `links`, and `order` (controls roster position). Use
+`researchFocus` for a short list of 3-5 focus areas — keep it tight; long lists wrap awkwardly in
+the roster row. Set `featured: true` for members highlighted in the homepage roster, and
+`isOpenPosition: true` (with `openPositionUrl`) for open-role placeholders instead of a real
+profile.
 
 ## Team Links
 

@@ -191,7 +191,7 @@ function TimelineGroup({
         <div>
           <p className="eyebrow mb-2">{title}</p>
           <h2 className="heading-lg text-3xl text-white">
-            {title === "Upcoming" ? "What is next." : "Recent activity."}
+            {title === "Upcoming" ? "What's next" : "Recent activity."}
           </h2>
         </div>
         <span className="font-mono text-[10px] tabular-nums text-white/30">
@@ -237,6 +237,7 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
       >
         <button
           type="button"
+          id={`${item.id}-trigger`}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={contentId}
@@ -272,6 +273,10 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
 
         {/* Expandable body */}
         <div
+          id={`${item.id}-panel`}
+          role="region"
+          aria-labelledby={`${item.id}-trigger`}
+          aria-hidden={!open}
           className={cn(
             "grid transition-[grid-template-rows] duration-300 ease-out",
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",

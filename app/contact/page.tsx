@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Reach A-STAR for research collaboration, clinical partnerships, Journal Club, or general inquiries.",
+  alternates: { canonical: "/contact" },
+  openGraph: { url: "/contact" },
 };
 
 const contactOptions: ReadonlyArray<ContactOption> = [
@@ -21,6 +23,11 @@ const contactOptions: ReadonlyArray<ContactOption> = [
     href: mailtoHref({
       to: "laplante.simon@mayo.edu",
       subject: "A-STAR inquiry",
+      body:
+        "Name: \n" +
+        "Affiliation: \n" +
+        "Role: \n\n" +
+        "Message:\n",
     }),
     to: "laplante.simon@mayo.edu",
     cc: null,
@@ -36,6 +43,12 @@ const contactOptions: ReadonlyArray<ContactOption> = [
       to: "laplante.simon@mayo.edu",
       cc: "Alomar.Abdulrahman@mayo.edu",
       subject: "A-STAR Journal Club inquiry",
+      body:
+        "Name: \n" +
+        "Affiliation: \n" +
+        "Role: \n\n" +
+        "Paper or topic I'd like to discuss (if proposing): \n\n" +
+        "Message:\n",
     }),
     to: "laplante.simon@mayo.edu",
     cc: "Alomar.Abdulrahman@mayo.edu",
@@ -51,6 +64,12 @@ const contactOptions: ReadonlyArray<ContactOption> = [
       to: "laplante.simon@mayo.edu",
       cc: "shahriarirad.reza@mayo.edu",
       subject: "A-STAR project collaboration inquiry",
+      body:
+        "Name: \n" +
+        "Affiliation: \n" +
+        "Role: \n\n" +
+        "Project or area of interest: \n\n" +
+        "Message:\n",
     }),
     to: "laplante.simon@mayo.edu",
     cc: "shahriarirad.reza@mayo.edu",
@@ -130,6 +149,15 @@ export default function ContactPage() {
               <p className="text-sm leading-relaxed text-white/40 lg:pt-7">
                 A-STAR is a Mayo Clinic research group. All correspondence is routed to
                 the lab team above. For urgent clinical matters, contact Mayo Clinic directly.
+                {" "}
+                <a
+                  href="https://www.mayo.edu/research/labs/artificial-intelligence-surgical-technologies/overview"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#64B5F6]/80 underline underline-offset-4 transition-colors hover:text-[#64B5F6]"
+                >
+                  Learn more about A-STAR at Mayo Clinic Research.
+                </a>
               </p>
             </aside>
           </Reveal>

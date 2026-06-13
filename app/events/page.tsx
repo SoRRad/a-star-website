@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: "News & Events",
   description:
     "A-STAR News & Events - journal clubs, seminars, surgical AI talks, education, and lab updates.",
+  alternates: { canonical: "/events" },
+  openGraph: { url: "/events" },
 };
 
 const projectNames = new Map(projects.map((project) => [project.slug, project.name]));
@@ -144,8 +146,7 @@ export default function EventsPage() {
     .map(toEventItem);
   const talkRows = selectedTalks.map(toTalkItem);
   const newsRows = allNews
-    .filter((item) => !item.title.toLowerCase().includes("journal club"))
-    .filter((item) => item.slug !== "laplante-asmbs-ai-webinar-2025")
+    .filter((item) => item.displayInTimeline !== false)
     .map(toNewsItem);
 
   const past = [...pastEventRows, ...talkRows, ...newsRows].sort(

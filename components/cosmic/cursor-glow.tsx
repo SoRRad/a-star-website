@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useSpring } from "motion/react";
+import { isCorporateSafe } from "@/lib/corporate-safe";
 
 export function CursorGlow() {
   const [enabled, setEnabled] = useState(false);
@@ -11,6 +12,7 @@ export function CursorGlow() {
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isCorporateSafe()) return;
 
     setEnabled(true);
 
@@ -27,6 +29,7 @@ export function CursorGlow() {
 
   return (
     <motion.div
+      aria-hidden="true"
       style={{
         x,
         y,

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { collaborators } from "@/lib/collaborators";
 import { upcomingEvents } from "@/lib/events";
 import { allNews } from "@/lib/news";
@@ -11,6 +12,12 @@ import { FromTheLabSection } from "@/components/sections/from-the-lab-section";
 import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
 import { Reveal } from "@/components/motion/reveal";
 import { CollaborationCta } from "@/components/sections/collaboration-cta";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function HomePage() {
   const recentNews = allNews.slice(0, 3);

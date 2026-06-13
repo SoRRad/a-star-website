@@ -12,7 +12,6 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,json,css}\""
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-popover": "^1.1.15",
@@ -30,11 +29,8 @@
     "next": "^15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.75.0",
-    "resend": "^6.6.0",
     "tailwind-merge": "^2.5.5",
-    "three": "^0.184.0",
-    "zod": "^4.4.3"
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",

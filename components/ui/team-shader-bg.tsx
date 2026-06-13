@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { shouldSkipHeavyEffects } from "@/lib/corporate-safe";
 
 // WebGL2 cosmic nebula shader — simplified for performance (3 fbm octaves, 8 main iterations).
 // IntersectionObserver pauses rAF when the element is off-screen.
@@ -15,6 +16,7 @@ export function TeamShaderBg() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (shouldSkipHeavyEffects()) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const parent = canvas.parentElement;
@@ -160,6 +162,7 @@ void main(void){
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="pointer-events-none absolute inset-0 h-full w-full"
       style={{
         opacity: mounted ? 0.85 : 0,

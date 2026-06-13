@@ -57,6 +57,8 @@ export async function generateMetadata({
   return {
     title: `${project.name} - ${project.longName}`,
     description: project.tagline,
+    alternates: { canonical: `/projects/${slug}` },
+    openGraph: { url: `/projects/${slug}` },
   };
 }
 
@@ -130,7 +132,7 @@ export default async function ProjectPage({
             </Button>
           )}
           <Button asChild variant="outline" size="lg">
-            <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>
+            <Link href="/contact#collaborate">
               <Mail className="h-4 w-4" />
               Contact about this project
             </Link>
@@ -277,7 +279,7 @@ export default async function ProjectPage({
             dataset contributions, and research collaboration.
           </p>
           <Button asChild variant="accent">
-            <Link href={`/contact?inquiry=research-collaboration&project=${slug}`}>Reach out</Link>
+            <Link href="/contact#collaborate">Reach out</Link>
           </Button>
         </div>
       </div>

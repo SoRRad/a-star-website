@@ -37,6 +37,29 @@ Core theme docs live in `THEME.md`. In code, global tokens live in `app/globals.
 
 The global background is mounted once in `app/layout.tsx` via `components/cosmic/cosmic-background.tsx`. It lazy-loads the Three.js scene so the first paint is not blocked. Reduced-motion users, compact/touch devices, and lower-capability devices receive the static CSS star fallback instead of the WebGL scene. Desktop-capable users see the star field, neural constellation nodes, hover labels, activation pulses, scroll camera drift, and cursor glow.
 
+## Corporate-Safe Mode
+
+Visitors behind corporate web-isolation proxies (e.g. Zscaler Browser Isolation) often have WebGL,
+smooth-scroll, and `backdrop-filter`/`mix-blend-mode` rendering disabled or rewritten, which can
+break the cosmic visuals. `lib/corporate-safe.ts` detects this:
+
+- An inline script (`corporateSafeDetectScript`, run via `next/script` with
+  `strategy="beforeInteractive"` in `app/layout.tsx`) checks the hostname/URL for
+  `zscaler.com`, `isolation.zscaler.com`, or an `original_url=` query param **before
+  hydration**, and adds a `corporate-safe` class to `<html>`.
+- `isCorporateSafe()` / `shouldSkipHeavyEffects()` read that class at runtime. When true (or when
+  `prefers-reduced-motion: reduce` is set), Lenis smooth-scroll, the cursor glow, and all
+  Three.js/WebGL backgrounds (`AiHeroBackground`, `ResearchShaderBg`, `TeamShaderBg`,
+  `CosmicBackground`'s star field) are skipped entirely in favor of `CosmicFallback` — a static,
+  deterministically-seeded starfield/constellation that renders identically on server and client
+  (no `Math.random()` or `Date` access, so there's no hydration mismatch).
+- `app/globals.css` also flattens `backdrop-filter`/`mix-blend-mode` surfaces under
+  `.corporate-safe` to plain backgrounds, since those effects can render unpredictably behind
+  isolation proxies.
+
+Running the inline detection script before hydration (with `suppressHydrationWarning` on `<html>`
+and `<body>`) is what avoids a flash of WebGL content or a hydration mismatch on first paint.
+
 ## Current Routes
 
 - Home: `/`
@@ -45,6 +68,7 @@ The global background is mounted once in `app/layout.tsx` via `components/cosmic
 - Team: `/team`
 - News & Events: `/events`
 - Contact and collaboration intake: `/contact`
+- Publications index (hidden, direct-link only, not in nav/footer): `/publications`
 
 Compatibility redirects:
 
@@ -151,7 +175,7 @@ Team social links render only when a confirmed link is present in `lib/team.ts`.
 
 ## Contact
 
-Contact uses `mailto:` links that open the visitor's email client with subject and CC pre-filled. No backend, no API key, no environment variables required beyond `NEXT_PUBLIC_SITE_URL`.
+Contact uses `mailto:` links that open the visitor's email client with subject, CC, and a prefilled body template (Name/Affiliation/Role/Message) pre-filled. No backend, no API key, no environment variables required beyond `NEXT_PUBLIC_SITE_URL`.
 
 ## Logo Notes
 

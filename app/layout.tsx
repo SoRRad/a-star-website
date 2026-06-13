@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
+import Script from "next/script";
 import { Bricolage_Grotesque, Geist, Geist_Mono, Orbitron } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
@@ -8,6 +9,7 @@ import { ScrollToTop } from "@/components/site/scroll-to-top";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CursorGlow } from "@/components/cosmic/cursor-glow";
 import { siteConfig } from "@/lib/site-config";
+import { corporateSafeDetectScript } from "@/lib/corporate-safe";
 import "./globals.css";
 
 const sans = Geist({
@@ -87,7 +89,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`dark ${sans.variable} ${mono.variable} ${display.variable} ${technical.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`dark ${sans.variable} ${mono.variable} ${display.variable} ${technical.variable}`}
+    >
+      <head>
+        {/* Detect corporate web-isolation proxies (e.g. Zscaler) before hydration so
+            heavy effects (WebGL, smooth-scroll, cursor glow) never get a chance to start. */}
+        <Script id="corporate-safe-detect" strategy="beforeInteractive">
+          {corporateSafeDetectScript}
+        </Script>
+      </head>
       <body
         suppressHydrationWarning
         className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased"

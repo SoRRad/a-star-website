@@ -36,6 +36,9 @@ export type NewsItem = {
   externalLink?: string;
   relatedLinks?: NewsRelatedLink[];
   featured: boolean;
+  /** Set to false to omit this item from the combined News & Events timeline
+   *  (e.g. a write-up that duplicates a dedicated Journal Club entry). */
+  displayInTimeline?: boolean;
 };
 
 export const news: NewsItem[] = [
@@ -70,6 +73,8 @@ The recorded session runs 01:02:06 and focuses on artificial intelligence in sur
       },
     ],
     featured: false,
+    // Shown via the Talks list on /events; omit from the news side of the timeline to avoid duplication.
+    displayInTimeline: false,
   },
   {
     slug: "balfour-symposium-2025",

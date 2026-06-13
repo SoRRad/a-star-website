@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "Team",
   description:
     "The surgeons, scientists, and engineers building surgical AI at A-STAR — core team and institutional collaborators.",
+  alternates: { canonical: "/team" },
+  openGraph: { url: "/team" },
 };
 
 export default function TeamPage() {

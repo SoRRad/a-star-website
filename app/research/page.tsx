@@ -8,6 +8,8 @@ import { ResearchShaderBg } from "@/components/ui/research-shader-bg";
 export const metadata = {
   title: "Projects",
   description: "A-STAR active surgical AI projects, systems, and translational focus areas.",
+  alternates: { canonical: "/research" },
+  openGraph: { url: "/research" },
 };
 
 const researchDirections = [
