@@ -16,7 +16,25 @@ npm run lint
 NEXT_PUBLIC_SITE_URL=https://a-starlab.com
 ```
 
+Set this in the Vercel project settings (Production environment) so `siteConfig.url`,
+`metadataBase`, the sitemap, and `robots.txt` all resolve to `https://a-starlab.com` instead of
+the Vercel preview/production domain.
+
 Contact uses `mailto:` links only. No Resend API key or email service is required.
+
+## Security Headers
+
+Configured in `next.config.ts`'s `headers()` and applied to every route:
+
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: SAMEORIGIN`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- `Content-Security-Policy-Report-Only` — observation-only for now. It reports violations without
+  blocking anything; review reports before tightening it into an enforced
+  `Content-Security-Policy`.
+- `Strict-Transport-Security` (HSTS) — added only when `NODE_ENV === "production"`, since HSTS
+  should not be sent over plain HTTP in local/dev environments.
 
 ## Route Validation
 
