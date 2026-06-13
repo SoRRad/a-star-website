@@ -17,6 +17,8 @@ import { PlayingCard } from "@/components/lab/playing-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { ContentPlaceholder } from "@/components/lab/content-placeholder";
 import { ProjectMediaGrid } from "@/components/lab/project-media";
+import { MosiDemo } from "@/components/lab/mosi-demo";
+import { SirisDemo } from "@/components/lab/siris-demo";
 import { PublicationCard } from "@/components/publications/publication-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
@@ -81,6 +83,9 @@ export default async function ProjectPage({
   const relatedTalks = getTalksByProject(slug);
   const projectNews = getNewsByProject(slug);
   const isGoNoGoNet = slug === "gonogonet";
+  const isMosi = slug === "mosi";
+  const isSiris = slug === "siris";
+  const hasInteractiveDemo = isMosi || isSiris;
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -195,8 +200,18 @@ export default async function ProjectPage({
           <ModelCard project={project} publications={publications} />
         </ScientificSection>
 
-        {project.media?.length || isGoNoGoNet ? (
+        {project.media?.length || isGoNoGoNet || hasInteractiveDemo ? (
           <ScientificSection eyebrow="Project media" title="Demos and output previews">
+            {isMosi && (
+              <div className="mb-4">
+                <MosiDemo liveUrl={project.liveUrl} />
+              </div>
+            )}
+            {isSiris && (
+              <div className="mb-4">
+                <SirisDemo liveUrl={project.liveUrl} />
+              </div>
+            )}
             {project.media?.length ? <ProjectMediaGrid project={project} /> : null}
             {isGoNoGoNet && (
               <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4">

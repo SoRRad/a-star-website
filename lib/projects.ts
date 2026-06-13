@@ -62,18 +62,8 @@ export const projects: Project[] = [
     featured: true,
     order: 1,
     lastUpdated: "2026-04-01",
-    media: [
-      {
-        type: "placeholder",
-        alt: "MOSI demo placeholder",
-        caption: "Demo GIF forthcoming",
-      },
-      {
-        type: "placeholder",
-        alt: "MOSI model output thumbnail placeholder",
-        caption: "Model output thumbnail forthcoming",
-      },
-    ],
+    // Interactive demo rendered on the project page; see components/lab/mosi-demo.tsx.
+    media: [],
     modelCard: {
       intendedUse:
         "Pre-operative decision support for bariatric surgery candidate evaluation. Advisory only; clinical judgment remains with the treating surgeon.",
@@ -116,18 +106,8 @@ export const projects: Project[] = [
     featured: true,
     order: 2,
     lastUpdated: "2026-04-01",
-    media: [
-      {
-        type: "placeholder",
-        alt: "SIRIS annotated preview placeholder",
-        caption: "Annotated video preview forthcoming",
-      },
-      {
-        type: "placeholder",
-        alt: "SIRIS demo thumbnail placeholder",
-        caption: "Model output thumbnail forthcoming",
-      },
-    ],
+    // Interactive demo rendered on the project page; see components/lab/siris-demo.tsx.
+    media: [],
     modelCard: {
       intendedUse:
         "Patient-facing education support for bariatric surgery preparation, question generation, and resource navigation.",
