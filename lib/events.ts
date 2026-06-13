@@ -85,7 +85,7 @@ export const events: LabEvent[] = [
     location: "Mayo Civic Center, Rochester, MN",
     description:
       "An abstract presentation by Dr. Reza Shahriarirad, titled 'Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age,' has been accepted for poster presentation at the 2026 AI Research Summit. This work highlights the A-STAR Lab's continued efforts to apply AI to clinically meaningful questions in bariatric surgery, including the use of AI-derived biomarkers to better understand physiologic changes following surgical weight loss.",
-    status: "upcoming",
+    status: "past",
     rsvpRequired: false,
     recurring: false,
     people: ["reza-shahriarirad"],

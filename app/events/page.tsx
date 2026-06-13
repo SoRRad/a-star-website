@@ -149,7 +149,7 @@ export default function EventsPage() {
     .map(toEventItem);
   const talkRows = selectedTalks.map(toTalkItem);
   const newsRows = allNews
-    .filter((item) => !item.title.toLowerCase().includes("journal club"))
+    .filter((item) => item.displayInTimeline !== false)
     .map(toNewsItem);
 
   const past = [...(journalClubPast ? [journalClubPast] : []), ...pastEventRows, ...talkRows, ...newsRows].sort(

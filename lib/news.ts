@@ -33,6 +33,9 @@ export type NewsItem = {
   externalLink?: string;
   relatedLinks?: NewsRelatedLink[];
   featured: boolean;
+  /** Set to false to omit this item from the combined News & Events timeline
+   *  (e.g. a write-up that duplicates a dedicated Journal Club entry). */
+  displayInTimeline?: boolean;
 };
 
 export const news: NewsItem[] = [

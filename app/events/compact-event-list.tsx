@@ -233,8 +233,10 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
       >
         <button
           type="button"
+          id={`${item.id}-trigger`}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
+          aria-controls={`${item.id}-panel`}
           className="grid w-full gap-3 px-4 py-4 text-left sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
         >
           <div className="min-w-0">
@@ -266,6 +268,10 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
 
         {/* Expandable body */}
         <div
+          id={`${item.id}-panel`}
+          role="region"
+          aria-labelledby={`${item.id}-trigger`}
+          aria-hidden={!open}
           className={cn(
             "grid transition-[grid-template-rows] duration-300 ease-out",
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
