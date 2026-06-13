@@ -21,7 +21,7 @@ export const siteConfig = {
   ogImage: "/opengraph-image",
   institution: {
     name: "Mayo Clinic",
-    department: "Surgery Innovation",
+    department: "Department of Metabolic and Abdominal Wall Reconstructive Surgery, Division of Surgery",
     address: "200 First Street SW, Rochester, MN 55905",
   },
   social: {

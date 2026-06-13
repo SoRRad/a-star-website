@@ -29,6 +29,14 @@ export function SiteFooter() {
               <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#64B5F6]" />
               <span>Mayo Clinic, Rochester, Minnesota</span>
             </p>
+            <a
+              href="https://www.mayo.edu/research/labs/artificial-intelligence-surgical-technologies/overview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block text-sm text-[#64B5F6]/80 underline underline-offset-4 transition-colors hover:text-[#64B5F6]"
+            >
+              A-STAR at Mayo Clinic Research
+            </a>
           </div>
 
           <FooterColumn title="Lab" items={footerNav.lab} />

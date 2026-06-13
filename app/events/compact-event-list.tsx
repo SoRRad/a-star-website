@@ -188,7 +188,7 @@ function TimelineGroup({
         <div>
           <p className="eyebrow mb-2">{title}</p>
           <h2 className="heading-lg text-3xl text-white">
-            {title === "Upcoming" ? "What is next." : "Recent activity."}
+            {title === "Upcoming" ? "What's next" : "Recent activity."}
           </h2>
         </div>
         <span className="font-mono text-[10px] tabular-nums text-white/30">

@@ -11,7 +11,9 @@ import { ProjectMediaCard } from "@/components/lab/project-media";
 import { logos } from "@/lib/logos";
 
 export function FeaturedProjects() {
-  const homepageProjects = projects.filter((project) => project.slug === "gonogonet");
+  const homepageProjects = projects
+    .filter((project) => project.featured)
+    .sort((a, b) => a.order - b.order);
 
   return (
     <div className="flex flex-col gap-6">
