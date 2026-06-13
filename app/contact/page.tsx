@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Reach A-STAR for research collaboration, clinical partnerships, Journal Club, or general inquiries.",
+  alternates: { canonical: "/contact" },
+  openGraph: { url: "/contact" },
 };
 
 const contactOptions: ReadonlyArray<ContactOption> = [

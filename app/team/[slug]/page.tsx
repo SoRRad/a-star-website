@@ -30,6 +30,8 @@ export async function generateMetadata({
   return {
     title: `${member.name} — ${member.role}`,
     description: member.bio,
+    alternates: { canonical: `/team/${slug}` },
+    openGraph: { url: `/team/${slug}` },
   };
 }
 

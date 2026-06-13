@@ -57,6 +57,8 @@ export async function generateMetadata({
   return {
     title: `${project.name} - ${project.longName}`,
     description: project.tagline,
+    alternates: { canonical: `/projects/${slug}` },
+    openGraph: { url: `/projects/${slug}` },
   };
 }
 
