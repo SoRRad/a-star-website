@@ -2,6 +2,7 @@
 
 import { lazy, Suspense, useEffect, useState } from "react";
 import { CosmicFallback } from "./cosmic-fallback";
+import { isCorporateSafe } from "@/lib/corporate-safe";
 
 const StarField = lazy(() =>
   import("./star-field").then((module) => ({ default: module.StarField })),
@@ -25,7 +26,7 @@ export function CosmicBackground() {
       const memory = nav.deviceMemory ?? 2;
       const isMobile = /Mobi|Android/i.test(nav.userAgent);
       const isCompact = compactQuery.matches;
-      const isCapable = !isCompact && (!isMobile || (cores >= 4 && memory >= 4));
+      const isCapable = !isCompact && (!isMobile || (cores >= 4 && memory >= 4)) && !isCorporateSafe();
 
       setReducedMotion(motionQuery.matches);
       setCapable(isCapable);

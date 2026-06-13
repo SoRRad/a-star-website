@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { shouldSkipHeavyEffects } from "@/lib/corporate-safe";
 
 // Aurora-style shader — simplified to 20 loop iterations (was 35) and paused off-screen.
 export function ResearchShaderBg() {
@@ -15,6 +16,7 @@ export function ResearchShaderBg() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (shouldSkipHeavyEffects()) return;
     const container = containerRef.current;
     if (!container) return;
 

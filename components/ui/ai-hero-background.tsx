@@ -7,6 +7,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader.js";
+import { shouldSkipHeavyEffects } from "@/lib/corporate-safe";
 
 // Neural dot field — 56×56 hexagonal grid, radial position wave, UnrealBloom + subtle RGB shift.
 // Starts immediately; IntersectionObserver toggles a `paused` flag to skip renders off-screen.
@@ -21,6 +22,7 @@ export function AiHeroBackground() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (shouldSkipHeavyEffects()) return;
     const container = containerRef.current;
     if (!container) return;
 

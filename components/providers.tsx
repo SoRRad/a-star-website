@@ -3,11 +3,13 @@
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { isCorporateSafe } from "@/lib/corporate-safe";
 
 function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.matchMedia("(max-width: 767px)").matches) return;
+    if (isCorporateSafe()) return;
 
     let lenis: Lenis | undefined;
     let raf: number;
