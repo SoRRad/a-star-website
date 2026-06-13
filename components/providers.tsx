@@ -16,7 +16,7 @@ function SmoothScroll({ children }: { children: ReactNode }) {
 
     try {
       lenis = new Lenis({
-        duration: 0.85,
+        duration: 0.75,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         touchMultiplier: 1.0,

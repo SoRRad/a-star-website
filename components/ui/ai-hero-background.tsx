@@ -185,6 +185,7 @@ export function AiHeroBackground() {
   return (
     <div
       ref={containerRef}
+      aria-hidden="true"
       className="absolute inset-0 z-0 pointer-events-none"
       style={{
         opacity: mounted ? 1 : 0,

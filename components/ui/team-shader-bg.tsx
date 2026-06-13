@@ -162,6 +162,7 @@ void main(void){
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="pointer-events-none absolute inset-0 h-full w-full"
       style={{
         opacity: mounted ? 0.85 : 0,

@@ -9,8 +9,6 @@ interface CollaboratorMarqueeProps {
 }
 
 export function CollaboratorMarquee({ items }: CollaboratorMarqueeProps) {
-  const doubled = [...items, ...items];
-
   return (
     <div
       className="relative overflow-hidden"
@@ -22,11 +20,15 @@ export function CollaboratorMarquee({ items }: CollaboratorMarqueeProps) {
       }}
     >
       <div
-        className="flex [animation:marquee_50s_linear_infinite] items-center gap-6 hover:[animation-play-state:paused]"
+        className="flex [animation:marquee_50s_linear_infinite] items-center gap-6 hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:[animation:none]"
         style={{ width: "max-content" }}
       >
-        {doubled.map((c, i) => (
-          <MarqueeItem key={`${c.slug}-${i}`} collaborator={c} />
+        {items.map((c) => (
+          <MarqueeItem key={c.slug} collaborator={c} />
+        ))}
+        {/* Duplicate set for the seamless loop — hidden from assistive tech and the tab order. */}
+        {items.map((c) => (
+          <MarqueeItem key={`${c.slug}-duplicate`} collaborator={c} duplicate />
         ))}
       </div>
 
@@ -40,7 +42,13 @@ export function CollaboratorMarquee({ items }: CollaboratorMarqueeProps) {
   );
 }
 
-function MarqueeItem({ collaborator }: { collaborator: Collaborator }) {
+function MarqueeItem({
+  collaborator,
+  duplicate,
+}: {
+  collaborator: Collaborator;
+  duplicate?: boolean;
+}) {
   const [imgError, setImgError] = React.useState(false);
   const displayName = collaborator.shortName ?? collaborator.name;
 
@@ -50,6 +58,8 @@ function MarqueeItem({ collaborator }: { collaborator: Collaborator }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={collaborator.name}
+      aria-hidden={duplicate}
+      tabIndex={duplicate ? -1 : undefined}
       className="flex h-[100px] min-w-[240px] shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.92] px-6 shadow-sm backdrop-blur-sm transition-all hover:border-white/20"
     >
       {!imgError ? (

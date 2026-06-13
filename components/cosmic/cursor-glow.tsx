@@ -29,6 +29,7 @@ export function CursorGlow() {
 
   return (
     <motion.div
+      aria-hidden="true"
       style={{
         x,
         y,

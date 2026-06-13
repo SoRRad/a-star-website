@@ -145,6 +145,7 @@ export function ResearchShaderBg() {
   return (
     <div
       ref={containerRef}
+      aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       style={{
         opacity: mounted ? 1 : 0,

@@ -14,6 +14,9 @@ export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const wasOpenRef = React.useRef(false);
 
   React.useEffect(() => setMounted(true), []);
 
@@ -30,6 +33,50 @@ export function CommandPalette() {
     setOpen(false);
   }, [pathname]);
 
+  // Move focus into the drawer on open, and return it to the trigger on close.
+  React.useEffect(() => {
+    if (open) {
+      dialogRef.current?.focus();
+      wasOpenRef.current = true;
+    } else if (wasOpenRef.current) {
+      triggerRef.current?.focus();
+      wasOpenRef.current = false;
+    }
+  }, [open]);
+
+  // Escape closes the drawer; Tab is trapped within it while open.
+  React.useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab" || !dialogRef.current) return;
+
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])',
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
@@ -39,6 +86,7 @@ export function CommandPalette() {
     <>
       <button
         type="button"
+        ref={triggerRef}
         onClick={() => setOpen(true)}
         aria-label="Open mobile navigation"
         className="relative z-[140] inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-white shadow-sm transition-colors hover:border-[#64B5F6]/50 hover:bg-white/[0.06] md:hidden"
@@ -61,10 +109,12 @@ export function CommandPalette() {
                   onClick={close}
                 />
                 <motion.aside
+                  ref={dialogRef}
                   role="dialog"
                   aria-modal="true"
                   aria-label="Mobile navigation"
-                  className="fixed top-0 right-0 z-[260] flex h-dvh w-full max-w-[320px] flex-col border-l border-white/10 bg-[#000814]/95 shadow-2xl shadow-black/30 backdrop-blur-xl md:hidden"
+                  tabIndex={-1}
+                  className="fixed top-0 right-0 z-[260] flex h-dvh w-full max-w-[320px] flex-col border-l border-white/10 bg-[#000814]/95 shadow-2xl shadow-black/30 backdrop-blur-xl outline-none md:hidden"
                   initial={{ x: "100%" }}
                   animate={{ x: 0 }}
                   exit={{ x: "100%" }}
