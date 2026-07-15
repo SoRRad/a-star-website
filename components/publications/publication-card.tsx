@@ -86,14 +86,22 @@ export function PublicationCard({
                 {slug.toUpperCase()}
               </button>
             ))}
-            {publication.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] text-[var(--color-muted-foreground)]"
-              >
-                {tag}
-              </span>
-            ))}
+            {publication.tags
+              .filter(
+                (tag) =>
+                  !publication.projects.some(
+                    (slug) => slug.toLowerCase() === tag.toLowerCase(),
+                  ),
+              )
+              .slice(0, 3)
+              .map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] text-[var(--color-muted-foreground)]"
+                >
+                  {tag}
+                </span>
+              ))}
           </div>
         )}
 

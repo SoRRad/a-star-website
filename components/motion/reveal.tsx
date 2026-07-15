@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, type ReactNode } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { logos } from "@/lib/logos";
 
 interface RevealProps {
@@ -37,6 +37,7 @@ const containerVariants = {
 export function Reveal({ children, className, stagger = false, delay = 0, showMark = false }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px 0px" });
+  const reducedMotion = useReducedMotion();
 
   const mark = showMark ? (
     <Image
@@ -48,6 +49,15 @@ export function Reveal({ children, className, stagger = false, delay = 0, showMa
       className="pointer-events-none absolute right-0 top-0 hidden h-6 w-6 select-none opacity-20 sm:block"
     />
   ) : null;
+
+  if (reducedMotion) {
+    return (
+      <div ref={ref} className={showMark ? `relative ${className ?? ""}` : className}>
+        {mark}
+        {children}
+      </div>
+    );
+  }
 
   if (stagger) {
     return (

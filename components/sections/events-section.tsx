@@ -104,7 +104,7 @@ export function EventsSection({ events }: { events: LabEvent[] }) {
         ))}
       </div>
 
-      <ExploreMore href="/events">See all events →</ExploreMore>
+      <ExploreMore href="/events">See all events</ExploreMore>
     </>
   );
 }

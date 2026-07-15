@@ -2,7 +2,12 @@ import { Suspense } from "react";
 import { publications } from "@/lib/publications";
 import { PublicationDashboard } from "@/components/publications/publication-dashboard";
 
-export const metadata = { title: "Publications" };
+export const metadata = {
+  title: "Publications",
+  description:
+    "Research outputs from the A-STAR ecosystem: original research, systematic reviews, and technical reports.",
+  alternates: { canonical: "/publications" },
+};
 
 export default function PublicationsPage() {
   return (

@@ -62,7 +62,7 @@ export function PlayingCard({ member, index, className }: PlayingCardProps) {
             ? "border-2 border-dashed border-[var(--color-coral-400)]/40 bg-white/[0.03] backdrop-blur-sm"
             : "card-glass border",
         )}
-        aria-label={`${member.name} — ${member.role}${isOpen ? " — open position" : ""}`}
+        aria-label={`${member.name}, ${member.role}${isOpen ? " (open position)" : ""}`}
       >
         {/* Outer hairline inset bezel */}
         {!isOpen && (

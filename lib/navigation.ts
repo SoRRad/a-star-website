@@ -6,34 +6,13 @@ export type NavItem = {
   href: string;
   description?: string;
   icon?: LucideIcon;
-  sectionId?: string;
 };
 
 export const primaryNav: NavItem[] = [
-  {
-    title: "Projects",
-    href: "/research",
-    icon: FlaskConical,
-    sectionId: "research",
-  },
-  {
-    title: "Team",
-    href: "/team",
-    icon: Users,
-    sectionId: "team",
-  },
-  {
-    title: "News & Events",
-    href: "/events",
-    icon: Newspaper,
-    sectionId: "events",
-  },
-  {
-    title: "Contact",
-    href: "/contact",
-    icon: Mail,
-    sectionId: "contact",
-  },
+  { title: "Projects", href: "/research", icon: FlaskConical },
+  { title: "Team", href: "/team", icon: Users },
+  { title: "News & Events", href: "/events", icon: Newspaper },
+  { title: "Contact", href: "/contact", icon: Mail },
 ];
 
 export const allNav: NavItem[] = [
