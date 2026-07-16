@@ -214,23 +214,15 @@ export default async function ProjectPage({
             )}
             {project.media?.length ? <ProjectMediaGrid project={project} /> : null}
             {isGoNoGoNet && (
-              <div className="mt-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-                <p className="text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-                  GoNoGoNet uses the local optimized preview when available. Future clipped demo
-                  files can be placed at <code>public/projects/media/gonogonet-demo.mp4</code>,{" "}
-                  <code>public/projects/media/gonogonet-demo.gif</code>, or{" "}
-                  <code>public/projects/media/gonogonet-demo.avif</code>.
-                </p>
-                <a
-                  href={GONOGONET_VIDEO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] hover:underline"
-                >
-                  View source demo on YouTube
-                  <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </div>
+              <a
+                href={GONOGONET_VIDEO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] hover:underline"
+              >
+                Watch the full annotated demo on YouTube
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             )}
           </ScientificSection>
         ) : null}

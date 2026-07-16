@@ -276,7 +276,7 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
           id={`${item.id}-panel`}
           role="region"
           aria-labelledby={`${item.id}-trigger`}
-          aria-hidden={!open}
+          inert={!open}
           className={cn(
             "grid transition-[grid-template-rows] duration-300 ease-out",
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
@@ -285,8 +285,6 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
           <div className="overflow-hidden">
             <div
               id={contentId}
-              role="region"
-              aria-label={`Details for ${item.title}`}
               className={cn(
                 "border-t border-white/[0.06] px-4 py-5",
                 DETAIL_TINT[item.accent],
@@ -314,7 +312,7 @@ function TimelineRow({ item }: { item: CompactEventItem }) {
                   {item.projects.map((project) => (
                     <span
                       key={project}
-                      className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-0.5 font-mono text-[10px] text-white/45"
+                      className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-0.5 font-mono text-[10px] text-white/55"
                     >
                       {project}
                     </span>
@@ -370,7 +368,7 @@ function TagList({ tags }: { tags?: string[] }) {
       {tags.slice(0, 6).map((tag) => (
         <span
           key={tag}
-          className="rounded-full border border-white/[0.08] bg-white/[0.025] px-2 py-0.5 text-[11px] leading-5 text-white/42"
+          className="rounded-full border border-white/[0.08] bg-white/[0.025] px-2 py-0.5 text-[11px] leading-5 text-white/55"
         >
           {tag}
         </span>

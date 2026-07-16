@@ -1,5 +1,5 @@
 export const mosiContent = {
-  problem: `Bariatric surgery decisions are made with substantial inter-surgeon variation. There is no validated, quantitative staging system that integrates BMI, comorbidity severity, and predicted weight-loss outcomes into a single actionable score — leaving patients under-staged or over-treated based on institutional custom rather than evidence.`,
+  problem: `Bariatric surgery decisions are made with substantial inter-surgeon variation. There is no validated, quantitative staging system that integrates BMI, comorbidity severity, and predicted weight-loss outcomes into a single actionable score, leaving patients under-staged or over-treated based on institutional custom rather than evidence.`,
 
   clinicalNeed: `Over 250,000 bariatric procedures are performed annually in North America. Procedure selection (sleeve gastrectomy vs. Roux-en-Y gastric bypass vs. revisional surgery) significantly impacts total weight loss and comorbidity resolution. A validated decision-support tool that stratifies patients objectively can reduce variation, improve outcomes, and standardize audit-ready documentation.`,
 
@@ -12,13 +12,13 @@ export const mosiContent = {
   currentStatus: `MOSI is in prospective external validation (multi-site). The web tool is live and accessible to clinicians. The derivation paper was published in Surgery for Obesity and Related Diseases (SOARD) in 2026. A validation-cohort manuscript is in preparation.`,
 
   modelCard: {
-    intendedUse: "Pre-operative decision support for bariatric surgery candidate evaluation. Advisory only — the attending surgeon retains clinical authority.",
+    intendedUse: "Pre-operative decision support for bariatric surgery candidate evaluation. Advisory only; the attending surgeon retains clinical authority.",
     inputs: ["BMI (kg/m²)", "Comorbidity list (HTN, T2DM, OSA, GERD, dyslipidemia)", "Charlson Comorbidity Index", "Prior bariatric procedures"],
     outputs: ["MOSI stage (I–IV)", "Recommended procedure category", "Predicted TWL tier (low / moderate / high)", "Clinical audit report (PDF export)"],
     performanceMetrics: "100% algorithm accuracy on 3,097-patient derivation cohort. External validation ongoing.",
     datasetSize: "3,097 patients (derivation); prospective external validation cohort enrolling (target n=800)",
     validationStatus: "Prospective external multi-site validation in progress",
     limitations: "Single-institution derivation cohort. Performance in non-North-American populations is not yet characterized. Not validated for revisional bariatric surgery.",
-    deploymentReadiness: "Validation phase — available to clinicians as a decision-support aid, not yet cleared for autonomous use.",
+    deploymentReadiness: "Validation phase: available to clinicians as a decision-support aid, not yet cleared for autonomous use.",
   },
 };

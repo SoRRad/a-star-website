@@ -136,7 +136,7 @@ export function HeroSection() {
             >
               <Image
                 src="/logos/astar/astar-mark-on-dark.png"
-                alt="A-STAR mark"
+                alt=""
                 width={320}
                 height={320}
                 priority

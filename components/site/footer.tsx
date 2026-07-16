@@ -47,7 +47,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 border-t border-white/10 pt-7">
-          <div className="flex flex-col items-start justify-between gap-4 text-xs text-white/40 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-start justify-between gap-4 text-xs text-white/55 sm:flex-row sm:items-center">
             <p>© {new Date().getFullYear()} A-STAR Lab. Mayo Clinic.</p>
             <p className="font-mono">Built for surgical AI research and collaboration.</p>
           </div>

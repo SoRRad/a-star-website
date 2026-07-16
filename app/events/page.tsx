@@ -154,7 +154,7 @@ export default function EventsPage() {
   );
 
   return (
-    <main>
+    <div>
       <section className="relative isolate overflow-hidden border-b border-[var(--color-border)]">
         <div
           aria-hidden="true"
@@ -186,6 +186,6 @@ export default function EventsPage() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <CompactEventList upcoming={upcomingDated} past={past} />
       </div>
-    </main>
+    </div>
   );
 }

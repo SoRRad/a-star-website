@@ -28,7 +28,7 @@ export async function generateMetadata({
   const member = team.find((m) => m.slug === slug);
   if (!member) return { title: "Team member not found" };
   return {
-    title: `${member.name} — ${member.role}`,
+    title: `${member.name} · ${member.role}`,
     description: member.bio,
     alternates: { canonical: `/team/${slug}` },
     openGraph: { url: `/team/${slug}` },

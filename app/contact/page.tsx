@@ -146,7 +146,7 @@ export default function ContactPage() {
                   </span>
                 </address>
               </div>
-              <p className="text-sm leading-relaxed text-white/40 lg:pt-7">
+              <p className="text-sm leading-relaxed text-white/55 lg:pt-7">
                 A-STAR is a Mayo Clinic research group. All correspondence is routed to
                 the lab team above. For urgent clinical matters, contact Mayo Clinic directly.
                 {" "}

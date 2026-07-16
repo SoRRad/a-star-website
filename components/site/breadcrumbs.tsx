@@ -4,11 +4,28 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 
+/** Product names and route segments whose display form isn't simple title-case. */
+const LABEL_OVERRIDES: Record<string, string> = {
+  mosi: "MOSI",
+  siris: "SIRIS",
+  gonogonet: "GoNoGoNet",
+};
+
+/** Segments that are permanent redirects; link the crumb straight to the destination. */
+const HREF_OVERRIDES: Record<string, string> = {
+  "/projects": "/research",
+  "/news": "/events",
+  "/resources": "/events",
+};
+
 function segmentToLabel(segment: string): string {
-  return segment
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+  return (
+    LABEL_OVERRIDES[segment] ??
+    segment
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ")
+  );
 }
 
 /**
@@ -22,10 +39,13 @@ export function Breadcrumbs() {
 
   const crumbs = [
     { label: "Home", href: "/" },
-    ...segments.map((seg, i) => ({
-      label: segmentToLabel(seg),
-      href: "/" + segments.slice(0, i + 1).join("/"),
-    })),
+    ...segments.map((seg, i) => {
+      const rawHref = "/" + segments.slice(0, i + 1).join("/");
+      return {
+        label: segmentToLabel(seg),
+        href: HREF_OVERRIDES[rawHref] ?? rawHref,
+      };
+    }),
   ];
 
   if (crumbs.length <= 1) return null;

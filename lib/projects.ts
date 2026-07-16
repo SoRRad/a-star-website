@@ -97,7 +97,7 @@ export const projects: Project[] = [
     longName: "Surgical-IRIS Education",
     tagline: "AI-powered surgical patient education built on Mayo Clinic's IRIS platform.",
     description:
-      "SIRIS helps patients ask specialty-focused education questions, review Mayo Clinic resources, and prepare questions for their care team — bridging the information gap between booking and operation.",
+      "SIRIS helps patients ask specialty-focused education questions, review Mayo Clinic resources, and prepare questions for their care team, bridging the information gap between booking and operation.",
     status: "deployed",
     phases: ["patient-journey"],
     liveUrl: "https://siris-1029209978489.us-central1.run.app",
@@ -156,23 +156,13 @@ export const projects: Project[] = [
         alt: "GoNoGoNet surgical computer vision demo",
         caption: "GoNoGoNet: Go/No-Go safety zone detection in laparoscopic cholecystectomy",
       },
-      {
-        type: "placeholder",
-        alt: "GoNoGoNet annotated video preview placeholder",
-        caption: "Annotated video preview forthcoming",
-      },
-      {
-        type: "placeholder",
-        alt: "GoNoGoNet model output thumbnail placeholder",
-        caption: "Model output thumbnail forthcoming",
-      },
     ],
     modelCard: {
       intendedUse:
         "Research decision-support for identifying laparoscopic dissection regions that may represent Go and No-Go safety zones. Advisory only; it is not a replacement for surgeon judgment.",
       clinicalPhase: "Intraoperative surgical guidance and education",
       inputData: ["Laparoscopic or operative video frames", "Procedure context for cholecystectomy-oriented validation workflows"],
-      output: ["Safety-zone / Go-No-Go visual guidance", "Pixel-level or heatmap-style model output for review"],
+      output: ["Safety-zone / Go/No-Go visual guidance", "Pixel-level or heatmap-style model output for review"],
       modelPipeline:
         "Surgical computer vision and semantic segmentation workflow for safety-zone recognition in laparoscopic cholecystectomy contexts.",
       validationStatus:

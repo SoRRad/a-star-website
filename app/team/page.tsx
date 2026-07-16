@@ -6,7 +6,7 @@ import { TeamShaderBg } from "@/components/ui/team-shader-bg";
 export const metadata: Metadata = {
   title: "Team",
   description:
-    "The surgeons, scientists, and engineers building surgical AI at A-STAR — core team and institutional collaborators.",
+    "The surgeons, scientists, and engineers building surgical AI at A-STAR: core team and institutional collaborators.",
   alternates: { canonical: "/team" },
   openGraph: { url: "/team" },
 };

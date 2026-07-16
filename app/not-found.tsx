@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { primaryNav } from "@/lib/navigation";
 
 export default function NotFound() {
   return (
@@ -19,6 +20,20 @@ export default function NotFound() {
           <ArrowLeft className="h-4 w-4" /> Back home
         </Link>
       </div>
+      <nav aria-label="Popular pages" className="mt-10">
+        <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {primaryNav.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="text-sm text-white/55 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-[var(--color-accent)]"
+              >
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </section>
   );
 }
