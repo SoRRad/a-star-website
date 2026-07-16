@@ -6,9 +6,37 @@ import * as THREE from "three";
 import { NeuralNodes } from "./neural-nodes";
 import { ActivationPulses } from "./activation-pulses";
 
-const STAR_COUNT = 2000;
+const STAR_COUNT = 1500;
 const FIELD_DEPTH = 800;
 const FIELD_RADIUS = 400;
+
+// The star canvas is a fixed, full-screen backdrop that sits behind every
+// backdrop-filtered glass surface. Rendering it at the full display refresh
+// forces those surfaces to re-composite their blur on every frame, which is
+// the main source of scroll jank. Driving the loop on demand at ~30fps halves
+// that cost with no perceptible change to the slow ambient motion.
+const TARGET_FPS = 30;
+
+function ThrottledLoop({ fps = TARGET_FPS }: { fps?: number }) {
+  const invalidate = useThree((state) => state.invalidate);
+
+  useEffect(() => {
+    let raf = 0;
+    let last = 0;
+    const interval = 1000 / fps;
+    const loop = (time: number) => {
+      raf = requestAnimationFrame(loop);
+      if (time - last >= interval) {
+        last = time;
+        invalidate();
+      }
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [invalidate, fps]);
+
+  return null;
+}
 
 function Stars() {
   const ref = useRef<THREE.Points>(null);
@@ -109,6 +137,7 @@ export function StarField() {
 
   return (
     <Canvas
+      frameloop="demand"
       camera={{ position: [0, 0, 1], fov: 75, near: 0.1, far: 2000 }}
       dpr={[1, 1]}
       eventSource={eventSource}
@@ -121,6 +150,7 @@ export function StarField() {
       <NeuralNodes />
       <ActivationPulses />
       <ScrollCamera />
+      <ThrottledLoop />
     </Canvas>
   );
 }
