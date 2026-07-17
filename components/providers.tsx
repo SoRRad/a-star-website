@@ -16,11 +16,13 @@ function SmoothScroll({ children }: { children: ReactNode }) {
 
     try {
       lenis = new Lenis({
-        duration: 0.75,
+        // Shorter glide + slightly higher wheel gain trades the previous floaty
+        // feel for a snappier, more native response while keeping the smoothing.
+        duration: 0.6,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         touchMultiplier: 1.0,
-        wheelMultiplier: 1.0,
+        wheelMultiplier: 1.1,
       });
 
       function tick(time: number) {

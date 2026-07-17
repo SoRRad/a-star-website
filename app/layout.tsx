@@ -78,8 +78,12 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: [{ url: "/logos/astar/favicon-512.png", type: "image/png", sizes: "512x512" }],
-    apple: "/logos/astar/apple-touch-icon.png",
+    icon: [
+      { url: "/logos/astar/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/logos/astar/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/logos/astar/favicon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/logos/astar/apple-touch-icon.png", sizes: "180x180" }],
   },
 };
 
