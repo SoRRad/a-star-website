@@ -83,7 +83,11 @@ function Stars() {
   });
 
   return (
-    <points ref={ref}>
+    // eventSource is document.body, so R3F raycasts the scene on every pointer move
+    // anywhere on the page. THREE.Points.raycast walks all 1500 vertices, which is pure
+    // waste here — only the neural nodes are interactive. Opting the star cloud out
+    // keeps pointer handling off the hot path during scroll and cursor movement.
+    <points ref={ref} raycast={() => null}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         <bufferAttribute attach="attributes-color" args={[colors, 3]} />

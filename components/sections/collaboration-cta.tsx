@@ -3,7 +3,15 @@
 import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, Database, GraduationCap, Stethoscope } from "lucide-react";
-import { AiHeroBackground } from "@/components/ui/ai-hero-background";
+import dynamic from "next/dynamic";
+
+// The neural dot field pulls in three.js plus the UnrealBloom/RGBShift post-processing
+// passes (~500 kB). This CTA lives near the bottom of the page, so the chunk is fetched
+// only once the section is within a screen of the viewport, and never during first load.
+const AiHeroBackground = dynamic(
+  () => import("@/components/ui/ai-hero-background").then((m) => m.AiHeroBackground),
+  { ssr: false },
+);
 
 const collaborationCards = [
   {
@@ -35,6 +43,28 @@ const nodes = [
 
 export function CollaborationCta() {
   const sectionRef = React.useRef<HTMLElement>(null);
+  const [bgReady, setBgReady] = React.useState(false);
+
+  React.useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setBgReady(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        setBgReady(true);
+        observer.disconnect();
+      },
+      // Start fetching a screen early so the field has faded in by the time it is read.
+      { rootMargin: "100% 0px" },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   const onPointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (event.pointerType !== "mouse") return;
@@ -65,11 +95,14 @@ export function CollaborationCta() {
         } as React.CSSProperties
       }
     >
-      {/* Three.js neural dot field — deep background */}
-      <AiHeroBackground />
+      {/* Three.js neural dot field — deep background, mounted only when near the viewport */}
+      {bgReady && <AiHeroBackground />}
 
       {/* Pulsing radial rings — ambient motion, CSS only */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+        aria-hidden="true"
+      >
         {[0, 1].map((i) => (
           <div
             key={i}
@@ -115,9 +148,14 @@ export function CollaborationCta() {
               className="heading-xl max-w-xl text-balance"
               style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
             >
-              <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>Ready to build</span>
-              {" "}
-              <span style={{ fontWeight: 300, letterSpacing: "-0.01em", color: "rgb(255 255 255 / 0.65)" }}>
+              <span style={{ fontWeight: 800, letterSpacing: "-0.045em" }}>Ready to build</span>{" "}
+              <span
+                style={{
+                  fontWeight: 300,
+                  letterSpacing: "-0.01em",
+                  color: "rgb(255 255 255 / 0.65)",
+                }}
+              >
                 surgical AI with{" "}
               </span>
               <span
@@ -128,8 +166,7 @@ export function CollaborationCta() {
                   color: "#1E40AF",
                   fontSize: "0.95em",
                   letterSpacing: "0.08em",
-                  textShadow:
-                    "0 0 20px rgba(30,64,175,0.5), 0 0 40px rgba(30,64,175,0.22)",
+                  textShadow: "0 0 20px rgba(30,64,175,0.5), 0 0 40px rgba(30,64,175,0.22)",
                   display: "inline-block",
                 }}
               >

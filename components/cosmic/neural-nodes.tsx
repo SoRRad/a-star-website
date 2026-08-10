@@ -66,6 +66,7 @@ export function NeuralNodes() {
           <Line
             key={`${COSMIC_NODES[a].id}-${COSMIC_NODES[b].id}`}
             points={[COSMIC_NODES[a].position, COSMIC_NODES[b].position]}
+            raycast={() => null}
             color={isActive ? "#64B5F6" : "#1E88E5"}
             lineWidth={isActive ? 1.5 : 0.8}
             transparent
@@ -93,15 +94,11 @@ export function NeuralNodes() {
             </mesh>
             <mesh scale={isHovered ? 2 : 1}>
               <sphereGeometry args={[0.2, 16, 16]} />
-              <meshBasicMaterial
-                color="#1E88E5"
-                transparent
-                opacity={isHovered ? 0.3 : 0.08}
-              />
+              <meshBasicMaterial color="#1E88E5" transparent opacity={isHovered ? 0.3 : 0.08} />
             </mesh>
             {isHovered && (
               <Html position={[0, 0.3, 0]} center style={{ pointerEvents: "none" }}>
-                <div className="whitespace-nowrap rounded-full border border-white/20 bg-black/60 px-3 py-1 font-mono text-xs uppercase tracking-wider text-white backdrop-blur-sm">
+                <div className="rounded-full border border-white/20 bg-black/60 px-3 py-1 font-mono text-xs tracking-wider whitespace-nowrap text-white uppercase backdrop-blur-sm">
                   {node.label}
                 </div>
               </Html>

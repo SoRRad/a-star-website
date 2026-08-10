@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -17,8 +18,10 @@ import { PlayingCard } from "@/components/lab/playing-card";
 import { CollaboratorCard } from "@/components/lab/collaborator-card";
 import { ContentPlaceholder } from "@/components/lab/content-placeholder";
 import { ProjectMediaGrid } from "@/components/lab/project-media";
-import { MosiDemo } from "@/components/lab/mosi-demo";
-import { SirisDemo } from "@/components/lab/siris-demo";
+// Only ever one of these renders per project, but a static import puts both in every
+// project page's client bundle — gonogonet was shipping two demos it never mounts.
+const MosiDemo = dynamic(() => import("@/components/lab/mosi-demo").then((m) => m.MosiDemo));
+const SirisDemo = dynamic(() => import("@/components/lab/siris-demo").then((m) => m.SirisDemo));
 import { PublicationCard } from "@/components/publications/publication-card";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { Button } from "@/components/ui/button";
@@ -64,11 +67,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
@@ -91,13 +90,13 @@ export default async function ProjectPage({
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <Breadcrumbs />
 
-      <header className="mb-12 mt-6">
+      <header className="mt-6 mb-12">
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <StatusPipeline status={project.status} />
           {projectPhases.map((phase) => (
             <span
               key={phase.id}
-              className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest text-[var(--color-muted-foreground)]"
+              className="rounded-sm border border-[var(--color-border)] px-2 py-0.5 font-mono text-[10px] tracking-widest text-[var(--color-muted-foreground)] uppercase"
             >
               {phase.code} / {phase.title}
             </span>
@@ -109,13 +108,13 @@ export default async function ProjectPage({
           )}
         </div>
 
-        <h1 className="font-display text-balance text-5xl font-semibold tracking-normal sm:text-6xl lg:text-7xl">
+        <h1 className="font-display text-5xl font-semibold tracking-normal text-balance sm:text-6xl lg:text-7xl">
           {project.name}
         </h1>
         <p className="mt-3 text-xl font-medium text-[var(--color-muted-foreground)]">
           {project.longName}
         </p>
-        <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-[var(--color-muted-foreground)]">
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-[var(--color-muted-foreground)]">
           {project.tagline}
         </p>
 
@@ -282,8 +281,8 @@ export default async function ProjectPage({
         <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] p-6">
           <p className="eyebrow mb-2">Get involved</p>
           <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted-foreground)]">
-            Interested in collaborating on {project.name}? We welcome clinical partnerships,
-            dataset contributions, and research collaboration.
+            Interested in collaborating on {project.name}? We welcome clinical partnerships, dataset
+            contributions, and research collaboration.
           </p>
           <Button asChild variant="accent">
             <Link href="/contact#collaborate">Reach out</Link>
@@ -315,7 +314,7 @@ function ScientificSection({
   return (
     <section>
       <p className="eyebrow mb-2">{eyebrow}</p>
-      <h2 className="mb-4 font-display text-xl font-semibold tracking-normal">{title}</h2>
+      <h2 className="font-display mb-4 text-xl font-semibold tracking-normal">{title}</h2>
       {children}
     </section>
   );
@@ -323,7 +322,7 @@ function ScientificSection({
 
 function Prose({ children }: { children: string }) {
   return (
-    <p className="max-w-3xl text-pretty text-base leading-relaxed text-[var(--color-muted-foreground)]">
+    <p className="max-w-3xl text-base leading-relaxed text-pretty text-[var(--color-muted-foreground)]">
       {children}
     </p>
   );
