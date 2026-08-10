@@ -2,10 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import Script from "next/script";
 import { Bricolage_Grotesque, Geist, Geist_Mono, Orbitron } from "next/font/google";
-import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { ScrollToTop } from "@/components/site/scroll-to-top";
+import { RevealController } from "@/components/motion/reveal-controller";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CursorGlow } from "@/components/cosmic/cursor-glow";
 import { siteConfig } from "@/lib/site-config";
@@ -109,26 +109,25 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         suppressHydrationWarning
         className="relative isolate min-h-screen overflow-x-hidden font-sans antialiased"
       >
-        <Providers>
-          <CosmicBackground />
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-foreground)] focus:px-4 focus:py-2 focus:text-[var(--color-background)]"
-          >
-            Skip to main content
-          </a>
-          <Suspense fallback={null}>
-            <ScrollToTop />
-          </Suspense>
-          <CursorGlow />
-          <SiteHeader />
-          <main id="main" className="relative z-10 pt-12">
-            {children}
-          </main>
-          <div className="relative z-10">
-            <SiteFooter />
-          </div>
-        </Providers>
+        <CosmicBackground />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-[var(--color-foreground)] focus:px-4 focus:py-2 focus:text-[var(--color-background)]"
+        >
+          Skip to main content
+        </a>
+        <Suspense fallback={null}>
+          <ScrollToTop />
+        </Suspense>
+        <RevealController />
+        <CursorGlow />
+        <SiteHeader />
+        <main id="main" className="relative z-10 pt-12">
+          {children}
+        </main>
+        <div className="relative z-10">
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

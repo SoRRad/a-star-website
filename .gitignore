@@ -50,3 +50,6 @@ dev-server.*
 !.vscode/settings.json
 !.vscode/extensions.json
 .idea
+
+# generated site review artifacts (regenerate: node scripts/capture-site-screenshots.mjs)
+/site-review-output/

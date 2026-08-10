@@ -72,7 +72,14 @@ export function ActivationPulses() {
   return (
     <>
       {Array.from({ length: MAX_PULSES }, (_, i) => (
-        <mesh key={i} ref={(el) => { meshRefs.current[i] = el; }} visible={false}>
+        <mesh
+          key={i}
+          ref={(el) => {
+            meshRefs.current[i] = el;
+          }}
+          visible={false}
+          raycast={() => null}
+        >
           <sphereGeometry args={[0.08, 8, 8]} />
           <meshBasicMaterial color="#64B5F6" transparent opacity={0} />
         </mesh>

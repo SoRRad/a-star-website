@@ -1,44 +1,26 @@
-"use client";
-
 import Image from "next/image";
-import { useRef, type ReactNode } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import type { CSSProperties, ReactNode } from "react";
 import { logos } from "@/lib/logos";
 
 interface RevealProps {
   children: ReactNode;
   className?: string;
-  /** Stagger children with a delay between each element */
-  stagger?: boolean;
   /** Delay before the animation starts (seconds) */
   delay?: number;
   /** Show the A-STAR mark watermark in the top-right corner (section eyebrow treatment) */
   showMark?: boolean;
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
 /**
  * Fade + lift reveal when scrolled into view.
- * Use stagger=true to animate children sequentially — pass direct child elements.
+ *
+ * Deliberately not a client component. The hidden state lives in CSS behind
+ * `html.js` and in-view detection is handled for the whole page by a single
+ * RevealController, so this renders as plain markup that is visible on its own.
+ * The previous Framer Motion implementation shipped `opacity: 0` in the SSR HTML,
+ * which left every page blank until React had hydrated.
  */
-export function Reveal({ children, className, stagger = false, delay = 0, showMark = false }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
-  const reducedMotion = useReducedMotion();
-
+export function Reveal({ children, className, delay = 0, showMark = false }: RevealProps) {
   const mark = showMark ? (
     <Image
       src={logos.markNeutral}
@@ -46,60 +28,18 @@ export function Reveal({ children, className, stagger = false, delay = 0, showMa
       aria-hidden="true"
       width={24}
       height={24}
-      className="pointer-events-none absolute right-0 top-0 hidden h-6 w-6 select-none opacity-20 sm:block"
+      className="pointer-events-none absolute top-0 right-0 hidden h-6 w-6 opacity-20 select-none sm:block"
     />
   ) : null;
 
-  if (reducedMotion) {
-    return (
-      <div ref={ref} className={showMark ? `relative ${className ?? ""}` : className}>
-        {mark}
-        {children}
-      </div>
-    );
-  }
-
-  if (stagger) {
-    return (
-      <motion.div
-        ref={ref}
-        className={showMark ? `relative ${className ?? ""}` : className}
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
-        {mark}
-        {children}
-      </motion.div>
-    );
-  }
-
   return (
-    <motion.div
-      ref={ref}
+    <div
+      data-reveal=""
       className={showMark ? `relative ${className ?? ""}` : className}
-      variants={itemVariants}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay }}
+      style={delay ? ({ "--reveal-delay": `${delay}s` } as CSSProperties) : undefined}
     >
       {mark}
       {children}
-    </motion.div>
-  );
-}
-
-/**
- * Wrapper for individual staggered child items inside <Reveal stagger>.
- */
-export function RevealItem({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <motion.div
-      className={className}
-      variants={itemVariants}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
+    </div>
   );
 }
