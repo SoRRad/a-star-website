@@ -53,3 +53,8 @@ dev-server.*
 
 # generated site review artifacts (regenerate: node scripts/capture-site-screenshots.mjs)
 /site-review-output/
+
+# HEIC camera originals are source material, not web assets — convert to .jpg
+# before adding to public/ (see public/news/README.md).
+public/**/*.HEIC
+public/**/*.heic

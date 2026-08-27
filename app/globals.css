@@ -90,13 +90,6 @@
   --color-card: var(--surface-glass);
   --color-card-foreground: var(--color-text-primary);
 
-  /* Status colors for project pipeline */
-  --color-status-concept: var(--color-text-muted);
-  --color-status-development: var(--color-stellar-bright);
-  --color-status-validation: var(--color-stellar-blue);
-  --color-status-clinical: #14b8a6;
-  --color-status-deployed: #10b981;
-
   /* Typography */
   --font-display:
     var(--font-bricolage), "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
