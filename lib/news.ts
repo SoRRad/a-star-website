@@ -43,6 +43,54 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "surgery-family-day-2026",
+    title: "A-STAR Lab Volunteers at Mayo Clinic Surgery Family Day",
+    date: "2026-08-22",
+    category: "lab-update",
+    image: "/news/surgery-family-day-2026.jpg",
+    imageAlt:
+      "Two participants working through laparoscopic tasks on box trainers at Surgery Family Day.",
+    images: [
+      {
+        src: "/news/surgery-family-day-2026.jpg",
+        alt: "Two participants working through laparoscopic tasks on box trainers at Surgery Family Day.",
+        caption:
+          "Visitors trying basic laparoscopic tasks on the box trainers at the hands-on skills station.",
+      },
+      {
+        src: "/news/surgery-family-day-2026-2.jpg",
+        alt: "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. demonstrating laparoscopic instruments to a visitor.",
+        caption:
+          "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. walking a visitor through the instruments and the view from the laparoscope.",
+      },
+    ],
+    summary:
+      "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. led a hands-on laparoscopic skills station at Mayo Clinic's Surgery Family Day.",
+    details:
+      "Surgery Family Day welcomes staff and their families into the simulation center to learn more about the surgical discipline and the people behind it. The A-STAR station let visitors pick up the instruments, work through basic tasks on the trainers, and get a feel for the precision and coordination surgery demands.",
+    excerpt:
+      "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. volunteered at Mayo Clinic's Surgery Family Day, leading a hands-on laparoscopic skills station that drew a steady stream of visitors into the simulation center.",
+    body: `Simon Laplante, M.D. and Abdulrahman Alomar, M.D. of the A-STAR Lab volunteered at Mayo Clinic's Surgery Family Day, an event that welcomes staff and their families into the simulation center to learn more about the surgical discipline and the people behind it.
+
+The two led a hands-on laparoscopic skills station, where families and members of the wider healthcare team could pick up the instruments, work through basic tasks on the trainers, and get a feel for the precision and coordination surgery demands.
+
+For many visitors it was a first look at what happens behind the OR doors, and the station drew a steady stream of curious participants throughout the day.
+
+Events like this are a small but meaningful way of connecting the lab's work back to the community it serves.`,
+    people: ["simon-laplante", "abdulrahman-alomar"],
+    projects: [],
+    publications: [],
+    tags: [
+      "Lab News",
+      "Outreach",
+      "Surgical Education",
+      "Simulation",
+      "Laparoscopy",
+      "Mayo Clinic",
+    ],
+    featured: false,
+  },
+  {
     slug: "laplante-asmbs-ai-webinar-2025",
     title: "Dr. Simon Laplante Featured in ASMBS Webinar on AI in Surgery",
     date: "2025-01-24",

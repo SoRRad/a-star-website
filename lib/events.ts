@@ -37,7 +37,6 @@ export type JournalClubSession = {
   slug: string;
   title: string;
   date: string;
-  imageSrc?: string;
   description: string;
   topics: string[];
 };
@@ -45,8 +44,8 @@ export type JournalClubSession = {
 export const journalClubIntakeHref = "/contact#journal-club";
 
 export const nextJournalClub = {
-  label: "Fifth A-STAR Journal Club: August 4, 2026",
-  date: "2026-08-04",
+  label: "Sixth A-STAR Journal Club: September 16, 2026",
+  date: "2026-09-16",
   href: journalClubIntakeHref,
 } as const;
 
@@ -55,7 +54,6 @@ export const journalClubSessions: JournalClubSession[] = [
     slug: "first-astar-journal-club",
     title: "First A-STAR Journal Club",
     date: "2026-05-20",
-    imageSrc: "/events/journal-club-may20-2026.jpg",
     description: "The first A-STAR Journal Club was held on May 20, 2026.",
     topics: [
       "Video-language models (Abdulrahman Alomar, M.D.)",
@@ -67,14 +65,14 @@ export const journalClubSessions: JournalClubSession[] = [
     title: "Second A-STAR Journal Club",
     date: "2026-06-08",
     description: "The second A-STAR Journal Club was held on June 8, 2026.",
-    topics: [],
+    topics: ["Predicting anastomotic leak from intraoperative images (Abdulrahman Alomar, M.D.)"],
   },
   {
     slug: "third-astar-journal-club",
     title: "Third A-STAR Journal Club",
     date: "2026-06-30",
     description: "The third A-STAR Journal Club was held on June 30, 2026.",
-    topics: [],
+    topics: ["Foundation models for the longitudinal patient record (Abdulrahman Alomar, M.D.)"],
   },
   {
     slug: "fourth-astar-journal-club",
@@ -87,21 +85,14 @@ export const journalClubSessions: JournalClubSession[] = [
     slug: "fifth-astar-journal-club",
     title: "Fifth A-STAR Journal Club",
     date: "2026-08-04",
-    description: "The fifth A-STAR Journal Club is scheduled for August 4, 2026.",
-    topics: [],
+    description: "The fifth A-STAR Journal Club was held on August 4, 2026.",
+    topics: ["Recognizing surgical gestures with computer vision (Abdulrahman Alomar, M.D.)"],
   },
   {
     slug: "sixth-astar-journal-club",
     title: "Sixth A-STAR Journal Club",
-    date: "2026-08-26",
-    description: "The sixth A-STAR Journal Club is scheduled for August 26, 2026.",
-    topics: [],
-  },
-  {
-    slug: "seventh-astar-journal-club",
-    title: "Seventh A-STAR Journal Club",
     date: "2026-09-16",
-    description: "The seventh A-STAR Journal Club is scheduled for September 16, 2026.",
+    description: "The sixth A-STAR Journal Club is scheduled for September 16, 2026.",
     topics: [],
   },
 ];
@@ -138,15 +129,15 @@ export const events: LabEvent[] = [
     location: "Mayo Clinic, Rochester, MN and virtual",
     summary: "The second A-STAR Journal Club was held on June 8, 2026.",
     details:
-      "The session continued the lab's recurring Journal Club series reviewing recent surgical AI and computer vision literature. Use the Journal Club contact link to join the distribution list or propose a paper for a future session.",
+      "Abdulrahman Alomar, M.D. presented a computer vision model trained to predict anastomotic leak directly from intraoperative images of the completed anastomosis. The model caught most leaks but raised a high number of false alarms, and discussion centered on the small effective sample, the retrospective design, and whether the model was reading biology or a confounder such as the operating surgeon or the scope.",
     description:
-      "The second A-STAR Journal Club was held on June 8, 2026, continuing the lab's recurring review of surgical AI and computer vision literature.",
+      "The second A-STAR Journal Club was held on June 8, 2026. Abdulrahman Alomar, M.D. presented a computer vision model that predicts anastomotic leak from intraoperative images of the completed anastomosis, and the group weighed its sensitivity against a high false alarm rate, the retrospective design, and the risk of confounding.",
     status: "past",
     rsvpRequired: true,
     recurring: true,
     recurrencePattern: "Recurring Journal Club session",
-    people: [],
-    tags: ["Journal Club", "Surgical AI"],
+    people: ["abdulrahman-alomar"],
+    tags: ["Journal Club", "Computer Vision", "Anastomotic Leak", "Surgical AI"],
     featured: true,
   },
   {
@@ -159,15 +150,15 @@ export const events: LabEvent[] = [
     location: "Mayo Clinic, Rochester, MN and virtual",
     summary: "The third A-STAR Journal Club was held on June 30, 2026.",
     details:
-      "The session continued the lab's recurring Journal Club series reviewing recent surgical AI and computer vision literature. Use the Journal Club contact link to join the distribution list or propose a paper for a future session.",
+      "Abdulrahman Alomar, M.D. presented a recent preprint introducing a foundation model that compresses a patient's entire longitudinal record — structured data, clinical notes, and pathology images — into a single virtual patient representation, then uses it to forecast disease onset, progression, treatment response, and adverse events across hundreds of tasks.",
     description:
-      "The third A-STAR Journal Club was held on June 30, 2026, continuing the lab's recurring review of surgical AI and computer vision literature.",
+      "The third A-STAR Journal Club was held on June 30, 2026. Abdulrahman Alomar, M.D. presented a preprint on a foundation model that compresses a patient's full longitudinal record into a single virtual patient representation and forecasts disease onset, progression, treatment response, and adverse events across hundreds of tasks.",
     status: "past",
     rsvpRequired: true,
     recurring: true,
     recurrencePattern: "Recurring Journal Club session",
-    people: [],
-    tags: ["Journal Club", "Surgical AI"],
+    people: ["abdulrahman-alomar"],
+    tags: ["Journal Club", "Foundation Models", "Clinical Prediction", "Surgical AI"],
     featured: true,
   },
   {
@@ -199,53 +190,32 @@ export const events: LabEvent[] = [
     format: "hybrid",
     date: "2026-08-04",
     location: "Mayo Clinic, Rochester, MN and virtual",
-    summary: "The fifth A-STAR Journal Club is scheduled for August 4, 2026.",
+    summary: "The fifth A-STAR Journal Club was held on August 4, 2026.",
     details:
-      "Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
+      "Abdulrahman Alomar, M.D. presented on surgical gestures and the use of computer vision to classify them, working from a recent preprint on recognizing basic surgical actions across procedures. The group discussed what objective, large-scale gesture recognition could mean for future research, surgical education, and quality improvement.",
     description:
-      "The fifth A-STAR Journal Club is scheduled for August 4, 2026. Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
-    status: "upcoming",
+      "The fifth A-STAR Journal Club was held on August 4, 2026. Abdulrahman Alomar, M.D. presented a preprint on recognizing basic surgical actions across procedures, and the group discussed what objective gesture recognition at scale could mean for research, surgical education, and quality improvement.",
+    status: "past",
     rsvpRequired: true,
     recurring: true,
     recurrencePattern: "Recurring Journal Club session",
-    people: [],
-    tags: ["Journal Club", "Surgical AI"],
-    featured: true,
-  },
-  {
-    slug: "astar-journal-club-august-26-2026",
-    title: "Sixth A-STAR Journal Club",
-    series: "A-STAR Lab Journal Club",
-    type: "journal-club",
-    format: "hybrid",
-    date: "2026-08-26",
-    location: "Mayo Clinic, Rochester, MN and virtual",
-    summary: "The sixth A-STAR Journal Club is scheduled for August 26, 2026.",
-    details:
-      "Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
-    description:
-      "The sixth A-STAR Journal Club is scheduled for August 26, 2026. Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
-    status: "upcoming",
-    rsvpRequired: true,
-    recurring: true,
-    recurrencePattern: "Recurring Journal Club session",
-    people: [],
-    tags: ["Journal Club", "Surgical AI"],
+    people: ["abdulrahman-alomar"],
+    tags: ["Journal Club", "Computer Vision", "Surgical Gestures", "Surgical Education"],
     featured: true,
   },
   {
     slug: "astar-journal-club-september-2026",
-    title: "Seventh A-STAR Journal Club",
+    title: "Sixth A-STAR Journal Club",
     series: "A-STAR Lab Journal Club",
     type: "journal-club",
     format: "hybrid",
     date: "2026-09-16",
     location: "Mayo Clinic, Rochester, MN and virtual",
-    summary: "The seventh A-STAR Journal Club is scheduled for September 16, 2026.",
+    summary: "The sixth A-STAR Journal Club is scheduled for September 16, 2026.",
     details:
       "Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
     description:
-      "The seventh A-STAR Journal Club is scheduled for September 16, 2026. Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
+      "The sixth A-STAR Journal Club is scheduled for September 16, 2026. Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
     status: "upcoming",
     rsvpRequired: true,
     recurring: true,
