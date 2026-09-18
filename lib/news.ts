@@ -43,6 +43,56 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "research-fellows-awards-2026",
+    title: "A-STAR Lab Members Honored at the Mayo Research Fellows' Association Awards",
+    date: "2026-09-18",
+    category: "award",
+    image: "/news/research-fellows-awards-2026-excellence-ai.jpg",
+    imageAlt:
+      "Abdulrahman Alomar, M.D. receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
+    images: [
+      {
+        src: "/news/research-fellows-awards-2026-excellence-ai.jpg",
+        alt: "Abdulrahman Alomar, M.D. receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
+        caption:
+          "Abdulrahman Alomar, M.D. accepting the Excellence in AI, Data Science, and Computational Biology Award.",
+      },
+      {
+        src: "/news/research-fellows-awards-2026-team-collaboration.jpg",
+        alt: "The Bariatric Surgery and Aging Team receiving the Team Collaboration Award on stage.",
+        caption:
+          "The Bariatric Surgery and Aging Team accepting the Team Collaboration Award for the AI-ECG bariatric surgery project.",
+      },
+    ],
+    summary:
+      "Abdulrahman Alomar, M.D. received the Excellence in AI, Data Science, and Computational Biology Award, and the Bariatric Surgery and Aging Team received the Team Collaboration Award.",
+    details:
+      "The Excellence in AI, Data Science, and Computational Biology Award recognized work applying computer vision to computed tomography for hernia evaluation and surgical planning. The Team Collaboration Award recognized the Bariatric Surgery and Aging Team for the AI-ECG bariatric surgery project, a cross-disciplinary collaboration with Cardiology.",
+    excerpt:
+      "A-STAR Lab members were recognized at the Mayo Research Fellows' Association awards, with honors for computer vision applied to hernia surgical planning and for the AI-ECG bariatric surgery collaboration with Cardiology.",
+    body: `A-STAR Lab members were recognized at the Mayo Research Fellows' Association awards.
+
+Abdulrahman Alomar, M.D. received the Excellence in AI, Data Science, and Computational Biology Award for work applying computer vision to computed tomography for hernia evaluation and surgical planning.
+
+The Bariatric Surgery and Aging Team received the Team Collaboration Award for the AI-ECG bariatric surgery project, a cross-disciplinary collaboration with Cardiology. Reza Shahriarirad, M.D. and Abdulrahman Alomar, M.D. were among the recipients.
+
+Both awards reflect the lab's emphasis on pairing clinical questions with rigorous computational methods, and on building the cross-disciplinary partnerships that translational surgical AI depends on.`,
+    people: ["abdulrahman-alomar", "reza-shahriarirad"],
+    projects: [],
+    publications: [],
+    tags: [
+      "Award",
+      "Computer Vision",
+      "Hernia Surgery",
+      "Surgical Planning",
+      "AI-ECG",
+      "Bariatric Surgery",
+      "Cardiology",
+      "Mayo Clinic",
+    ],
+    featured: false,
+  },
+  {
     slug: "surgery-family-day-2026",
     title: "A-STAR Lab Volunteers at Mayo Clinic Surgery Family Day",
     date: "2026-08-22",
