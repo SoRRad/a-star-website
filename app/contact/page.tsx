@@ -21,7 +21,8 @@ const contactOptions: ReadonlyArray<ContactOption> = [
     description:
       "Questions about the lab, our research, or anything else. Reaches the lab directly.",
     href: mailtoHref({
-      to: "laplante.simon@mayo.edu",
+      to: siteConfig.contactEmail,
+      cc: "laplante.simon@mayo.edu",
       subject: "A-STAR inquiry",
       body:
         "Name: \n" +
@@ -29,8 +30,8 @@ const contactOptions: ReadonlyArray<ContactOption> = [
         "Role: \n\n" +
         "Message:\n",
     }),
-    to: "laplante.simon@mayo.edu",
-    cc: null,
+    to: siteConfig.contactEmail,
+    cc: "laplante.simon@mayo.edu",
     label: "Start the conversation",
   },
   {
@@ -146,7 +147,20 @@ export default function ContactPage() {
                   </span>
                 </address>
               </div>
-              <p className="text-sm leading-relaxed text-white/55 lg:pt-7">
+              <div className="lg:pt-7">
+                <p className="eyebrow mb-3">Email</p>
+                <p className="mb-5 text-sm leading-relaxed">
+                  <a
+                    href={`mailto:${siteConfig.contactEmail}`}
+                    className="text-white/75 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-[var(--color-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                  >
+                    {siteConfig.contactEmail}
+                  </a>
+                  <span className="mt-1 block text-white/45">
+                    Shared lab inbox, monitored by the A-STAR team.
+                  </span>
+                </p>
+                <p className="text-sm leading-relaxed text-white/55">
                 A-STAR is a Mayo Clinic research group. All correspondence is routed to
                 the lab team above. For urgent clinical matters, contact Mayo Clinic directly.
                 {" "}
@@ -158,7 +172,8 @@ export default function ContactPage() {
                 >
                   Learn more about A-STAR at Mayo Clinic Research.
                 </a>
-              </p>
+                </p>
+              </div>
             </aside>
           </Reveal>
         </div>
