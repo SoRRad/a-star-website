@@ -11,6 +11,9 @@ const siteUrl =
       ? `https://${process.env.VERCEL_URL}`
       : "http://localhost:3000");
 
+/** Shared lab inbox. Preferred over any individual address for public contact. */
+const contactEmail = "theastarlab@gmail.com";
+
 export const siteConfig = {
   name: "A-STAR",
   fullName: "AI in Surgical Technology & Augmentation Research",
@@ -18,6 +21,7 @@ export const siteConfig = {
   description:
     "A-STAR is a research lab advancing artificial intelligence across the full surgical journey: preoperative planning, intraoperative guidance, postoperative recovery, and external validation of surgical AI systems.",
   url: siteUrl,
+  contactEmail,
   ogImage: "/opengraph-image",
   officialMayoLabUrl:
     "https://www.mayo.edu/research/labs/artificial-intelligence-surgical-technologies/overview",
@@ -30,7 +34,7 @@ export const siteConfig = {
     github: "https://github.com/SoRRad",
     linkedin: "",
     twitter: "",
-    email: "",
+    email: contactEmail,
   },
 } as const;
 
