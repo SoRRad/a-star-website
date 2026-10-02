@@ -95,21 +95,20 @@ Each team's annotations were used to train a model during the course. At the end
     title: "A-STAR Lab Members Honored at the Mayo Research Fellows' Association Awards",
     date: "2026-09-18",
     category: "award",
-    image: "/news/research-fellows-awards-2026-excellence-ai.jpg",
+    image: "/news/research-fellows-awards-2026.jpg",
     imageAlt:
-      "Dr. Abdulrahman Alomar receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
+      "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad holding their Mayo Research Fellows' Association award certificates.",
     images: [
       {
-        src: "/news/research-fellows-awards-2026-excellence-ai.jpg",
-        alt: "Dr. Abdulrahman Alomar receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
-        caption:
-          "Dr. Abdulrahman Alomar accepting the Excellence in AI, Data Science, and Computational Biology Award.",
+        src: "/news/research-fellows-awards-2026.jpg",
+        alt: "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad holding their Mayo Research Fellows' Association award certificates.",
+        caption: "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad with their award certificates.",
       },
       {
-        src: "/news/research-fellows-awards-2026-team-collaboration.jpg",
-        alt: "The Bariatric Surgery and Aging Team receiving the Team Collaboration Award on stage.",
+        src: "/news/research-fellows-awards-2026-2.jpg",
+        alt: "Five people on stage at the Mayo Research Fellows' Association awards, two holding award trophies.",
         caption:
-          "The Bariatric Surgery and Aging Team accepting the Team Collaboration Award for the AI-ECG bariatric surgery project.",
+          "From left: Drs. Farzad Pourghazi, Reza Shahriarirad, Abdulrahman Alomar, Parvin Kalhor, and Asad Maqbool.",
       },
     ],
     summary:
