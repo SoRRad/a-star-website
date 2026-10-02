@@ -35,7 +35,7 @@ export const talks: Talk[] = [
   {
     slug: "computer-vision-assisted-surgery-asmbs-mn-2025",
     title: "Computer Vision Assisted Surgery: Current Landscape and Future Directions",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-09-26",
     displayDate: "September 26, 2025",
@@ -53,7 +53,7 @@ export const talks: Talk[] = [
     slug: "pathway-safer-cholecystectomy-gonogonet-ai-summit-2024",
     title:
       "Pathway to Safer Cholecystectomy: Using the Validated GoNoGoNet to Demonstrate the Potential Clinical and Educational Applications of Surgical Computer Vision",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2024-07-01",
     displayDate: "July 2024",
@@ -70,7 +70,7 @@ export const talks: Talk[] = [
   {
     slug: "asmbs-bariatric-happy-hour-ai-2025",
     title: "The Future of Surgery: Harnessing AI for Smarter, Safer, and Faster Procedures",
-    speaker: "Simon J. Laplante, M.D., M.Sc.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-01-24",
     displayDate: "January 24, 2025",
@@ -89,7 +89,7 @@ export const talks: Talk[] = [
   {
     slug: "future-surgery-ai-sages-nashville-2025",
     title: "The Future of Surgery: Harnessing AI for Smarter, Safer, and Faster Procedures",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-01-01",
     displayDate: "January 2025",
@@ -106,7 +106,7 @@ export const talks: Talk[] = [
   {
     slug: "overview-ai-technologies-surgical-care-asmbs-2025",
     title: "Overview of AI Technologies in Surgical Care: Fundamentals and Current Landscape",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-06-01",
     displayDate: "June 2025",
@@ -123,7 +123,7 @@ export const talks: Talk[] = [
   {
     slug: "ai-for-beginners-oxford-2025",
     title: "AI For Beginners: From Basic Concepts to Impact on Clinical Care",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-09-01",
     displayDate: "September 2025",
@@ -141,7 +141,7 @@ export const talks: Talk[] = [
   {
     slug: "computer-vision-assisted-surgery-oxford-2025",
     title: "Computer Vision Assisted Surgery: Current Landscape and Future Directions",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-09-01",
     displayDate: "September 2025",
@@ -159,7 +159,7 @@ export const talks: Talk[] = [
   {
     slug: "ai-intraoperative-decision-making-oxford-chair-2025",
     title: "Experts Discussion Session: How Will AI Improve Intraoperative Surgical Decision-Making Over the Next 30 Years?",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-09-01",
     displayDate: "September 2025",
@@ -177,7 +177,7 @@ export const talks: Talk[] = [
   {
     slug: "computer-vision-abdominal-wall-hernia-surgery-oxford-2025",
     title: "The Application of Computer Vision in Abdominal Wall Hernia Surgery",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-09-01",
     displayDate: "September 2025",
@@ -195,7 +195,7 @@ export const talks: Talk[] = [
   {
     slug: "future-ai-surgical-precision-decision-making-oxford-2025",
     title: "The Future of AI: Improving Surgical Precision and Decision-Making",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2025-09-01",
     displayDate: "September 2025",
@@ -213,7 +213,7 @@ export const talks: Talk[] = [
   {
     slug: "quantum-computing-surgical-data-asmbs-2026",
     title: "Quantum Computing: Solving Complex Surgical Data Challenges",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2026-05-04",
     displayDate: "May 4, 2026",
@@ -231,7 +231,7 @@ export const talks: Talk[] = [
   {
     slug: "big-ai-next-generation-robotics-asmbs-2026",
     title: "When Big AI Meets Next-Generation Robotics: Toward the True Definition of Intelligent Surgical Robots",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2026-05-06",
     displayDate: "May 6, 2026",
@@ -249,7 +249,7 @@ export const talks: Talk[] = [
   {
     slug: "tomorrows-tools-ai-robotics-quantum-digital-or-asmbs-2026",
     title: "Tomorrow's Tools in Use Today: AI, Robotics, Quantum and the Digital OR",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2026-05-04",
     displayDate: "May 2026",
@@ -267,7 +267,7 @@ export const talks: Talk[] = [
   {
     slug: "ai-medicine-surgery-george-washington-2026",
     title: "AI in Medicine and Surgery: From Basic Concepts to Impact on Clinical Care",
-    speaker: "Simon J. Laplante, M.D.",
+    speaker: "Dr. Simon J. Laplante",
     speakerSlug: "simon-laplante",
     date: "2026-04-14",
     displayDate: "April 14, 2026",

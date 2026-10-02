@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { collaborators } from "@/lib/collaborators";
-import { upcomingEvents } from "@/lib/events";
+import { getUpcomingEvents } from "@/lib/events";
 import { allNews } from "@/lib/news";
 import { Section } from "@/components/site/section";
 import { CircuitDivider } from "@/components/site/circuit-divider";
@@ -12,6 +12,10 @@ import { FromTheLabSection } from "@/components/sections/from-the-lab-section";
 import { CollaboratorMarquee } from "@/components/lab/collaborator-marquee";
 import { Reveal } from "@/components/motion/reveal";
 import { CollaborationCta } from "@/components/sections/collaboration-cta";
+
+// "Upcoming events" is worked out from today's date; regenerate daily so a past
+// event drops off on its own.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   alternates: {
@@ -40,7 +44,7 @@ export default function HomePage() {
       <CircuitDivider />
 
       <Section code="03" label="News & Events" id="events">
-        <EventsSection events={upcomingEvents} />
+        <EventsSection events={getUpcomingEvents()} />
         <div className="mt-14">
           <FromTheLabSection newsItems={recentNews} />
         </div>

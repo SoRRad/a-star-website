@@ -6,6 +6,12 @@ export type EventType =
   | "course"
   | "talk";
 export type EventFormat = "in-person" | "virtual" | "hybrid";
+/**
+ * Only "tbd" is acted on: undated entries stay off the timeline. Whether a dated event
+ * is upcoming or past is worked out from its date (see `isUpcoming`), so an event moves
+ * into "Recent activity" on its own once it has happened, rather than lingering under
+ * "What's next" until someone remembers to flip this field.
+ */
 export type EventStatus = "upcoming" | "past" | "tbd";
 
 export type LabEvent = {
@@ -30,6 +36,8 @@ export type LabEvent = {
   projects?: string[];
   tags?: string[];
   externalUrl?: string;
+  /** Slug of the lab's news write-up for this event, linked from its timeline row. */
+  newsSlug?: string;
   featured?: boolean;
 };
 
@@ -149,12 +157,12 @@ export const events: LabEvent[] = [
     format: "hybrid",
     date: "2026-09-16",
     location: "Mayo Clinic, Rochester, MN and virtual",
-    summary: "The sixth A-STAR Journal Club is scheduled for September 16, 2026.",
+    summary: "The sixth A-STAR Journal Club was held on September 16, 2026.",
     details:
-      "Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
+      "The session continued the lab's recurring Journal Club series reviewing recent surgical AI and computer vision literature. Use the Journal Club contact link to join the distribution list or propose a paper for a future session.",
     description:
-      "The sixth A-STAR Journal Club is scheduled for September 16, 2026. Use the Journal Club contact link to join the distribution list, attend the session, or propose a paper for discussion.",
-    status: "upcoming",
+      "The sixth A-STAR Journal Club was held on September 16, 2026, continuing the lab's recurring review of surgical AI and computer vision literature.",
+    status: "past",
     rsvpRequired: true,
     recurring: true,
     recurrencePattern: "Recurring Journal Club session",
@@ -164,29 +172,53 @@ export const events: LabEvent[] = [
   },
   {
     slug: "acs-ai-surgery-course-2026",
-    title: "ACS Clinical Congress: Hands-On AI Course (SC04)",
+    title: "ACS Clinical Congress: Hands-On AI Course",
     series: "ACS Clinical Congress 2026",
     type: "course",
     format: "in-person",
     date: "2026-09-27",
     location: "Washington, DC",
     summary:
-      "Simon Laplante, M.D., Abdulrahman Alomar, M.D., and Reza Shahriarirad, M.D. taught the computer vision session of SC04, the ACS hands-on AI course for clinicians and surgeons.",
+      "Dr. Simon J. Laplante, Dr. Abdulrahman Alomar, and Dr. Reza Shahriarirad taught the computer vision session of the ACS hands-on AI course for clinicians and surgeons.",
     details:
-      "SC04, \"AI Skills: What Can I Do Now and What's Coming in the Future?\", ran as an afternoon course at Clinical Congress 2026 in Washington, DC. Simon Laplante, M.D. gave an introductory talk on what AI reads from surgical video, then led the computer vision session with faculty from Moonshot AI and Stanford University. Participants annotated laparoscopic cholecystectomy frames in teams, and a model was trained on each team's labels and compared side by side.",
+      "\"AI Skills: What Can I Do Now and What's Coming in the Future?\" ran as an afternoon course at Clinical Congress 2026 in Washington, DC. Dr. Laplante gave an introductory talk on what AI reads from surgical video, then led the computer vision session with faculty from Moonshot AI and Stanford University. Participants annotated laparoscopic cholecystectomy frames in teams, and a model was trained on each team's labels and compared side by side.",
     description:
-      "At the 2026 ACS Clinical Congress in Washington, DC, A-STAR Lab members taught the computer vision session of SC04, an afternoon course in which participants built and trained their own AI tools. Simon Laplante, M.D. opened with a talk on what AI reads from surgical video and led the session alongside faculty from Moonshot AI and Stanford University, with Abdulrahman Alomar, M.D. and Reza Shahriarirad, M.D.",
+      "At the 2026 ACS Clinical Congress in Washington, DC, A-STAR Lab members taught the computer vision session of an afternoon course in which participants built and trained their own AI tools. Dr. Simon J. Laplante opened with a talk on what AI reads from surgical video and led the session alongside faculty from Moonshot AI and Stanford University, with Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad.",
     status: "past",
     rsvpRequired: false,
     recurring: false,
     people: ["simon-laplante", "reza-shahriarirad", "abdulrahman-alomar"],
     tags: ["Course", "Computer Vision", "Surgical AI", "Education", "Hands-on Lab"],
     externalUrl: "https://www.facs.org/for-medical-professionals/conferences-and-meetings/",
+    newsSlug: "acs-clinical-congress-2026",
     featured: true,
   },
 ];
 
-export const upcomingEvents = events
-  .filter((e) => e.status === "upcoming")
-  .sort((a, b) => a.date.localeCompare(b.date));
+/** Today's date as YYYY-MM-DD in the lab's own time zone (Rochester, MN). */
+export function todayISO(now: Date = new Date()): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+}
+
+/** An event stays upcoming through the whole of its last day. */
+export function isUpcoming(event: LabEvent, today: string = todayISO()): boolean {
+  return (event.endDate ?? event.date) >= today;
+}
+
+/** Dated events that haven't finished yet, soonest first. */
+export function getUpcomingEvents(today: string = todayISO()): LabEvent[] {
+  return events
+    .filter((e) => e.status !== "tbd" && isUpcoming(e, today))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/** Dated events that have finished. */
+export function getPastEvents(today: string = todayISO()): LabEvent[] {
+  return events.filter((e) => e.status !== "tbd" && !isUpcoming(e, today));
+}
 

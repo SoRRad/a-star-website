@@ -49,32 +49,32 @@ export const news: NewsItem[] = [
     category: "conference",
     image: "/news/acs-clinical-congress-2026.jpg",
     imageAlt:
-      "Simon Laplante, M.D. presenting a slide titled What AI sees in surgical video at the ACS Clinical Congress.",
+      "Dr. Simon J. Laplante presenting a slide titled What AI sees in surgical video at the ACS Clinical Congress.",
     images: [
       {
         src: "/news/acs-clinical-congress-2026.jpg",
-        alt: "Simon Laplante, M.D. presenting a slide titled What AI sees in surgical video at the ACS Clinical Congress.",
+        alt: "Dr. Simon J. Laplante presenting a slide titled What AI sees in surgical video at the ACS Clinical Congress.",
         caption:
-          "Simon Laplante, M.D. presenting \u201cWhat AI sees in surgical video\u201d during the course\u2019s introductory talks.",
+          "Dr. Simon J. Laplante presenting \u201cWhat AI sees in surgical video\u201d during the course\u2019s introductory talks.",
       },
       {
         src: "/news/acs-clinical-congress-2026-2.jpg",
-        alt: "Course faculty from the SC04 hands-on AI session at the ACS Clinical Congress.",
+        alt: "Course faculty from the hands-on AI course at the ACS Clinical Congress.",
         caption:
-          "Faculty from the SC04 course, among them Santosh Iyer (Moonshot AI), Chloe Nobuhara (Stanford University), Marc L. Melcher, M.D., Filippo Filicori, M.D., and A-STAR\u2019s Simon Laplante, M.D., Abdulrahman Alomar, M.D., and Reza Shahriarirad, M.D.",
+          "Course faculty, among them Santosh Iyer (Moonshot AI), Chloe Nobuhara (Stanford University), Dr. Marc L. Melcher, Dr. Filippo Filicori, and A-STAR\u2019s Dr. Simon J. Laplante, Dr. Abdulrahman Alomar, and Dr. Reza Shahriarirad.",
       },
     ],
     summary:
       "A-STAR Lab members joined faculty from Moonshot AI and Stanford University to lead the computer vision session of the ACS hands-on AI course for clinicians and surgeons in Washington, DC.",
     details:
-      "SC04 was an afternoon course in which participants built and trained their own AI tools rather than only hearing about them. The computer vision session had teams annotate laparoscopic cholecystectomy frames, then trained a model on each team's labels and compared the results side by side.",
+      "The course ran as an afternoon session in which participants built and trained their own AI tools rather than only hearing about them. The computer vision session had teams annotate laparoscopic cholecystectomy frames, then trained a model on each team's labels and compared the results side by side.",
     excerpt:
-      "A-STAR Lab members led the computer vision session of SC04, the ACS hands-on AI course, where participants annotated laparoscopic cholecystectomy frames and trained models on their own labels.",
-    body: `The A-STAR Lab contributed to "AI Skills: What Can I Do Now and What's Coming in the Future?" (SC04) at the 2026 American College of Surgeons Clinical Congress in Washington, DC, an afternoon course in which participants built and trained their own AI tools rather than only hearing about them.
+      "A-STAR Lab members led the computer vision session of the ACS hands-on AI course, where participants annotated laparoscopic cholecystectomy frames and trained models on their own labels.",
+    body: `The A-STAR Lab contributed to "AI Skills: What Can I Do Now and What's Coming in the Future?" at the 2026 American College of Surgeons Clinical Congress in Washington, DC, an afternoon course in which participants built and trained their own AI tools rather than only hearing about them.
 
-Simon Laplante, M.D. opened the course's introductory talks with "What AI sees in surgical video," covering what AI can read from surgical video and how that supports intraoperative understanding.
+Dr. Simon J. Laplante opened the course's introductory talks with "What AI sees in surgical video," covering what AI can read from surgical video and how that supports intraoperative understanding.
 
-Later in the afternoon, Simon Laplante, M.D. led the computer vision session alongside a faculty team of Santosh Iyer (Moonshot AI), Chloe Nobuhara (Stanford University), Abdulrahman Alomar, M.D., and Reza Shahriarirad, M.D. Participants learned what computer vision is and how surgical AI models are trained, then annotated laparoscopic cholecystectomy frames themselves, labeling anatomy and instruments in teams.
+Later in the afternoon, Dr. Laplante led the computer vision session alongside a faculty team of Santosh Iyer (Moonshot AI), Chloe Nobuhara (Stanford University), Dr. Abdulrahman Alomar, and Dr. Reza Shahriarirad. Participants learned what computer vision is and how surgical AI models are trained, then annotated laparoscopic cholecystectomy frames themselves, labeling anatomy and instruments in teams.
 
 Each team's annotations were used to train a model during the course. At the end of the afternoon the resulting models were shown side by side, giving participants a direct look at how the quality of their own labels shaped what the AI learned to see.`,
     people: ["simon-laplante", "abdulrahman-alomar", "reza-shahriarirad"],
@@ -97,13 +97,13 @@ Each team's annotations were used to train a model during the course. At the end
     category: "award",
     image: "/news/research-fellows-awards-2026-excellence-ai.jpg",
     imageAlt:
-      "Abdulrahman Alomar, M.D. receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
+      "Dr. Abdulrahman Alomar receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
     images: [
       {
         src: "/news/research-fellows-awards-2026-excellence-ai.jpg",
-        alt: "Abdulrahman Alomar, M.D. receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
+        alt: "Dr. Abdulrahman Alomar receiving the Excellence in AI, Data Science, and Computational Biology Award on stage.",
         caption:
-          "Abdulrahman Alomar, M.D. accepting the Excellence in AI, Data Science, and Computational Biology Award.",
+          "Dr. Abdulrahman Alomar accepting the Excellence in AI, Data Science, and Computational Biology Award.",
       },
       {
         src: "/news/research-fellows-awards-2026-team-collaboration.jpg",
@@ -113,16 +113,16 @@ Each team's annotations were used to train a model during the course. At the end
       },
     ],
     summary:
-      "Abdulrahman Alomar, M.D. received the Excellence in AI, Data Science, and Computational Biology Award, and the Bariatric Surgery and Aging Team received the Team Collaboration Award.",
+      "Dr. Abdulrahman Alomar received the Excellence in AI, Data Science, and Computational Biology Award, and the Bariatric Surgery and Aging Team received the Team Collaboration Award.",
     details:
       "The Excellence in AI, Data Science, and Computational Biology Award recognized work applying computer vision to computed tomography for hernia evaluation and surgical planning. The Team Collaboration Award recognized the Bariatric Surgery and Aging Team for the AI-ECG bariatric surgery project, a cross-disciplinary collaboration with Cardiology.",
     excerpt:
       "A-STAR Lab members were recognized at the Mayo Research Fellows' Association awards, with honors for computer vision applied to hernia surgical planning and for the AI-ECG bariatric surgery collaboration with Cardiology.",
     body: `A-STAR Lab members were recognized at the Mayo Research Fellows' Association awards.
 
-Abdulrahman Alomar, M.D. received the Excellence in AI, Data Science, and Computational Biology Award for work applying computer vision to computed tomography for hernia evaluation and surgical planning.
+Dr. Abdulrahman Alomar received the Excellence in AI, Data Science, and Computational Biology Award for work applying computer vision to computed tomography for hernia evaluation and surgical planning.
 
-The Bariatric Surgery and Aging Team received the Team Collaboration Award for the AI-ECG bariatric surgery project, a cross-disciplinary collaboration with Cardiology. Reza Shahriarirad, M.D. and Abdulrahman Alomar, M.D. were among the recipients.
+The Bariatric Surgery and Aging Team received the Team Collaboration Award for the AI-ECG bariatric surgery project, a cross-disciplinary collaboration with Cardiology. Dr. Reza Shahriarirad and Dr. Abdulrahman Alomar were among the recipients.
 
 Both awards reflect the lab's emphasis on pairing clinical questions with rigorous computational methods, and on building the cross-disciplinary partnerships that translational surgical AI depends on.`,
     people: ["abdulrahman-alomar", "reza-shahriarirad"],
@@ -157,18 +157,18 @@ Both awards reflect the lab's emphasis on pairing clinical questions with rigoro
       },
       {
         src: "/news/surgery-family-day-2026-2.jpg",
-        alt: "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. demonstrating laparoscopic instruments to a visitor.",
+        alt: "Dr. Simon J. Laplante and Dr. Abdulrahman Alomar demonstrating laparoscopic instruments to a visitor.",
         caption:
-          "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. walking a visitor through the instruments and the view from the laparoscope.",
+          "Dr. Simon J. Laplante and Dr. Abdulrahman Alomar walking a visitor through the instruments and the view from the laparoscope.",
       },
     ],
     summary:
-      "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. led a hands-on laparoscopic skills station at Mayo Clinic's Surgery Family Day.",
+      "Dr. Simon J. Laplante and Dr. Abdulrahman Alomar led a hands-on laparoscopic skills station at Mayo Clinic's Surgery Family Day.",
     details:
       "Surgery Family Day welcomes staff and their families into the simulation center to learn more about the surgical discipline and the people behind it. The A-STAR station let visitors pick up the instruments, work through basic tasks on the trainers, and get a feel for the precision and coordination surgery demands.",
     excerpt:
-      "Simon Laplante, M.D. and Abdulrahman Alomar, M.D. volunteered at Mayo Clinic's Surgery Family Day, leading a hands-on laparoscopic skills station that drew a steady stream of visitors into the simulation center.",
-    body: `Simon Laplante, M.D. and Abdulrahman Alomar, M.D. of the A-STAR Lab volunteered at Mayo Clinic's Surgery Family Day, an event that welcomes staff and their families into the simulation center to learn more about the surgical discipline and the people behind it.
+      "Dr. Simon J. Laplante and Dr. Abdulrahman Alomar volunteered at Mayo Clinic's Surgery Family Day, leading a hands-on laparoscopic skills station that drew a steady stream of visitors into the simulation center.",
+    body: `Dr. Simon J. Laplante and Dr. Abdulrahman Alomar of the A-STAR Lab volunteered at Mayo Clinic's Surgery Family Day, an event that welcomes staff and their families into the simulation center to learn more about the surgical discipline and the people behind it.
 
 The two led a hands-on laparoscopic skills station, where families and members of the wider healthcare team could pick up the instruments, work through basic tasks on the trainers, and get a feel for the precision and coordination surgery demands.
 
@@ -190,7 +190,7 @@ Events like this are a small but meaningful way of connecting the lab's work bac
   },
   {
     slug: "laplante-asmbs-ai-webinar-2025",
-    title: "Dr. Simon Laplante Featured in ASMBS Webinar on AI in Surgery",
+    title: "Dr. Simon J. Laplante Featured in ASMBS Webinar on AI in Surgery",
     date: "2025-01-24",
     category: "lab-update",
     summary:
@@ -327,14 +327,14 @@ The A-STAR Lab's participation reflects its continued commitment to collaboratio
       },
     ],
     summary:
-      "The A-STAR team attended the 2026 AI Research Summit, where Reza Shahriarirad, M.D. presented three posters.",
+      "The A-STAR team attended the 2026 AI Research Summit, where Dr. Reza Shahriarirad presented three posters.",
     details:
       "One poster evaluated improvement in biological age following bariatric surgery using AI-derived biomarkers. The presentations reflect A-STAR's broader work applying artificial intelligence to surgical outcomes, physiologic recovery, patient-centered questions, and responsible validation.",
     excerpt:
-      "The A-STAR team attended the 2026 AI Research Summit, where Reza Shahriarirad, M.D. presented three posters, including work evaluating biological age improvement following bariatric surgery.",
+      "The A-STAR team attended the 2026 AI Research Summit, where Dr. Reza Shahriarirad presented three posters, including work evaluating biological age improvement following bariatric surgery.",
     body: `The A-STAR team attended the 2026 AI Research Summit to share ongoing work at the intersection of artificial intelligence, surgical outcomes, and translational clinical research.
 
-Reza Shahriarirad, M.D. presented three posters during the meeting, including a study evaluating improvement in biological age following bariatric surgery using AI-derived biomarkers.
+Dr. Reza Shahriarirad presented three posters during the meeting, including a study evaluating improvement in biological age following bariatric surgery using AI-derived biomarkers.
 
 The presentations reflect A-STAR's broader effort to apply artificial intelligence to clinically meaningful questions in surgery, spanning risk modeling, physiologic recovery, patient-centered outcomes, and responsible validation.`,
     people: ["reza-shahriarirad"],
