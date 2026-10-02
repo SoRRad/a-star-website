@@ -29,6 +29,7 @@ import { ModelCard } from "@/components/research/model-card";
 import { mosiContent } from "@/content/projects/mosi";
 import { sirisContent } from "@/content/projects/siris";
 import { gonogonetContent } from "@/content/projects/gonogonet";
+import { pageMetadata } from "@/lib/metadata";
 
 type ProjectDetailContent = {
   problem?: string;
@@ -59,12 +60,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) return { title: "Project not found" };
-  return {
+  return pageMetadata({
+    path: `/projects/${slug}`,
     title: `${project.name} - ${project.longName}`,
     description: project.tagline,
-    alternates: { canonical: `/projects/${slug}` },
-    openGraph: { url: `/projects/${slug}` },
-  };
+    // The project's own card (./opengraph-image.tsx), so X/Twitter shows the same
+    // preview as LinkedIn and Slack instead of the generic site card.
+    image: `/projects/${slug}/opengraph-image`,
+  });
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {

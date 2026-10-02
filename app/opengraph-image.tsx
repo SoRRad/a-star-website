@@ -1,14 +1,20 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { logos } from "@/lib/logos";
 import { siteConfig } from "@/lib/site-config";
 
-export const runtime = "edge";
+// Node runtime, not edge: the image has no per-request inputs, so Next renders it
+// once at build time and serves a static PNG. It also lets the mark be read from
+// disk. It used to be fetched over HTTP from siteConfig.url, which falls back to
+// localhost:3000 and fails behind Vercel preview protection, dropping the logo.
 export const alt = `${siteConfig.name} · ${siteConfig.fullName}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OGImage() {
-  const markUrl = new URL(logos.markLight, siteConfig.url).toString();
+export default async function OGImage() {
+  const mark = await readFile(join(process.cwd(), "public", logos.markLight));
+  const markSrc = `data:image/png;base64,${mark.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -49,16 +55,8 @@ export default function OGImage() {
 
         {/* Lab name */}
         <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 24 }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              backgroundImage: `url(${markUrl})`,
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-            }}
-          />
+          {/* eslint-disable-next-line @next/next/no-img-element -- Satori renders <img>, not next/image */}
+          <img src={markSrc} width={64} height={64} alt="" style={{ objectFit: "contain" }} />
           <div
             style={{
               fontSize: 28,
@@ -106,7 +104,7 @@ export default function OGImage() {
             letterSpacing: "0.05em",
           }}
         >
-          {siteConfig.institution.name} · {siteConfig.institution.department}
+          {`${siteConfig.institution.name} · ${siteConfig.institution.department}`}
         </div>
       </div>
     ),

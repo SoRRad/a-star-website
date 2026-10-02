@@ -9,6 +9,7 @@ import { RevealController } from "@/components/motion/reveal-controller";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CursorGlow } from "@/components/cosmic/cursor-glow";
 import { siteConfig } from "@/lib/site-config";
+import { defaultOgImage } from "@/lib/metadata";
 import { corporateSafeDetectScript } from "@/lib/corporate-safe";
 import "./globals.css";
 
@@ -62,14 +63,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     siteName: siteConfig.name,
     type: "website",
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
