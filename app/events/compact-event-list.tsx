@@ -155,6 +155,23 @@ export function CompactEventList({
         <TimelineGroup id="upcoming" title="Upcoming" items={filteredUpcoming} />
       )}
 
+      {/* Nothing scheduled: say so rather than dropping the section without a word */}
+      {upcoming.length === 0 && (filter === "all" || filter === "journal") && (
+        <section id="upcoming" className="scroll-mt-24">
+          <p className="eyebrow mb-2">Upcoming</p>
+          <h2 className="heading-lg text-3xl text-white">What&apos;s next</h2>
+          <div className="mt-6 rounded-xl border border-dashed border-white/10 bg-white/[0.02] px-5 py-6">
+            <p className="text-sm text-white/70">Nothing is on the calendar right now.</p>
+            <Link
+              href="/contact#journal-club"
+              className="mt-2 inline-block text-sm text-[#64B5F6]/80 underline underline-offset-4 transition-colors hover:text-[#64B5F6]"
+            >
+              Join the Journal Club list to hear about the next session
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* Past section */}
       {filteredPast.length > 0 && (
         <TimelineGroup id="past" title="Past" items={filteredPast} />

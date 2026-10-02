@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { events, journalClubIntakeHref } from "@/lib/events";
+import { events, getPastEvents, getUpcomingEvents, journalClubIntakeHref } from "@/lib/events";
 import { allNews, CATEGORY_LABELS, getNewsImages } from "@/lib/news";
 import { selectedTalks } from "@/lib/talks";
 import { projects } from "@/lib/projects";
 import { CompactEventList, type CompactEventItem } from "./compact-event-list";
 import { pageMetadata } from "@/lib/metadata";
+
+// Upcoming vs past is decided by today's date, so regenerate the page daily: an event
+// moves into "Recent activity" the day after it happens, with no redeploy needed.
+export const revalidate = 86400;
 
 export const metadata: Metadata = pageMetadata({
   path: "/events",
@@ -67,6 +71,15 @@ function talkTypeLabel(type: (typeof selectedTalks)[number]["type"]) {
   return labels[type];
 }
 
+function eventLinks(event: (typeof events)[number]) {
+  const links = [
+    // The lab's own write-up first; the organiser's site is secondary context.
+    ...(event.newsSlug ? [{ label: "Read update", href: `/news/${event.newsSlug}` }] : []),
+    ...(event.externalUrl ? [{ label: "Learn more", href: event.externalUrl }] : []),
+  ];
+  return links.length ? links : undefined;
+}
+
 function toEventItem(event: (typeof events)[number]): CompactEventItem {
   return {
     id: `event-${event.slug}`,
@@ -86,7 +99,7 @@ function toEventItem(event: (typeof events)[number]): CompactEventItem {
     description: event.details,
     tags: event.tags,
     projects: projectLabels(event.projects),
-    links: event.externalUrl ? [{ label: "Learn more", href: event.externalUrl }] : undefined,
+    links: eventLinks(event),
     cta:
       event.type === "journal-club"
         ? { label: "Join Journal Club", href: journalClubIntakeHref }
@@ -137,16 +150,14 @@ function toTalkItem(talk: (typeof selectedTalks)[number]): CompactEventItem {
 }
 
 export default function EventsPage() {
-  const upcomingDated = events
-    .filter((event) => event.status === "upcoming")
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .map(toEventItem);
-  const pastEventRows = events
-    .filter((event) => event.status === "past")
-    .map(toEventItem);
+  const upcomingDated = getUpcomingEvents().map(toEventItem);
+  const pastEventRows = getPastEvents().map(toEventItem);
   const talkRows = selectedTalks.map(toTalkItem);
+  // An event that links its own write-up already carries it, so the article
+  // isn't listed a second time on the same date.
+  const linkedNews = new Set(events.map((event) => event.newsSlug).filter(Boolean));
   const newsRows = allNews
-    .filter((item) => item.displayInTimeline !== false)
+    .filter((item) => item.displayInTimeline !== false && !linkedNews.has(item.slug))
     .map(toNewsItem);
 
   const past = [...pastEventRows, ...talkRows, ...newsRows].sort(
