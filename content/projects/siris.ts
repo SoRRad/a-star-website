@@ -7,7 +7,7 @@ export const sirisContent = {
 
   methods: `SIRIS is a retrieval-augmented generation (RAG) system built on Mayo Clinic's IRIS platform. Patients interact via a chat interface. The system routes queries through a surgical-procedure-specific context layer, retrieves relevant Mayo Clinic patient education articles, and generates responses calibrated to reading level and clinical safety boundaries. Hard stops prevent the system from providing diagnostic, dosing, or post-surgical complication guidance.`,
 
-  validationPlan: "",
+  validationPlan: `SIRIS has not yet entered formal validation. The study that will evaluate it is still being designed.`,
 
   currentStatus: `SIRIS is deployed and accessible via a public URL. The platform processes live patient queries. A user-satisfaction and information-retention study is in design phase. The patient education paper describing SIRIS was published in Surgical Endoscopy (2026).`,
 
