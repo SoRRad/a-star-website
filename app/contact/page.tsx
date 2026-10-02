@@ -4,14 +4,14 @@ import { Reveal } from "@/components/motion/reveal";
 import { siteConfig } from "@/lib/site-config";
 import { ContactCards, type ContactOption } from "./contact-cards";
 import { mailtoHref } from "./mailto-helper";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/contact",
   title: "Contact",
   description:
     "Reach A-STAR for research collaboration, clinical partnerships, Journal Club, or general inquiries.",
-  alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact" },
-};
+});
 
 const contactOptions: ReadonlyArray<ContactOption> = [
   {

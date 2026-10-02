@@ -10,6 +10,7 @@ import { MemberAvatar } from "@/components/lab/member-avatar";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { NewsCard } from "@/components/news/news-card";
 import { TalkCard } from "@/components/resources/talk-card";
+import { pageMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
   return activeTeamMembers.map((m) => ({ slug: m.slug }));
@@ -27,12 +28,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const member = team.find((m) => m.slug === slug);
   if (!member) return { title: "Team member not found" };
-  return {
+  return pageMetadata({
+    path: `/team/${slug}`,
     title: `${member.name} · ${member.role}`,
     description: member.bio,
-    alternates: { canonical: `/team/${slug}` },
-    openGraph: { url: `/team/${slug}` },
-  };
+  });
 }
 
 export default async function TeamMemberPage({

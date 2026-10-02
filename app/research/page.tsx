@@ -4,13 +4,13 @@ import { phases } from "@/lib/phases";
 import { ProjectCard } from "@/components/lab/project-card";
 import { SurgicalJourneyMap } from "@/components/research/surgical-journey-map";
 import { ResearchShaderBg } from "@/components/ui/research-shader-bg";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: "/research",
   title: "Projects",
   description: "A-STAR active surgical AI projects, systems, and translational focus areas.",
-  alternates: { canonical: "/research" },
-  openGraph: { url: "/research" },
-};
+});
 
 const researchDirections = [
   {

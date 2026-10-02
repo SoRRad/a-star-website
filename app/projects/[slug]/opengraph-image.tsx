@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { projects } from "@/lib/projects";
 import { siteConfig } from "@/lib/site-config";
 
-export const runtime = "edge";
+export const alt = `${siteConfig.name} project`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -58,7 +58,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             marginBottom: 16,
           }}
         >
-          {siteConfig.name} · Project
+          {`${siteConfig.name} · Project`}
         </div>
 
         {/* Project name */}
@@ -94,7 +94,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             color: "#475569",
           }}
         >
-          {siteConfig.institution.name} · {siteConfig.institution.department}
+          {`${siteConfig.institution.name} · ${siteConfig.institution.department}`}
         </div>
       </div>
     ),

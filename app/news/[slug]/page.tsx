@@ -17,6 +17,8 @@ import {
 import { publications } from "@/lib/publications";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
+import { defaultOgImage } from "@/lib/metadata";
+import { siteConfig } from "@/lib/site-config";
 
 type NewsDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -49,7 +51,10 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
       description: item.excerpt,
       type: "article",
       url: `/news/${item.slug}`,
+      siteName: siteConfig.name,
       publishedTime: item.date,
+      // Items without a photo fall back to the site card; `undefined` here left the
+      // shared link with no preview image at all.
       images: primaryImage
         ? [
             {
@@ -57,13 +62,13 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
               alt: primaryImage.alt,
             },
           ]
-        : undefined,
+        : [defaultOgImage],
     },
     twitter: {
       card: "summary_large_image",
       title: item.title,
       description: item.excerpt,
-      images: primaryImage ? [primaryImage.src] : undefined,
+      images: [primaryImage ? primaryImage.src : defaultOgImage.url],
     },
   };
 }

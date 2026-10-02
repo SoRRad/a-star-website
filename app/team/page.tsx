@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { activeMainTeam, mainTeam, collaboratorTeam } from "@/lib/team";
 import { TeamRosterRow } from "@/components/lab/team-roster-row";
 import { TeamShaderBg } from "@/components/ui/team-shader-bg";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/team",
   title: "Team",
   description:
     "The surgeons, scientists, and engineers building surgical AI at A-STAR: core team and institutional collaborators.",
-  alternates: { canonical: "/team" },
-  openGraph: { url: "/team" },
-};
+});
 
 export default function TeamPage() {
   const openRoleCount = mainTeam.filter((member) => member.isOpenPosition).length;
