@@ -98,7 +98,7 @@ export const projects: Project[] = [
     tagline: "AI-powered surgical patient education built on Mayo Clinic's IRIS platform.",
     description:
       "SIRIS helps patients ask specialty-focused education questions, review Mayo Clinic resources, and prepare questions for their care team, bridging the information gap between booking and operation.",
-    status: "deployed",
+    status: "development",
     phases: ["patient-journey"],
     liveUrl: "https://siris-1029209978489.us-central1.run.app",
     team: ["reza-shahriarirad"],
