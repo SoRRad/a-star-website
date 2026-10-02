@@ -43,6 +43,54 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "acs-clinical-congress-2026",
+    title: "A-STAR Lab Teaches Hands-On Computer Vision at the ACS Clinical Congress 2026",
+    date: "2026-09-27",
+    category: "conference",
+    image: "/news/acs-clinical-congress-2026.jpg",
+    imageAlt:
+      "Simon Laplante, M.D. presenting a slide titled What AI sees in surgical video at the ACS Clinical Congress.",
+    images: [
+      {
+        src: "/news/acs-clinical-congress-2026.jpg",
+        alt: "Simon Laplante, M.D. presenting a slide titled What AI sees in surgical video at the ACS Clinical Congress.",
+        caption:
+          "Simon Laplante, M.D. presenting \u201cWhat AI sees in surgical video\u201d during the course\u2019s introductory talks.",
+      },
+      {
+        src: "/news/acs-clinical-congress-2026-2.jpg",
+        alt: "Course faculty from the SC04 hands-on AI session at the ACS Clinical Congress.",
+        caption:
+          "Faculty from the SC04 course, among them Santosh Iyer (Moonshot AI), Chloe Nobuhara (Stanford University), Marc L. Melcher, M.D., Filippo Filicori, M.D., and A-STAR\u2019s Simon Laplante, M.D., Abdulrahman Alomar, M.D., and Reza Shahriarirad, M.D.",
+      },
+    ],
+    summary:
+      "A-STAR Lab members joined faculty from Moonshot AI and Stanford University to lead the computer vision session of the ACS hands-on AI course for clinicians and surgeons in Washington, DC.",
+    details:
+      "SC04 was an afternoon course in which participants built and trained their own AI tools rather than only hearing about them. The computer vision session had teams annotate laparoscopic cholecystectomy frames, then trained a model on each team's labels and compared the results side by side.",
+    excerpt:
+      "A-STAR Lab members led the computer vision session of SC04, the ACS hands-on AI course, where participants annotated laparoscopic cholecystectomy frames and trained models on their own labels.",
+    body: `The A-STAR Lab contributed to "AI Skills: What Can I Do Now and What's Coming in the Future?" (SC04) at the 2026 American College of Surgeons Clinical Congress in Washington, DC, an afternoon course in which participants built and trained their own AI tools rather than only hearing about them.
+
+Simon Laplante, M.D. opened the course's introductory talks with "What AI sees in surgical video," covering what AI can read from surgical video and how that supports intraoperative understanding.
+
+Later in the afternoon, Simon Laplante, M.D. led the computer vision session alongside a faculty team of Santosh Iyer (Moonshot AI), Chloe Nobuhara (Stanford University), Abdulrahman Alomar, M.D., and Reza Shahriarirad, M.D. Participants learned what computer vision is and how surgical AI models are trained, then annotated laparoscopic cholecystectomy frames themselves, labeling anatomy and instruments in teams.
+
+Each team's annotations were used to train a model during the course. At the end of the afternoon the resulting models were shown side by side, giving participants a direct look at how the quality of their own labels shaped what the AI learned to see.`,
+    people: ["simon-laplante", "abdulrahman-alomar", "reza-shahriarirad"],
+    projects: [],
+    publications: [],
+    tags: [
+      "Conference",
+      "ACS Clinical Congress",
+      "Course",
+      "Computer Vision",
+      "Surgical Education",
+      "Annotation",
+    ],
+    featured: false,
+  },
+  {
     slug: "research-fellows-awards-2026",
     title: "A-STAR Lab Members Honored at the Mayo Research Fellows' Association Awards",
     date: "2026-09-18",
