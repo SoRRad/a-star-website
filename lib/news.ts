@@ -43,6 +43,41 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "balfour-symposium-2026",
+    title:
+      "A-STAR Lab Earns Two Posters of Distinction at the 32nd Annual Balfour Surgery Research Symposium",
+    date: "2026-10-09",
+    category: "conference",
+    summary:
+      "A-STAR Lab presented four projects at the 32nd Annual Balfour Surgery Research Symposium, and two, on MOSI and on AI-ECG changes after bariatric surgery, were named Posters of Distinction.",
+    details:
+      "The recognized posters covered MOSI, the lab's Metabolic & Obesity Staging Index, and AI-ECG changes following bariatric surgery. The lab also presented work on plastic surgery after bariatric surgery and on a CT-based computer vision system for decision support in abdominal wall reconstruction.",
+    excerpt:
+      "A-STAR Lab presented four projects at the 32nd Annual Balfour Surgery Research Symposium, with posters on MOSI and on AI-ECG changes after bariatric surgery named Posters of Distinction.",
+    body: `On October 9, 2026, the A-STAR Lab presented four projects at the 32nd Annual Balfour Surgery Research Symposium, and two of them were named Posters of Distinction.
+
+The recognized posters covered MOSI, the lab's Metabolic & Obesity Staging Index for decision support in bariatric surgery, and AI-ECG changes following bariatric surgery.
+
+The lab also presented a five-year look at the use of plastic surgery after bariatric surgery, including its predictors and the weight-loss thresholds involved, and an AI-based computer vision system that uses CT imaging to support surgical decision-making in abdominal wall reconstruction.
+
+Together, the four projects reflect the lab's work across the surgical journey, from planning and patient selection to recovery and long-term outcomes.`,
+    people: [],
+    projects: ["mosi"],
+    publications: [],
+    tags: [
+      "Conference",
+      "Poster",
+      "Award",
+      "Balfour Symposium",
+      "MOSI",
+      "AI-ECG",
+      "Bariatric Surgery",
+      "Abdominal Wall Reconstruction",
+      "Computer Vision",
+    ],
+    featured: false,
+  },
+  {
     slug: "acs-clinical-congress-2026",
     title: "A-STAR Lab Teaches Hands-On Computer Vision at the ACS Clinical Congress 2026",
     date: "2026-09-27",
