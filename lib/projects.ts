@@ -49,7 +49,7 @@ export const projects: Project[] = [
   {
     slug: "mosi",
     name: "MOSI",
-    longName: "Metabolic & Obesity Staging Index",
+    longName: "Mayo Obesity Staging Index",
     tagline: "Decision support and prospective validation for bariatric surgery.",
     description:
       "A staging algorithm and clinical audit platform for bariatric surgery, validated on 3,097 patients. MOSI scores patients across BMI, comorbidities, and severity to recommend procedures and target weight-loss tiers.",

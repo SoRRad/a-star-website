@@ -48,20 +48,43 @@ export const news: NewsItem[] = [
       "A-STAR Lab Earns Two Posters of Distinction at the 32nd Annual Balfour Surgery Research Symposium",
     date: "2026-10-09",
     category: "conference",
+    image: "/news/balfour-symposium-2026.jpg",
+    imageAlt:
+      "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad beside the MOSI poster, marked with a Poster of Distinction ribbon.",
+    images: [
+      {
+        src: "/news/balfour-symposium-2026.jpg",
+        alt: "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad beside the MOSI poster, marked with a Poster of Distinction ribbon.",
+        caption:
+          "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad with the MOSI poster, named a Poster of Distinction.",
+      },
+      {
+        src: "/news/balfour-symposium-2026-2.jpg",
+        alt: "Dr. Reza Shahriarirad beside the AI-ECG biological aging poster, marked with a Poster of Distinction ribbon.",
+        caption:
+          "Dr. Reza Shahriarirad with his Poster of Distinction on AI-ECG changes following bariatric surgery.",
+      },
+      {
+        src: "/news/balfour-symposium-2026-3.jpg",
+        alt: "Dr. Abdulrahman Alomar beside the lab's systematic review poster on computer vision in laparoscopic cholecystectomy.",
+        caption:
+          "Dr. Abdulrahman Alomar with the lab's systematic review of computer vision in laparoscopic cholecystectomy.",
+      },
+    ],
     summary:
-      "A-STAR Lab presented four projects at the 32nd Annual Balfour Surgery Research Symposium, and two, on MOSI and on AI-ECG changes after bariatric surgery, were named Posters of Distinction.",
+      "A-STAR Lab presented five projects at the 32nd Annual Balfour Surgery Research Symposium, and two, on MOSI and on AI-ECG changes after bariatric surgery, were named Posters of Distinction.",
     details:
-      "The recognized posters covered MOSI, the lab's Metabolic & Obesity Staging Index, and AI-ECG changes following bariatric surgery. The lab also presented work on plastic surgery after bariatric surgery and on a CT-based computer vision system for decision support in abdominal wall reconstruction.",
+      "Dr. Abdulrahman Alomar presented MOSI, the Mayo Obesity Staging Index, and Dr. Reza Shahriarirad presented AI-ECG changes following bariatric surgery; both were named Posters of Distinction. The lab also presented work on plastic surgery after bariatric surgery, a CT-based computer vision system for abdominal wall reconstruction, and a systematic review of computer vision in laparoscopic cholecystectomy.",
     excerpt:
-      "A-STAR Lab presented four projects at the 32nd Annual Balfour Surgery Research Symposium, with posters on MOSI and on AI-ECG changes after bariatric surgery named Posters of Distinction.",
-    body: `On October 9, 2026, the A-STAR Lab presented four projects at the 32nd Annual Balfour Surgery Research Symposium, and two of them were named Posters of Distinction.
+      "A-STAR Lab presented five projects at the 32nd Annual Balfour Surgery Research Symposium, with Dr. Abdulrahman Alomar's MOSI poster and Dr. Reza Shahriarirad's AI-ECG poster named Posters of Distinction.",
+    body: `On October 9, 2026, the A-STAR Lab presented five projects at the 32nd Annual Balfour Surgery Research Symposium, and two of them were named Posters of Distinction.
 
-The recognized posters covered MOSI, the lab's Metabolic & Obesity Staging Index for decision support in bariatric surgery, and AI-ECG changes following bariatric surgery.
+Dr. Abdulrahman Alomar presented MOSI, the Mayo Obesity Staging Index, a staging framework for metabolic surgery. Dr. Reza Shahriarirad presented work on AI-ECG changes following bariatric surgery, using AI-derived ECG age as a measure of biological aging after surgery. Both were recognized as Posters of Distinction.
 
-The lab also presented a five-year look at the use of plastic surgery after bariatric surgery, including its predictors and the weight-loss thresholds involved, and an AI-based computer vision system that uses CT imaging to support surgical decision-making in abdominal wall reconstruction.
+The lab also presented a five-year look at the use of plastic surgery after bariatric surgery, including its predictors and the weight-loss thresholds involved; an AI-based computer vision system that uses CT imaging to support surgical decision-making in abdominal wall reconstruction; and a systematic review asking whether computer vision is ready for laparoscopic cholecystectomy.
 
-Together, the four projects reflect the lab's work across the surgical journey, from planning and patient selection to recovery and long-term outcomes.`,
-    people: [],
+Together, the five projects reflect the lab's work across the surgical journey, from planning and patient selection to intraoperative guidance, recovery, and long-term outcomes.`,
+    people: ["abdulrahman-alomar", "reza-shahriarirad"],
     projects: ["mosi"],
     publications: [],
     tags: [
@@ -74,6 +97,8 @@ Together, the four projects reflect the lab's work across the surgical journey, 
       "Bariatric Surgery",
       "Abdominal Wall Reconstruction",
       "Computer Vision",
+      "Laparoscopic Cholecystectomy",
+      "Systematic Review",
     ],
     featured: false,
   },
