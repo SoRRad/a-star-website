@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowUpRight, ExternalLink, Github, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ExternalLink, Github, Mail, Newspaper } from "lucide-react";
 import { projects } from "@/lib/projects";
 import { team } from "@/lib/team";
 import { collaborators } from "@/lib/collaborators";
@@ -84,6 +84,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const relatedPubs = publications.filter((p) => p.projects.includes(slug));
   const relatedTalks = getTalksByProject(slug);
   const projectNews = getNewsByProject(slug);
+  const latestPress = projectNews.find((item) => item.category === "press");
   const isGoNoGoNet = slug === "gonogonet";
   const isMosi = slug === "mosi";
   const isSiris = slug === "siris";
@@ -120,6 +121,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-[var(--color-muted-foreground)]">
           {project.tagline}
         </p>
+
+        {latestPress && (
+          <Link
+            href={`/news/${latestPress.slug}`}
+            className="mt-6 inline-flex items-start gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm font-medium transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+          >
+            <Newspaper className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-accent)]" />
+            <span>
+              <span className="text-[var(--color-muted-foreground)]">In the press:</span>{" "}
+              {latestPress.title}
+            </span>
+            <ArrowRight className="mt-0.5 h-4 w-4 shrink-0" />
+          </Link>
+        )}
 
         <div className="mt-8 flex flex-wrap gap-3">
           {project.liveUrl && (

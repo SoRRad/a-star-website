@@ -47,26 +47,45 @@ export const news: NewsItem[] = [
     title: "GoNoGoNet Featured in The New York Times",
     date: "2026-10-07",
     category: "press",
+    image: "/news/new-york-times-gonogonet-2026.jpg",
+    imageAlt:
+      "GoNoGoNet overlay on laparoscopic cholecystectomy video, with the safe Go zone shaded green and the No-Go zone shaded red.",
+    images: [
+      {
+        src: "/news/new-york-times-gonogonet-2026.jpg",
+        alt: "GoNoGoNet overlay on laparoscopic cholecystectomy video, with the safe Go zone shaded green and the No-Go zone shaded red.",
+        caption:
+          "GoNoGoNet's overlay during a laparoscopic cholecystectomy: green marks where it is safe to dissect (“Go”) and red marks where it is not (“No-Go”). Frame from the GoNoGoNet demo video.",
+      },
+    ],
     summary:
-      "The New York Times featured GoNoGoNet in \u201cCan Artificial Intelligence Learn the Art of Surgery?\u201d, a report on how surgeons are using AI in the operating room.",
+      "The New York Times featured GoNoGoNet in “Can Artificial Intelligence Learn the Art of Surgery?”, watching Dr. Amin Madani use its Go/No-Go overlay during a gallbladder removal at Toronto General Hospital.",
     details:
-      "GoNoGoNet is a computer vision model that identifies safe (\u201cGo\u201d) and dangerous (\u201cNo-Go\u201d) zones of dissection during laparoscopic cholecystectomy, to support surgeons' decision-making during the operation.",
+      "GoNoGoNet shades the laparoscopic view in green and red to show where it is and is not safe to cut during gallbladder removal, with the aim of preventing bile duct injuries. The Times described it as working “like a GPS for the operating table.”",
     excerpt:
-      "The New York Times featured GoNoGoNet, the computer vision model for Go/No-Go safety zones in laparoscopic cholecystectomy, in \u201cCan Artificial Intelligence Learn the Art of Surgery?\u201d",
-    body: `The New York Times featured GoNoGoNet in "Can Artificial Intelligence Learn the Art of Surgery?", published on October 7, 2026.
+      "In “Can Artificial Intelligence Learn the Art of Surgery?”, The New York Times went into the operating room at Toronto General Hospital, where Dr. Amin Madani uses GoNoGoNet to show surgeons where it is and is not safe to cut.",
+    body: `On October 7, 2026, The New York Times published "Can Artificial Intelligence Learn the Art of Surgery?" by Vjosa Isai, a report on how Canadian surgeons and researchers are testing artificial intelligence in the operating room. At the center of the story is [GoNoGoNet](/projects/gonogonet).
 
-GoNoGoNet is a computer vision model that identifies safe ("Go") and dangerous ("No-Go") zones of dissection during laparoscopic cholecystectomy, to support surgeons' decision-making during the operation. It is one of the A-STAR Lab's projects, carried out with its collaborators.
+The Times watched a laparoscopic gallbladder removal at Toronto General Hospital with [Dr. Amin Madani](/team/amin-madani), an endocrine and acute care surgeon who founded the Surgical Artificial Intelligence Research Academy (SARA) at the University Health Network. When the AI was switched on, the camera view filled with green and red zones showing where it was and was not safe to cut. The article describes GoNoGoNet as working "like a GPS for the operating table": it recognizes anatomical patterns and predicts the "no-go zones" where an incision could cause a major complication.
 
-The full article is available from The New York Times.`,
-    people: [],
+GoNoGoNet learns from laparoscopic surgery videos and was built to help surgeons avoid bile duct injuries during gallbladder removal. These injuries are rare, but the article notes they are the leading cause of malpractice lawsuits against general surgeons in Canada, the United States, and the United Kingdom. "All the work that I had done was like a perfect setup to train A.I. algorithms to think and behave like expert surgeons," Dr. Madani told the Times.
+
+The Toronto surgeons said GoNoGoNet has been quite accurate. Dr. Madani uses it for guidance in about two gallbladder removals a month, as part of a clinical trial that requires consent from participants, and views with and without the overlay are always available to the surgeons. His colleague Dr. Timothy Jackson suggested the overlay may need a third color, a caution yellow for the zones that still call for human judgment: "there's a yellow zone there, and that's the art of surgery that can't sort of be calculated in zeros and ones yet in an A.I. model."
+
+GoNoGoNet is also one of the A-STAR Lab's projects. [Dr. Simon J. Laplante](/team/simon-laplante) has worked with Dr. Madani on the model, including as first author of the 2023 Surgical Endoscopy study validating it for guidance during laparoscopic cholecystectomy, and the lab continues this work with its collaborators at SARA and the Surgical AI² Lab.`,
+    people: ["amin-madani", "simon-laplante"],
     projects: ["gonogonet"],
-    publications: [],
+    publications: [
+      "gonogonet-validation-laparoscopic-cholecystectomy-2023",
+      "gonogonet-high-risk-behaviors-cholecystectomy-2023",
+    ],
     tags: [
       "Press",
       "The New York Times",
       "GoNoGoNet",
       "Computer Vision",
       "Laparoscopic Cholecystectomy",
+      "Bile Duct Injury",
       "Surgical Safety",
     ],
     relatedLinks: [

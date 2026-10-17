@@ -148,7 +148,7 @@ export const projects: Project[] = [
     collaborators: ["mayo-clinic-mars", "surgical-ai2-lab", "sara-lab"],
     featured: true,
     order: 3,
-    lastUpdated: "2026-05-20",
+    lastUpdated: "2026-10-17",
     media: [
       {
         type: "gif",
