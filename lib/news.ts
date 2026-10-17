@@ -43,6 +43,41 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "new-york-times-gonogonet-2026",
+    title: "GoNoGoNet Featured in The New York Times",
+    date: "2026-10-07",
+    category: "press",
+    summary:
+      "The New York Times featured GoNoGoNet in \u201cCan Artificial Intelligence Learn the Art of Surgery?\u201d, a report on how surgeons are using AI in the operating room.",
+    details:
+      "GoNoGoNet is a computer vision model that identifies safe (\u201cGo\u201d) and dangerous (\u201cNo-Go\u201d) zones of dissection during laparoscopic cholecystectomy, to support surgeons' decision-making during the operation.",
+    excerpt:
+      "The New York Times featured GoNoGoNet, the computer vision model for Go/No-Go safety zones in laparoscopic cholecystectomy, in \u201cCan Artificial Intelligence Learn the Art of Surgery?\u201d",
+    body: `The New York Times featured GoNoGoNet in "Can Artificial Intelligence Learn the Art of Surgery?", published on October 7, 2026.
+
+GoNoGoNet is a computer vision model that identifies safe ("Go") and dangerous ("No-Go") zones of dissection during laparoscopic cholecystectomy, to support surgeons' decision-making during the operation. It is one of the A-STAR Lab's projects, carried out with its collaborators.
+
+The full article is available from The New York Times.`,
+    people: [],
+    projects: ["gonogonet"],
+    publications: [],
+    tags: [
+      "Press",
+      "The New York Times",
+      "GoNoGoNet",
+      "Computer Vision",
+      "Laparoscopic Cholecystectomy",
+      "Surgical Safety",
+    ],
+    relatedLinks: [
+      {
+        label: "Read in The New York Times",
+        url: "https://www.nytimes.com/2026/10/07/world/canada/surgery-artificial-intelligence-canada.html",
+      },
+    ],
+    featured: false,
+  },
+  {
     slug: "balfour-symposium-2026",
     title:
       "A-STAR Lab Earns Two Posters of Distinction at the 32nd Annual Balfour Surgery Research Symposium",
