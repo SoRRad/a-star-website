@@ -10,5 +10,5 @@ export const gonogonetContent = {
   validationPlan:
     "Validation should remain staged: retrospective comparison with expert annotations, external dataset testing, human-factors review, prospective feasibility work, and assessment of generalizability across surgeons, institutions, anatomy, imaging conditions, and case complexity.",
   currentStatus:
-    "GoNoGoNet is listed as a validation-stage research project. It is not a replacement for surgeon judgment and is not described as autonomous clinical decision-making software.",
+    "GoNoGoNet is listed as a validation-stage research project. In October 2026, The New York Times reported on its use at Toronto General Hospital, where Dr. Amin Madani uses it for guidance in a clinical trial that requires patient consent. It is not a replacement for surgeon judgment and is not described as autonomous clinical decision-making software.",
 };
