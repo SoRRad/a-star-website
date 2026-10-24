@@ -17,6 +17,16 @@ export type NewsRelatedLink = {
   url: string;
 };
 
+/** A social media post about the item, shown as a link card on the article. */
+export type NewsSocialPost = {
+  platform: "x" | "linkedin";
+  url: string;
+  author: string;
+  handle: string;
+  /** Date the post went up (YYYY-MM-DD). */
+  date: string;
+};
+
 export type NewsItem = {
   slug: string;
   title: string;
@@ -35,6 +45,7 @@ export type NewsItem = {
   tags: string[];
   externalLink?: string;
   relatedLinks?: NewsRelatedLink[];
+  socialPosts?: NewsSocialPost[];
   featured: boolean;
   /** Set to false to omit this item from the combined News & Events timeline
    *  (e.g. a write-up that duplicates a dedicated Journal Club entry). */
@@ -42,6 +53,63 @@ export type NewsItem = {
 };
 
 export const news: NewsItem[] = [
+  {
+    slug: "minnesota-surgical-society-2026",
+    title:
+      "Dr. Abdulrahman Alomar Wins Best Oral Presentation at the 2026 Minnesota Surgical Society Annual Meeting",
+    date: "2026-10-23",
+    category: "conference",
+    image: "/news/mss-annual-meeting-2026.jpg",
+    imageAlt:
+      "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad on stage beside the Minnesota Surgical Society 2026 Annual Meeting podium.",
+    images: [
+      {
+        src: "/news/mss-annual-meeting-2026.jpg",
+        alt: "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad on stage beside the Minnesota Surgical Society 2026 Annual Meeting podium.",
+        caption:
+          "Dr. Abdulrahman Alomar and Dr. Reza Shahriarirad after their oral presentations at the Minnesota Surgical Society 2026 Annual Meeting.",
+      },
+      {
+        src: "/news/mss-annual-meeting-2026-2.jpg",
+        alt: "Dr. Abdulrahman Alomar at the podium presenting MOSI results, with a bar chart of serious adverse events by MOSI stage on screen.",
+        caption:
+          "Dr. Abdulrahman Alomar presents MOSI, the Mayo Obesity Staging Index, in the talk named Best Oral Presentation.",
+      },
+      {
+        src: "/news/mss-annual-meeting-2026-3.jpg",
+        alt: "Dr. Reza Shahriarirad at the podium, with the title slide of his talk on the Area Deprivation Index and bariatric surgery outcomes on screen.",
+        caption:
+          "Dr. Reza Shahriarirad presents his study of the Area Deprivation Index, social determinants of health, and weight loss after bariatric surgery.",
+      },
+    ],
+    summary:
+      "A-STAR Lab members gave two oral presentations at the 2026 Minnesota Surgical Society Annual Meeting, and Dr. Abdulrahman Alomar's talk on MOSI, the Mayo Obesity Staging Index, won Best Oral Presentation.",
+    details:
+      "Dr. Abdulrahman Alomar presented MOSI, a staging framework for metabolic surgery, and won Best Oral Presentation. Dr. Reza Shahriarirad presented a referral-center cohort study of the Area Deprivation Index, social determinants of health, and weight-loss outcomes after bariatric surgery.",
+    excerpt:
+      "Dr. Abdulrahman Alomar won Best Oral Presentation for his talk on MOSI, the Mayo Obesity Staging Index, one of two A-STAR Lab oral presentations at the 2026 Minnesota Surgical Society Annual Meeting.",
+    body: `The Minnesota Surgical Society, a chapter of the American College of Surgeons, held its 2026 Annual Meeting on October 22–23 at the Hilton Rochester in Rochester, Minnesota. Two A-STAR Lab members gave oral presentations, and one was named Best Oral Presentation.
+
+Dr. Abdulrahman Alomar presented "The Mayo Obesity Staging Index (MOSI): A Novel Staging Framework for Metabolic Surgery" and won the award for Best Oral Presentation. [MOSI](/projects/mosi) stages patients across BMI, comorbidities, and disease severity to support procedure selection and weight-loss targets in metabolic surgery.
+
+Dr. Reza Shahriarirad presented "Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study," which looks at how neighborhood deprivation and other social determinants of health relate to weight loss after bariatric surgery.
+
+The award comes two weeks after MOSI was named a Poster of Distinction at the [32nd Annual Balfour Surgery Research Symposium](/news/balfour-symposium-2026).`,
+    people: ["abdulrahman-alomar", "reza-shahriarirad"],
+    projects: ["mosi"],
+    publications: [],
+    tags: [
+      "Conference",
+      "Oral Presentation",
+      "Award",
+      "Minnesota Surgical Society",
+      "MOSI",
+      "Bariatric Surgery",
+      "Metabolic Surgery",
+      "Social Determinants of Health",
+    ],
+    featured: false,
+  },
   {
     slug: "new-york-times-gonogonet-2026",
     title: "GoNoGoNet Featured in The New York Times",
@@ -154,6 +222,15 @@ Together, the five projects reflect the lab's work across the surgical journey, 
       "Laparoscopic Cholecystectomy",
       "Systematic Review",
     ],
+    socialPosts: [
+      {
+        platform: "x",
+        url: "https://x.com/SimonLaplante/status/2108681318901199258",
+        author: "Dr. Simon J. Laplante",
+        handle: "SimonLaplante",
+        date: "2026-10-09",
+      },
+    ],
     featured: false,
   },
   {
@@ -251,6 +328,15 @@ Both awards reflect the lab's emphasis on pairing clinical questions with rigoro
       "Cardiology",
       "Mayo Clinic",
     ],
+    socialPosts: [
+      {
+        platform: "x",
+        url: "https://x.com/SimonLaplante/status/2101860062754963960",
+        author: "Dr. Simon J. Laplante",
+        handle: "SimonLaplante",
+        date: "2026-09-20",
+      },
+    ],
     featured: false,
   },
   {
@@ -312,7 +398,7 @@ Events like this are a small but meaningful way of connecting the lab's work bac
       "The recorded session focused on how artificial intelligence may contribute to smarter, safer, and faster surgical procedures.",
     excerpt:
       "Dr. Simon J. Laplante appeared as a guest panelist in an ASMBS Bariatric Happy Hour session on AI for smarter, safer, and faster surgical procedures.",
-    body: `On January 24, 2025, Simon J. Laplante, MD MSc, appeared as a guest panelist in the ASMBS Bariatric Happy Hour session titled "Bariatric Happy Hour! The Future of Surgery: Harnessing AI for Smarter, Safer, and Faster Procedures."
+    body: `On January 24, 2025, Dr. Simon J. Laplante appeared as a guest panelist in the ASMBS Bariatric Happy Hour session titled "Bariatric Happy Hour! The Future of Surgery: Harnessing AI for Smarter, Safer, and Faster Procedures."
 
 The recorded session runs 01:02:06 and focuses on artificial intelligence in surgery, including how AI may contribute to smarter, safer, and faster surgical procedures.`,
     people: ["simon-laplante"],
@@ -384,7 +470,7 @@ The presentation reflects the A-STAR Lab's continued commitment to developing in
       "His visit reflected growing collaboration between Mayo Clinic and UHN Toronto around surgical AI research, education, and performance improvement.",
     excerpt:
       "Dr. Amin Madani, founder of the Surgical Artificial Intelligence Research Academy (SARA) at UHN Toronto, visited Mayo Clinic and delivered a Department of Surgery lecture on AI in surgery.",
-    body: `On November 10, 2025, Amin Madani, MD, PhD, founder of the Surgical Artificial Intelligence Research Academy (SARA) at the University Health Network (UHN) in Toronto and a collaborator of the A-STAR Lab, visited Mayo Clinic.
+    body: `On November 10, 2025, Dr. Amin Madani, founder of the Surgical Artificial Intelligence Research Academy (SARA) at the University Health Network (UHN) in Toronto and a collaborator of the A-STAR Lab, visited Mayo Clinic.
 
 During his visit, Dr. Madani delivered a Department of Surgery lecture titled "Artificial Intelligence for Augmentation of Surgical Performance: Promises, Perils, and Realistic Expectations." His talk explored the evolving role of artificial intelligence in surgery, highlighting both the opportunities and challenges of integrating AI tools into surgical practice, education, and performance improvement.
 

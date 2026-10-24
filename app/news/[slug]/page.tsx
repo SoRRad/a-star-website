@@ -3,16 +3,18 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Linkedin } from "lucide-react";
 import { CategoryPill } from "@/components/news/category-pill";
 import { NewsCard } from "@/components/news/news-card";
 import { NewsGallery } from "@/components/news/news-gallery";
+import { XLogo } from "@/components/ui/x-logo";
 import {
   allNews,
   getNewsBySlug,
   getNewsImages,
   getNewsPrimaryImage,
   getRelatedNews,
+  type NewsSocialPost,
 } from "@/lib/news";
 import { publications } from "@/lib/publications";
 import { projects } from "@/lib/projects";
@@ -153,6 +155,17 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
           {secondaryGalleryImages.length > 0 && <NewsGallery images={secondaryGalleryImages} />}
 
+          {item.socialPosts?.length ? (
+            <section className="mt-10">
+              <h2 className="font-display text-xl font-semibold tracking-normal">Shared on social media</h2>
+              <div className={`mt-4 grid gap-3 ${item.socialPosts.length > 1 ? "sm:grid-cols-2" : ""}`}>
+                {item.socialPosts.map((post) => (
+                  <SocialPostCard key={post.url} post={post} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
           {(item.externalLink || item.relatedLinks?.length) && (
             <section className="mt-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
               <h2 className="font-display text-xl font-semibold tracking-normal">Related resources</h2>
@@ -255,7 +268,8 @@ function renderBody(body: string) {
 
 function renderInlineMarkdownLinks(text: string) {
   const parts: ReactNode[] = [];
-  const pattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+  // The URL may hold balanced parentheses, e.g. SOARD's ".../S1550-7289(26)00376-X/fulltext".
+  const pattern = /\[([^\]]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -301,6 +315,40 @@ function SafeLinkButton({ href, label }: { href: string; label: string }) {
       {label}
       {external && <ExternalLink className="h-3.5 w-3.5" />}
     </Link>
+  );
+}
+
+function SocialPostCard({ post }: { post: NewsSocialPost }) {
+  if (!isExternalHref(post.url)) return null;
+  const Icon = post.platform === "x" ? XLogo : Linkedin;
+  const platformName = post.platform === "x" ? "X" : "LinkedIn";
+  const date = new Date(post.date + "T00:00:00").toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <a
+      href={post.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-4 transition-colors hover:border-[var(--color-accent)]/40"
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-foreground)] text-[var(--color-background)]">
+        <Icon className="h-4 w-4" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-sm font-semibold text-[var(--color-foreground)]">{post.author}</span>
+        <span className="block font-mono text-xs text-[var(--color-muted-foreground)]">
+          @{post.handle} &middot; {date}
+        </span>
+      </span>
+      <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--color-accent)] group-hover:underline">
+        View on {platformName}
+        <ExternalLink className="h-3.5 w-3.5" />
+      </span>
+    </a>
   );
 }
 

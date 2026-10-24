@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { BadgeCheck, BookOpen, FileText, Github, Linkedin, Twitter, Mail, Globe, GraduationCap, ArrowRight, type LucideIcon } from "lucide-react";
+import { BadgeCheck, BookOpen, FileText, Github, Linkedin, Mail, Globe, GraduationCap, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import type { ComponentType } from "react";
 import { activeTeamMembers, team } from "@/lib/team";
 import { projects } from "@/lib/projects";
 import { getNewsByPerson } from "@/lib/news";
@@ -10,6 +11,7 @@ import { MemberAvatar } from "@/components/lab/member-avatar";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { NewsCard } from "@/components/news/news-card";
 import { TalkCard } from "@/components/resources/talk-card";
+import { XLogo } from "@/components/ui/x-logo";
 import { pageMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
@@ -53,13 +55,13 @@ export default async function TeamMemberPage({
     member.links.profile && { href: member.links.profile, Icon: Globe, label: "Profile" },
     member.links.github && { href: member.links.github, Icon: Github, label: "GitHub" },
     member.links.linkedin && { href: member.links.linkedin, Icon: Linkedin, label: "LinkedIn" },
-    member.links.twitter && { href: member.links.twitter, Icon: Twitter, label: "Twitter" },
+    member.links.twitter && { href: member.links.twitter, Icon: XLogo, label: "X" },
     member.links.scholar && { href: member.links.scholar, Icon: GraduationCap, label: "Google Scholar" },
     member.links.cv && { href: member.links.cv, Icon: FileText, label: "CV" },
     member.links.pubmed && { href: member.links.pubmed, Icon: BookOpen, label: "PubMed" },
     member.links.orcid && { href: member.links.orcid, Icon: BadgeCheck, label: "ORCID" },
     member.links.email && { href: emailHref(member.links.email), Icon: Mail, label: "Email" },
-  ].filter(Boolean) as { href: string; Icon: LucideIcon; label: string }[];
+  ].filter(Boolean) as { href: string; Icon: ComponentType<{ className?: string }>; label: string }[];
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">

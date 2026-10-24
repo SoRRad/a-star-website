@@ -45,6 +45,7 @@ export const team: TeamMember[] = [
     initials: "S.L.",
     links: {
       profile: "https://www.mayoclinic.org/biographies/laplante-simon-j-m-d/bio-20573005",
+      twitter: "https://x.com/SimonLaplante",
     },
     researchFocus: [
       "Surgical AI & computer vision",
