@@ -3,8 +3,9 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BadgeCheck, BookOpen, FileText, Globe, Github, GraduationCap, Linkedin, Mail, Twitter, ArrowRight, UserRound, type LucideIcon } from "lucide-react";
+import { BadgeCheck, BookOpen, FileText, Globe, Github, GraduationCap, Linkedin, Mail, ArrowRight, UserRound } from "lucide-react";
 import type { TeamMember } from "@/lib/team";
+import { XLogo } from "@/components/ui/x-logo";
 import { logos } from "@/lib/logos";
 import { cn } from "@/lib/utils";
 
@@ -31,13 +32,13 @@ export function TeamRosterRow({ member, index, variant }: TeamRosterRowProps) {
     member.links.profile && { href: member.links.profile, Icon: Globe, label: "Profile" },
     member.links.github && { href: member.links.github, Icon: Github, label: "GitHub" },
     member.links.linkedin && { href: member.links.linkedin, Icon: Linkedin, label: "LinkedIn" },
-    member.links.twitter && { href: member.links.twitter, Icon: Twitter, label: "Twitter" },
+    member.links.twitter && { href: member.links.twitter, Icon: XLogo, label: "X" },
     member.links.scholar && { href: member.links.scholar, Icon: GraduationCap, label: "Google Scholar" },
     member.links.cv && { href: member.links.cv, Icon: FileText, label: "CV" },
     member.links.pubmed && { href: member.links.pubmed, Icon: BookOpen, label: "PubMed" },
     member.links.orcid && { href: member.links.orcid, Icon: BadgeCheck, label: "ORCID" },
     member.links.email && { href: emailHref(member.links.email), Icon: Mail, label: "Email" },
-  ].filter(Boolean) as { href: string; Icon: LucideIcon; label: string }[];
+  ].filter(Boolean) as { href: string; Icon: React.ComponentType<{ className?: string }>; label: string }[];
 
   return (
     <div
